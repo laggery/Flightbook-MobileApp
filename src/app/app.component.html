@@ -1,0 +1,84 @@
+<ion-app>
+  <ion-split-pane contentId="main-content">
+    <ion-menu contentId="main-content" type="overlay">
+      <ion-header>
+        <ion-toolbar color='primary'>
+          <ion-title>{{ 'groupname.menu' | translate }}</ion-title>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content>
+        <ion-list id="inbox-list">
+          <ion-menu-toggle auto-hide="false">
+            <ion-item routerDirection="root" [routerLink]="['/news']" lines="full" detail="false">
+              <ion-label>{{ 'groupname.news' | translate }}</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+
+          <p class="divider-menu">{{ 'groupname.flight' | translate }}</p>
+
+          <ion-menu-toggle auto-hide="false">
+            <ion-item routerDirection="root" [routerLink]="['/flight/add']" lines="full" detail="false">
+              <ion-label>{{ 'buttons.add' | translate }}</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+          <ion-menu-toggle auto-hide="false">
+            <ion-item routerDirection="root" [routerLink]="['/flight']" lines="full" detail="false">
+              <ion-label>{{ 'buttons.show' | translate }}</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+          <ion-menu-toggle auto-hide="false">
+            <ion-item routerDirection="root" [routerLink]="['/flight/statistic']" lines="full" detail="false">
+              <ion-label>{{ 'buttons.statistics' | translate }}</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+
+          <p class="divider-menu">{{ 'groupname.glider' | translate }}</p>
+
+          <ion-menu-toggle auto-hide="false">
+            <ion-item routerDirection="root" [routerLink]="['/glider/add']" lines="full" detail="false">
+              <ion-label>{{ 'buttons.add' | translate }}</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+          <ion-menu-toggle auto-hide="false">
+            <ion-item routerDirection="root" [routerLink]="['/glider']" lines="full" detail="false">
+              <ion-label>{{ 'buttons.show' | translate }}</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+
+          <p class="divider-menu">{{ 'groupname.place' | translate }}</p>
+
+          <ion-menu-toggle auto-hide="false">
+            <ion-item routerDirection="root" [routerLink]="['/place/add']" lines="full" detail="false">
+              <ion-label>{{ 'buttons.add' | translate }}</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+          <ion-menu-toggle auto-hide="false">
+            <ion-item routerDirection="root" [routerLink]="['/place']" lines="full" detail="false">
+              <ion-label>{{ 'buttons.show' | translate }}</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+
+          <p class="divider-menu">{{ 'groupname.account' | translate }}</p>
+
+          <ion-menu-toggle auto-hide="false">
+            <ion-item routerDirection="root" lines="full" detail="false">
+              <ion-label>{{ 'buttons.settings' | translate }}</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+          <ion-menu-toggle auto-hide="false">
+            <ion-item routerDirection="root" lines="full" detail="false">
+              <ion-label>{{ 'login.password' | translate }}</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+          <ion-menu-toggle auto-hide="false">
+            <ion-item routerDirection="root" [routerLink]="['/login']" (click)="logout()" lines="full" detail="false">
+              <ion-label>{{ 'buttons.logout' | translate }}</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+          
+        </ion-list>
+      </ion-content>
+    </ion-menu>
+    <ion-router-outlet id="main-content"></ion-router-outlet>
+  </ion-split-pane>
+</ion-app>

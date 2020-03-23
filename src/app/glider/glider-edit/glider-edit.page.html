@@ -1,0 +1,12 @@
+<ion-header>
+  <ion-toolbar color='primary'>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref='place'></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ 'groupname.glider' | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <glider-form [glider]=glider (savePlace)="saveGlider($event)"></glider-form>
+</ion-content>

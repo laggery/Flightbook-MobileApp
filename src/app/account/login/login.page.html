@@ -1,0 +1,25 @@
+<ion-content class="ion-padding">
+  <form #form="ngForm" (ngSubmit)="login(form)">
+    <ion-item>
+      <ion-input [(ngModel)]="loginData.email" required name="email" type="email" placeholder="{{ 'login.email' | translate }}"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input [(ngModel)]="loginData.password" required name="password" type="password" placeholder="{{ 'login.password' | translate }}"></ion-input>
+    </ion-item>
+    <ion-button expand="block" type="submit" >{{ 'buttons.login' | translate }}</ion-button>
+  </form>
+  <ion-button expand="block" (click)="register()" >{{ 'buttons.createAccount' | translate }}</ion-button>
+
+  <div class="language-list">
+    <p>
+      <a (click)="setLanguage('fr')" class="language">{{ 'language.fr' | translate }}</a>
+      <a (click)="setLanguage('de')" class="language">{{ 'language.de' | translate }}</a>
+      <a (click)="setLanguage('en')" class="language">{{ 'language.en' | translate }}</a>
+      <a (click)="setLanguage('it')" class="language">{{ 'language.it' | translate }}</a>
+    </p>
+  </div>
+
+  <!-- <div class="forgot-password">
+    <p><a (click)="forgotPassword()">{{ 'login.passwordlost' | translate }}</a></p>
+  </div> -->
+</ion-content>

@@ -1,0 +1,135 @@
+{
+    "language": {
+        "fr": "Franz.",
+        "de": "Deutsch",
+        "en": "Englisch",
+		"it": "Italienisch"
+    },
+    "buttons": {
+        "createAccount": "Registrieren!",
+        "login": "Anmelden",
+        "save": "Speichern",
+        "delete": "Löschen",
+        "copy": "Kopieren",
+        "done": "Ok",
+        "cancel": "Abbrechen",
+        "clear": "Löschen",
+        "back": "Zurück",
+        "edit": "Ändern",
+        "add": "Hinzufügen",
+        "show": "Anzeigen",
+        "news": "News",
+        "statistics": "Statistiken",
+        "settings": "Einstellungen",
+        "logout": "Abmelden",
+        "filter": "Filter",
+        "close": "Schliessen"
+    },
+    "login": {
+        "email": "E-Mail",
+        "password": "Passwort",
+        "oldpassword": "Altes Passwort",
+        "newpassword": "Neues Passwort",
+        "confirmpassword": "Passwort bestätigen",
+        "passwordlost": "Passwort vergessen?"
+    },
+    "account": {
+        "register": "Registrieren",
+        "firstname": "Vorname",
+        "lastname": "Nachname"
+    },
+    "place": {
+        "place": "Ort",
+        "name": "Name",
+        "altitude": "Höhe"
+    },
+    "glider": {
+        "buydate": "Kaufdatum",
+        "brand": "Marke",
+        "name": "Name",
+        "tandem": "Tandem",
+        "type": "Typ",
+        "all": "Alle",
+        "solo": "Solo"
+    },
+    "flight": {
+        "glider": "Gleitschirm",
+        "date": "Datum",
+        "start": "Start",
+        "landing": "Landung",
+        "time": "Flugdauer",
+        "km": "Km",
+        "description": "Beschreibung",
+        "price": "Preis"
+    },
+    "statistics": {
+        "nbflight": "Anzahl Flüge",
+        "flighthour": "Flugstunden",
+        "average": "Durchschnittszeit",
+        "price" : "Einkommen",
+        "longset": "Längster Flug"
+    },
+    "emptylist": "Diese Liste ist leer",
+    "months": {
+        "1": "Januar",
+        "2": "Februar",
+        "3": "März",
+        "4": "April",
+        "5": "Mai",
+        "6": "Juni",
+        "7": "Juli",
+        "8": "August",
+        "9": "September",
+        "10": "Oktober",
+        "11": "November",
+        "12": "Dezember"
+    },
+    "groupname": {
+        "glider": "Gleitschirm",
+        "place": "Ort",
+        "flight": "Flug",
+        "statistics": "Statistik",
+        "home": "Start",
+        "news": "News",
+        "account": "Konto",
+        "filtered": "gefiltert",
+        "menu": "Menu"
+    },
+    "message": {
+        "infotitle": "Information",
+        "noglidertitle": "Kein Gleitschirm gefunden",
+        "browser": "Es tut uns leid aber diese Applikation wird momentan nur von Webkit Browsers unterstützt (Chrome, Safari)",
+        "noglider": "Bevor Sie einen Flug hinzufügen können, müssen Sie einen Gleitschirm hinzufügen",
+        "errortitle": "Fehler",
+        "nologinpwd": "Bitte geben sie ihre E-Mail Adresse und Password.",
+        "emailpwdnotcorrect": "E-Mail oder Password ist nicht korrekt!",
+        "passwordchangeerror": "Passwortänderung Fehler!",
+        "passwordchanged": "Passwort wurde geändert!",
+        "pwdWrong": "Passwort ist falsch!",
+        "emailEnter": "Bitte geben sie ihre E-Mail Adresse!",
+        "pwdSend": "Ein neues Passwort wurde versendet!",
+        "userExist": "Dieser User gibt es bereits!",
+        "pwdNotSame": "Die Passwörter sind identisch!",
+        "settingChanged": "Die Einstellungen wurden gespeichert!",
+        "placeExist": "Dieser Ort gibt es bereits!",
+        "error": "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut oder senden Sie eine E-Mail an: yannick.lagger@flightbook.ch"
+    },
+    "loading": {
+        "createaccount": "Registrieren...",
+        "saveaccount": "Einstellungen speichern...",
+        "login": "Anmelden...",
+        "logout": "Abmelden...",
+        "saveplace": "Ort speichern...",
+        "deleteplace": "Ort löschen...",
+        "saveglider": "Gleitschirm speichern...",
+        "deleteglider": "Gleitschirm löschen...",
+        "saveflight": "Flug speichern...",
+        "deleteflight": "Flug löschen...",
+        "loading": "Laden...",
+        "copyflight": "Flug kopieren..."
+    },
+    "filter": {
+        "from": "Von",
+        "to": "Bis"
+    }
+}

@@ -1,0 +1,135 @@
+{
+    "language": {
+        "fr": "Français",
+        "de": "Allemand",
+        "en": "Anglais",
+	"it": "Italien"
+    },
+    "buttons": {
+        "createAccount": "Créer un compte!",
+        "login": "Connexion",
+        "save": "Sauvegarder",
+        "delete": "Supprimer",
+        "copy": "Copier",
+        "done": "Ok",
+        "cancel": "Annuler",
+        "clear": "Effacer",
+        "back": "Retour",
+        "edit": "Modifier",
+        "add": "Ajouter",
+        "show": "Afficher",
+        "news": "News",
+        "statistics": "Statistiques",
+        "settings": "Paramètres",
+        "logout": "Déconnexion",
+        "filter": "Filtre",
+        "close": "Fermer"
+    },
+    "login": {
+        "email": "E-Mail",
+        "password": "Mot de passe",
+        "oldpassword": "Ancien mot de passe",
+        "newpassword": "Nouveau mot de passe",
+        "confirmpassword": "Confirmez mot de passe",
+        "passwordlost": "Mot de passe oublié ?"
+    },
+    "account": {
+        "register": "Inscription",
+        "firstname": "Prénom",
+        "lastname": "Nom"
+    },
+    "place": {
+        "place": "Lieu",
+        "name": "Nom",
+        "altitude": "Altitude"
+    },
+    "glider": {
+        "buydate": "Date d'achat",
+        "brand": "Marque",
+        "name": "Nom",
+        "tandem": "Tandem",
+        "type": "Type",
+        "all": "Tous",
+        "solo": "Solo"
+    },
+    "statistics": {
+        "nbflight": "Nombre de vols",
+        "flighthour": "Heures de vols",
+        "average": "Temps moyen",
+        "price" : "Revenu",
+        "longset": "Vol le plus long"
+    },
+    "flight": {
+        "glider": "Parapente",
+        "date": "Date",
+        "start": "Décollage",
+        "landing": "Atterissage",
+        "time": "Temps",
+        "km": "Km",
+        "description": "Description",
+        "price": "Prix"
+    },
+    "emptylist": "Cette liste est vide",
+    "months": {
+        "1": "Janvier",
+        "2": "Février",
+        "3": "Mars",
+        "4": "Avril",
+        "5": "Mai",
+        "6": "Juin",
+        "7": "Juillet",
+        "8": "Août",
+        "9": "Septembre",
+        "10": "Octobre",
+        "11": "Novembre",
+        "12": "Décembre"
+    },
+    "groupname": {
+        "glider": "Parapente",
+        "place": "Lieu",
+        "flight": "Vol",
+        "statistics": "Statistiques",
+        "home": "Page d'accueil",
+        "news": "News",
+        "account": "Compte",
+        "filtered": "filtré",
+        "menu": "Menu"
+    },
+    "message": {
+        "infotitle": "Information",
+        "noglidertitle": "Aucun parapente trouvé",
+        "browser": "Nous somme désolé mais actuellement l’application est uniquement supportée par des navigateurs WebKit (Chrome, Safari)",
+        "noglider": "Avant de pourvoir ajouter un vol, veuillez insérer un parapente",
+        "errortitle": "Erreur",
+        "nologinpwd": "Veuillez saisir un e-mail et un mot de passe.",
+        "emailpwdnotcorrect": "E-mail ou mot de passe incorrecte!",
+        "passwordchangeerror": "Erreur lors du changement de mot de passe !",
+        "passwordchanged": "Mot de passe modifié!",
+        "pwdWrong": "Mot de passe erroné!",
+        "emailEnter": "Veuillez saisir votre e-mail!",
+        "pwdSend": "Un nouveau mot de passe a été envoyé!",
+        "userExist": "Cet utilisateur existe déjà!",
+        "pwdNotSame": "Les mots de passes ne sont pas identiques!",
+        "settingChanged": "Les paramètres ont été sauvegardés!",
+        "placeExist": "Ce lieu existe déjà!",
+        "error": "Une erreur est survenue. Veuillez réessayer plus tard ou envoyer un email a : yannick.lagger@flightbook.ch"
+    },
+    "loading": {
+        "createaccount": "Création compte...",
+        "saveaccount": "Sauvegarde paramètres...",
+        "login": "Connexion...",
+        "logout": "Déconnexion...",
+        "saveplace": "Sauvegarde lieu...",
+        "deleteplace": "Supprime place...",
+        "saveglider": "Sauvegarde parapente...",
+        "deleteglider": "Supprime parapente...",
+        "saveflight": "Sauvegarde vol...",
+        "deleteflight": "Supprime vol...",
+        "loading": "Chargement...",
+        "copyflight": "Copie du vol..."
+    },
+    "filter": {
+        "from": "Du",
+        "to": "Au"
+    }
+}

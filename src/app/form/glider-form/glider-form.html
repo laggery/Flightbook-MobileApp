@@ -1,0 +1,21 @@
+<form (ngSubmit)="saveElement()">
+  <ion-item>
+    <ion-label position="floating">{{ 'glider.buydate' | translate }}</ion-label>
+    <ion-datetime [(ngModel)]="glider.buy_date" name="buy_date" displayFormat="DD/MMMM/YYYY" doneText="{{ 'buttons.done' | translate }}"
+      cancelText="{{ 'buttons.cancel' | translate }}" monthNames="{{ 'months.1' | translate }},{{ 'months.2' | translate }},{{ 'months.3' | translate }},{{ 'months.4' | translate }},{{ 'months.5' | translate }},{{ 'months.6' | translate }},
+    {{ 'months.7' | translate }},{{ 'months.8' | translate }},{{ 'months.9' | translate }},{{ 'months.10' | translate }},{{ 'months.11' | translate }},{{ 'months.12' | translate }}"></ion-datetime>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">{{ 'glider.brand' | translate }}</ion-label>
+    <ion-input clearInput [(ngModel)]="glider.brand" type="text" name="brand"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">{{ 'glider.name' | translate }}</ion-label>
+    <ion-input clearInput [(ngModel)]="glider.name" type="text" name="name"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="stacked">{{ 'glider.tandem' | translate }}</ion-label>
+    <ion-toggle [(ngModel)]="glider.tandem" name="tandem"></ion-toggle>
+  </ion-item>
+  <ion-button expand="block" type="submit" >{{ 'buttons.save' | translate }}</ion-button>
+</form>

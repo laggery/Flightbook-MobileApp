@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar color='primary'>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>{{ 'groupname.place' | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="no-padding">
+  <ion-list *ngIf="places && places.length > 0">
+    <ion-item detail *ngFor="let place of places" (click)="itemTapped($event, place)">
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            {{place.name}}
+          </ion-col>
+          <ion-col>
+            {{ place.altitude}}
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <ion-icon item-end></ion-icon>
+    </ion-item>
+  </ion-list>
+  <p class="emptylist" *ngIf="!places || places.length == 0">{{ 'emptylist' | translate }}</p>
+</ion-content>

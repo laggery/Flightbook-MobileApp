@@ -1,0 +1,135 @@
+{
+    "language": {
+        "fr": "French",
+        "de": "German",
+        "en": "English",
+	"it": "Italian"
+    },
+    "buttons": {
+        "createAccount": "Create an account!",
+        "login": "Login",
+        "save": "Save",
+        "delete": "Delete",
+        "copy": "Copy",
+        "done": "Ok",
+        "cancel": "Cancel",
+        "clear": "Clear",
+        "back": "Back",
+        "edit": "Edit",
+        "add": "Add",
+        "show": "Show",
+        "news": "News",
+        "statistics": "Statistics",
+        "settings": "Settings",
+        "logout": "Logout",
+        "filter": "Filter",
+        "close": "Close"
+    },
+    "login": {
+        "email": "E-Mail",
+        "password": "Password",
+        "oldpassword": "Old password",
+        "newpassword": "New password",
+        "confirmpassword": "Confirm password",
+        "passwordlost": "Forgot your password?"
+    },
+    "account": {
+        "register": "Register",
+        "firstname": "Firstname",
+        "lastname": "Lastname"
+    },
+    "place": {
+        "place": "Place",
+        "name": "Name",
+        "altitude": "Altitude"
+    },
+    "glider": {
+        "buydate": "Buy date",
+        "brand": "Brand",
+        "name": "Name",
+        "tandem": "Tandem",
+        "type": "Type",
+        "all": "All",
+        "solo": "Solo"
+    },
+    "flight": {
+        "glider": "Glider",
+        "date": "Date",
+        "start": "Start",
+        "landing": "Landing",
+        "time": "Time",
+        "km": "Km",
+        "description": "Description",
+        "price": "Price"
+    },
+    "statistics": {
+        "nbflight": "Number of flights",
+        "flighthour": "Flight hours",
+        "average": "Average time",
+        "price" : "Income",
+        "longset": "Longest flight"
+    },
+    "emptylist": "This list is empty",
+    "months": {
+        "1": "January",
+        "2": "February",
+        "3": "March",
+        "4": "April",
+        "5": "May",
+        "6": "June",
+        "7": "July",
+        "8": "August",
+        "9": "September",
+        "10": "October",
+        "11": "November",
+        "12": "December"
+    },
+    "groupname": {
+        "glider": "Glider",
+        "place": "Place",
+        "flight": "Flight",
+        "statistics": "Statistics",
+        "home": "Home",
+        "news": "News",
+        "account": "Account",
+        "filtered": "filtered",
+        "menu": "Menu"
+    },
+    "message": {
+        "infotitle": "Information",
+        "noglidertitle": "No glider found",
+        "browser": "We are sorry but actually this application is only supported by WebKit browser (Chrome, Safari)",
+        "noglider": "Before you can add a flight please add a glider",
+        "errortitle": "Error",
+        "nologinpwd": "Please enter your e-mail and password.",
+        "emailpwdnotcorrect": "Email or password are not correct!",
+        "passwordchangeerror": "Password change error!",
+        "passwordchanged": "Password changed!",
+        "pwdWrong": "Wrong password!",
+        "emailEnter": "Please enter your email!",
+        "pwdSend": "A new password has been sent!",
+        "userExist": "This user already exist!",
+        "pwdNotSame": "The passwords are note the same!",
+        "settingChanged": "The settings have been saved!",
+        "placeExist": "This place already exist!",
+        "error": "An error has occurred. Please try again later or send an email to: yannick.lagger@flightbook.ch"
+    },
+    "loading": {
+        "createaccount": "Create account...",
+        "saveaccount": "Save settings...",
+        "login": "Signing in...",
+        "logout": "Logout...",
+        "saveplace": "Save place...",
+        "deleteplace": "Delete place...",
+        "saveglider": "Save glider...",
+        "deleteglider": "Delete glider...",
+        "saveflight": "Save flight...",
+        "deleteflight": "Delete flight...",
+        "loading": "Loading...",
+        "copyflight": "Copy flight..."
+    },
+    "filter": {
+        "from": "From",
+        "to": "To"
+    }
+}

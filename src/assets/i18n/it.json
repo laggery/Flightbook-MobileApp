@@ -1,0 +1,135 @@
+{
+    "language": {
+        "fr": "Francese",
+        "de": "Tedesco",
+        "en": "Inglese",
+	"it": "Italiano"
+    },
+    "buttons": {
+        "createAccount": "Iscriviti!",
+        "login": "Accedi",
+        "save": "Salva",
+        "delete": "Elimina",
+        "copy": "Copia",
+        "done": "Ok",
+        "cancel": "Annulla",
+        "clear": "Elimina",
+        "back": "Indietro",
+        "edit": "Modifica",
+        "add": "Aggiungi",
+        "show": "Mostra",
+        "news": "Novità",
+        "statistics": "Statistiche",
+        "settings": "Impostazioni",
+        "logout": "Esci",
+        "filter": "Filtra",
+        "close": "Vicino"
+    },
+    "login": {
+        "email": "E-Mail",
+        "password": "Passwort",
+        "oldpassword": "Vecchia Passwort",
+        "newpassword": "Nuova Passwort",
+        "confirmpassword": "Conferma Passwort",
+        "passwordlost": "Passwort dimenticata?"
+    },
+    "account": {
+        "register": "Iscriviti",
+        "firstname": "Nome",
+        "lastname": "Cognome"
+    },
+    "place": {
+        "place": "Luogo",
+        "name": "Nome",
+        "altitude": "Altitudine"
+    },
+    "glider": {
+        "buydate": "Data d’aquisto",
+        "brand": "Marca",
+        "name": "Nome",
+        "tandem": "Tandem",
+        "type": "Tipo",
+        "all": "Tutti",
+        "solo": "Solo"
+    },
+    "flight": {
+        "glider": "Vela",
+        "date": "Data",
+        "start": "Decollo",
+        "landing": "Atterraggio",
+        "time": "Tempo",
+        "km": "Km",
+        "description": "Descrizione",
+        "price": "Prezzo"
+    },
+    "statistics": {
+        "nbflight": "Numero di voli",
+        "flighthour": "Ore di volo",
+        "average": "Media",
+        "price" : "Entrate",
+        "longset": "Volo più lungo"
+    },
+    "emptylist": "Questo elenco è vuoto",
+    "months": {
+        "1": "Gennaio",
+        "2": "Febbraio",
+        "3": "Marzo",
+        "4": "Aprile",
+        "5": "Maggio",
+        "6": "Giugno",
+        "7": "Luglio",
+        "8": "Agosto",
+        "9": "Settembre",
+        "10": "Ottobre",
+        "11": "Novembre",
+        "12": "Dicembre"
+    },
+    "groupname": {
+        "glider": "Vele",
+        "place": "Luoghi di volo",
+        "flight": "Voli",
+        "statistics": "Statistiche",
+        "home": "Start",
+        "news": "Novità",
+        "account": "Account",
+        "filtered": "filtrato",
+        "menu": "Menu"
+    },
+    "message": {
+        "infotitle": "Informazione",
+        "noglidertitle": "Nessuna vela trovata",
+        "browser": "Siamo dispiaciuti ma questa applicazione è momentaneamente supportata solo dai seguenti Browser: Chrome, Safari",
+        "noglider": "Prima di poter aggiungere un volo dovete aggiungere una vela",
+        "errortitle": "Errore",
+        "nologinpwd": "La pregiamo di inserire E-Mail e passworld.",
+        "emailpwdnotcorrect": "E-Mail o Password non corretto/a!",
+        "passwordchangeerror": "Cambiamento di password fallito!",
+        "passwordchanged": "La password è stata cambiata!",
+        "pwdWrong": "Password errata!",
+        "emailEnter": "Inserire il proprio E-Mail Adresse!",
+        "pwdSend": "Una nuova password verrà spedita!",
+        "userExist": "Questo utente esiste già!",
+        "pwdNotSame": "Le password sono le stesse!",
+        "settingChanged": "Le impostazioni sono state salvate!",
+        "placeExist": "Ce lieu existe déjà!",
+        "error": "Si è verificato un errore. Si prega di riprovare più tardi o inviare una e-mail a: yannick.lagger@flightbook.ch"
+    },
+    "loading": {
+        "createaccount": "Iscrizione...",
+        "saveaccount": "Salvataggio impostazioni...",
+        "login": "Login...",
+        "logout": "Logout...",
+        "saveplace": "Salvataggio luogo",
+        "deleteplace": "Eliminazione luogo",
+        "saveglider": "Salvataggio vela...",
+        "deleteglider": "Eliminazione vela...",
+        "saveflight": "Salvataggio volo...",
+        "deleteflight": "Eliminazione volo...",
+        "loading": "Carica...",
+        "copyflight": "Copio volo..."
+    },
+    "filter": {
+        "from": "Da",
+        "to": "a"
+    }
+}

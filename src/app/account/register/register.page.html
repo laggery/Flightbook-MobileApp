@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar color='primary'>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref='login'></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ 'account.register' | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content class="ion-padding">
+  <form #form="ngForm" (ngSubmit)="saveRegister(form)">
+    <ion-item>
+      <ion-input  [(ngModel)]="registerData.firstname" required name="firstname" type="text" placeholder="{{ 'account.firstname' | translate }}"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input [(ngModel)]="registerData.lastname" required name="lastname" type="text" placeholder="{{ 'account.lastname' | translate }}"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input  [(ngModel)]="registerData.email" required name="email" type="email" placeholder="{{ 'login.email' | translate }}"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input [(ngModel)]="registerData.pwd" required name="pwd" type="password" placeholder="{{ 'login.password' | translate }}"></ion-input>
+    </ion-item>
+    <ion-button expand="block" type="submit" >{{ 'buttons.save' | translate }}</ion-button>
+  </form>
+</ion-content>
