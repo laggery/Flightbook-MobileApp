@@ -36,8 +36,8 @@ export class AppComponent {
     this.menuCtrl.enable(false);
     this.accountService.logout().subscribe(resp => {
       // TODO error handling
+      localStorage.removeItem('access_token');
+      localStorage.removeItem('refresh_token');
     });
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('refresh_token');
   }
 }
