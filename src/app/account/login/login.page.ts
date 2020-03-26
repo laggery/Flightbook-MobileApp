@@ -42,7 +42,6 @@ export class LoginPage implements OnInit {
     } else {
       // TODO information message
     }
-    console.log(this.loginData);
   }
 
   setLanguage(lang: string) {

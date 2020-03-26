@@ -22,7 +22,8 @@ export class HttpAuthInterceptor implements HttpInterceptor {
         this.excludeUrl = [
             'assets/i18n',
             'auth/login',
-            'auth/refresh'
+            'auth/refresh',
+            'news/'
         ];
     }
 
