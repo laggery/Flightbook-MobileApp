@@ -23,5 +23,13 @@
       <ion-icon item-end></ion-icon>
     </ion-item>
   </ion-list>
+
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
   <p class="emptylist" *ngIf="!places || places.length == 0">{{ 'emptylist' | translate }}</p>
 </ion-content>
