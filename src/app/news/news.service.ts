@@ -10,7 +10,7 @@ export class NewsService {
 
   constructor(private http: HttpClient) { }
 
-  getNews(language): Observable<any> {
+  getNews(language: string): Observable<any> {
     return this.http.get<any>(`${environment.baseUrl}/news/${language}`, { observe: 'response' });
   }
 }

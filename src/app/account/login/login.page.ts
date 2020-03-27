@@ -28,7 +28,7 @@ export class LoginPage implements OnInit {
   ngOnInit() {
   }
 
-  login(loginForm) {
+  login(loginForm: any) {
     if (loginForm.valid) {
       this.accountService.login(this.loginData).subscribe(resp => {
         if (resp.body && resp.body.access_token && resp.body.refresh_token) {

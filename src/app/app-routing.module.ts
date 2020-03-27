@@ -44,17 +44,17 @@ const routes: Routes = [
     canActivate: [AuthGuardService]
   },
   {
-    path: 'place',
+    path: 'places',
     loadChildren: () => import('./place/place-list/place-list.module').then(m => m.PlaceListPageModule),
     canActivate: [AuthGuardService]
   },
   {
-    path: 'place/add',
+    path: 'places/add',
     loadChildren: () => import('./place/place-add/place-add.module').then(m => m.PlaceAddPageModule),
     canActivate: [AuthGuardService]
   },
   {
-    path: 'place/:id',
+    path: 'places/:id',
     loadChildren: () => import('./place/place-edit/place-edit.module').then(m => m.PlaceEditPageModule),
     canActivate: [AuthGuardService]
   },

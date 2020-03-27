@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Flight } from '../../models/flight';
 import { Glider } from '../../models/glider';
-import { Place } from '../../models/place';
+import { Place } from '../../place/place';
 
 @Component({
   selector: 'app-flight-add',
@@ -10,7 +10,7 @@ import { Place } from '../../models/place';
 })
 export class FlightAddPage implements OnInit {
   private flight: Flight;
-  private gliders = [];
+  private gliders: Glider[] = [];
 
   constructor() {
     this.flight = new Flight();

@@ -1,7 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { Place } from '../../models/place';
+import { Component, OnInit, ViewChild, NgZone } from '@angular/core';
 import { NavController, IonInfiniteScroll } from '@ionic/angular';
 import { PlaceService } from '../place.service';
+import { Place } from '../place';
 
 @Component({
   selector: 'app-place-list',
@@ -11,15 +11,15 @@ import { PlaceService } from '../place.service';
 export class PlaceListPage implements OnInit {
   @ViewChild(IonInfiniteScroll, { static: true }) infiniteScroll: IonInfiniteScroll;
 
-  places = [];
+  places: Place[] = [];
   limit = 50;
 
   constructor(
     public navCtrl: NavController,
-    private placeService: PlaceService,
+    private placeService: PlaceService
   ) {
     if (this.placeService.places.length === 0) {
-      this.placeService.getPlaces({limit: this.limit}).subscribe(res => {
+      this.placeService.getPlaces({ limit: this.limit }).subscribe((res: Place[]) => {
         this.places.push(...this.placeService.places);
       });
     } else {
@@ -30,17 +30,21 @@ export class PlaceListPage implements OnInit {
   ngOnInit() {
   }
 
-  itemTapped(event, place) {
-    this.navCtrl.navigateForward(`place/${place.id}`);
+  itemTapped(event: any, place: Place) {
+    this.navCtrl.navigateForward(`places/${place.id}`);
   }
 
-  loadData(event) {
-    this.placeService.getPlaces({limit: this.limit, offset: this.placeService.places.length}).subscribe(res => {
+  loadData(event: any) {
+    this.placeService.getPlaces({ limit: this.limit, offset: this.placeService.places.length }).subscribe((res: Place[]) => {
       event.target.complete();
       this.places = this.placeService.places;
       if (res.length < this.limit) {
         event.target.disabled = true;
       }
     });
+  }
+
+  ionViewWillEnter() {
+    this.places = this.placeService.places;
   }
 }

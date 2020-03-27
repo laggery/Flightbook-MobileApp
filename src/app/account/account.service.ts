@@ -18,7 +18,7 @@ export class AccountService {
     return this.http.get<any>(`${environment.baseUrl}/auth/refresh/${refreshToken}`, { observe: 'response' });
   }
 
-  login(loginData): Observable<any> {
+  login(loginData: any): Observable<any> {
     return this.http.post<any>(`${environment.baseUrl}/auth/login`, loginData, { observe: 'response' });
   }
 

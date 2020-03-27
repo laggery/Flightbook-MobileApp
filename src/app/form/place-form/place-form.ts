@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { Place } from '../../models/place';
+import { Place } from '../../place/place';
 
 @Component({
   selector: 'place-form',

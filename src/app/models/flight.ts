@@ -1,5 +1,5 @@
 import { IonDatetime } from '@ionic/angular';
-import { Place } from './place';
+import { Place } from '../place/place';
 import { Glider } from './glider';
 
 export class Flight {

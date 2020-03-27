@@ -18,7 +18,7 @@ export class RegisterPage implements OnInit {
   ngOnInit() {
   }
 
-  saveRegister(registerForm){
+  saveRegister(registerForm: any){
     console.log('save register');
   }
 

@@ -8,7 +8,7 @@ import { NavController } from '@ionic/angular';
   styleUrls: ['./glider-list.page.scss'],
 })
 export class GliderListPage implements OnInit {
-  gliders = [];
+  gliders: Glider[] = [];
 
   constructor(public navCtrl: NavController) {
     const g1 = new Glider();
@@ -25,7 +25,7 @@ export class GliderListPage implements OnInit {
   ngOnInit() {
   }
 
-  itemTapped(event, glider) {
+  itemTapped(event: any, glider: Glider) {
     this.navCtrl.navigateForward(`glider/${glider.id}`);
   }
 
