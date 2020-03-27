@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Place } from '../place';
+import { Router } from '@angular/router';
+import { PlaceService } from '../place.service';
 
 @Component({
   selector: 'app-place-add',
@@ -9,7 +11,10 @@ import { Place } from '../place';
 export class PlaceAddPage implements OnInit {
   private place: Place;
 
-  constructor() {
+  constructor(
+    private router: Router,
+    private placeService: PlaceService
+  ) {
     this.place = new Place();
   }
 
@@ -17,7 +22,10 @@ export class PlaceAddPage implements OnInit {
   }
 
   savePlace(place: Place) {
-    console.log('save place');
+    this.placeService.postPlace(place).subscribe((res: Place) => {
+      // TODO hide loading
+      this.router.navigate(['/places'], { replaceUrl: true });
+    });
   }
 
 }

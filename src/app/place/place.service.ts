@@ -32,12 +32,21 @@ export class PlaceService {
     );
   }
 
+  postPlace(place: Place): Observable<Place> {
+    return this.http.post<Place>(`${environment.baseUrl}/places`, place).pipe(
+      map((response: Place) => {
+        this.places = [];
+        return response;
+      })
+    );
+  }
+
   putPlace(place: Place): Observable<Place> {
     return this.http.put<Place>(`${environment.baseUrl}/places/${place.id}`, place).pipe(
       map((response: Place) => {
         const index = this.places.findIndex((listPlace: Place) => listPlace.id === response.id);
         this.places[index] = response;
-        this.places.sort((a, b) => a.name > b.name ? 1 : -1);
+        this.places.sort((a, b) => a.name.toUpperCase() > b.name.toUpperCase() ? 1 : -1);
         return response;
       })
     );
