@@ -25,7 +25,7 @@ export class GliderService {
       params = params.append('offset', offset.toString());
     }
 
-    return this.http.get<Glider[]>(`${environment.baseUrl}/gliders`, {params}).pipe(
+    return this.http.get<Glider[]>(`${environment.baseUrl}/gliders`, { params }).pipe(
       map((response: Glider[]) => {
         this.gliders.push(...response);
         return response;
@@ -38,6 +38,22 @@ export class GliderService {
       map((response: Glider) => {
         this.gliders = [];
         this.isGliderlistComplete = false;
+        return response;
+      })
+    );
+  }
+
+  putGlider(glider: Glider): Observable<Glider> {
+    return this.http.put<Glider>(`${environment.baseUrl}/gliders/${glider.id}`, glider).pipe(
+      map((response: Glider) => {
+        const index = this.gliders.findIndex((listGlider: Glider) => listGlider.id === response.id);
+        this.gliders[index] = response;
+        this.gliders.sort((a, b) => {
+          if (a.brand.toUpperCase() === b.brand.toUpperCase()) {
+            return a.name.toUpperCase() > b.name.toUpperCase() ? 1 : -1;
+          }
+          return a.brand.toUpperCase() > b.brand.toUpperCase() ? 1 : -1;
+        });
         return response;
       })
     );

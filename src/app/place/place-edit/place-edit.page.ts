@@ -3,7 +3,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Place } from '../place';
 import { PlaceService } from '../place.service';
 import * as _ from 'lodash';
-import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-place-edit',
@@ -32,7 +31,7 @@ export class PlaceEditPage implements OnInit {
 
   savePlace(place: Place) {
     this.placeService.putPlace(place).subscribe((res: Place) => {
-      //TODO hide loading
+      // TODO hide loading
       this.router.navigate(['/places'], { replaceUrl: true });
     });
   }

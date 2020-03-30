@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Glider } from '../glider';
 import { GliderService } from '../glider.service';
 import { Router } from '@angular/router';
-import * as moment from 'moment';
 
 @Component({
   selector: 'app-glider-add',

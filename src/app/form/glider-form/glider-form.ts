@@ -14,8 +14,12 @@ export class GliderFormComponent {
   constructor() {
   }
 
-  saveElement(){
+  saveElement() {
     this.saveGlider.emit(this.glider);
+  }
+
+  cancelButton() {
+    this.glider.buyDate = null;
   }
 
 }

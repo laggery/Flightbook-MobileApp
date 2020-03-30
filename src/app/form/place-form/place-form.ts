@@ -15,7 +15,7 @@ export class PlaceFormComponent {
   constructor() {
   }
 
-  saveElement(){
+  saveElement() {
     this.savePlace.emit(this.place);
   }
 
