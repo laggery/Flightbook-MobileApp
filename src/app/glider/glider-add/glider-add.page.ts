@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Glider } from '../../models/glider';
+import { Glider } from '../glider';
 
 @Component({
   selector: 'app-glider-add',

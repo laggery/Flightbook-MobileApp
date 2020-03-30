@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Flight } from '../../models/flight';
-import { Glider } from '../../models/glider';
+import { Glider } from '../../glider/glider';
 import { Place } from '../../place/place';
 
 @Component({
@@ -24,8 +24,7 @@ export class FlightAddPage implements OnInit {
     g1.brand = 'Ozone';
     g1.name = 'Delta 2';
     g1.tandem = false;
-    g1.buy_date = new Date();
-    g1.user_id = 1;
+    g1.buyDate = new Date();
 
     this.gliders.push(g1);
   }

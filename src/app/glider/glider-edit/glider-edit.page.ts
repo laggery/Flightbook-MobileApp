@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Glider } from 'src/app/models/glider';
+import { Glider } from 'src/app/glider/glider';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -19,7 +19,7 @@ export class GliderEditPage implements OnInit {
     this.glider.brand = 'Ozone';
     this.glider.name = 'Delta 2';
     this.glider.tandem = false;
-    this.glider.buy_date = new Date();
+    this.glider.buyDate = new Date();
    }
 
   ngOnInit() {

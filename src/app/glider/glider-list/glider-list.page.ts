@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Glider } from 'src/app/models/glider';
+import { Glider } from 'src/app/glider/glider';
 import { NavController } from '@ionic/angular';
+import { GliderService } from '../glider.service';
 
 @Component({
   selector: 'app-glider-list',
@@ -9,24 +10,39 @@ import { NavController } from '@ionic/angular';
 })
 export class GliderListPage implements OnInit {
   gliders: Glider[] = [];
+  limit = 50;
 
-  constructor(public navCtrl: NavController) {
-    const g1 = new Glider();
-    g1.id = 1;
-    g1.brand = 'Ozone';
-    g1.name = 'Delta 2';
-    g1.tandem = false;
-    g1.buy_date = new Date();
-    g1.user_id = 1;
-
-    this.gliders.push(g1);
+  constructor(
+    public navCtrl: NavController,
+    private gliderService: GliderService
+  ) {
+    if (this.gliderService.gliders.length === 0) {
+      this.gliderService.getGliders({ limit: this.limit }).subscribe((res: Glider[]) => {
+        this.gliders.push(...this.gliderService.gliders);
+      });
+    }
   }
 
   ngOnInit() {
   }
 
-  itemTapped(event: any, glider: Glider) {
+  itemTapped(event: MouseEvent, glider: Glider) {
     this.navCtrl.navigateForward(`glider/${glider.id}`);
+  }
+
+  loadData(event: any) {
+    this.gliderService.getGliders({ limit: this.limit, offset: this.gliderService.gliders.length }).subscribe((res: Glider[]) => {
+      event.target.complete();
+      this.gliders = this.gliderService.gliders;
+      if (res.length < this.limit) {
+        event.target.disabled = true;
+        this.gliderService.isGliderlistComplete = true;
+      }
+    });
+  }
+
+  ionViewWillEnter() {
+    this.gliders = this.gliderService.gliders;
   }
 
 }

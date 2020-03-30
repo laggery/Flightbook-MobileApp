@@ -22,15 +22,13 @@ export class PlaceListPage implements OnInit {
       this.placeService.getPlaces({ limit: this.limit }).subscribe((res: Place[]) => {
         this.places.push(...this.placeService.places);
       });
-    } else {
-      this.places.push(...this.placeService.places);
     }
   }
 
   ngOnInit() {
   }
 
-  itemTapped(event: any, place: Place) {
+  itemTapped(event: MouseEvent, place: Place) {
     this.navCtrl.navigateForward(`places/${place.id}`);
   }
 

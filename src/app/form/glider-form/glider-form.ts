@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { Glider } from '../../models/glider';
+import { Glider } from '../../glider/glider';
 
 @Component({
   selector: 'glider-form',
