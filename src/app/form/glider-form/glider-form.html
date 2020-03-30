@@ -1,7 +1,7 @@
 <form (ngSubmit)="saveElement()">
   <ion-item>
     <ion-label position="floating">{{ 'glider.buydate' | translate }}</ion-label>
-    <ion-datetime [(ngModel)]="glider.buy_date" name="buy_date" displayFormat="DD/MMMM/YYYY" doneText="{{ 'buttons.done' | translate }}"
+    <ion-datetime [(ngModel)]="glider.buyDate" name="buyDate" displayFormat="DD/MMMM/YYYY" doneText="{{ 'buttons.done' | translate }}"
       cancelText="{{ 'buttons.cancel' | translate }}" monthNames="{{ 'months.1' | translate }},{{ 'months.2' | translate }},{{ 'months.3' | translate }},{{ 'months.4' | translate }},{{ 'months.5' | translate }},{{ 'months.6' | translate }},
     {{ 'months.7' | translate }},{{ 'months.8' | translate }},{{ 'months.9' | translate }},{{ 'months.10' | translate }},{{ 'months.11' | translate }},{{ 'months.12' | translate }}"></ion-datetime>
   </ion-item>

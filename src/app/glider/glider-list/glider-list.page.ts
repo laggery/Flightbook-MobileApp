@@ -27,7 +27,7 @@ export class GliderListPage implements OnInit {
   }
 
   itemTapped(event: MouseEvent, glider: Glider) {
-    this.navCtrl.navigateForward(`glider/${glider.id}`);
+    this.navCtrl.navigateForward(`gliders/${glider.id}`);
   }
 
   loadData(event: any) {

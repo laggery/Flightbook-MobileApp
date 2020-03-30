@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Glider } from '../glider';
+import { GliderService } from '../glider.service';
+import { Router } from '@angular/router';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-glider-add',
@@ -9,7 +12,10 @@ import { Glider } from '../glider';
 export class GliderAddPage implements OnInit {
   private glider: Glider;
 
-  constructor() {
+  constructor(
+    private router: Router,
+    private gliderService: GliderService
+  ) {
     this.glider = new Glider();
    }
 
@@ -17,7 +23,10 @@ export class GliderAddPage implements OnInit {
   }
 
   saveGlider(glider: Glider) {
-    console.log('save glider');
+    this.gliderService.postGlider(glider).subscribe((res: Glider) => {
+      // TODO hide loading
+      this.router.navigate(['/gliders'], { replaceUrl: true });
+    });
   }
 
 }

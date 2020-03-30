@@ -29,17 +29,17 @@ const routes: Routes = [
     canActivate: [AuthGuardService]
   },
   {
-    path: 'glider',
+    path: 'gliders',
     loadChildren: () => import('./glider/glider-list/glider-list.module').then(m => m.GliderListPageModule),
     canActivate: [AuthGuardService]
   },
   {
-    path: 'glider/add',
+    path: 'gliders/add',
     loadChildren: () => import('./glider/glider-add/glider-add.module').then(m => m.GliderAddPageModule),
     canActivate: [AuthGuardService]
   },
   {
-    path: 'glider/:id',
+    path: 'gliders/:id',
     loadChildren: () => import('./glider/glider-edit/glider-edit.module').then( m => m.GliderEditPageModule),
     canActivate: [AuthGuardService]
   },

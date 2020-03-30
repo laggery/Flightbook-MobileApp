@@ -32,4 +32,14 @@ export class GliderService {
       })
     );
   }
+
+  postGlider(glider: Glider): Observable<Glider> {
+    return this.http.post<Glider>(`${environment.baseUrl}/gliders`, glider).pipe(
+      map((response: Glider) => {
+        this.gliders = [];
+        this.isGliderlistComplete = false;
+        return response;
+      })
+    );
+  }
 }
