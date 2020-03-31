@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Flight } from '../../models/flight';
+import { Flight } from '../flight';
 import { Glider } from '../../glider/glider';
 import { Place } from '../../place/place';
 
@@ -15,7 +15,7 @@ export class FlightAddPage implements OnInit {
   constructor() {
     this.flight = new Flight();
     const today = new Date();
-    this.flight.date = today.getFullYear() + "-" + ("0" + (today.getMonth() + 1)).slice(-2) + "-" + ("0" + (today.getDate())).slice(-2);
+    // this.flight.date = today.getFullYear() + "-" + ("0" + (today.getMonth() + 1)).slice(-2) + "-" + ("0" + (today.getDate())).slice(-2);
     this.flight.start = new Place();
     this.flight.landing = new Place();
 
