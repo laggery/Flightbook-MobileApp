@@ -19,7 +19,7 @@ export class PlaceEditPage implements OnInit {
     private placeService: PlaceService
   ) {
     this.placeId = +this.activeRoute.snapshot.paramMap.get('id');
-    this.place = this.placeService.places.find(place => place.id === this.placeId);
+    this.place = this.placeService.getValue().find(place => place.id === this.placeId);
     this.place = _.cloneDeep(this.place);
     if (!this.place) {
       this.router.navigate(['/places'], { replaceUrl: true });

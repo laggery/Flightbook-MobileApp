@@ -8,8 +8,8 @@
 </ion-header>
 
 <ion-content class="no-padding">
-  <ion-list *ngIf="places && places.length > 0">
-    <ion-item detail *ngFor="let place of places" (click)="itemTapped($event, place)">
+  <ion-list *ngIf="(places$ | async)?.length > 0" >
+    <ion-item detail *ngFor="let place of places$ | async" (click)="itemTapped($event, place)">
       <ion-grid>
         <ion-row>
           <ion-col>
@@ -31,5 +31,5 @@
     </ion-infinite-scroll-content>
   </ion-infinite-scroll>
 
-  <p class="emptylist" *ngIf="!places || places.length == 0">{{ 'emptylist' | translate }}</p>
+  <p class="emptylist" *ngIf="(places$ | async)?.length == 0">{{ 'emptylist' | translate }}</p>
 </ion-content>
