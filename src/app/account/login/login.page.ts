@@ -1,15 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { MenuController, NavController } from '@ionic/angular';
 import { AccountService } from '../account.service';
 import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
 })
-export class LoginPage implements OnInit {
+export class LoginPage implements OnInit, OnDestroy {
+  unsubscribe$ = new Subject<void>();
   loginData = {
     email: '',
     password: ''
@@ -28,9 +31,14 @@ export class LoginPage implements OnInit {
   ngOnInit() {
   }
 
+  ngOnDestroy() {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
+  }
+
   login(loginForm: any) {
     if (loginForm.valid) {
-      this.accountService.login(this.loginData).subscribe(resp => {
+      this.accountService.login(this.loginData).pipe(takeUntil(this.unsubscribe$)).subscribe(resp => {
         if (resp.body && resp.body.access_token && resp.body.refresh_token) {
           localStorage.setItem('access_token', resp.body.access_token);
           localStorage.setItem('refresh_token', resp.body.refresh_token);

@@ -11,9 +11,9 @@
 .flightRow span {
     overflow-x: hidden;
     text-overflow: ellipsis;
-    float: left;
     width: 190px;
     white-space: nowrap;
+    display: inline-block;
 }
 
 .flightRow .flightDate{

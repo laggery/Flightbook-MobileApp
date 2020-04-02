@@ -1,15 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Place } from '../place';
 import { PlaceService } from '../place.service';
 import * as _ from 'lodash';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-place-edit',
   templateUrl: './place-edit.page.html',
   styleUrls: ['./place-edit.page.scss'],
 })
-export class PlaceEditPage implements OnInit {
+export class PlaceEditPage implements OnInit, OnDestroy {
+  unsubscribe$ = new Subject<void>();
   private placeId: number;
   place: Place;
 
@@ -29,8 +32,13 @@ export class PlaceEditPage implements OnInit {
   ngOnInit() {
   }
 
+  ngOnDestroy() {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
+  }
+
   savePlace(place: Place) {
-    this.placeService.putPlace(place).subscribe((res: Place) => {
+    this.placeService.putPlace(place).pipe(takeUntil(this.unsubscribe$)).subscribe((res: Place) => {
       // TODO hide loading
       this.router.navigate(['/places'], { replaceUrl: true });
     });

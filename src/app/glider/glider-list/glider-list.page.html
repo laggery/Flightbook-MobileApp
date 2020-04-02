@@ -14,8 +14,8 @@
 </ion-header>
 
 <ion-content class="no-padding">
-  <ion-list *ngIf="gliders && gliders.length > 0">
-    <ion-item detail *ngFor="let glider of gliders" (click)="itemTapped($event, glider)">
+  <ion-list *ngIf="(gliders$ | async)?.length > 0">
+    <ion-item detail *ngFor="let glider of gliders$ | async" (click)="itemTapped($event, glider)">
       <ion-grid>
         <ion-row>
           <ion-col size="6" size-s>
@@ -41,5 +41,5 @@
     </ion-infinite-scroll-content>
   </ion-infinite-scroll>
 
-  <p class="emptylist" *ngIf="!gliders || gliders.length == 0">{{ 'emptylist' | translate }}</p>
+  <p class="emptylist" *ngIf="(gliders$ | async)?.length == 0">{{ 'emptylist' | translate }}</p>
 </ion-content>

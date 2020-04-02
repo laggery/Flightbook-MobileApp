@@ -1,14 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Flight } from '../flight';
 import { Glider } from '../../glider/glider';
 import { Place } from '../../place/place';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-flight-add',
   templateUrl: './flight-add.page.html',
   styleUrls: ['./flight-add.page.scss'],
 })
-export class FlightAddPage implements OnInit {
+export class FlightAddPage implements OnInit, OnDestroy {
+  unsubscribe$ = new Subject<void>();
   private flight: Flight;
   private gliders: Glider[] = [];
 
@@ -30,6 +32,11 @@ export class FlightAddPage implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  ngOnDestroy() {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 
   saveFlight(flight: Flight) {
