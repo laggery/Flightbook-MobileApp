@@ -8,10 +8,10 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <div class="newsList">
-    <div class="news" *ngFor="let n of newsData">
+  <ion-list>
+    <div class="news" *ngFor="let n of newsData$ | async">
       <p class="title"><span>{{ n.date | date:'dd.MM.yyyy'}}:</span> {{ n.title }}</p>
       <p class="content" [innerHTML]="n.text"></p>
     </div>
-  </div>
+  </ion-list>
 </ion-content>

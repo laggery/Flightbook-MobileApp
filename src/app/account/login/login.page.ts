@@ -5,6 +5,7 @@ import { AccountService } from '../account.service';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { NewsService } from 'src/app/news/news.service';
 
 @Component({
   selector: 'app-login',
@@ -23,7 +24,8 @@ export class LoginPage implements OnInit, OnDestroy {
     private menuCtrl: MenuController,
     private navCtrl: NavController,
     private router: Router,
-    private accountService: AccountService
+    private accountService: AccountService,
+    private newsService: NewsService
   ) {
     this.menuCtrl.enable(false);
   }
@@ -55,6 +57,7 @@ export class LoginPage implements OnInit, OnDestroy {
   setLanguage(lang: string) {
     localStorage.setItem('language', lang);
     this.translate.use(lang);
+    this.newsService.setState([]);
   }
 
   register() {

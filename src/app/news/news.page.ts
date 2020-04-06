@@ -2,8 +2,9 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MenuController } from '@ionic/angular';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { NewsService } from './news.service';
-import { Subject } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { News } from './news';
 
 @Component({
   selector: 'app-news',
@@ -12,7 +13,7 @@ import { takeUntil } from 'rxjs/operators';
 })
 export class NewsPage implements OnInit, OnDestroy {
   unsubscribe$ = new Subject<void>();
-  newsData: any;
+  newsData$: Observable<News[]>;
 
   constructor(
     private menuCtrl: MenuController,
@@ -20,9 +21,14 @@ export class NewsPage implements OnInit, OnDestroy {
     private newsService: NewsService
   ) {
     this.menuCtrl.enable(true);
-    this.newsService.getNews(this.translate.currentLang).pipe(takeUntil(this.unsubscribe$)).subscribe(resp => {
-      this.newsData = resp.body;
-    });
+
+    this.newsData$ = this.newsService.getState();
+
+    if (this.newsService.getValue().length === 0) {
+      this.newsService.getNews(this.translate.currentLang).pipe(takeUntil(this.unsubscribe$)).subscribe((resp: News[]) => {
+        // TODO hide loading page
+      });
+    }
   }
 
   ngOnInit() {
