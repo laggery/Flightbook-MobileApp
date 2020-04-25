@@ -32,4 +32,13 @@ export class FlightService extends Store<Flight[]> {
       })
     );
   }
+
+  postFlight(flight: Flight): Observable<Flight> {
+    return this.http.post<Flight>(`${environment.baseUrl}/flights`, flight).pipe(
+      map((response: Flight) => {
+        this.setState([]);
+        return response;
+      })
+    );
+  }
 }

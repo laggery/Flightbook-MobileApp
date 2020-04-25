@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Flight } from '../../flight/flight';
+import { Glider } from 'src/app/glider/glider';
 
 @Component({
   selector: 'flight-form',
@@ -9,9 +10,7 @@ export class FlightFormComponent {
   @Input()
   flight: Flight;
   @Input()
-  gliders: any;
-  // @Input()
-  // places: any;
+  gliders: Glider[];
   @Output()
   saveFlight = new EventEmitter<Flight>();
 
@@ -21,8 +20,22 @@ export class FlightFormComponent {
   constructor() {
   }
 
-  saveElement() {
-    this.saveFlight.emit(this.flight);
+  saveElement(loginForm: any) {
+    if (loginForm.valid) {
+      this.saveFlight.emit(this.flight);
+    }
+  }
+
+  setDefaultTime() {
+    if (!this.flight.time) {
+      const time = new Date(0);
+      time.setHours(0);
+      this.flight.time = time.toISOString();
+    }
+  }
+
+  cancelButton() {
+    this.flight.time = null;
   }
 
   // setFilteredStart(event) {

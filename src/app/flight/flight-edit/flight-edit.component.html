@@ -1,12 +1,12 @@
 <ion-header>
   <ion-toolbar color='primary'>
     <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
+      <ion-back-button defaultHref='flights'></ion-back-button>
     </ion-buttons>
     <ion-title>{{ 'groupname.flight' | translate }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
-  <flight-form [flight]=flight [gliders]=gliders (saveFlight)="saveFlight($event)"></flight-form>
+  <glider-form [flight]=flight (saveFlight)="saveFlight($event)"></glider-form>
 </ion-content>

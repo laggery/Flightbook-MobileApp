@@ -46,4 +46,8 @@ export class FlightListPage implements OnInit, OnDestroy {
       }
     });
   }
+
+  itemTapped(event: MouseEvent, flight: Flight) {
+    this.navCtrl.navigateForward(`flights/${flight.id}`);
+  }
 }

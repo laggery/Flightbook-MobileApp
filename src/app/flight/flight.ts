@@ -1,14 +1,13 @@
-import { IonDatetime } from '@ionic/angular';
 import { Place } from '../place/place';
 import { Glider } from '../glider/glider';
 
 export class Flight {
     id: number;
     glider: Glider;
-    date: Date;
+    date: string;
     start?: Place;
     landing?: Place;
-    time?: IonDatetime;
+    time?: string;
     km?: number;
     description?: string;
     price?: number;
