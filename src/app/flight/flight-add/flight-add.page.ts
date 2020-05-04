@@ -7,6 +7,8 @@ import { FlightService } from '../flight.service';
 import { GliderService } from 'src/app/glider/glider.service';
 import { takeUntil } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-flight-add',
@@ -21,7 +23,9 @@ export class FlightAddPage implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private flightService: FlightService,
-    private gliderService: GliderService
+    private gliderService: GliderService,
+    private alertController: AlertController,
+    private translate: TranslateService
     ) {
     this.flight = new Flight();
     this.flight.date = new Date().toISOString();
@@ -38,9 +42,11 @@ export class FlightAddPage implements OnInit, OnDestroy {
     }
 
     if (this.gliderService.isGliderlistComplete) {
+      this.noGliderCheck();
       this.gliders = this.gliderService.getValue();
     } else {
       this.gliderService.getGliders().pipe(takeUntil(this.unsubscribe$)).subscribe((resp: Glider[]) => {
+        this.noGliderCheck();
         this.gliderService.isGliderlistComplete = true;
         this.gliders = this.gliderService.getValue();
       });
@@ -62,4 +68,16 @@ export class FlightAddPage implements OnInit, OnDestroy {
     });
   }
 
+  private async noGliderCheck() {
+    if (this.gliderService.getValue().length === 0) {
+      const alert = await this.alertController.create({
+        header: this.translate.instant('message.noglidertitle'),
+        message: this.translate.instant('message.noglider'),
+        buttons: ['OK']
+      });
+  
+      await alert.present();
+      this.router.navigate(['/gliders/add'], { replaceUrl: true });
+    }
+  }
 }
