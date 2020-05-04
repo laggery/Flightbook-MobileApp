@@ -29,14 +29,20 @@ export class FlightAddPage implements OnInit, OnDestroy {
     this.flight.start = new Place();
     this.flight.landing = new Place();
 
+    if (this.flightService.getValue().length > 0) {
+      this.flight.glider = this.flightService.getValue()[0].glider
+    } else {
+      this.flightService.getFlights({ limit: 1, store: false }).pipe(takeUntil(this.unsubscribe$)).subscribe((res: Flight[]) => {
+        this.flight.glider = res[0].glider
+      });
+    }
+
     if (this.gliderService.isGliderlistComplete) {
       this.gliders = this.gliderService.getValue();
-      this.flight.glider = this.gliders[0];
     } else {
       this.gliderService.getGliders().pipe(takeUntil(this.unsubscribe$)).subscribe((resp: Glider[]) => {
         this.gliderService.isGliderlistComplete = true;
         this.gliders = this.gliderService.getValue();
-        this.flight.glider = this.gliders[0];
       });
     }
   }

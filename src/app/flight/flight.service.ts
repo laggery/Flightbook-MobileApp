@@ -15,7 +15,7 @@ export class FlightService extends Store<Flight[]> {
     super([]);
   }
 
-  getFlights({ limit = null, offset = null }: { limit?: number, offset?: number } = {}): Observable<Flight[]> {
+  getFlights({ limit = null, offset = null, store = true }: { limit?: number, offset?: number, store?: boolean } = {}): Observable<Flight[]> {
     let params = new HttpParams();
     if (limit) {
       params = params.append('limit', limit.toString());
@@ -23,14 +23,15 @@ export class FlightService extends Store<Flight[]> {
     if (offset) {
       params = params.append('offset', offset.toString());
     }
-
     return this.http.get<Flight[]>(`${environment.baseUrl}/flights`, { params }).pipe(
       map((response: Flight[]) => {
-        const newState = [...this.getValue(), ...response];
-        newState.sort((a, b) => {
-          return new Date(a.date) > new Date(b.date) ? -1 : 1;
-        });
-        this.setState(newState);
+        if (store) {
+          const newState = [...this.getValue(), ...response];
+          newState.sort((a, b) => {
+            return new Date(a.date) > new Date(b.date) ? -1 : 1;
+          });
+          this.setState(newState);
+        }
         return response;
       })
     );
