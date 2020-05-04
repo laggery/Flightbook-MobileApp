@@ -25,7 +25,7 @@ const routes: Routes = [
   },
   {
     path: 'flights/:id',
-    loadChildren: () => import('./flight/flight-edit/flight-edit.module').then(m => m.FlightEditModule),
+    loadChildren: () => import('./flight/flight-edit/flight-edit.module').then(m => m.FlightEditPageModule),
     canActivate: [AuthGuardService]
   },
   {
@@ -70,6 +70,10 @@ const routes: Routes = [
   {
     path: 'register',
     loadChildren: () => import('./account/register/register.module').then(m => m.RegisterPageModule)
+  },
+  {
+    path: 'flight-edit',
+    loadChildren: () => import('./flight/flight-edit/flight-edit.module').then( m => m.FlightEditPageModule)
   }
 ];
 

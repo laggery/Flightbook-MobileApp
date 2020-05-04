@@ -1,12 +1,13 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { Flight } from '../../flight/flight';
 import { Glider } from 'src/app/glider/glider';
+import { Place } from 'src/app/place/place';
 
 @Component({
   selector: 'flight-form',
   templateUrl: 'flight-form.html'
 })
-export class FlightFormComponent {
+export class FlightFormComponent implements OnInit{
   @Input()
   flight: Flight;
   @Input()
@@ -14,10 +15,28 @@ export class FlightFormComponent {
   @Output()
   saveFlight = new EventEmitter<Flight>();
 
+  glider: string
+
   // private searchStart: string;
   // private searchLanding: string;
 
-  constructor() {
+  constructor() {}
+
+  ngOnInit() {
+    if (this.flight.glider.brand && this.flight.glider.name) {
+      this.glider = `${this.flight.glider.brand} ${this.flight.glider.name}`
+    }
+    if (!this.flight.start) {
+      this.flight.start = new Place();
+    }
+    if (!this.flight.landing) {
+      this.flight.landing = new Place();
+    }
+  }
+
+  onSelectChange(selectedValue: any) {
+    this.flight.glider = this.gliders.find(glider => glider.id === +selectedValue.detail.value);
+    this.glider = `${this.flight.glider.brand} ${this.flight.glider.name}`
   }
 
   saveElement(loginForm: any) {

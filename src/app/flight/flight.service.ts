@@ -27,6 +27,9 @@ export class FlightService extends Store<Flight[]> {
     return this.http.get<Flight[]>(`${environment.baseUrl}/flights`, { params }).pipe(
       map((response: Flight[]) => {
         const newState = [...this.getValue(), ...response];
+        newState.sort((a, b) => {
+          return new Date(a.date) > new Date(b.date) ? -1 : 1;
+        });
         this.setState(newState);
         return response;
       })
@@ -37,6 +40,20 @@ export class FlightService extends Store<Flight[]> {
     return this.http.post<Flight>(`${environment.baseUrl}/flights`, flight).pipe(
       map((response: Flight) => {
         this.setState([]);
+        return response;
+      })
+    );
+  }
+
+  putFlight(flight: Flight): Observable<Flight> {
+    return this.http.put<Flight>(`${environment.baseUrl}/flights/${flight.id}`, flight).pipe(
+      map((response: Flight) => {
+        const list = this.getValue();
+        const index = list.findIndex((listFlight: Flight) => listFlight.id === response.id);
+        list[index] = response;
+        list.sort((a, b) => {
+          return new Date(a.date) > new Date(b.date) ? -1 : 1;
+        });
         return response;
       })
     );

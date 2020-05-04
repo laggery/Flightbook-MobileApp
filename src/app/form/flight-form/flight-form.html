@@ -1,9 +1,9 @@
 <form #form="ngForm" (ngSubmit)="saveElement(form)">
   <ion-item>
     <ion-label position="floating">{{ 'flight.glider' | translate }}</ion-label>
-    <ion-select required [(ngModel)]="flight.glider.id" name="glider" okText="{{ 'buttons.done' | translate }}"
-      cancelText="{{ 'buttons.cancel' | translate }}">
-      <ion-select-option *ngFor="let glider of gliders" value="{{ glider.id }}">{{ glider.name }}</ion-select-option>
+    <ion-select required [value]="flight.glider.id?.toString()" (ionChange)="onSelectChange($event)" name="glider" [selectedText]="glider" 
+      okText="{{ 'buttons.done' | translate }}" cancelText="{{ 'buttons.cancel' | translate }}">
+      <ion-select-option *ngFor="let glider of gliders" value="{{ glider.id }}">{{ glider.brand }} {{ glider.name }}</ion-select-option>
     </ion-select>
   </ion-item>
   <ion-item>
@@ -29,7 +29,7 @@
     <ion-datetime (click)="setDefaultTime()" [(ngModel)]="flight.time" name="time" displayFormat="HH:mm"
       doneText="{{ 'buttons.done' | translate }}" (ionCancel)="cancelButton()" cancelText="{{ 'buttons.clear' | translate }}"></ion-datetime>
   </ion-item>
-  <ion-item>
+  <ion-item *ngIf="flight.glider.tandem">
     <ion-label position="floating">{{ 'flight.price' | translate }}</ion-label>
     <ion-input [(ngModel)]="flight.price" type="number" name="price"></ion-input>
   </ion-item>

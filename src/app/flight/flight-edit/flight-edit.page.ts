@@ -1,42 +1,43 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Flight } from '../flight';
-import { Glider } from '../../glider/glider';
-import { Place } from '../../place/place';
+import { Component, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
+import { Flight } from '../flight';
+import { Glider } from 'src/app/glider/glider';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FlightService } from '../flight.service';
 import { GliderService } from 'src/app/glider/glider.service';
 import { takeUntil } from 'rxjs/operators';
-import { Router } from '@angular/router';
+import * as _ from 'lodash';
 
 @Component({
-  selector: 'app-flight-add',
-  templateUrl: './flight-add.page.html',
-  styleUrls: ['./flight-add.page.scss'],
+  selector: 'app-flight-edit',
+  templateUrl: './flight-edit.page.html',
+  styleUrls: ['./flight-edit.page.scss'],
 })
-export class FlightAddPage implements OnInit, OnDestroy {
+export class FlightEditPage implements OnInit {
   unsubscribe$ = new Subject<void>();
-  private flight: Flight;
-  private gliders: Glider[] = [];
+  private flightId: number;
+  flight: Flight;
+  gliders: Glider[] = [];
 
   constructor(
+    private activeRoute: ActivatedRoute,
     private router: Router,
     private flightService: FlightService,
     private gliderService: GliderService
-    ) {
-    this.flight = new Flight();
-    this.flight.date = new Date().toISOString();
-    this.flight.glider = new Glider();
-    this.flight.start = new Place();
-    this.flight.landing = new Place();
+  ){
+    this.flightId = +this.activeRoute.snapshot.paramMap.get('id');
+    this.flight = this.flightService.getValue().find(flight => flight.id === this.flightId);
+    this.flight = _.cloneDeep(this.flight);
+    if (!this.flight) {
+      this.router.navigate(['/flights'], { replaceUrl: true });
+    }
 
     if (this.gliderService.isGliderlistComplete) {
       this.gliders = this.gliderService.getValue();
-      this.flight.glider = this.gliders[0];
     } else {
       this.gliderService.getGliders().pipe(takeUntil(this.unsubscribe$)).subscribe((resp: Glider[]) => {
         this.gliderService.isGliderlistComplete = true;
         this.gliders = this.gliderService.getValue();
-        this.flight.glider = this.gliders[0];
       });
     }
   }
@@ -50,7 +51,7 @@ export class FlightAddPage implements OnInit, OnDestroy {
   }
 
   saveFlight(flight: Flight) {
-    this.flightService.postFlight(flight).pipe(takeUntil(this.unsubscribe$)).subscribe((res: Flight) => {
+    this.flightService.putFlight(flight).pipe(takeUntil(this.unsubscribe$)).subscribe((res: Flight) => {
       // TODO hide loading
       this.router.navigate(['/flights'], { replaceUrl: true });
     });
