@@ -12,7 +12,7 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class HttpAuthInterceptor implements HttpInterceptor {
-    private excludeUrl: Array<string>;
+    private excludeUrl: Array<Array<string>>;
 
     constructor(
         private router: Router,
@@ -20,10 +20,11 @@ export class HttpAuthInterceptor implements HttpInterceptor {
         private menuCtrl: MenuController
     ) {
         this.excludeUrl = [
-            'assets/i18n',
-            'auth/login',
-            'auth/refresh',
-            'news/'
+            ['assets/i18n', 'GET'],
+            ['auth/login', 'POST'],
+            ['users', 'POST'],
+            ['auth/refresh', 'GET'],
+            ['news', 'GET']
         ];
     }
 
@@ -34,7 +35,7 @@ export class HttpAuthInterceptor implements HttpInterceptor {
     async handle(req: HttpRequest<any>, next: HttpHandler) {
         let validityCheck = true;
         this.excludeUrl.forEach(url => {
-            if (req.url.includes(url)) {
+            if (req.url.includes(url[0]) && req.method === url[1]) {
                 validityCheck = false;
             }
         });

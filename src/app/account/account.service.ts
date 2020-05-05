@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { User } from './user';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +21,10 @@ export class AccountService {
 
   login(loginData: any): Observable<any> {
     return this.http.post<any>(`${environment.baseUrl}/auth/login`, loginData, { observe: 'response' });
+  }
+
+  register(user: User): Observable<any> {
+    return this.http.post<any>(`${environment.baseUrl}/users`, user, { observe: 'response' });
   }
 
   logout(): Observable<any> {
