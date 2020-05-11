@@ -47,7 +47,7 @@ export class FlightAddPage implements OnInit, OnDestroy {
       this.noGliderCheck();
       this.gliders = this.gliderService.getValue();
     } else {
-      this.gliderService.getGliders().pipe(takeUntil(this.unsubscribe$)).subscribe((resp: Glider[]) => {
+      this.gliderService.getGliders({clearStore: true}).pipe(takeUntil(this.unsubscribe$)).subscribe((resp: Glider[]) => {
         this.noGliderCheck();
         this.gliderService.isGliderlistComplete = true;
         this.gliders = this.gliderService.getValue();

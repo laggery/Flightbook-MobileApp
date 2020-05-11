@@ -1,5 +1,5 @@
-<form #form="ngForm" (ngSubmit)="saveElement(form)">
-  <ion-item>
+<form #form="ngForm" (ngSubmit)="saveElement(form)" *ngIf="flight">
+  <ion-item *ngIf="gliders.length > 0">
     <ion-label position="floating">{{ 'flight.glider' | translate }}</ion-label>
     <ion-select required [value]="flight.glider.id?.toString()" (ionChange)="onSelectChange($event)" name="glider" [selectedText]="glider" 
       okText="{{ 'buttons.done' | translate }}" cancelText="{{ 'buttons.cancel' | translate }}">
