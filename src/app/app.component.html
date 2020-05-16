@@ -61,7 +61,7 @@
           <p class="divider-menu">{{ 'groupname.account' | translate }}</p>
 
           <ion-menu-toggle auto-hide="false">
-            <ion-item routerDirection="root" lines="full" detail="false">
+            <ion-item routerDirection="root" [routerLink]="['/settings']" lines="full" detail="false">
               <ion-label>{{ 'buttons.settings' | translate }}</ion-label>
             </ion-item>
           </ion-menu-toggle>

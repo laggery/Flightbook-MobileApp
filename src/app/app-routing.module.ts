@@ -74,6 +74,10 @@ const routes: Routes = [
   {
     path: 'flight-edit',
     loadChildren: () => import('./flight/flight-edit/flight-edit.module').then( m => m.FlightEditPageModule)
+  },
+  {
+    path: 'settings',
+    loadChildren: () => import('./account/settings/settings.module').then( m => m.SettingsPageModule)
   }
 ];
 

@@ -108,7 +108,7 @@
         "pwdWrong": "Mot de passe erroné!",
         "emailEnter": "Veuillez saisir votre e-mail!",
         "pwdSend": "Un nouveau mot de passe a été envoyé!",
-        "userExist": "Cet utilisateur existe déjà!",
+        "userExist": "Cette adresse email est déjà utilisée!",
         "pwdNotSame": "Les mots de passes ne sont pas identiques!",
         "settingChanged": "Les paramètres ont été sauvegardés!",
         "placeExist": "Ce lieu existe déjà!",

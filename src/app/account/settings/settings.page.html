@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar color='primary'>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>{{ 'groupname.account' | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form *ngIf="user" (ngSubmit)="saveSettings()">
+    <ion-item>
+      <ion-label position="floating">{{ 'account.firstname' | translate }}</ion-label>
+      <ion-input [(ngModel)]="user.firstname" required name="firstname" type="text"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">{{ 'account.lastname' | translate }}</ion-label>
+      <ion-input [(ngModel)]="user.lastname" required name="lastname" type="text"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">{{ 'login.email' | translate }}</ion-label>
+      <ion-input [(ngModel)]="user.email" required name="email" type="email"></ion-input>
+    </ion-item>
+    <ion-button expand="block" type="submit">{{ 'buttons.save' | translate }}</ion-button>
+  </form>
+
+
+  <div class="language-list">
+    <p>
+      <a (click)="setLanguage('fr')" class="language">{{ 'language.fr' | translate }}</a>
+      <a (click)="setLanguage('de')" class="language">{{ 'language.de' | translate }}</a>
+      <a (click)="setLanguage('en')" class="language">{{ 'language.en' | translate }}</a>
+      <a (click)="setLanguage('it')" class="language">{{ 'language.it' | translate }}</a>
+    </p>
+  </div>
+
+</ion-content>

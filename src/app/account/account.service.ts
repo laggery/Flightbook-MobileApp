@@ -31,6 +31,14 @@ export class AccountService {
     return this.http.get<any>(`${environment.baseUrl}/auth/logout`, { observe: 'response' });
   }
 
+  currentUser(): Observable<any> {
+    return this.http.get<User>(`${environment.baseUrl}/users`);
+  }
+
+  updateUser(user: User): Observable<User> {
+    return this.http.put<User>(`${environment.baseUrl}/users/`, user);
+  }
+
   async isAuth(): Promise<boolean> {
     let authenticated = true;
     const accessToken = localStorage.getItem('access_token');
