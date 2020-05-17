@@ -73,11 +73,18 @@ const routes: Routes = [
   },
   {
     path: 'flight-edit',
-    loadChildren: () => import('./flight/flight-edit/flight-edit.module').then( m => m.FlightEditPageModule)
+    loadChildren: () => import('./flight/flight-edit/flight-edit.module').then( m => m.FlightEditPageModule),
+    canActivate: [AuthGuardService]
   },
   {
     path: 'settings',
-    loadChildren: () => import('./account/settings/settings.module').then( m => m.SettingsPageModule)
+    loadChildren: () => import('./account/settings/settings.module').then( m => m.SettingsPageModule),
+    canActivate: [AuthGuardService]
+  },
+  {
+    path: 'password',
+    loadChildren: () => import('./account/password/password.module').then( m => m.PasswordPageModule),
+    canActivate: [AuthGuardService]
   }
 ];
 

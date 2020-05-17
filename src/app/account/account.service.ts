@@ -36,7 +36,11 @@ export class AccountService {
   }
 
   updateUser(user: User): Observable<User> {
-    return this.http.put<User>(`${environment.baseUrl}/users/`, user);
+    return this.http.put<User>(`${environment.baseUrl}/users`, user);
+  }
+
+  updatePassword(pwd: any): Observable<User> {
+    return this.http.put<any>(`${environment.baseUrl}/users/password/change`, pwd);
   }
 
   async isAuth(): Promise<boolean> {
