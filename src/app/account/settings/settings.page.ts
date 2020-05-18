@@ -36,21 +36,13 @@ export class SettingsPage implements OnInit {
       await loading.dismiss();
     },
     (async (error: any) => {
+      await loading.dismiss();
       if (error.status === 409) {
         const alert = await this.alertController.create({
           header: this.translate.instant('message.infotitle'),
           message: this.translate.instant('message.userExist'),
-          buttons: ['OK']
+          buttons: [this.translate.instant('buttons.done')]
         });
-        await loading.dismiss();
-        await alert.present();
-      } else {
-        const alert = await this.alertController.create({
-          header: this.translate.instant('message.infotitle'),
-          message: this.translate.instant('message.error'),
-          buttons: ['OK']
-        });
-        await loading.dismiss();
         await alert.present();
       }
     }));

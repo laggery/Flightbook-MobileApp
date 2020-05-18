@@ -56,21 +56,13 @@ export class PasswordPage implements OnInit {
       this.router.navigate(['/settings'], { replaceUrl: true });
     },
       (async (error: any) => {
+        await loading.dismiss();
         if (error.status === 403) {
           const alert = await this.alertController.create({
             header: this.translate.instant('login.password'),
             message: this.translate.instant('message.pwdWrong'),
             buttons: [this.translate.instant('buttons.done')]
           });
-          await loading.dismiss();
-          await alert.present();
-        } else {
-          const alert = await this.alertController.create({
-            header: this.translate.instant('message.infotitle'),
-            message: this.translate.instant('message.error'),
-            buttons: [this.translate.instant('buttons.done')]
-          });
-          await loading.dismiss();
           await alert.present();
         }
       }));
