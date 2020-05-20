@@ -7,6 +7,8 @@ import { FlightService } from '../flight.service';
 import { GliderService } from 'src/app/glider/glider.service';
 import { takeUntil } from 'rxjs/operators';
 import * as _ from 'lodash';
+import { LoadingController, AlertController } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-flight-edit',
@@ -23,8 +25,11 @@ export class FlightEditPage implements OnInit {
     private activeRoute: ActivatedRoute,
     private router: Router,
     private flightService: FlightService,
-    private gliderService: GliderService
-  ){
+    private gliderService: GliderService,
+    private alertController: AlertController,
+    private translate: TranslateService,
+    private loadingCtrl: LoadingController
+  ) {
     this.flightId = +this.activeRoute.snapshot.paramMap.get('id');
     this.flight = this.flightService.getValue().find(flight => flight.id === this.flightId);
     this.flight = _.cloneDeep(this.flight);
@@ -50,11 +55,27 @@ export class FlightEditPage implements OnInit {
     this.unsubscribe$.complete();
   }
 
-  saveFlight(flight: Flight) {
-    this.flightService.putFlight(flight).pipe(takeUntil(this.unsubscribe$)).subscribe((res: Flight) => {
-      // TODO hide loading
-      this.router.navigate(['/flights'], { replaceUrl: true });
+  async saveFlight(flight: Flight) {
+    let loading = await this.loadingCtrl.create({
+      message: this.translate.instant('loading.saveflight')
     });
-  }
+    await loading.present();
 
+    this.flightService.putFlight(flight).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Flight) => {
+      await loading.dismiss();
+      this.router.navigate(['/flights'], { replaceUrl: true });
+    },
+      (async (resp: any) => {
+        await loading.dismiss();
+        if (resp.status === 422) {
+          const alert = await this.alertController.create({
+            header: this.translate.instant('message.infotitle'),
+            message: resp.error.message,
+            buttons: [this.translate.instant('buttons.done')]
+          });
+          await alert.present();
+        }
+      })
+    );
+  }
 }

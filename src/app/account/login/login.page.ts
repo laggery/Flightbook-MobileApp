@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { MenuController, NavController } from '@ionic/angular';
+import { MenuController, NavController, AlertController, LoadingController } from '@ionic/angular';
 import { AccountService } from '../account.service';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
@@ -25,7 +25,9 @@ export class LoginPage implements OnInit, OnDestroy {
     private navCtrl: NavController,
     private router: Router,
     private accountService: AccountService,
-    private newsService: NewsService
+    private newsService: NewsService,
+    private alertController: AlertController,
+    private loadingCtrl: LoadingController
   ) {
     this.menuCtrl.enable(false);
   }
@@ -38,19 +40,39 @@ export class LoginPage implements OnInit, OnDestroy {
     this.unsubscribe$.complete();
   }
 
-  login(loginForm: any) {
+  async login(loginForm: any) {
     if (loginForm.valid) {
-      this.accountService.login(this.loginData).pipe(takeUntil(this.unsubscribe$)).subscribe(resp => {
-        if (resp.body && resp.body.access_token && resp.body.refresh_token) {
-          localStorage.setItem('access_token', resp.body.access_token);
-          localStorage.setItem('refresh_token', resp.body.refresh_token);
-          this.router.navigate(['news']).then(() => {
-            this.menuCtrl.enable(true);
-          });
-        }
+      let loading = await this.loadingCtrl.create({
+        message: this.translate.instant('loading.saveaccount')
       });
+      await loading.present();
+
+      this.accountService.login(this.loginData).pipe(takeUntil(this.unsubscribe$)).subscribe(async resp => {
+        await loading.dismiss();
+        localStorage.setItem('access_token', resp.access_token);
+        localStorage.setItem('refresh_token', resp.refresh_token);
+        this.router.navigate(['news']).then(() => {
+          this.menuCtrl.enable(true);
+        });
+      },
+        (async (error: any) => {
+          await loading.dismiss();
+          if (error.status === 401) {
+            const alert = await this.alertController.create({
+              header: this.translate.instant('buttons.login'),
+              message: this.translate.instant('message.emailpwdnotcorrect'),
+              buttons: [this.translate.instant('buttons.done')]
+            });
+            await alert.present();
+          }
+        }));
     } else {
-      // TODO information message
+      const alert = await this.alertController.create({
+        header: this.translate.instant('buttons.login'),
+        message: this.translate.instant('message.nologinpwd'),
+        buttons: [this.translate.instant('buttons.done')]
+      });
+      await alert.present();
     }
   }
 

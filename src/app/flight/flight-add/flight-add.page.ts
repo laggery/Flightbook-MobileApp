@@ -7,7 +7,7 @@ import { FlightService } from '../flight.service';
 import { GliderService } from 'src/app/glider/glider.service';
 import { takeUntil } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { AlertController, LoadingController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -25,8 +25,9 @@ export class FlightAddPage implements OnInit, OnDestroy {
     private flightService: FlightService,
     private gliderService: GliderService,
     private alertController: AlertController,
-    private translate: TranslateService
-    ) {
+    private translate: TranslateService,
+    private loadingCtrl: LoadingController
+  ) {
     this.flight = new Flight();
     this.flight.date = new Date().toISOString();
     this.flight.glider = new Glider();
@@ -47,7 +48,7 @@ export class FlightAddPage implements OnInit, OnDestroy {
       this.noGliderCheck();
       this.gliders = this.gliderService.getValue();
     } else {
-      this.gliderService.getGliders({clearStore: true}).pipe(takeUntil(this.unsubscribe$)).subscribe((resp: Glider[]) => {
+      this.gliderService.getGliders({ clearStore: true }).pipe(takeUntil(this.unsubscribe$)).subscribe((resp: Glider[]) => {
         this.noGliderCheck();
         this.gliderService.isGliderlistComplete = true;
         this.gliders = this.gliderService.getValue();
@@ -63,11 +64,28 @@ export class FlightAddPage implements OnInit, OnDestroy {
     this.unsubscribe$.complete();
   }
 
-  saveFlight(flight: Flight) {
-    this.flightService.postFlight(flight).pipe(takeUntil(this.unsubscribe$)).subscribe((res: Flight) => {
-      // TODO hide loading
-      this.router.navigate(['/flights'], { replaceUrl: true });
+  async saveFlight(flight: Flight) {
+    let loading = await this.loadingCtrl.create({
+      message: this.translate.instant('loading.saveflight')
     });
+    await loading.present();
+
+    this.flightService.postFlight(flight).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Flight) => {
+      await loading.dismiss();
+      this.router.navigate(['/flights'], { replaceUrl: true });
+    },
+      (async (resp: any) => {
+        await loading.dismiss();
+        if (resp.status === 422) {
+          const alert = await this.alertController.create({
+            header: this.translate.instant('message.infotitle'),
+            message: resp.error.message,
+            buttons: [this.translate.instant('buttons.done')]
+          });
+          await alert.present();
+        }
+      })
+    );
   }
 
   private async noGliderCheck() {
@@ -75,9 +93,9 @@ export class FlightAddPage implements OnInit, OnDestroy {
       const alert = await this.alertController.create({
         header: this.translate.instant('message.noglidertitle'),
         message: this.translate.instant('message.noglider'),
-        buttons: ['OK']
+        buttons: [this.translate.instant('buttons.done')]
       });
-  
+
       await alert.present();
       this.router.navigate(['/gliders/add'], { replaceUrl: true });
     }

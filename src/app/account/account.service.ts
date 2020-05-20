@@ -13,22 +13,22 @@ export class AccountService {
 
   constructor(private http: HttpClient) {
     this.jwtHelper = new JwtHelperService();
-   }
+  }
 
   refresh(refreshToken: string): Observable<any> {
-    return this.http.get<any>(`${environment.baseUrl}/auth/refresh/${refreshToken}`, { observe: 'response' });
+    return this.http.get<any>(`${environment.baseUrl}/auth/refresh/${refreshToken}`);
   }
 
   login(loginData: any): Observable<any> {
-    return this.http.post<any>(`${environment.baseUrl}/auth/login`, loginData, { observe: 'response' });
+    return this.http.post<any>(`${environment.baseUrl}/auth/login`, loginData);
   }
 
   register(user: User): Observable<any> {
-    return this.http.post<any>(`${environment.baseUrl}/users`, user, { observe: 'response' });
+    return this.http.post<any>(`${environment.baseUrl}/users`, user);
   }
 
   logout(): Observable<any> {
-    return this.http.get<any>(`${environment.baseUrl}/auth/logout`, { observe: 'response' });
+    return this.http.get<any>(`${environment.baseUrl}/auth/logout`);
   }
 
   currentUser(): Observable<any> {
@@ -49,11 +49,15 @@ export class AccountService {
     if (this.jwtHelper.isTokenExpired(accessToken)) {
       const refreshToken = localStorage.getItem('refresh_token');
       if (refreshToken) {
-        const loginData = await this.refresh(refreshToken).toPromise();
-        if (loginData.body && loginData.body.access_token && loginData.body.refresh_token) {
-          localStorage.setItem('access_token', loginData.body.access_token);
-          localStorage.setItem('refresh_token', loginData.body.refresh_token);
-        } else {
+        try {
+          const loginData = await this.refresh(refreshToken).toPromise();
+          if (loginData && loginData.access_token && loginData.refresh_token) {
+            localStorage.setItem('access_token', loginData.access_token);
+            localStorage.setItem('refresh_token', loginData.refresh_token);
+          } else {
+            authenticated = false;
+          }
+        } catch (e) {
           authenticated = false;
         }
       } else {

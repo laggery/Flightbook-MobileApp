@@ -1,10 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { MenuController } from '@ionic/angular';
+import { MenuController, LoadingController, AlertController } from '@ionic/angular';
 import { User } from '../user';
 import { AccountService } from '../account.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-register',
@@ -17,8 +18,11 @@ export class RegisterPage implements OnInit, OnDestroy {
 
   constructor(
     private router: Router,
+    private translate: TranslateService,
     private menuCtrl: MenuController,
-    private accountService: AccountService
+    private accountService: AccountService,
+    private loadingCtrl: LoadingController,
+    private alertController: AlertController
   ) {
     this.menuCtrl.enable(false);
     this.registerData = new User();
@@ -32,12 +36,28 @@ export class RegisterPage implements OnInit, OnDestroy {
     this.unsubscribe$.complete();
   }
 
-  saveRegister(registerForm: any){
+  async saveRegister(registerForm: any) {
     if (registerForm.valid) {
-      this.accountService.register(this.registerData).pipe(takeUntil(this.unsubscribe$)).subscribe((res: User) => {
-        // TODO hide loading
-        this.router.navigate(['/login'], { replaceUrl: true });
+      let loading = await this.loadingCtrl.create({
+        message: this.translate.instant('loading.createaccount')
       });
+      await loading.present();
+      this.accountService.register(this.registerData).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: User) => {
+        await loading.dismiss();
+        this.router.navigate(['/login'], { replaceUrl: true });
+      },
+        (async (error: any) => {
+          await loading.dismiss();
+          if (error.status === 409) {
+            const alert = await this.alertController.create({
+              header: this.translate.instant('account.register'),
+              message: this.translate.instant('message.userExist'),
+              buttons: [this.translate.instant('buttons.done')]
+            });
+            await alert.present();
+          }
+        })
+      );
     }
   }
 
