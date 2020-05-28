@@ -24,13 +24,24 @@ export class PlaceService extends Store<Place[]> {
       params = params.append('offset', offset.toString());
     }
 
-    return this.http.get<Place[]>(`${environment.baseUrl}/places`, {params}).pipe(
+    return this.http.get<Place[]>(`${environment.baseUrl}/places`, { params }).pipe(
       map((response: Place[]) => {
         const newState = [...this.getValue(), ...response];
         this.setState(newState);
         return response;
       })
     );
+  }
+
+  getPlacesByName(name: string, { limit = null, offset = null }: { limit?: number, offset?: number } = {}): Observable<Place[]> {
+    let params = new HttpParams();
+    if (limit) {
+      params = params.append('limit', limit.toString());
+    }
+    if (offset) {
+      params = params.append('offset', offset.toString());
+    }
+    return this.http.get<Place[]>(`${environment.baseUrl}/places/${name}`, { params });
   }
 
   postPlace(place: Place): Observable<Place> {

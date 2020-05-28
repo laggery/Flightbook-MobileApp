@@ -1,0 +1,6 @@
+<div class="autocomplete-list" *ngIf="show">
+  <ion-icon name="close" (click)="closeList()"></ion-icon>
+  <ion-list class="value-list">
+    <ion-item *ngFor="let element of listElement" (click)=setValue(element)>{{ element.name }}</ion-item>
+  </ion-list>
+</div>

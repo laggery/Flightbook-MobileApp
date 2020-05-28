@@ -7,7 +7,7 @@ import { Place } from 'src/app/place/place';
   selector: 'flight-form',
   templateUrl: 'flight-form.html'
 })
-export class FlightFormComponent implements OnInit{
+export class FlightFormComponent implements OnInit {
   @Input()
   flight: Flight;
   @Input()
@@ -16,11 +16,10 @@ export class FlightFormComponent implements OnInit{
   saveFlight = new EventEmitter<Flight>();
 
   glider: string
+  searchStart: string;
+  searchLanding: string;
 
-  // private searchStart: string;
-  // private searchLanding: string;
-
-  constructor() {}
+  constructor() { }
 
   ngOnInit() {
     if (this.flight.glider.brand && this.flight.glider.name) {
@@ -57,20 +56,20 @@ export class FlightFormComponent implements OnInit{
     this.flight.time = null;
   }
 
-  // setFilteredStart(event) {
-  //   this.searchStart = event.target.value;
-  // }
+  setFilteredStart(event: any) {
+    this.searchStart = event.target.value;
+  }
 
-  // setFilteredLanding(event) {
-  //   this.searchLanding = event.target.value;
-  // }
+  setFilteredLanding(event: any) {
+    this.searchLanding = event.target.value;
+  }
 
-  // setStartInput(event) {
-  //   this.flight.start.name = event.name;
-  // }
+  setStartInput(event: any) {
+    this.flight.start.name = event.name;
+  }
 
-  // setLandingInput(event) {
-  //   this.flight.landing.name = event.name;
-  // }
+  setLandingInput(event: any) {
+    this.flight.landing.name = event.name;
+  }
 
 }

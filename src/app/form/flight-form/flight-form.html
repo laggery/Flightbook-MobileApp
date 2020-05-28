@@ -1,9 +1,10 @@
 <form #form="ngForm" (ngSubmit)="saveElement(form)" *ngIf="flight">
   <ion-item *ngIf="gliders.length > 0">
     <ion-label position="floating">{{ 'flight.glider' | translate }}</ion-label>
-    <ion-select required [value]="flight.glider.id?.toString()" (ionChange)="onSelectChange($event)" name="glider" [selectedText]="glider" 
-      okText="{{ 'buttons.done' | translate }}" cancelText="{{ 'buttons.cancel' | translate }}">
-      <ion-select-option *ngFor="let glider of gliders" value="{{ glider.id }}">{{ glider.brand }} {{ glider.name }}</ion-select-option>
+    <ion-select required [value]="flight.glider.id?.toString()" (ionChange)="onSelectChange($event)" name="glider"
+      [selectedText]="glider" okText="{{ 'buttons.done' | translate }}" cancelText="{{ 'buttons.cancel' | translate }}">
+      <ion-select-option *ngFor="let glider of gliders" value="{{ glider.id }}">{{ glider.brand }} {{ glider.name }}
+      </ion-select-option>
     </ion-select>
   </ion-item>
   <ion-item>
@@ -15,19 +16,20 @@
   </ion-item>
   <ion-item>
     <ion-label position="floating">{{ 'flight.start' | translate }}</ion-label>
-    <ion-input [(ngModel)]="flight.start.name" type="text" name="start"></ion-input>
+    <ion-input [(ngModel)]="flight.start.name" type="text" name="start" (input)="setFilteredStart($event)"></ion-input>
   </ion-item>
-  <!-- <autocomplete [search]="searchStart" [places]="places" (setInputValue)="setStartInput($event)"></autocomplete> -->
+  <autocomplete [search]="searchStart" (setInputValue)="setStartInput($event)"></autocomplete>
   <ion-item>
     <ion-label position="floating">{{ 'flight.landing' | translate }}</ion-label>
-    <ion-input [(ngModel)]="flight.landing.name" type="text" name="landing">
+    <ion-input [(ngModel)]="flight.landing.name" type="text" name="landing" (input)="setFilteredLanding($event)">
     </ion-input>
   </ion-item>
-  <!-- <autocomplete [search]="searchLanding" [places]="places" (setInputValue)="setLandingInput($event)"></autocomplete> -->
+  <autocomplete [search]="searchLanding" (setInputValue)="setLandingInput($event)"></autocomplete>
   <ion-item>
     <ion-label position="floating">{{ 'flight.time' | translate }}</ion-label>
     <ion-datetime (click)="setDefaultTime()" [(ngModel)]="flight.time" name="time" displayFormat="HH:mm"
-      doneText="{{ 'buttons.done' | translate }}" (ionCancel)="cancelButton()" cancelText="{{ 'buttons.clear' | translate }}"></ion-datetime>
+      doneText="{{ 'buttons.done' | translate }}" (ionCancel)="cancelButton()"
+      cancelText="{{ 'buttons.clear' | translate }}"></ion-datetime>
   </ion-item>
   <ion-item *ngIf="flight.glider.tandem">
     <ion-label position="floating">{{ 'flight.price' | translate }}</ion-label>

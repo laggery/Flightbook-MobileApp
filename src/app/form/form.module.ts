@@ -6,11 +6,13 @@ import { FlightFormComponent } from './flight-form/flight-form';
 import { TranslateModule } from '@ngx-translate/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { AutocompleteComponent } from './autocomplete/autocomplete.component';
 @NgModule({
     declarations: [
         PlaceFormComponent,
         GliderFormComponent,
-        FlightFormComponent
+        FlightFormComponent,
+        AutocompleteComponent
     ],
     imports: [
         CommonModule,
@@ -21,7 +23,8 @@ import { CommonModule } from '@angular/common';
     exports: [
         PlaceFormComponent,
         GliderFormComponent,
-        FlightFormComponent
+        FlightFormComponent,
+        AutocompleteComponent
     ]
 })
 export class FormModule { }
