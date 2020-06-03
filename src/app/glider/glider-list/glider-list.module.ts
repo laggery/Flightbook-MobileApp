@@ -8,6 +8,7 @@ import { GliderListPageRoutingModule } from './glider-list-routing.module';
 
 import { GliderListPage } from './glider-list.page';
 import { TranslateModule } from '@ngx-translate/core';
+import { GliderFilterComponent } from '../glider-filter/glider-filter.component';
 
 @NgModule({
   imports: [
@@ -17,6 +18,7 @@ import { TranslateModule } from '@ngx-translate/core';
     GliderListPageRoutingModule,
     TranslateModule.forChild()
   ],
-  declarations: [GliderListPage]
+  declarations: [GliderListPage, GliderFilterComponent],
+  entryComponents: [GliderFilterComponent],
 })
-export class GliderListPageModule {}
+export class GliderListPageModule { }

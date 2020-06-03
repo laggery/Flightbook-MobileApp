@@ -5,24 +5,41 @@ import { HttpParams, HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators';
 import { Store } from '../store.class';
+import { GliderFilter } from './glider-filter';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GliderService extends Store<Glider[]> {
   public isGliderlistComplete = false;
+  public filter: GliderFilter;
+  public defaultLimit = 50;
+  public disableList = false;
 
   constructor(private http: HttpClient) {
     super([]);
+    this.filter = new GliderFilter();
   }
 
-  getGliders({ limit = null, offset = null, clearStore= false }: { limit?: number, offset?: number, clearStore?: boolean } = {}): Observable<Glider[]> {
+  getGliders({ limit = null, offset = null, clearStore = false }: { limit?: number, offset?: number, clearStore?: boolean } = {}): Observable<Glider[]> {
     let params = new HttpParams();
     if (limit) {
       params = params.append('limit', limit.toString());
     }
     if (offset) {
       params = params.append('offset', offset.toString());
+    }
+
+    if (this.filter) {
+      if (this.filter.brand && this.filter.brand !== "") {
+        params = params.append('brand', this.filter.brand);
+      }
+      if (this.filter.name && this.filter.name !== "") {
+        params = params.append('name', this.filter.name);
+      }
+      if (this.filter.type && this.filter.type !== "") {
+        params = params.append('type', this.filter.type);
+      }
     }
 
     return this.http.get<Glider[]>(`${environment.baseUrl}/gliders`, { params }).pipe(

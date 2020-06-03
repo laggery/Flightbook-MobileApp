@@ -6,7 +6,7 @@
     <ion-title>{{ 'groupname.glider' | translate }} <span
         *ngIf="filtered">({{ 'groupname.filtered' | translate }})</span></ion-title>
     <ion-buttons slot="primary">
-      <ion-button>
+      <ion-button (click)="openFilter($event)">
         {{ 'buttons.filter' | translate }}
       </ion-button>
     </ion-buttons>
@@ -35,9 +35,7 @@
   </ion-list>
 
   <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
-    <ion-infinite-scroll-content
-      loadingSpinner="bubbles"
-      loadingText="{{ 'loading.loading' | translate }}">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="{{ 'loading.loading' | translate }}">
     </ion-infinite-scroll-content>
   </ion-infinite-scroll>
 
