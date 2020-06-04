@@ -15,6 +15,7 @@ export class GliderListPage implements OnInit, OnDestroy {
   @ViewChild(IonInfiniteScroll, { static: true }) infiniteScroll: IonInfiniteScroll;
   unsubscribe$ = new Subject<void>();
   gliders$: Observable<Glider[]>;
+  filtered: boolean;
 
   constructor(
     public navCtrl: NavController,
@@ -22,6 +23,10 @@ export class GliderListPage implements OnInit, OnDestroy {
     public modalCtrl: ModalController
   ) {
     this.gliders$ = this.gliderService.getState();
+    this.filtered = this.gliderService.filtered$.getValue();
+    this.gliderService.filtered$.pipe(takeUntil(this.unsubscribe$)).subscribe((value: boolean) => {
+      this.filtered = value;
+    })
 
     if (this.gliderService.getValue().length === 0) {
       this.gliderService.getGliders({ limit: this.gliderService.defaultLimit }).pipe(takeUntil(this.unsubscribe$)).subscribe((res: Glider[]) => {

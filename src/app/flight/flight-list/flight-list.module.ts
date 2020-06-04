@@ -8,6 +8,7 @@ import { FlightListPageRoutingModule } from './flight-list-routing.module';
 
 import { FlightListPage } from './flight-list.page';
 import { TranslateModule } from '@ngx-translate/core';
+import { FlightFilterComponent } from '../flight-filter/flight-filter.component';
 
 @NgModule({
   imports: [
@@ -17,6 +18,7 @@ import { TranslateModule } from '@ngx-translate/core';
     FlightListPageRoutingModule,
     TranslateModule.forChild()
   ],
-  declarations: [FlightListPage]
+  declarations: [FlightListPage, FlightFilterComponent],
+  entryComponents: [FlightFilterComponent]
 })
 export class FlightListPageModule {}

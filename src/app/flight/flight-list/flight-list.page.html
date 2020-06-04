@@ -3,7 +3,13 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>{{ 'groupname.flight' | translate }}</ion-title>
+    <ion-title>{{ 'groupname.flight' | translate }} <span
+        *ngIf="filtered">({{ 'groupname.filtered' | translate }})</span></ion-title>
+    <ion-buttons slot="primary">
+      <ion-button (click)="openFilter($event)">
+        {{ 'buttons.filter' | translate }}
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 

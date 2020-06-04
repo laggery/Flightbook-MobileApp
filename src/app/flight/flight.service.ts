@@ -1,21 +1,28 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { Flight } from './flight';
 import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators';
 import { Store } from '../store.class';
+import { FlightFilter } from './flight-filter';
+import * as moment from 'moment'
 
 @Injectable({
   providedIn: 'root'
 })
 export class FlightService extends Store<Flight[]> {
+  public filter: FlightFilter;
+  public filtered$: BehaviorSubject<boolean>;
+  public defaultLimit = 20;
 
   constructor(private http: HttpClient) {
     super([]);
+    this.filter = new FlightFilter();
+    this.filtered$ = new BehaviorSubject(false);
   }
 
-  getFlights({ limit = null, offset = null, store = true }: { limit?: number, offset?: number, store?: boolean } = {}): Observable<Flight[]> {
+  getFlights({ limit = null, offset = null, store = true, clearStore = false }: { limit?: number, offset?: number, store?: boolean, clearStore?: boolean } = {}): Observable<Flight[]> {
     let params = new HttpParams();
     if (limit) {
       params = params.append('limit', limit.toString());
@@ -23,13 +30,39 @@ export class FlightService extends Store<Flight[]> {
     if (offset) {
       params = params.append('offset', offset.toString());
     }
+
+    // Filter check
+    let filterState = false;
+    if (this.filter.glider.id && this.filter.glider.id !== null) {
+      params = params.append('glider', this.filter.glider.id.toString());
+      filterState = true
+    }
+    if (this.filter.from && this.filter.from !== null) {
+      params = params.append('from', moment(this.filter.from).format('YYYY-MM-DD'));
+      filterState = true
+    }
+    if (this.filter.to && this.filter.to !== null) {
+      params = params.append('to', moment(this.filter.to).format('YYYY-MM-DD'));
+      filterState = true
+    }
+    if (this.filter.gliderType && this.filter.gliderType !== "") {
+      params = params.append('glider-type', this.filter.gliderType);
+      filterState = true
+    }
+    this.setFilterState(filterState);
+
     return this.http.get<Flight[]>(`${environment.baseUrl}/flights`, { params }).pipe(
       map((response: Flight[]) => {
+        let newState
         if (store) {
-          const newState = [...this.getValue(), ...response];
-          newState.sort((a, b) => {
-            return new Date(a.date) > new Date(b.date) ? -1 : 1;
-          });
+          if (clearStore) {
+            newState = [...response];
+          } else {
+            newState = [...this.getValue(), ...response];
+            newState.sort((a, b) => {
+              return new Date(a.date) > new Date(b.date) ? -1 : 1;
+            });
+          }
           this.setState(newState);
         }
         return response;
@@ -58,5 +91,9 @@ export class FlightService extends Store<Flight[]> {
         return response;
       })
     );
+  }
+
+  private setFilterState(nextState: boolean) {
+    this.filtered$.next(nextState);
   }
 }
