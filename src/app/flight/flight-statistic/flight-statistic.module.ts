@@ -8,6 +8,9 @@ import { FlightStatisticPageRoutingModule } from './flight-statistic-routing.mod
 
 import { FlightStatisticPage } from './flight-statistic.page';
 import { TranslateModule } from '@ngx-translate/core';
+import { HoursFormatPipe } from './pipe/hours-format.pipe';
+import { FlightFilterComponent } from '../../form/flight-filter/flight-filter.component';
+import { FormModule } from 'src/app/form/form.module';
 
 @NgModule({
   imports: [
@@ -15,8 +18,11 @@ import { TranslateModule } from '@ngx-translate/core';
     FormsModule,
     IonicModule,
     FlightStatisticPageRoutingModule,
-    TranslateModule.forChild()
+    TranslateModule.forChild(),
+    FormModule
   ],
-  declarations: [FlightStatisticPage]
+  declarations: [FlightStatisticPage, HoursFormatPipe],
+  providers: [HoursFormatPipe],
+  entryComponents: [FlightFilterComponent]
 })
 export class FlightStatisticPageModule {}

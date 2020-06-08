@@ -7,11 +7,13 @@ import { TranslateModule } from '@ngx-translate/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AutocompleteComponent } from './autocomplete/autocomplete.component';
+import { FlightFilterComponent } from './flight-filter/flight-filter.component';
 @NgModule({
     declarations: [
         PlaceFormComponent,
         GliderFormComponent,
         FlightFormComponent,
+        FlightFilterComponent,
         AutocompleteComponent
     ],
     imports: [
@@ -24,6 +26,7 @@ import { AutocompleteComponent } from './autocomplete/autocomplete.component';
         PlaceFormComponent,
         GliderFormComponent,
         FlightFormComponent,
+        FlightFilterComponent,
         AutocompleteComponent
     ]
 })

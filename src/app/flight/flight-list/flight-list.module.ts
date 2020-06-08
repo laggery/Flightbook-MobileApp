@@ -8,7 +8,8 @@ import { FlightListPageRoutingModule } from './flight-list-routing.module';
 
 import { FlightListPage } from './flight-list.page';
 import { TranslateModule } from '@ngx-translate/core';
-import { FlightFilterComponent } from '../flight-filter/flight-filter.component';
+import { FormModule } from 'src/app/form/form.module';
+import { FlightFilterComponent } from 'src/app/form/flight-filter/flight-filter.component';
 
 @NgModule({
   imports: [
@@ -16,9 +17,10 @@ import { FlightFilterComponent } from '../flight-filter/flight-filter.component'
     FormsModule,
     IonicModule,
     FlightListPageRoutingModule,
-    TranslateModule.forChild()
+    TranslateModule.forChild(),
+    FormModule
   ],
-  declarations: [FlightListPage, FlightFilterComponent],
+  declarations: [FlightListPage],
   entryComponents: [FlightFilterComponent]
 })
 export class FlightListPageModule {}

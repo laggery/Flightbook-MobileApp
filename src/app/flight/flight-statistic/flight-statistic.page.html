@@ -3,10 +3,23 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>{{ 'groupname.flight' | translate }}</ion-title>
+    <ion-title>{{ 'groupname.flight' | translate }} <span
+        *ngIf="filtered">({{ 'groupname.filtered' | translate }})</span></ion-title>
+    <ion-buttons slot="primary">
+      <ion-button (click)="openFilter($event)">
+        {{ 'buttons.filter' | translate }}
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-
+<ion-content class="ion-padding">
+  <div id="basic-stat">
+    <div><label>{{ 'statistics.nbflight' | translate }}:</label><span id="nbFlights">{{ statistics.nbFlights }}</span></div>
+    <div><label>{{ 'statistics.flighthour' | translate }}:</label><span
+        id="totalTime">{{ statistics.time | hoursFormat }}</span></div>
+    <div><label>{{ 'statistics.average' | translate }}:</label><span
+        id="averageTime">{{ statistics.average | hoursFormat }}</span></div>
+    <div><label>{{ 'statistics.price' | translate }}:</label><span id="income">{{ statistics.income || "0" }}</span></div>
+  </div>
 </ion-content>

@@ -4,7 +4,7 @@ import { NavController, ModalController, IonInfiniteScroll } from '@ionic/angula
 import { FlightService } from '../flight.service';
 import { Subject, Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { FlightFilterComponent } from '../flight-filter/flight-filter.component';
+import { FlightFilterComponent } from 'src/app/form/flight-filter/flight-filter.component';
 
 @Component({
   selector: 'app-flight-list',
@@ -63,7 +63,8 @@ export class FlightListPage implements OnInit, OnDestroy {
       component: FlightFilterComponent,
       cssClass: 'flight-filter-class',
       componentProps: {
-        'infiniteScroll': this.infiniteScroll
+        'infiniteScroll': this.infiniteScroll,
+        'type': "FlightListPage"
       }
     });
     return await modal.present();

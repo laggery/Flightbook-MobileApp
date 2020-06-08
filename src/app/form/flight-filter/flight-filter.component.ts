@@ -1,13 +1,14 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { IonInfiniteScroll, ModalController, LoadingController } from '@ionic/angular';
 import { Subject } from 'rxjs';
-import { FlightService } from '../flight.service';
+import { FlightService } from '../../flight/flight.service';
 import { TranslateService } from '@ngx-translate/core';
-import { FlightFilter } from '../flight-filter';
+import { FlightFilter } from '../../flight/flight-filter';
 import { Glider } from 'src/app/glider/glider';
 import { GliderService } from 'src/app/glider/glider.service';
 import { takeUntil } from 'rxjs/operators';
-import { Flight } from '../flight';
+import { Flight } from '../../flight/flight';
+import { FlightStatistic } from '../../flight/flightStatistic';
 
 @Component({
   selector: 'app-flight-filter',
@@ -16,6 +17,7 @@ import { Flight } from '../flight';
 })
 export class FlightFilterComponent implements OnInit, OnDestroy {
   @Input() infiniteScroll: IonInfiniteScroll;
+  @Input() type: string;
   public gliders: Glider[];
   private unsubscribe$ = new Subject<void>();
   public filter: FlightFilter;
@@ -75,12 +77,32 @@ export class FlightFilterComponent implements OnInit, OnDestroy {
     });
     await loading.present();
 
-    this.infiniteScroll.disabled = false;
+    if (this.type === "FlightListPage") {
+      this.closeFlightFilter(loading);
+    } else {
+      this.closeStatisticFilter(loading);
+    }
+  }
 
+  private async closeFlightFilter(loading: HTMLIonLoadingElement) {
+    this.infiniteScroll.disabled = false;
     this.flightService.getFlights({ limit: this.flightService.defaultLimit, clearStore: true }).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Flight[]) => {
       await loading.dismiss();
       this.modalCtrl.dismiss({
         'dismissed': true
+      });
+    }, async (error: any) => {
+      await loading.dismiss();
+    });
+  }
+
+  private async closeStatisticFilter(loading: HTMLIonLoadingElement) {
+    this.flightService.setState([]);
+    this.flightService.getStatistics().pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: FlightStatistic) => {
+      await loading.dismiss();
+      this.modalCtrl.dismiss({
+        'dismissed': true,
+        'statistic': res
       });
     }, async (error: any) => {
       await loading.dismiss();

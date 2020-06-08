@@ -24,13 +24,13 @@ const routes: Routes = [
     canActivate: [AuthGuardService]
   },
   {
-    path: 'flights/:id',
-    loadChildren: () => import('./flight/flight-edit/flight-edit.module').then(m => m.FlightEditPageModule),
+    path: 'flights/statistic',
+    loadChildren: () => import('./flight/flight-statistic/flight-statistic.module').then( m => m.FlightStatisticPageModule),
     canActivate: [AuthGuardService]
   },
   {
-    path: 'flights/statistic',
-    loadChildren: () => import('./flight/flight-statistic/flight-statistic.module').then(m => m.FlightStatisticPageModule),
+    path: 'flights/:id',
+    loadChildren: () => import('./flight/flight-edit/flight-edit.module').then(m => m.FlightEditPageModule),
     canActivate: [AuthGuardService]
   },
   {

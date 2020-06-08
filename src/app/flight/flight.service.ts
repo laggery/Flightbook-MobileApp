@@ -7,6 +7,7 @@ import { map } from 'rxjs/operators';
 import { Store } from '../store.class';
 import { FlightFilter } from './flight-filter';
 import * as moment from 'moment'
+import { FlightStatistic } from './flightStatistic';
 
 @Injectable({
   providedIn: 'root'
@@ -23,33 +24,13 @@ export class FlightService extends Store<Flight[]> {
   }
 
   getFlights({ limit = null, offset = null, store = true, clearStore = false }: { limit?: number, offset?: number, store?: boolean, clearStore?: boolean } = {}): Observable<Flight[]> {
-    let params = new HttpParams();
+    let params: HttpParams = this.createFilterParams();
     if (limit) {
       params = params.append('limit', limit.toString());
     }
     if (offset) {
       params = params.append('offset', offset.toString());
     }
-
-    // Filter check
-    let filterState = false;
-    if (this.filter.glider.id && this.filter.glider.id !== null) {
-      params = params.append('glider', this.filter.glider.id.toString());
-      filterState = true
-    }
-    if (this.filter.from && this.filter.from !== null) {
-      params = params.append('from', moment(this.filter.from).format('YYYY-MM-DD'));
-      filterState = true
-    }
-    if (this.filter.to && this.filter.to !== null) {
-      params = params.append('to', moment(this.filter.to).format('YYYY-MM-DD'));
-      filterState = true
-    }
-    if (this.filter.gliderType && this.filter.gliderType !== "") {
-      params = params.append('glider-type', this.filter.gliderType);
-      filterState = true
-    }
-    this.setFilterState(filterState);
 
     return this.http.get<Flight[]>(`${environment.baseUrl}/flights`, { params }).pipe(
       map((response: Flight[]) => {
@@ -68,6 +49,11 @@ export class FlightService extends Store<Flight[]> {
         return response;
       })
     );
+  }
+
+  getStatistics(): Observable<FlightStatistic> {
+    let params: HttpParams = this.createFilterParams();
+    return this.http.get<FlightStatistic>(`${environment.baseUrl}/flights/statistic`, { params })
   }
 
   postFlight(flight: Flight): Observable<Flight> {
@@ -95,5 +81,28 @@ export class FlightService extends Store<Flight[]> {
 
   private setFilterState(nextState: boolean) {
     this.filtered$.next(nextState);
+  }
+
+  private createFilterParams(): HttpParams {
+    let params = new HttpParams();
+    let filterState = false;
+    if (this.filter.glider.id && this.filter.glider.id !== null) {
+      params = params.append('glider', this.filter.glider.id.toString());
+      filterState = true
+    }
+    if (this.filter.from && this.filter.from !== null) {
+      params = params.append('from', moment(this.filter.from).format('YYYY-MM-DD'));
+      filterState = true
+    }
+    if (this.filter.to && this.filter.to !== null) {
+      params = params.append('to', moment(this.filter.to).format('YYYY-MM-DD'));
+      filterState = true
+    }
+    if (this.filter.gliderType && this.filter.gliderType !== "") {
+      params = params.append('glider-type', this.filter.gliderType);
+      filterState = true
+    }
+    this.setFilterState(filterState);
+    return params;
   }
 }
