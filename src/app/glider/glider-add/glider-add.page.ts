@@ -14,7 +14,7 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class GliderAddPage implements OnInit, OnDestroy {
   unsubscribe$ = new Subject<void>();
-  private glider: Glider;
+  glider: Glider;
 
   constructor(
     private router: Router,

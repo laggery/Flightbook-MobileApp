@@ -17,7 +17,7 @@ export class AutocompleteComponent implements OnInit {
   setInputValue = new EventEmitter<Place>();
 
 
-  private show: boolean
+  show: boolean
   listElement: Place[];
 
   constructor(private placeService: PlaceService, private _eref: ElementRef) {

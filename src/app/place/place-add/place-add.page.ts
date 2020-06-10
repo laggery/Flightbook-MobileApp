@@ -14,7 +14,7 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class PlaceAddPage implements OnInit, OnDestroy {
   unsubscribe$ = new Subject<void>();
-  private place: Place;
+  place: Place;
 
   constructor(
     private router: Router,
