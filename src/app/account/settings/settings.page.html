@@ -10,15 +10,15 @@
 <ion-content class="ion-padding">
   <form *ngIf="user" (ngSubmit)="saveSettings()">
     <ion-item>
-      <ion-label position="floating">{{ 'account.firstname' | translate }}</ion-label>
+      <ion-label color="primary" position="stacked">{{ 'account.firstname' | translate }}</ion-label>
       <ion-input [(ngModel)]="user.firstname" required name="firstname" type="text"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label position="floating">{{ 'account.lastname' | translate }}</ion-label>
+      <ion-label color="primary" position="stacked">{{ 'account.lastname' | translate }}</ion-label>
       <ion-input [(ngModel)]="user.lastname" required name="lastname" type="text"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label position="floating">{{ 'login.email' | translate }}</ion-label>
+      <ion-label color="primary" position="stacked">{{ 'login.email' | translate }}</ion-label>
       <ion-input [(ngModel)]="user.email" required name="email" type="email"></ion-input>
     </ion-item>
     <ion-button expand="block" type="submit">{{ 'buttons.save' | translate }}</ion-button>

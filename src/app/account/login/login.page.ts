@@ -43,7 +43,7 @@ export class LoginPage implements OnInit, OnDestroy {
   async login(loginForm: any) {
     if (loginForm.valid) {
       let loading = await this.loadingCtrl.create({
-        message: this.translate.instant('loading.saveaccount')
+        message: this.translate.instant('loading.login')
       });
       await loading.present();
 

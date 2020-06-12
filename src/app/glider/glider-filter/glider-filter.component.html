@@ -1,8 +1,5 @@
 <ion-header>
   <ion-toolbar color='primary'>
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
     <ion-title>{{ 'buttons.filter' | translate }}</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -10,15 +7,15 @@
 <ion-content class="ion-padding">
   <form (ngSubmit)="filterElement()">
     <ion-item>
-      <ion-label position="floating">{{ 'glider.brand' | translate }}</ion-label>
+      <ion-label color="primary" position="stacked">{{ 'glider.brand' | translate }}</ion-label>
       <ion-input type="text" [(ngModel)]="filter.brand" name="brand"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label position="floating">{{ 'glider.name' | translate }}</ion-label>
+      <ion-label color="primary" position="stacked">{{ 'glider.name' | translate }}</ion-label>
       <ion-input type="text" [(ngModel)]="filter.name" name="name"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label position="floating">{{ 'glider.type' | translate }}</ion-label>
+      <ion-label color="primary" position="stacked">{{ 'glider.type' | translate }}</ion-label>
       <ion-select [(ngModel)]="filter.type" name="type" okText="{{ 'buttons.done' | translate }}"
         cancelText="{{ 'buttons.cancel' | translate }}">
         <ion-select-option value="">{{ 'glider.all' | translate }}</ion-select-option>

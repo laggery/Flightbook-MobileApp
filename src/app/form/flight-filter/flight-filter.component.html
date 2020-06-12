@@ -1,8 +1,5 @@
 <ion-header>
   <ion-toolbar color='primary'>
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
     <ion-title>{{ 'buttons.filter' | translate }}</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -10,28 +7,28 @@
 <ion-content class="ion-padding">
   <form (ngSubmit)="filterElement()">
     <ion-item>
-      <ion-label position="floating">{{ 'groupname.glider' | translate }}</ion-label>
+      <ion-label color="primary" position="stacked">{{ 'groupname.glider' | translate }}</ion-label>
       <ion-select [(ngModel)]="filter.glider.id" name="glider" okText="{{ 'buttons.done' | translate }}"
         cancelText="{{ 'buttons.clear' | translate }}" (ionCancel)="clearGLiderButton()">
         <ion-select-option *ngFor="let glider of gliders" value="{{ glider.id }}">{{ glider.brand }} {{ glider.name }}</ion-select-option>
       </ion-select>
     </ion-item>
     <ion-item>
-      <ion-label position="floating">{{ 'filter.from' | translate }}</ion-label>
+      <ion-label color="primary" position="stacked">{{ 'filter.from' | translate }}</ion-label>
       <ion-datetime [(ngModel)]="filter.from" name="from" displayFormat="DD/MMMM/YYYY"
         doneText="{{ 'buttons.done' | translate }}" cancelText="{{ 'buttons.clear' | translate }}" (ionCancel)="clearDateButton('from')"
         monthNames="{{ 'months.1' | translate }},{{ 'months.2' | translate }},{{ 'months.3' | translate }},{{ 'months.4' | translate }},{{ 'months.5' | translate }},{{ 'months.6' | translate }},
     {{ 'months.7' | translate }},{{ 'months.8' | translate }},{{ 'months.9' | translate }},{{ 'months.10' | translate }},{{ 'months.11' | translate }},{{ 'months.12' | translate }}"></ion-datetime>
     </ion-item>
     <ion-item>
-      <ion-label position="floating">{{ 'filter.to' | translate }}</ion-label>
+      <ion-label color="primary" position="stacked">{{ 'filter.to' | translate }}</ion-label>
       <ion-datetime [(ngModel)]="filter.to" name="to" displayFormat="DD/MMMM/YYYY"
         doneText="{{ 'buttons.done' | translate }}" cancelText="{{ 'buttons.clear' | translate }}" (ionCancel)="clearDateButton('to')"
         monthNames="{{ 'months.1' | translate }},{{ 'months.2' | translate }},{{ 'months.3' | translate }},{{ 'months.4' | translate }},{{ 'months.5' | translate }},{{ 'months.6' | translate }},
         {{ 'months.7' | translate }},{{ 'months.8' | translate }},{{ 'months.9' | translate }},{{ 'months.10' | translate }},{{ 'months.11' | translate }},{{ 'months.12' | translate }}"></ion-datetime>
     </ion-item>
     <ion-item>
-      <ion-label position="floating">{{ 'glider.type' | translate }}</ion-label>
+      <ion-label color="primary" position="stacked">{{ 'glider.type' | translate }}</ion-label>
       <ion-select [(ngModel)]="filter.gliderType" name="gliderType" okText="{{ 'buttons.done' | translate }}"
         cancelText="{{ 'buttons.cancel' | translate }}">
         <ion-select-option value="">{{ 'glider.all' | translate }}</ion-select-option>
