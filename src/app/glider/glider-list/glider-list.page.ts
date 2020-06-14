@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Glider } from 'src/app/glider/glider';
-import { NavController, ModalController, IonInfiniteScroll } from '@ionic/angular';
+import { NavController, ModalController, IonInfiniteScroll, IonContent } from '@ionic/angular';
 import { GliderService } from '../glider.service';
 import { Subject, Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -13,6 +13,7 @@ import { GliderFilterComponent } from '../glider-filter/glider-filter.component'
 })
 export class GliderListPage implements OnInit, OnDestroy {
   @ViewChild(IonInfiniteScroll, { static: true }) infiniteScroll: IonInfiniteScroll;
+  @ViewChild(IonContent, { static: false }) content: IonContent;
   unsubscribe$ = new Subject<void>();
   gliders$: Observable<Glider[]>;
   filtered: boolean;
@@ -67,6 +68,15 @@ export class GliderListPage implements OnInit, OnDestroy {
         'infiniteScroll': this.infiniteScroll
       }
     });
+
+    this.modalOnDidDismiss(modal);
+    
     return await modal.present();
+  }
+
+  async modalOnDidDismiss(modal: HTMLIonModalElement) {
+    modal.onDidDismiss().then((resp: any) => {
+      this.content.scrollToTop();
+    })
   }
 }

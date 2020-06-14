@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Flight } from '../flight';
-import { NavController, ModalController, IonInfiniteScroll } from '@ionic/angular';
+import { NavController, ModalController, IonInfiniteScroll, IonContent } from '@ionic/angular';
 import { FlightService } from '../flight.service';
 import { Subject, Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -13,6 +13,7 @@ import { FlightFilterComponent } from 'src/app/form/flight-filter/flight-filter.
 })
 export class FlightListPage implements OnInit, OnDestroy {
   @ViewChild(IonInfiniteScroll, { static: true }) infiniteScroll: IonInfiniteScroll;
+  @ViewChild(IonContent, { static: false }) content: IonContent;
   unsubscribe$ = new Subject<void>();
   flights$: Observable<Flight[]>;
   filtered: boolean;
@@ -67,6 +68,15 @@ export class FlightListPage implements OnInit, OnDestroy {
         'type': "FlightListPage"
       }
     });
+
+    this.modalOnDidDismiss(modal);
+
     return await modal.present();
+  }
+
+  async modalOnDidDismiss(modal: HTMLIonModalElement) {
+    modal.onDidDismiss().then((resp: any) => {
+      this.content.scrollToTop();
+    })
   }
 }
