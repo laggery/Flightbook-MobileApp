@@ -56,6 +56,14 @@ export class FlightService extends Store<Flight[]> {
     return this.http.get<FlightStatistic>(`${environment.baseUrl}/flights/statistic`, { params })
   }
 
+  nbFlightsByPlaceId(placeId: number): Observable<any> {
+    return this.http.get<any>(`${environment.baseUrl}/flights/places/${placeId}/count`)
+  }
+
+  nbFlightsByGliderId(gliderId: number): Observable<any> {
+    return this.http.get<any>(`${environment.baseUrl}/flights/gliders/${gliderId}/count`)
+  }
+
   postFlight(flight: Flight): Observable<Flight> {
     return this.http.post<Flight>(`${environment.baseUrl}/flights`, flight).pipe(
       map((response: Flight) => {
@@ -74,6 +82,17 @@ export class FlightService extends Store<Flight[]> {
         list.sort((a, b) => {
           return new Date(a.date) > new Date(b.date) ? -1 : 1;
         });
+        return response;
+      })
+    );
+  }
+
+  deleteFlight(flight: Flight): Observable<Flight> {
+    return this.http.delete<Flight>(`${environment.baseUrl}/flights/${flight.id}`).pipe(
+      map((response: any) => {
+        const list = this.getValue();
+        const index = list.findIndex((listFlight: Flight) => listFlight.id === flight.id);
+        list.splice(index, 1);
         return response;
       })
     );

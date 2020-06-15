@@ -3,7 +3,7 @@
         "fr": "Français",
         "de": "Allemand",
         "en": "Anglais",
-	"it": "Italien"
+        "it": "Italien"
     },
     "buttons": {
         "createAccount": "Créer un compte!",
@@ -56,7 +56,7 @@
         "nbflight": "Nombre de vols",
         "flighthour": "Heures de vols",
         "average": "Temps moyen",
-        "price" : "Revenu",
+        "price": "Revenu",
         "longset": "Vol le plus long"
     },
     "flight": {
@@ -112,7 +112,9 @@
         "pwdNotSame": "Les mots de passes ne sont pas identiques!",
         "settingChanged": "Les paramètres ont été sauvegardés!",
         "placeExist": "Ce lieu existe déjà!",
-        "error": "Une erreur est survenue. Veuillez réessayer plus tard ou envoyer un email a : yannick.lagger@flightbook.ch"
+        "error": "Une erreur est survenue. Veuillez réessayer plus tard ou envoyer un email a : yannick.lagger@flightbook.ch",
+        "deleteError": "Cette entité est liée à un vol et ne peut pas être supprimée.",
+        "mendatoryFields": "Les champs obligatoires doivent être remplis."
     },
     "loading": {
         "createaccount": "Création compte...",

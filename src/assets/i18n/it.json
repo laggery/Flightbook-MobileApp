@@ -112,7 +112,9 @@
         "pwdNotSame": "Le password sono le stesse!",
         "settingChanged": "Le impostazioni sono state salvate!",
         "placeExist": "Ce lieu existe déjà!",
-        "error": "Si è verificato un errore. Si prega di riprovare più tardi o inviare una e-mail a: yannick.lagger@flightbook.ch"
+        "error": "Si è verificato un errore. Si prega di riprovare più tardi o inviare una e-mail a: yannick.lagger@flightbook.ch",
+        "deleteError": "Questa entità è collegata ad un volo e non può essere cancellata.",
+        "mendatoryFields": "I campi obbligatori devono essere forniti."
     },
     "loading": {
         "createaccount": "Iscrizione...",

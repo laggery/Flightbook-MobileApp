@@ -9,4 +9,5 @@
 
 <ion-content class="ion-padding">
   <glider-form [glider]=glider (saveGlider)="saveGlider($event)"></glider-form>
+  <ion-button [disabled]="deleteDisabled" class="delete" expand="block" color="danger" (click)="delete()" >{{ 'buttons.delete' | translate }}</ion-button>
 </ion-content>

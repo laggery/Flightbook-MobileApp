@@ -1,5 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Place } from '../../place/place';
+import { AlertController } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'place-form',
@@ -12,11 +14,23 @@ export class PlaceFormComponent {
   @Output()
   savePlace = new EventEmitter<Place>();
 
-  constructor() {
+  constructor(
+    private alertController: AlertController,
+    private translate: TranslateService
+  ) {
   }
 
-  saveElement() {
-    this.savePlace.emit(this.place);
+  async saveElement(loginForm: any) {
+    if (loginForm.valid) {
+      this.savePlace.emit(this.place);
+    } else {
+      const alert = await this.alertController.create({
+        header: this.translate.instant('message.errortitle'),
+        message: this.translate.instant('message.mendatoryFields'),
+        buttons: [this.translate.instant('buttons.done')]
+      });
+      await alert.present();
+    }
   }
 
 }

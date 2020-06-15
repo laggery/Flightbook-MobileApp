@@ -112,7 +112,9 @@
         "pwdNotSame": "The passwords are note the same!",
         "settingChanged": "The settings have been saved!",
         "placeExist": "This place already exist!",
-        "error": "An error has occurred. Please try again later or send an email to: yannick.lagger@flightbook.ch"
+        "error": "An error has occurred. Please try again later or send an email to: yannick.lagger@flightbook.ch",
+        "deleteError": "This entity is conected with a flight and can not be deleted.",
+        "mendatoryFields": "Mandatory fields must be provided."
     },
     "loading": {
         "createaccount": "Create account...",

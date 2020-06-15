@@ -78,4 +78,20 @@ export class FlightEditPage implements OnInit {
       })
     );
   }
+
+  async delete() {
+    let loading = await this.loadingCtrl.create({
+      message: this.translate.instant('loading.deleteflight')
+    });
+    await loading.present();
+
+    this.flightService.deleteFlight(this.flight).subscribe(async (res: any) => {
+      await loading.dismiss();
+      this.router.navigate(['/flights'], { replaceUrl: true });
+    },
+      (async (resp: any) => {
+        await loading.dismiss();
+      })
+    );
+  }
 }

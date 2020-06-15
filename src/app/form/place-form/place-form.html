@@ -1,7 +1,7 @@
-<form (ngSubmit)="saveElement()">
+<form #form="ngForm" (ngSubmit)="saveElement(form)">
   <ion-item>
-    <ion-label color="primary" position="stacked">{{ 'place.name' | translate }}*</ion-label>
-    <ion-input clearInput [(ngModel)]="place.name" type="text" name="name"></ion-input>
+    <ion-label color="primary" position="stacked">{{ 'place.name' | translate }}<span style="color:red"> *</span></ion-label>
+    <ion-input required clearInput [(ngModel)]="place.name" type="text" name="name"></ion-input>
   </ion-item>
   <ion-item>
     <ion-label color="primary" position="stacked">{{ 'place.altitude' | translate }}</ion-label>

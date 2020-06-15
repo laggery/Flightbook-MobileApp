@@ -1,6 +1,6 @@
 <form #form="ngForm" (ngSubmit)="saveElement(form)" *ngIf="flight">
   <ion-item *ngIf="gliders.length > 0">
-    <ion-label color="primary" position="stacked">{{ 'flight.glider' | translate }}</ion-label>
+    <ion-label color="primary" position="stacked">{{ 'flight.glider' | translate }}<span style="color:red"> *</span></ion-label>
     <ion-select required [value]="flight.glider.id?.toString()" (ionChange)="onSelectChange($event)" name="glider"
       [selectedText]="glider" okText="{{ 'buttons.done' | translate }}" cancelText="{{ 'buttons.cancel' | translate }}">
       <ion-select-option *ngFor="let glider of gliders" value="{{ glider.id }}">{{ glider.brand }} {{ glider.name }}
@@ -8,7 +8,7 @@
     </ion-select>
   </ion-item>
   <ion-item>
-    <ion-label color="primary" position="stacked">{{ 'flight.date' | translate }}</ion-label>
+    <ion-label color="primary" position="stacked">{{ 'flight.date' | translate }}<span style="color:red"> *</span></ion-label>
     <ion-datetime required [(ngModel)]="flight.date" name="date" displayFormat="DD/MMMM/YYYY"
       doneText="{{ 'buttons.done' | translate }}" cancelText="{{ 'buttons.cancel' | translate }}"
       monthNames="{{ 'months.1' | translate }},{{ 'months.2' | translate }},{{ 'months.3' | translate }},{{ 'months.4' | translate }},{{ 'months.5' | translate }},{{ 'months.6' | translate }},

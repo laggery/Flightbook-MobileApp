@@ -112,7 +112,9 @@
         "pwdNotSame": "Die Passwörter sind identisch!",
         "settingChanged": "Die Einstellungen wurden gespeichert!",
         "placeExist": "Dieser Ort gibt es bereits!",
-        "error": "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut oder senden Sie eine E-Mail an: yannick.lagger@flightbook.ch"
+        "error": "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut oder senden Sie eine E-Mail an: yannick.lagger@flightbook.ch",
+        "deleteError": "Diese Entität ist mit einem Flug verbunden und kann nicht gelöscht werden.",
+        "mendatoryFields": "Pflichtfelder müssen angegeben werden."
     },
     "loading": {
         "createaccount": "Registrieren...",

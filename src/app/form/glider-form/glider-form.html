@@ -1,4 +1,4 @@
-<form (ngSubmit)="saveElement()">
+<form #form="ngForm" (ngSubmit)="saveElement(form)">
   <ion-item>
     <ion-label color="primary" position="stacked">{{ 'glider.buydate' | translate }}</ion-label>
     <ion-datetime [(ngModel)]="glider.buyDate" name="buyDate" displayFormat="DD/MMMM/YYYY"
@@ -7,12 +7,12 @@
     {{ 'months.7' | translate }},{{ 'months.8' | translate }},{{ 'months.9' | translate }},{{ 'months.10' | translate }},{{ 'months.11' | translate }},{{ 'months.12' | translate }}"></ion-datetime>
   </ion-item>
   <ion-item>
-    <ion-label color="primary" position="stacked">{{ 'glider.brand' | translate }}</ion-label>
-    <ion-input clearInput [(ngModel)]="glider.brand" type="text" name="brand"></ion-input>
+    <ion-label color="primary" position="stacked">{{ 'glider.brand' | translate }}<span style="color:red"> *</span></ion-label>
+    <ion-input required clearInput [(ngModel)]="glider.brand" type="text" name="brand"></ion-input>
   </ion-item>
   <ion-item>
-    <ion-label color="primary" position="stacked">{{ 'glider.name' | translate }}</ion-label>
-    <ion-input clearInput [(ngModel)]="glider.name" type="text" name="name"></ion-input>
+    <ion-label color="primary" position="stacked">{{ 'glider.name' | translate }}<span style="color:red"> *</span></ion-label>
+    <ion-input required [(ngModel)]="glider.name" type="text" name="name"></ion-input>
   </ion-item>
   <ion-item>
     <ion-label color="primary" position="stacked">{{ 'glider.tandem' | translate }}</ion-label>

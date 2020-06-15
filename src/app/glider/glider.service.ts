@@ -89,6 +89,17 @@ export class GliderService extends Store<Glider[]> {
     );
   }
 
+  deleteGlider(glider: Glider): Observable<Glider> {
+    return this.http.delete<Glider>(`${environment.baseUrl}/gliders/${glider.id}`).pipe(
+      map((response: any) => {
+        const list = this.getValue();
+        const index = list.findIndex((listGliders: Glider) => listGliders.id === glider.id);
+        list.splice(index, 1);
+        return response;
+      })
+    );
+  }
+
   private setFilterState(nextState: boolean) {
     this.filtered$.next(nextState);
   }

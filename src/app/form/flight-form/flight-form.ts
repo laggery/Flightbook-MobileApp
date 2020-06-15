@@ -2,6 +2,8 @@ import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { Flight } from '../../flight/flight';
 import { Glider } from 'src/app/glider/glider';
 import { Place } from 'src/app/place/place';
+import { AlertController } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'flight-form',
@@ -19,7 +21,10 @@ export class FlightFormComponent implements OnInit {
   searchStart: string;
   searchLanding: string;
 
-  constructor() { }
+  constructor(
+    private alertController: AlertController,
+    private translate: TranslateService
+  ) { }
 
   ngOnInit() {
     if (this.flight.glider.brand && this.flight.glider.name) {
@@ -38,9 +43,16 @@ export class FlightFormComponent implements OnInit {
     this.glider = `${this.flight.glider.brand} ${this.flight.glider.name}`
   }
 
-  saveElement(loginForm: any) {
+  async saveElement(loginForm: any) {
     if (loginForm.valid) {
       this.saveFlight.emit(this.flight);
+    } else {
+      const alert = await this.alertController.create({
+        header: this.translate.instant('message.errortitle'),
+        message: this.translate.instant('message.mendatoryFields'),
+        buttons: [this.translate.instant('buttons.done')]
+      });
+      await alert.present();
     }
   }
 

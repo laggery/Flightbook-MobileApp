@@ -67,4 +67,15 @@ export class PlaceService extends Store<Place[]> {
       })
     );
   }
+
+  deletePlace(place: Place): Observable<Place> {
+    return this.http.delete<Place>(`${environment.baseUrl}/places/${place.id}`).pipe(
+      map((response: any) => {
+        const list = this.getValue();
+        const index = list.findIndex((listPlaces: Place) => listPlaces.id === place.id);
+        list.splice(index, 1);
+        return response;
+      })
+    );
+  }
 }

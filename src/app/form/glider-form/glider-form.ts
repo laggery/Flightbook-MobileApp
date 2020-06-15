@@ -1,5 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Glider } from '../../glider/glider';
+import { AlertController } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'glider-form',
@@ -11,11 +13,23 @@ export class GliderFormComponent {
   @Output()
   saveGlider = new EventEmitter<Glider>();
 
-  constructor() {
+  constructor(
+    private alertController: AlertController,
+    private translate: TranslateService
+  ) {
   }
 
-  saveElement() {
-    this.saveGlider.emit(this.glider);
+  async saveElement(loginForm: any) {
+    if (loginForm.valid) {
+      this.saveGlider.emit(this.glider);
+    } else {
+      const alert = await this.alertController.create({
+        header: this.translate.instant('message.errortitle'),
+        message: this.translate.instant('message.mendatoryFields'),
+        buttons: [this.translate.instant('buttons.done')]
+      });
+      await alert.present();
+    }
   }
 
   cancelButton() {
