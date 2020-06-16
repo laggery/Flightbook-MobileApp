@@ -64,10 +64,18 @@ export class FlightService extends Store<Flight[]> {
     return this.http.get<any>(`${environment.baseUrl}/flights/gliders/${gliderId}/count`)
   }
 
-  postFlight(flight: Flight): Observable<Flight> {
+  postFlight(flight: Flight, { clearStore = true }: { clearStore?: boolean } = {}): Observable<Flight> {
     return this.http.post<Flight>(`${environment.baseUrl}/flights`, flight).pipe(
       map((response: Flight) => {
-        this.setState([]);
+        if (clearStore) {
+          this.setState([]);
+        } else {
+          let newState = [...this.getValue(), response];
+          newState.sort((a, b) => {
+            return new Date(a.date) > new Date(b.date) ? -1 : 1;
+          });
+          this.setState(newState);
+        }
         return response;
       })
     );

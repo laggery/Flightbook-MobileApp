@@ -94,4 +94,28 @@ export class FlightEditPage implements OnInit {
       })
     );
   }
+
+  async copy() {
+    let loading = await this.loadingCtrl.create({
+      message: this.translate.instant('loading.copyflight')
+    });
+    await loading.present();
+
+    this.flightService.postFlight(this.flight, {clearStore: false}).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Flight) => {
+      await loading.dismiss();
+      this.router.navigate(['/flights'], { replaceUrl: true });
+    },
+      (async (resp: any) => {
+        await loading.dismiss();
+        if (resp.status === 422) {
+          const alert = await this.alertController.create({
+            header: this.translate.instant('message.infotitle'),
+            message: resp.error.message,
+            buttons: [this.translate.instant('buttons.done')]
+          });
+          await alert.present();
+        }
+      })
+    );
+  }
 }
