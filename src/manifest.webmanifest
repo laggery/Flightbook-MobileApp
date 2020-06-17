@@ -2,7 +2,7 @@
   "name": "Flightbook",
   "short_name": "Flightbook",
   "theme_color": "#1976d2",
-  "background_color": "#fafafa",
+  "background_color": "#43B1FD",
   "display": "standalone",
   "scope": "./",
   "start_url": "./",
@@ -52,6 +52,12 @@
     {
       "src": "assets/icons/icon-512x512.png",
       "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "assets/icons/apple-touch-icon.png",
+      "sizes": "180x180",
       "type": "image/png",
       "purpose": "maskable any"
     }
