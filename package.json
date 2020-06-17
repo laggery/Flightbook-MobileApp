@@ -1,7 +1,7 @@
 {
-  "name": "Flightbook",
+  "name": "flightbook",
   "version": "0.0.1",
-  "author": "Ionic Framework",
+  "author": "Yannick Lagger",
   "homepage": "https://flightbook.ch/",
   "scripts": {
     "ng": "ng",
