@@ -1,8 +1,8 @@
 {
-  "name": "Flightbook-Mobile",
+  "name": "flightbook",
   "version": "0.0.1",
-  "author": "Ionic Framework",
-  "homepage": "https://ionicframework.com/",
+  "author": "Yannick Lagger",
+  "homepage": "https://flightbook.ch/",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -18,7 +18,9 @@
     "@angular/forms": "~8.2.14",
     "@angular/platform-browser": "~8.2.14",
     "@angular/platform-browser-dynamic": "~8.2.14",
+    "@angular/pwa": "^0.901.8",
     "@angular/router": "~8.2.14",
+    "@angular/service-worker": "~8.2.14",
     "@auth0/angular-jwt": "^4.0.0",
     "@capacitor/android": "^1.5.0",
     "@capacitor/core": "1.5.0",
