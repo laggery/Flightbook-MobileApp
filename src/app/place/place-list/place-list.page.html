@@ -12,7 +12,7 @@
     <ion-item detail *ngFor="let place of places$ | async" (click)="itemTapped($event, place)">
       <ion-grid>
         <ion-row>
-          <ion-col>
+          <ion-col size="9">
             {{place.name}}
           </ion-col>
           <ion-col>
