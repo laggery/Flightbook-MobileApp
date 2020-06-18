@@ -43,6 +43,10 @@ export class AccountService {
     return this.http.put<any>(`${environment.baseUrl}/users/password/change`, pwd);
   }
 
+  resetPassword(email: string): Observable<any> {
+    return this.http.get<any>(`${environment.baseUrl}/auth/reset-password/${email}`);
+  }
+
   async isAuth(): Promise<boolean> {
     let authenticated = true;
     const accessToken = localStorage.getItem('access_token');

@@ -114,7 +114,8 @@
         "placeExist": "Ce lieu existe déjà!",
         "error": "Une erreur est survenue. Veuillez réessayer plus tard ou envoyer un email a : yannick.lagger@flightbook.ch",
         "deleteError": "Cette entité est liée à un vol et ne peut pas être supprimée.",
-        "mendatoryFields": "Les champs obligatoires doivent être remplis."
+        "mendatoryFields": "Les champs obligatoires doivent être remplis.",
+        "invalidEmail": "Veuillez saisir une adresse e-mail valide."
     },
     "loading": {
         "createaccount": "Création compte...",

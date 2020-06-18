@@ -114,7 +114,8 @@
         "placeExist": "This place already exist!",
         "error": "An error has occurred. Please try again later or send an email to: yannick.lagger@flightbook.ch",
         "deleteError": "This entity is conected with a flight and can not be deleted.",
-        "mendatoryFields": "Mandatory fields must be provided."
+        "mendatoryFields": "Mandatory fields must be provided.",
+        "invalidEmail": "Please enter a valid email address."
     },
     "loading": {
         "createaccount": "Create account...",

@@ -30,7 +30,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
 
             if (err.status >= 500 || err.status === 0) {
                 this.alertController.create({
-                    header: this.translate.instant('message.infotitle'),
+                    header: this.translate.instant('message.errortitle'),
                     message: this.translate.instant('message.error'),
                     buttons: [this.translate.instant('buttons.done')]
                   }).then((alert: any) => {

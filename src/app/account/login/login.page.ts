@@ -86,4 +86,68 @@ export class LoginPage implements OnInit, OnDestroy {
     this.navCtrl.navigateForward(`register`);
   }
 
+  async forgotPassword() {
+    const alert = await this.alertController.create({
+      cssClass: 'forgot-password-alert',
+      header: this.translate.instant('login.passwordlost'),
+      message: this.translate.instant('message.emailEnter'),
+      inputs: [
+        {
+          name: 'email',
+          type: 'email',
+          placeholder: this.translate.instant('login.email')
+        }
+      ],
+      buttons: [
+        {
+          text: this.translate.instant('buttons.cancel'),
+          role: 'cancel'
+        }, {
+          text: this.translate.instant('buttons.done'),
+          handler: (resp: any) => {
+            return this.sendNewPassword(resp.email);
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  private sendNewPassword(email: string) {
+    if (!new RegExp('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$').test(email)) {
+      const alert = this.alertController.create({
+        header: this.translate.instant('message.infotitle'),
+        message: this.translate.instant('message.invalidEmail'),
+        buttons: [this.translate.instant('buttons.done')]
+      });
+      alert.then(resp => {
+        resp.present();
+      })
+      return false;
+    }
+
+    let loading: HTMLIonLoadingElement;
+    this.loadingCtrl.create({
+      message: this.translate.instant('loading.loading')
+    }).then((resp: HTMLIonLoadingElement) => {
+      loading = resp;
+      loading.present();
+    });
+
+    this.accountService.resetPassword(email).pipe(takeUntil(this.unsubscribe$)).subscribe((resp: any) => {
+      loading.dismiss();
+      const alert = this.alertController.create({
+        header: this.translate.instant('message.infotitle'),
+        message: this.translate.instant('message.pwdSend'),
+        buttons: [this.translate.instant('buttons.done')]
+      });
+      alert.then(resp => {
+        resp.present();
+      })
+    }, (error: any) => {
+      loading.dismiss();
+    });
+    return true;
+  }
 }
