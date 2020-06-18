@@ -18,9 +18,9 @@
     <ion-item detail *ngFor="let flight of flights$ | async" (click)="itemTapped($event, flight)">
       <p class="flightRow">
         <span class="flightDate">{{ flight.date | date:'dd.MM.yyyy'}}</span>
-        <span class="flightGlider">{{flight.glider.brand}} {{flight.glider.name}}</span>
         <span class="flightStart">{{flight.start?.name}}</span>
         <span class="flightLanding">{{flight.landing?.name}}</span>
+        <span class="flightGlider">{{flight.glider.brand}} {{flight.glider.name}}</span>
         <span class="flightTime">{{flight.time}}</span>
         <span class="flightKm">{{flight.km}}</span>
         <span class="flightDesc">{{flight.description}}</span>

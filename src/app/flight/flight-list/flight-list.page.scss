@@ -11,15 +11,25 @@
 .flightRow span {
     overflow-x: hidden;
     text-overflow: ellipsis;
-    width: 190px;
+    width: 150px;
     white-space: nowrap;
     display: inline-block;
 }
 
-.flightRow .flightDate{
-    width: 90px;
+.flightRow .flightDate,
+.flightRow .flightTime {
+    width: 100px;
 }
 
-.flightRow .flightGlider{
-    width: 170px;
+.flightRow .flightTime {
+    margin-left: 10px;
+}
+
+.flightRow .flightStart,
+.flightRow .flightLanding {
+    min-width: 170px;
+}
+
+.flightRow .flightKm{
+    width: 70px;
 }
