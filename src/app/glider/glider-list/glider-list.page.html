@@ -18,15 +18,12 @@
     <ion-item detail *ngFor="let glider of gliders$ | async" (click)="itemTapped($event, glider)">
       <ion-grid>
         <ion-row>
-          <ion-col size="6" size-s>
+          <ion-col size="9">
             {{ glider.brand}} {{glider.name}}
           </ion-col>
-          <ion-col size="2">
+          <ion-col>
             <span *ngIf="glider.tandem; else noTandem">Oui</span>
             <ng-template #noTandem>Non</ng-template>
-          </ion-col>
-          <ion-col size="4">
-            {{ glider.buy_date | date: 'dd/MM/yyyy' }}
           </ion-col>
         </ion-row>
       </ion-grid>
