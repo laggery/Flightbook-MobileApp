@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 
 import { Platform, MenuController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
@@ -7,13 +7,14 @@ import { TranslateService } from '@ngx-translate/core';
 import { AccountService } from './account/account.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { SwUpdate } from '@angular/service-worker';
 
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss']
 })
-export class AppComponent implements OnDestroy {
+export class AppComponent implements OnDestroy, OnInit {
   unsubscribe$ = new Subject<void>();
 
   constructor(
@@ -22,11 +23,20 @@ export class AppComponent implements OnDestroy {
     private statusBar: StatusBar,
     private translate: TranslateService,
     private accountService: AccountService,
-    private menuCtrl: MenuController
+    private menuCtrl: MenuController,
+    private swUpdate: SwUpdate
   ) {
     this.initializeApp();
     this.translate.setDefaultLang('en');
     this.translate.use(localStorage.getItem('language') || navigator.language.split('-')[0]);
+  }
+  
+  ngOnInit(): void {
+    if (this.swUpdate.isEnabled) {
+      this.swUpdate.available.subscribe(() => {
+        window.location.reload();
+      });
+    }
   }
 
   initializeApp() {
