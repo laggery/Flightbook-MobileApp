@@ -6,7 +6,7 @@ import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators';
 import { Store } from '../store.class';
 import { FlightFilter } from './flight-filter';
-import * as moment from 'moment'
+import * as moment from 'moment';
 import { FlightStatistic } from './flightStatistic';
 
 @Injectable({
