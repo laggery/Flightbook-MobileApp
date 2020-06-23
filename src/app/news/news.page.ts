@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { MenuController } from '@ionic/angular';
+import { MenuController, LoadingController } from '@ionic/angular';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { NewsService } from './news.service';
 import { Subject, Observable } from 'rxjs';
@@ -18,17 +18,26 @@ export class NewsPage implements OnInit, OnDestroy {
   constructor(
     private menuCtrl: MenuController,
     private translate: TranslateService,
-    private newsService: NewsService
+    private newsService: NewsService,
+    private loadingCtrl: LoadingController
   ) {
     this.menuCtrl.enable(true);
 
     this.newsData$ = this.newsService.getState();
 
     if (this.newsService.getValue().length === 0) {
-      this.newsService.getNews(this.translate.currentLang).pipe(takeUntil(this.unsubscribe$)).subscribe((resp: News[]) => {
-        // TODO hide loading page
-      });
+      this.initialDataLoad();
     }
+  }
+
+  private async initialDataLoad() {
+    let loading = await this.loadingCtrl.create({
+      message: this.translate.instant('loading.loading')
+    });
+    await loading.present();
+    this.newsService.getNews(this.translate.currentLang).pipe(takeUntil(this.unsubscribe$)).subscribe(async (resp: News[]) => {
+      await loading.dismiss();
+    });
   }
 
   ngOnInit() {

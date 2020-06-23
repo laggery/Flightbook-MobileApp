@@ -1,10 +1,11 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Glider } from 'src/app/glider/glider';
-import { NavController, ModalController, IonInfiniteScroll, IonContent } from '@ionic/angular';
+import { NavController, ModalController, IonInfiniteScroll, IonContent, LoadingController } from '@ionic/angular';
 import { GliderService } from '../glider.service';
 import { Subject, Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { GliderFilterComponent } from '../glider-filter/glider-filter.component'
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-glider-list',
@@ -21,7 +22,9 @@ export class GliderListPage implements OnInit, OnDestroy {
   constructor(
     public navCtrl: NavController,
     private gliderService: GliderService,
-    public modalCtrl: ModalController
+    public modalCtrl: ModalController,
+    private translate: TranslateService,
+    private loadingCtrl: LoadingController
   ) {
     this.gliders$ = this.gliderService.getState();
     this.filtered = this.gliderService.filtered$.getValue();
@@ -30,10 +33,18 @@ export class GliderListPage implements OnInit, OnDestroy {
     })
 
     if (this.gliderService.getValue().length === 0) {
-      this.gliderService.getGliders({ limit: this.gliderService.defaultLimit }).pipe(takeUntil(this.unsubscribe$)).subscribe((res: Glider[]) => {
-        // TODO hide loading page
-      });
+      this.initialDataLoad();
     }
+  }
+
+  private async initialDataLoad() {
+    let loading = await this.loadingCtrl.create({
+      message: this.translate.instant('loading.loading')
+    });
+    await loading.present();
+    this.gliderService.getGliders({ limit: this.gliderService.defaultLimit }).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Glider[]) => {
+      await loading.dismiss();
+    });
   }
 
   ngOnInit() {

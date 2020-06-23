@@ -1,9 +1,10 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
-import { NavController, IonInfiniteScroll } from '@ionic/angular';
+import { NavController, IonInfiniteScroll, LoadingController } from '@ionic/angular';
 import { PlaceService } from '../place.service';
 import { Place } from '../place';
 import { takeUntil } from 'rxjs/operators';
 import { Subject, Observable } from 'rxjs';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-place-list',
@@ -19,15 +20,25 @@ export class PlaceListPage implements OnInit, OnDestroy {
 
   constructor(
     public navCtrl: NavController,
-    private placeService: PlaceService
+    private placeService: PlaceService,
+    private translate: TranslateService,
+    private loadingCtrl: LoadingController
   ) {
     this.places$ = this.placeService.getState();
 
     if (this.placeService.getValue().length === 0) {
-      this.placeService.getPlaces({ limit: this.limit }).pipe(takeUntil(this.unsubscribe$)).subscribe((res: Place[]) => {
-        // TODO hide loading page
-      });
+      this.initialDataLoad();
     }
+  }
+
+  private async initialDataLoad() {
+    let loading = await this.loadingCtrl.create({
+      message: this.translate.instant('loading.loading')
+    });
+    await loading.present();
+    this.placeService.getPlaces({ limit: this.limit }).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Place[]) => {
+      await loading.dismiss();
+    });
   }
 
   ngOnInit() {

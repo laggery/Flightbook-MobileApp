@@ -1,10 +1,11 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Flight } from '../flight';
-import { NavController, ModalController, IonInfiniteScroll, IonContent } from '@ionic/angular';
+import { NavController, ModalController, IonInfiniteScroll, IonContent, LoadingController } from '@ionic/angular';
 import { FlightService } from '../flight.service';
 import { Subject, Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { FlightFilterComponent } from 'src/app/form/flight-filter/flight-filter.component';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-flight-list',
@@ -21,7 +22,9 @@ export class FlightListPage implements OnInit, OnDestroy {
   constructor(
     public navCtrl: NavController,
     private flightService: FlightService,
-    private modalCtrl: ModalController
+    private modalCtrl: ModalController,
+    private translate: TranslateService,
+    private loadingCtrl: LoadingController
   ) {
     this.flights$ = this.flightService.getState();
     this.filtered = this.flightService.filtered$.getValue();
@@ -30,10 +33,18 @@ export class FlightListPage implements OnInit, OnDestroy {
     })
 
     if (this.flightService.getValue().length === 0) {
-      this.flightService.getFlights({ limit: this.flightService.defaultLimit }).pipe(takeUntil(this.unsubscribe$)).subscribe((res: Flight[]) => {
-        // TODO hide loading page
-      });
+      this.initialDataLoad();
     }
+  }
+
+  private async initialDataLoad() {
+    let loading = await this.loadingCtrl.create({
+      message: this.translate.instant('loading.loading')
+    });
+    await loading.present();
+    this.flightService.getFlights({ limit: this.flightService.defaultLimit }).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Flight[]) => {
+      await loading.dismiss();
+    });
   }
 
   ngOnInit() {
