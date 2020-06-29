@@ -42,6 +42,9 @@ export class FlightFormComponent implements OnInit {
   onSelectChange(selectedValue: any) {
     this.flight.glider = this.gliders.find(glider => glider.id === +selectedValue.detail.value);
     this.glider = `${this.flight.glider.brand} ${this.flight.glider.name}`
+    if (!this.flight.glider.tandem) {
+      this.flight.price = null;
+    }
   }
 
   async saveElement(loginForm: any) {

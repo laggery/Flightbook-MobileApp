@@ -44,6 +44,8 @@ export class GliderListPage implements OnInit, OnDestroy {
     await loading.present();
     this.gliderService.getGliders({ limit: this.gliderService.defaultLimit }).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Glider[]) => {
       await loading.dismiss();
+    }, async (error: any) => {
+      await loading.dismiss();
     });
   }
 

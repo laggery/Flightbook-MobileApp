@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { isNull } from 'lodash';
 
 @Pipe({
   name: 'hoursFormat'
@@ -6,6 +7,9 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class HoursFormatPipe implements PipeTransform {
 
   transform(value: any, ...args: any[]): any {
+    if (!value) {
+      return;
+    }
     const h = Math.floor(value / 3600);
     const m = Math.floor(value % 3600 / 60);
     const s = Math.floor(value % 3600 % 60);

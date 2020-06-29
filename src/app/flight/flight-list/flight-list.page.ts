@@ -44,6 +44,8 @@ export class FlightListPage implements OnInit, OnDestroy {
     await loading.present();
     this.flightService.getFlights({ limit: this.flightService.defaultLimit }).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Flight[]) => {
       await loading.dismiss();
+    }, async (error: any) => {
+      await loading.dismiss();
     });
   }
 

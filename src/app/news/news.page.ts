@@ -37,6 +37,8 @@ export class NewsPage implements OnInit, OnDestroy {
     await loading.present();
     this.newsService.getNews(this.translate.currentLang).pipe(takeUntil(this.unsubscribe$)).subscribe(async (resp: News[]) => {
       await loading.dismiss();
+    }, async (error: any) => {
+      await loading.dismiss();
     });
   }
 

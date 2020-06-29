@@ -38,6 +38,8 @@ export class PlaceListPage implements OnInit, OnDestroy {
     await loading.present();
     this.placeService.getPlaces({ limit: this.limit }).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Place[]) => {
       await loading.dismiss();
+    }, async (error: any) => {
+      await loading.dismiss();
     });
   }
 
