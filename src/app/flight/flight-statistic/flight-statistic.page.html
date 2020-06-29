@@ -15,11 +15,11 @@
 
 <ion-content class="ion-padding">
   <div id="basic-stat">
-    <div><label>{{ 'statistics.nbflight' | translate }}:</label><span id="nbFlights">{{ statistics.nbFlights }}</span></div>
+    <div><label>{{ 'statistics.nbflight' | translate }}:</label><span id="nbFlights">{{ statistics.nbFlights || "0" }}</span></div>
     <div><label>{{ 'statistics.flighthour' | translate }}:</label><span
-        id="totalTime">{{ statistics.time | hoursFormat }}</span></div>
+        id="totalTime">{{ statistics.time || "0" | hoursFormat }}</span></div>
     <div><label>{{ 'statistics.average' | translate }}:</label><span
-        id="averageTime">{{ statistics.average | hoursFormat }}</span></div>
+        id="averageTime">{{ statistics.average || "0" | hoursFormat }}</span></div>
     <div><label>{{ 'statistics.price' | translate }}:</label><span id="income">{{ statistics.income || "0" }}</span></div>
   </div>
 </ion-content>

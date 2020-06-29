@@ -3,8 +3,9 @@ import { FlightService } from '../flight.service';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { FlightStatistic } from '../flightStatistic';
-import { ModalController } from '@ionic/angular';
+import { ModalController, LoadingController } from '@ionic/angular';
 import { FlightFilterComponent } from '../../form/flight-filter/flight-filter.component';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-flight-statistic',
@@ -18,7 +19,9 @@ export class FlightStatisticPage implements OnInit, OnDestroy {
 
   constructor(
     private flightService: FlightService,
-    private modalCtrl: ModalController
+    private modalCtrl: ModalController,
+    private translate: TranslateService,
+    private loadingCtrl: LoadingController
   ) {
     this.filtered = this.flightService.filtered$.getValue();
     this.flightService.filtered$.pipe(takeUntil(this.unsubscribe$)).subscribe((value: boolean) => {
@@ -26,9 +29,19 @@ export class FlightStatisticPage implements OnInit, OnDestroy {
     })
 
     this.statistics = new FlightStatistic();
-    this.flightService.getStatistics().pipe(takeUntil(this.unsubscribe$)).subscribe((res: FlightStatistic) => {
-      // TODO hide loading page
+    this.initialDataLoad();
+  }
+
+  private async initialDataLoad() {
+    let loading = await this.loadingCtrl.create({
+      message: this.translate.instant('loading.loading')
+    });
+    await loading.present();
+    this.flightService.getStatistics().pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: FlightStatistic) => {
+      await loading.dismiss();
       this.statistics = res;
+    }, async (error: any) => {
+      await loading.dismiss();
     });
   }
 
