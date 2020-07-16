@@ -1,5 +1,5 @@
 <ion-content class="ion-padding">
-  <form #form="ngForm" (ngSubmit)="login(form)">
+  <form id="loginForm" #form="ngForm" (ngSubmit)="login(form)">
     <ion-item>
       <ion-input [(ngModel)]="loginData.email" required name="email" type="email" placeholder="{{ 'login.email' | translate }}"></ion-input>
     </ion-item>
