@@ -183,6 +183,10 @@
   margin-top: 2em;
 }
 
+.ios ion-content {
+  pointer-events: auto;
+}
+
 // ion-content{
 //   --ion-background-color:rgb(238, 238, 238);
 // }
