@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 
 import { Platform, MenuController } from '@ionic/angular';
-import { SplashScreen } from '@ionic-native/splash-screen/ngx';
+import { Plugins } from '@capacitor/core';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { TranslateService } from '@ngx-translate/core';
 import { AccountService } from './account/account.service';
@@ -19,7 +19,6 @@ export class AppComponent implements OnDestroy, OnInit {
 
   constructor(
     private platform: Platform,
-    private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private translate: TranslateService,
     private accountService: AccountService,
@@ -37,12 +36,16 @@ export class AppComponent implements OnDestroy, OnInit {
         window.location.reload();
       });
     }
+
+    setTimeout(function () {
+      const { SplashScreen } = Plugins
+      SplashScreen.hide();
+  }, 400);
   }
 
   initializeApp() {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
-      this.splashScreen.hide();
     });
   }
 
