@@ -29,7 +29,7 @@ export class AppComponent implements OnDestroy, OnInit {
     this.translate.setDefaultLang('en');
     this.translate.use(localStorage.getItem('language') || navigator.language.split('-')[0]);
   }
-  
+
   ngOnInit(): void {
     if (this.swUpdate.isEnabled) {
       this.swUpdate.available.subscribe(() => {
@@ -40,7 +40,7 @@ export class AppComponent implements OnDestroy, OnInit {
     setTimeout(function () {
       const { SplashScreen } = Plugins
       SplashScreen.hide();
-  }, 400);
+    }, 400);
   }
 
   initializeApp() {
