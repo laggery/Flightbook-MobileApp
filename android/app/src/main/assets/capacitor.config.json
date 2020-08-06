@@ -1,0 +1,8 @@
+{
+  "appId": "ch.flightbook",
+  "appName": "Flightbook",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "www",
+  "cordova": {}
+}
