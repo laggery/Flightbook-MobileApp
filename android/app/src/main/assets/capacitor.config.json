@@ -1,5 +1,5 @@
 {
-  "appId": "ch.flightbook",
+  "appId": "ch.flightbook.MobileFlight",
   "appName": "Flightbook",
   "bundledWebRuntime": false,
   "npmClient": "npm",
