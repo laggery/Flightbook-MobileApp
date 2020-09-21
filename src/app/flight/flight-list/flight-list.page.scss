@@ -1,3 +1,7 @@
+ion-item {
+    --padding-start: 8px;
+}
+
 .flightRow {
     max-height: 0px;
     line-height: 60px;
@@ -18,7 +22,7 @@
 
 .flightRow .flightDate,
 .flightRow .flightTime {
-    width: 100px;
+    width: 92px;
 }
 
 .flightRow .flightTime {
@@ -32,4 +36,21 @@
 
 .flightRow .flightKm{
     width: 70px;
+}
+
+.flightRow .flightNumber {
+    width: 45px;
+}
+
+@media (max-width:320px) {
+    .flightRow .flightNumber {
+        display: none;
+    }
+}
+
+@media (min-width:546px) and (max-width:667px) {
+    .flightRow .flightGlider {
+        width: 132px;
+        max-width: 150px;
+    }
 }

@@ -3,6 +3,7 @@ import { Glider } from '../glider/glider';
 
 export class Flight {
     id: number;
+    number: number;
     glider: Glider;
     date: string;
     start?: Place;

@@ -17,6 +17,7 @@
   <ion-list *ngIf="(flights$ | async)?.length > 0">
     <ion-item detail *ngFor="let flight of flights$ | async" (click)="itemTapped($event, flight)">
       <p class="flightRow">
+        <span class="flightNumber">{{ flight.number }}</span>
         <span class="flightDate">{{ flight.date | date:'dd.MM.yyyy'}}</span>
         <span class="flightStart">{{flight.start?.name}}</span>
         <span class="flightLanding">{{flight.landing?.name}}</span>
