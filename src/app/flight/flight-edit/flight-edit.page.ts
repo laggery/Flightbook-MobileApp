@@ -18,6 +18,7 @@ import { TranslateService } from '@ngx-translate/core';
 export class FlightEditPage implements OnInit {
   unsubscribe$ = new Subject<void>();
   private flightId: number;
+  private initialFlight: Flight;
   flight: Flight;
   gliders: Glider[] = [];
 
@@ -31,8 +32,8 @@ export class FlightEditPage implements OnInit {
     private loadingCtrl: LoadingController
   ) {
     this.flightId = +this.activeRoute.snapshot.paramMap.get('id');
-    this.flight = this.flightService.getValue().find(flight => flight.id === this.flightId);
-    this.flight = _.cloneDeep(this.flight);
+    this.initialFlight = this.flightService.getValue().find(flight => flight.id === this.flightId);
+    this.flight = _.cloneDeep(this.initialFlight);
     if (!this.flight) {
       this.router.navigate(['/flights'], { replaceUrl: true });
     }
@@ -62,8 +63,15 @@ export class FlightEditPage implements OnInit {
     await loading.present();
 
     this.flightService.putFlight(flight).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Flight) => {
-      await loading.dismiss();
-      this.router.navigate(['/flights'], { replaceUrl: true });
+      if (this.initialFlight.date != this.flight.date) {
+        this.flightService.getFlights({ limit: this.flightService.defaultLimit, clearStore: true }).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Flight[]) => {
+          await loading.dismiss();
+          this.router.navigate(['/flights'], { replaceUrl: true });
+        })
+      } else {
+        await loading.dismiss();
+        this.router.navigate(['/flights'], { replaceUrl: true });
+      }
     },
       (async (resp: any) => {
         await loading.dismiss();
@@ -102,8 +110,10 @@ export class FlightEditPage implements OnInit {
     await loading.present();
 
     this.flightService.postFlight(this.flight, {clearStore: false}).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Flight) => {
-      await loading.dismiss();
-      this.router.navigate(['/flights'], { replaceUrl: true });
+      this.flightService.getFlights({ limit: this.flightService.defaultLimit, clearStore: true }).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Flight[]) => {
+        await loading.dismiss();
+        this.router.navigate(['/flights'], { replaceUrl: true });
+      })
     },
       (async (resp: any) => {
         await loading.dismiss();

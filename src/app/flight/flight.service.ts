@@ -86,10 +86,8 @@ export class FlightService extends Store<Flight[]> {
       map((response: Flight) => {
         const list = this.getValue();
         const index = list.findIndex((listFlight: Flight) => listFlight.id === response.id);
+        response.number = list[index].number;
         list[index] = response;
-        list.sort((a, b) => {
-          return new Date(a.date) > new Date(b.date) ? -1 : 1;
-        });
         return response;
       })
     );
