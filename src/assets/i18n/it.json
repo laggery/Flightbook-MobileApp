@@ -23,7 +23,9 @@
         "settings": "Impostazioni",
         "logout": "Esci",
         "filter": "Filtra",
-        "close": "Vicino"
+        "close": "Vicino",
+        "yes": "Si",
+        "no": "No"
     },
     "login": {
         "email": "E-Mail",

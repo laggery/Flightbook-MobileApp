@@ -14,7 +14,7 @@ export class GliderService extends Store<Glider[]> {
   public isGliderlistComplete = false;
   public filter: GliderFilter;
   public filtered$: BehaviorSubject<boolean>;
-  public defaultLimit = 50;
+  public defaultLimit = 40;
   public disableList = false;
 
   constructor(private http: HttpClient) {

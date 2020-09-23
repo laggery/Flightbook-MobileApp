@@ -23,7 +23,9 @@
         "settings": "Einstellungen",
         "logout": "Abmelden",
         "filter": "Filter",
-        "close": "Schliessen"
+        "close": "Schliessen",
+        "yes": "Ja",
+        "no": "Nein"
     },
     "login": {
         "email": "E-Mail",

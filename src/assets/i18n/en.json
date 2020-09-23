@@ -23,7 +23,9 @@
         "settings": "Settings",
         "logout": "Logout",
         "filter": "Filter",
-        "close": "Close"
+        "close": "Close",
+        "yes": "Yes",
+        "no": "No"
     },
     "login": {
         "email": "E-Mail",

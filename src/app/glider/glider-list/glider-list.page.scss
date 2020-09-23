@@ -1,3 +1,39 @@
 ion-item {
     --padding-start: 8px;
 }
+
+.gliderRow {
+    max-height: 0px;
+    line-height: 60px;
+    margin-top: -42px;
+}
+
+.gliderRow .item-native {
+    max-height: 50px !important;
+}
+
+.gliderRow span {
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+    width: 240px;
+    white-space: nowrap;
+    display: inline-block;
+}
+
+.gliderRow .gliderTandem{
+    width: 75px;
+}
+
+.gliderRow .gliderNbFlights {
+    width: 60px;
+}
+
+.gliderRow .gliderTime {
+    width: 95px;
+}
+
+@media (max-width:360px) {
+    .gliderRow .gliderName{
+        width: 185px;
+    }
+}

@@ -8,9 +8,9 @@ import { FlightStatisticPageRoutingModule } from './flight-statistic-routing.mod
 
 import { FlightStatisticPage } from './flight-statistic.page';
 import { TranslateModule } from '@ngx-translate/core';
-import { HoursFormatPipe } from './pipe/hours-format.pipe';
 import { FlightFilterComponent } from '../../form/flight-filter/flight-filter.component';
 import { FormModule } from 'src/app/form/form.module';
+import { ApplicationPipesModule } from 'src/app/application-pipes/application-pipes.module';
 
 @NgModule({
   imports: [
@@ -19,10 +19,10 @@ import { FormModule } from 'src/app/form/form.module';
     IonicModule,
     FlightStatisticPageRoutingModule,
     TranslateModule.forChild(),
-    FormModule
+    FormModule,
+    ApplicationPipesModule
   ],
-  declarations: [FlightStatisticPage, HoursFormatPipe],
-  providers: [HoursFormatPipe],
+  declarations: [FlightStatisticPage],
   entryComponents: [FlightFilterComponent]
 })
 export class FlightStatisticPageModule {}
