@@ -32,9 +32,7 @@ export class GliderListPage implements OnInit, OnDestroy {
       this.filtered = value;
     })
 
-    if (this.gliderService.getValue().length === 0) {
-      this.initialDataLoad();
-    }
+    this.initialDataLoad();
   }
 
   private async initialDataLoad() {
@@ -42,7 +40,7 @@ export class GliderListPage implements OnInit, OnDestroy {
       message: this.translate.instant('loading.loading')
     });
     await loading.present();
-    this.gliderService.getGliders({ limit: this.gliderService.defaultLimit }).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Glider[]) => {
+    this.gliderService.getGliders({ limit: this.gliderService.defaultLimit, clearStore: true }).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Glider[]) => {
       await loading.dismiss();
     }, async (error: any) => {
       await loading.dismiss();
