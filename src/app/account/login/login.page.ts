@@ -1,11 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { MenuController, NavController, AlertController, LoadingController } from '@ionic/angular';
-import { AccountService } from '../account.service';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { NewsService } from 'src/app/news/news.service';
+import { NewsService, AccountService } from 'flightbook-commons-library';
 
 @Component({
   selector: 'app-login',

@@ -33,6 +33,7 @@
     "@ngx-translate/core": "^12.1.2",
     "@ngx-translate/http-loader": "^4.0.0",
     "core-js": "^2.5.4",
+    "flightbook-commons-library": "0.0.7",
     "moment": "^2.26.0",
     "rxjs": "~6.5.1",
     "tslib": "^1.9.0",

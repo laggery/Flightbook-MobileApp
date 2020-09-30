@@ -4,10 +4,10 @@ import { Platform, MenuController } from '@ionic/angular';
 import { Plugins } from '@capacitor/core';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { TranslateService } from '@ngx-translate/core';
-import { AccountService } from './account/account.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { SwUpdate } from '@angular/service-worker';
+import { AccountService } from 'flightbook-commons-library';
 
 @Component({
   selector: 'app-root',

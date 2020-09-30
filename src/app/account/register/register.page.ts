@@ -1,11 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MenuController, LoadingController, AlertController } from '@ionic/angular';
-import { User } from '../user';
-import { AccountService } from '../account.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { AccountService, User } from 'flightbook-commons-library';
 
 @Component({
   selector: 'app-register',

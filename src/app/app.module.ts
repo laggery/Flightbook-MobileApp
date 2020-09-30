@@ -11,10 +11,10 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { HttpAuthInterceptor } from './interceptor/auth.interceptor';
 import { HttpErrorInterceptor } from './interceptor/error.interceptor';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { PlaceModule, FlightModule, GliderModule, NewsModule, AccountModule, HttpAuthInterceptor } from 'flightbook-commons-library';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -37,6 +37,11 @@ export function tokenGetter() {
       }
     }),
     IonicModule.forRoot(),
+    FlightModule.forRoot(environment),
+    PlaceModule.forRoot(environment),
+    GliderModule.forRoot(environment),
+    NewsModule.forRoot(environment),
+    AccountModule.forRoot(environment),
     HttpClientModule,
     AppRoutingModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })],

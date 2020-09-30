@@ -1,13 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Glider } from 'src/app/glider/glider';
 import { ActivatedRoute, Router } from '@angular/router';
-import { GliderService } from '../glider.service';
 import * as _ from 'lodash';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { LoadingController, AlertController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
-import { FlightService } from 'src/app/flight/flight.service';
+import { FlightService, Glider, GliderService } from 'flightbook-commons-library';
 
 @Component({
   selector: 'app-glider-edit',

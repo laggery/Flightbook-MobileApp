@@ -1,11 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Glider } from '../glider';
-import { GliderService } from '../glider.service';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { LoadingController, AlertController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
+import { Glider, GliderService } from 'flightbook-commons-library';
 
 @Component({
   selector: 'app-glider-add',

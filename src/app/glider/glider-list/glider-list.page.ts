@@ -1,11 +1,10 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
-import { Glider } from 'src/app/glider/glider';
 import { NavController, ModalController, IonInfiniteScroll, IonContent, LoadingController } from '@ionic/angular';
-import { GliderService } from '../glider.service';
 import { Subject, Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { GliderFilterComponent } from '../glider-filter/glider-filter.component'
 import { TranslateService } from '@ngx-translate/core';
+import { Glider, GliderService } from 'flightbook-commons-library';
 
 @Component({
   selector: 'app-glider-list',
