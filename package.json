@@ -14,13 +14,13 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/common": "~9.1.12",
-    "@angular/core": "~9.1.12",
-    "@angular/forms": "~9.1.12",
-    "@angular/platform-browser": "~9.1.12",
-    "@angular/platform-browser-dynamic": "~9.1.12",
-    "@angular/router": "~9.1.12",
-    "@angular/service-worker": "~9.1.12",
+    "@angular/common": "~10.1.4",
+    "@angular/core": "~10.1.4",
+    "@angular/forms": "~10.1.4",
+    "@angular/platform-browser": "~10.1.4",
+    "@angular/platform-browser-dynamic": "~10.1.4",
+    "@angular/router": "~10.1.4",
+    "@angular/service-worker": "~10.1.4",
     "@auth0/angular-jwt": "^4.0.0",
     "@capacitor/android": "^2.4.0",
     "@capacitor/core": "2.4.0",
@@ -39,11 +39,11 @@
     "zone.js": "~0.10.2"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~0.901.12",
-    "@angular/cli": "~9.1.12",
-    "@angular/compiler": "~9.1.12",
-    "@angular/compiler-cli": "~9.1.12",
-    "@angular/language-service": "~9.1.12",
+    "@angular-devkit/build-angular": "~0.1001.4",
+    "@angular/cli": "~10.1.4",
+    "@angular/compiler": "~10.1.4",
+    "@angular/compiler-cli": "~10.1.4",
+    "@angular/language-service": "~10.1.4",
     "@babel/compat-data": "~7.8.0",
     "@capacitor/cli": "2.4.0",
     "@ionic/angular-toolkit": "^2.1.1",
@@ -61,8 +61,8 @@
     "karma-jasmine-html-reporter": "^1.4.0",
     "protractor": "~5.4.0",
     "ts-node": "~7.0.0",
-    "tslint": "~5.15.0",
-    "typescript": "~3.8.3"
+    "tslint": "~6.1.0",
+    "typescript": "~4.0.3"
   },
   "description": "An Ionic project"
 }
