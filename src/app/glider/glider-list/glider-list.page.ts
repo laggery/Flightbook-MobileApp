@@ -13,7 +13,7 @@ import { Glider, GliderService } from 'flightbook-commons-library';
 })
 export class GliderListPage implements OnInit, OnDestroy {
   @ViewChild(IonInfiniteScroll, { static: true }) infiniteScroll: IonInfiniteScroll;
-  @ViewChild(IonContent, { static: false }) content: IonContent;
+  @ViewChild(IonContent) content: IonContent;
   unsubscribe$ = new Subject<void>();
   gliders$: Observable<Glider[]>;
   filtered: boolean;

@@ -13,7 +13,7 @@ import { Flight, FlightService } from 'flightbook-commons-library';
 })
 export class FlightListPage implements OnInit, OnDestroy {
   @ViewChild(IonInfiniteScroll, { static: true }) infiniteScroll: IonInfiniteScroll;
-  @ViewChild(IonContent, { static: false }) content: IonContent;
+  @ViewChild(IonContent) content: IonContent;
   unsubscribe$ = new Subject<void>();
   flights$: Observable<Flight[]>;
   filtered: boolean;
