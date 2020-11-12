@@ -9,7 +9,7 @@ import { GliderListPageRoutingModule } from './glider-list-routing.module';
 import { GliderListPage } from './glider-list.page';
 import { TranslateModule } from '@ngx-translate/core';
 import { GliderFilterComponent } from '../glider-filter/glider-filter.component';
-import { ApplicationPipesModule } from 'src/app/application-pipes/application-pipes.module';
+import { ApplicationPipesModule } from 'flightbook-commons-library';
 
 @NgModule({
   imports: [

@@ -1,10 +1,9 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { NavController, IonInfiniteScroll, LoadingController } from '@ionic/angular';
-import { PlaceService } from '../place.service';
-import { Place } from '../place';
 import { takeUntil } from 'rxjs/operators';
 import { Subject, Observable } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
+import { Place, PlaceService } from 'flightbook-commons-library';
 
 @Component({
   selector: 'app-place-list',

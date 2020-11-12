@@ -1,13 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Place } from '../place';
-import { PlaceService } from '../place.service';
 import * as _ from 'lodash';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 import { LoadingController, AlertController } from '@ionic/angular';
-import { FlightService } from 'src/app/flight/flight.service';
+import { FlightService, Place, PlaceService } from 'flightbook-commons-library';
 
 @Component({
   selector: 'app-place-edit',

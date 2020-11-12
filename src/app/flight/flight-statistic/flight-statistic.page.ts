@@ -1,11 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FlightService } from '../flight.service';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-import { FlightStatistic } from '../flightStatistic';
 import { ModalController, LoadingController } from '@ionic/angular';
 import { FlightFilterComponent } from '../../form/flight-filter/flight-filter.component';
 import { TranslateService } from '@ngx-translate/core';
+import { FlightService, FlightStatistic } from 'flightbook-commons-library';
 
 @Component({
   selector: 'app-flight-statistic',

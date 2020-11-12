@@ -1,10 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MenuController, LoadingController } from '@ionic/angular';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
-import { NewsService } from './news.service';
 import { Subject, Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { News } from './news';
+import { News, NewsService } from 'flightbook-commons-library';
 
 @Component({
   selector: 'app-news',

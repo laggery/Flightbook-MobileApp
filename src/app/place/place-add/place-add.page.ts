@@ -1,11 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Place } from '../place';
 import { Router } from '@angular/router';
-import { PlaceService } from '../place.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { LoadingController, AlertController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
+import { Place, PlaceService } from 'flightbook-commons-library';
 
 @Component({
   selector: 'app-place-add',

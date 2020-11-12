@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { Place } from '../../place/place';
 import { AlertController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
+import { Place } from 'flightbook-commons-library';
 
 @Component({
   selector: 'place-form',

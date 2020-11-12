@@ -1,14 +1,9 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { IonInfiniteScroll, ModalController, LoadingController } from '@ionic/angular';
 import { Subject } from 'rxjs';
-import { FlightService } from '../../flight/flight.service';
 import { TranslateService } from '@ngx-translate/core';
-import { FlightFilter } from '../../flight/flight-filter';
-import { Glider } from 'src/app/glider/glider';
-import { GliderService } from 'src/app/glider/glider.service';
 import { takeUntil } from 'rxjs/operators';
-import { Flight } from '../../flight/flight';
-import { FlightStatistic } from '../../flight/flightStatistic';
+import { FlightService, Flight, Glider, GliderService, FlightFilter, FlightStatistic } from 'flightbook-commons-library';
 
 @Component({
   selector: 'app-flight-filter',

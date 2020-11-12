@@ -1,10 +1,8 @@
 import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
-import { Flight } from '../../flight/flight';
-import { Glider } from 'src/app/glider/glider';
-import { Place } from 'src/app/place/place';
 import { AlertController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
+import { Flight, Place, Glider } from 'flightbook-commons-library';
 
 @Component({
   selector: 'flight-form',
