@@ -4,6 +4,11 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>{{ 'groupname.news' | translate }}</ion-title>
+    <ion-buttons slot="primary">
+      <ion-button (click)="xlsxExport()">
+        <ion-icon name="download-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 

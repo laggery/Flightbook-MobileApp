@@ -3,7 +3,7 @@ import { MenuController, LoadingController } from '@ionic/angular';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { Subject, Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { News, NewsService } from 'flightbook-commons-library';
+import { FlightService, GliderService, News, NewsService, PlaceService, XlsxExportService } from 'flightbook-commons-library';
 
 @Component({
   selector: 'app-news',
@@ -18,7 +18,11 @@ export class NewsPage implements OnInit, OnDestroy {
     private menuCtrl: MenuController,
     private translate: TranslateService,
     private newsService: NewsService,
-    private loadingCtrl: LoadingController
+    private gliderService: GliderService,
+    private placeService: PlaceService,
+    private flightService: FlightService,
+    private loadingCtrl: LoadingController,
+    private xlsxExportService: XlsxExportService
   ) {
     this.menuCtrl.enable(true);
 
@@ -49,4 +53,14 @@ export class NewsPage implements OnInit, OnDestroy {
     this.unsubscribe$.complete();
   }
 
+  xlsxExport() {
+    let promiseList: Promise<any>[] = []
+    promiseList.push(this.flightService.getFlights({ store: false }).pipe(takeUntil(this.unsubscribe$)).toPromise());
+    promiseList.push(this.gliderService.getGliders({ store: false }).pipe(takeUntil(this.unsubscribe$)).toPromise());
+    promiseList.push(this.placeService.getPlaces({ store: false }).pipe(takeUntil(this.unsubscribe$)).toPromise());
+
+    Promise.all(promiseList).then((res: any) => {
+      this.xlsxExportService.exportFlightbook("Flightbook", res[0], res[1], res[2]);
+    })
+  }
 }
