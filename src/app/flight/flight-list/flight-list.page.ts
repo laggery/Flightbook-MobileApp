@@ -1,17 +1,17 @@
-import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit } from '@angular/core';
 import { NavController, ModalController, IonInfiniteScroll, IonContent, LoadingController } from '@ionic/angular';
 import { Subject, Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { FlightFilterComponent } from 'src/app/form/flight-filter/flight-filter.component';
 import { TranslateService } from '@ngx-translate/core';
-import { Flight, FlightService } from 'flightbook-commons-library';
+import { Flight, FlightService, XlsxExportService } from 'flightbook-commons-library';
 
 @Component({
   selector: 'app-flight-list',
   templateUrl: './flight-list.page.html',
   styleUrls: ['./flight-list.page.scss'],
 })
-export class FlightListPage implements OnInit, OnDestroy {
+export class FlightListPage implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild(IonInfiniteScroll, { static: true }) infiniteScroll: IonInfiniteScroll;
   @ViewChild(IonContent) content: IonContent;
   unsubscribe$ = new Subject<void>();
@@ -23,7 +23,8 @@ export class FlightListPage implements OnInit, OnDestroy {
     private flightService: FlightService,
     private modalCtrl: ModalController,
     private translate: TranslateService,
-    private loadingCtrl: LoadingController
+    private loadingCtrl: LoadingController,
+    private xlsxExportService: XlsxExportService
   ) {
     this.flights$ = this.flightService.getState();
     this.filtered = this.flightService.filtered$.getValue();
@@ -42,13 +43,21 @@ export class FlightListPage implements OnInit, OnDestroy {
     });
     await loading.present();
     this.flightService.getFlights({ limit: this.flightService.defaultLimit }).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Flight[]) => {
-      await loading.dismiss();
+      // @hack for hide export item
+      setTimeout(async () => {
+        this.content.scrollToPoint(0, 48);
+        await loading.dismiss();
+      }, 1);
     }, async (error: any) => {
       await loading.dismiss();
     });
   }
 
   ngOnInit() {
+  }
+
+  ngAfterViewInit() {
+    this.content.scrollToPoint(0, 48);
   }
 
   ngOnDestroy() {
@@ -88,7 +97,14 @@ export class FlightListPage implements OnInit, OnDestroy {
 
   async modalOnDidDismiss(modal: HTMLIonModalElement) {
     modal.onDidDismiss().then((resp: any) => {
-      this.content.scrollToTop();
+      this.content.scrollToPoint(0, 48);
     })
+  }
+
+  xlsxExport() {
+    this.flightService.getFlights({ store: false }).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Flight[]) => {
+      res = res.sort((a: Flight, b: Flight) => b.number - a.number);
+      this.xlsxExportService.exportFlights("flights", res);
+    });
   }
 }

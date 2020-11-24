@@ -42,6 +42,20 @@ ion-item {
     width: 45px;
 }
 
+.export-buttons ion-button {
+    width: 100%;
+    height: 36px;
+}
+
+ion-grid, ion-col {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+ion-item {
+    --min-height: 48px;
+}
+
 @media (max-width:320px) {
     .flightRow .flightNumber {
         display: none;

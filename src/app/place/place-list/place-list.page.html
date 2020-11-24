@@ -8,8 +8,17 @@
 </ion-header>
 
 <ion-content class="no-padding">
+  <ion-item class="export-buttons" *ngIf="(places$ | async)?.length > 0">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-button (click)="xlsxExport()">Xlsx Export</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-item>
   <ion-list *ngIf="(places$ | async)?.length > 0" >
-    <ion-item detail *ngFor="let place of places$ | async" (click)="itemTapped($event, place)">
+    <ion-item button detail *ngFor="let place of places$ | async" (click)="itemTapped($event, place)">
       <ion-grid>
         <ion-row>
           <ion-col size="9">

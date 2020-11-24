@@ -14,8 +14,17 @@
 </ion-header>
 
 <ion-content class="no-padding">
+  <ion-item class="export-buttons" *ngIf="(gliders$ | async)?.length > 0">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-button (click)="xlsxExport()">Xlsx Export</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-item>
   <ion-list *ngIf="(gliders$ | async)?.length > 0">
-    <ion-item detail *ngFor="let glider of gliders$ | async" (click)="itemTapped($event, glider)">
+    <ion-item button detail *ngFor="let glider of gliders$ | async" (click)="itemTapped($event, glider)">
       <p class="gliderRow">
         <span class="gliderName">{{ glider.brand}} {{glider.name}}</span>
         <span class="gliderTandem" *ngIf="glider.tandem; else noTandem">{{ 'buttons.yes' | translate }}</span>

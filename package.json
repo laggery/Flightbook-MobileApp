@@ -32,10 +32,12 @@
     "@ngx-translate/core": "^12.1.2",
     "@ngx-translate/http-loader": "^4.0.0",
     "core-js": "^2.5.4",
-    "flightbook-commons-library": "0.0.11",
+    "file-saver": "^2.0.2",
+    "flightbook-commons-library": "0.0.14",
     "moment": "^2.26.0",
     "rxjs": "~6.5.1",
     "tslib": "^1.10.0",
+    "xlsx": "^0.16.8",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {
