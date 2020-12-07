@@ -1,4 +1,5 @@
 {
+    "flightbook": "Flugbuch",
     "language": {
         "fr": "Franz.",
         "de": "Deutsch",
@@ -55,6 +56,7 @@
         "solo": "Solo"
     },
     "flight": {
+        "number": "Nr",
         "glider": "Gleitschirm",
         "date": "Datum",
         "start": "Start",
@@ -62,7 +64,8 @@
         "time": "Flugdauer",
         "km": "Km",
         "description": "Beschreibung",
-        "price": "Preis"
+        "price": "Preis",
+        "signature": "Unterschrift"
     },
     "statistics": {
         "nbflight": "Anzahl Flüge",
@@ -136,5 +139,15 @@
     "filter": {
         "from": "Von",
         "to": "Bis"
+    },
+    "export": {
+        "pilote": "Pilot",
+        "nbStartplaces": "Anzahl Startplätze",
+        "nbLandingplaces": "Anzahl Landeplätze",
+        "nbflights": "Anzahl Flüge",
+        "flights": "Flüge",
+        "startplaces": "Startplätze",
+        "landingplaces": "Landeplätze",
+        "firstlastname": "Name"
     }
 }

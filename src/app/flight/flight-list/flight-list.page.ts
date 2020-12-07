@@ -4,7 +4,8 @@ import { Subject, Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { FlightFilterComponent } from 'src/app/form/flight-filter/flight-filter.component';
 import { TranslateService } from '@ngx-translate/core';
-import { Flight, FlightService, XlsxExportService } from 'flightbook-commons-library';
+import { AccountService, Flight, FlightService, PdfExportService, XlsxExportService } from 'flightbook-commons-library';
+// import { PdfExportService } from 'src/app/pdf-export.service';
 
 @Component({
   selector: 'app-flight-list',
@@ -21,10 +22,12 @@ export class FlightListPage implements OnInit, OnDestroy, AfterViewInit {
   constructor(
     public navCtrl: NavController,
     private flightService: FlightService,
+    private accountService: AccountService,
     private modalCtrl: ModalController,
     private translate: TranslateService,
     private loadingCtrl: LoadingController,
-    private xlsxExportService: XlsxExportService
+    private xlsxExportService: XlsxExportService,
+    private pdfExportService: PdfExportService
   ) {
     this.flights$ = this.flightService.getState();
     this.filtered = this.flightService.filtered$.getValue();
@@ -105,6 +108,15 @@ export class FlightListPage implements OnInit, OnDestroy, AfterViewInit {
     this.flightService.getFlights({ store: false }).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Flight[]) => {
       res = res.sort((a: Flight, b: Flight) => b.number - a.number);
       this.xlsxExportService.exportFlights("flights", res);
+    });
+  }
+
+  pdfExport() {
+    this.flightService.getFlights({ store: false }).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Flight[]) => {
+      res = res.sort((a: Flight, b: Flight) => b.number - a.number);
+      res.reverse();
+      let user = await this.accountService.currentUser().pipe(takeUntil(this.unsubscribe$)).toPromise();
+      this.pdfExportService.generatePdf(res, user);
     });
   }
 }

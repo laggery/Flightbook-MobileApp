@@ -1,9 +1,10 @@
 {
+    "flightbook": "Flight book",
     "language": {
         "fr": "French",
         "de": "German",
         "en": "English",
-	"it": "Italian"
+	    "it": "Italian"
     },
     "buttons": {
         "createAccount": "Create an account!",
@@ -55,6 +56,7 @@
         "solo": "Solo"
     },
     "flight": {
+        "number": "No",
         "glider": "Glider",
         "date": "Date",
         "start": "Start",
@@ -62,7 +64,8 @@
         "time": "Time",
         "km": "Km",
         "description": "Description",
-        "price": "Price"
+        "price": "Price",
+        "signature": "Signature"
     },
     "statistics": {
         "nbflight": "Number of flights",
@@ -136,5 +139,15 @@
     "filter": {
         "from": "From",
         "to": "To"
+    },
+    "export": {
+        "pilote": "Pilot",
+        "nbStartplaces": "Number of starting places",
+        "nbLandingplaces": "Number of landing places",
+        "nbflights": "Number of flights",
+        "flights": "Flights",
+        "startplaces": "Starting places",
+        "landingplaces": "Landing places",
+        "firstlastname": "Name"
     }
 }

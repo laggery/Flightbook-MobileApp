@@ -1,9 +1,10 @@
 {
+    "flightbook": "Diario di volo",
     "language": {
         "fr": "Francese",
         "de": "Tedesco",
         "en": "Inglese",
-	"it": "Italiano"
+	    "it": "Italiano"
     },
     "buttons": {
         "createAccount": "Iscriviti!",
@@ -55,6 +56,7 @@
         "solo": "Solo"
     },
     "flight": {
+        "number": "No",
         "glider": "Vela",
         "date": "Data",
         "start": "Decollo",
@@ -62,7 +64,8 @@
         "time": "Tempo",
         "km": "Km",
         "description": "Descrizione",
-        "price": "Prezzo"
+        "price": "Prezzo",
+        "signature": "Firma"
     },
     "statistics": {
         "nbflight": "Numero di voli",
@@ -136,5 +139,15 @@
     "filter": {
         "from": "Da",
         "to": "a"
+    },
+    "export": {
+        "pilote": "Pilota",
+        "nbStartplaces": "Numero luoghi di decollo",
+        "nbLandingplaces": "Numero luoghi di atterraggio",
+        "nbflights": "Numero di voli",
+        "flights": "Voli",
+        "startplaces": "Luoghi di decollo",
+        "landingplaces": "Luoghi di atterraggio",
+        "firstlastname": "Nome"
     }
 }

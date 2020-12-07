@@ -1,4 +1,5 @@
 {
+    "flightbook": "Carnet de vols",
     "language": {
         "fr": "Français",
         "de": "Allemand",
@@ -54,14 +55,8 @@
         "all": "Tous",
         "solo": "Solo"
     },
-    "statistics": {
-        "nbflight": "Nombre de vols",
-        "flighthour": "Heures de vols",
-        "average": "Temps moyen",
-        "price": "Revenu",
-        "longset": "Vol le plus long"
-    },
     "flight": {
+        "number": "No",
         "glider": "Parapente",
         "date": "Date",
         "start": "Décollage",
@@ -69,7 +64,15 @@
         "time": "Temps",
         "km": "Km",
         "description": "Description",
-        "price": "Prix"
+        "price": "Prix",
+        "signature": "Signature"
+    },
+    "statistics": {
+        "nbflight": "Nombre de vols",
+        "flighthour": "Heures de vols",
+        "average": "Temps moyen",
+        "price": "Revenu",
+        "longset": "Vol le plus long"
     },
     "emptylist": "Cette liste est vide",
     "months": {
@@ -136,5 +139,15 @@
     "filter": {
         "from": "Du",
         "to": "Au"
+    },
+    "export": {
+        "pilote": "Pilote",
+        "nbStartplaces": "Nombre de places de décollages",
+        "nbLandingplaces": "Nombre de places d'atterissages",
+        "nbflights": "Nombre de vols",
+        "flights": "Vols",
+        "startplaces": "Places de décollages",
+        "landingplaces": "Places d'atterissages",
+        "firstlastname": "Nom"
     }
 }

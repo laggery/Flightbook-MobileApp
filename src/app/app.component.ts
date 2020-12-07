@@ -7,7 +7,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { SwUpdate } from '@angular/service-worker';
-import { AccountService } from 'flightbook-commons-library';
+import { AccountService, FlightService, GliderService, PlaceService } from 'flightbook-commons-library';
 
 @Component({
   selector: 'app-root',
@@ -23,7 +23,10 @@ export class AppComponent implements OnDestroy, OnInit {
     private translate: TranslateService,
     private accountService: AccountService,
     private menuCtrl: MenuController,
-    private swUpdate: SwUpdate
+    private swUpdate: SwUpdate,
+    private flighService: FlightService,
+    private gliderService: GliderService,
+    private placeService: PlaceService
   ) {
     this.initializeApp();
     this.translate.setDefaultLang('en');
@@ -51,6 +54,9 @@ export class AppComponent implements OnDestroy, OnInit {
 
   logout() {
     this.menuCtrl.enable(false);
+    this.flighService.setState([]);
+    this.gliderService.setState([]);
+    this.placeService.setState([]);
     this.accountService.logout().pipe(takeUntil(this.unsubscribe$)).subscribe(resp => {
       // TODO error handling
       localStorage.removeItem('access_token');
