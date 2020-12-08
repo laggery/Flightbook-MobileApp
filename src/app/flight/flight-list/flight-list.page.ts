@@ -5,7 +5,11 @@ import { takeUntil } from 'rxjs/operators';
 import { FlightFilterComponent } from 'src/app/form/flight-filter/flight-filter.component';
 import { TranslateService } from '@ngx-translate/core';
 import { AccountService, Flight, FlightService, PdfExportService, XlsxExportService } from 'flightbook-commons-library';
-// import { PdfExportService } from 'src/app/pdf-export.service';
+import { TCreatedPdf } from 'pdfmake/build/pdfmake';
+import { FileOpener } from '@ionic-native/file-opener/ngx';
+
+import { Capacitor, FilesystemDirectory, Plugins } from '@capacitor/core';
+const { Filesystem } = Plugins;
 
 @Component({
   selector: 'app-flight-list',
@@ -27,7 +31,8 @@ export class FlightListPage implements OnInit, OnDestroy, AfterViewInit {
     private translate: TranslateService,
     private loadingCtrl: LoadingController,
     private xlsxExportService: XlsxExportService,
-    private pdfExportService: PdfExportService
+    private pdfExportService: PdfExportService,
+    private fileOpener: FileOpener
   ) {
     this.flights$ = this.flightService.getState();
     this.filtered = this.flightService.filtered$.getValue();
@@ -116,7 +121,27 @@ export class FlightListPage implements OnInit, OnDestroy, AfterViewInit {
       res = res.sort((a: Flight, b: Flight) => b.number - a.number);
       res.reverse();
       let user = await this.accountService.currentUser().pipe(takeUntil(this.unsubscribe$)).toPromise();
-      this.pdfExportService.generatePdf(res, user);
+      const pdfObj: TCreatedPdf = this.pdfExportService.generatePdf(res, user);
+      if (Capacitor.isNative) {
+        pdfObj.getBase64(async(data) => {
+          try {
+            let path = `pdf/flightbook_${Date.now()}.pdf`;
+
+            const result = await Filesystem.writeFile({
+              path,
+              data,
+              directory: FilesystemDirectory.Documents,
+              recursive: true
+            });
+            this.fileOpener.open(`${result.uri}`, 'application/pdf');
+          } catch (e) {
+            console.error("Unable to write file", e)
+          }
+        });
+      } else {
+        pdfObj.open();
+      }
+      
     });
   }
 }

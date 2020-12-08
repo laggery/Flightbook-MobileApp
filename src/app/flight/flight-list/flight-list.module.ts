@@ -11,6 +11,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { FormModule } from 'src/app/form/form.module';
 import { FlightFilterComponent } from 'src/app/form/flight-filter/flight-filter.component';
 import { ExportModule } from 'flightbook-commons-library';
+import { FileOpener } from '@ionic-native/file-opener/ngx';
 
 @NgModule({
   imports: [
@@ -21,6 +22,9 @@ import { ExportModule } from 'flightbook-commons-library';
     TranslateModule.forChild(),
     ExportModule,
     FormModule
+  ],
+  providers: [
+    FileOpener
   ],
   declarations: [FlightListPage],
   entryComponents: [FlightFilterComponent]
