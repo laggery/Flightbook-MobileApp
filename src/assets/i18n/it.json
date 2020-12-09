@@ -120,7 +120,8 @@
         "error": "Si è verificato un errore. Si prega di riprovare più tardi o inviare una e-mail a: yannick.lagger@flightbook.ch",
         "deleteError": "Questa entità è collegata ad un volo e non può essere cancellata.",
         "mendatoryFields": "I campi obbligatori devono essere forniti.",
-        "invalidEmail": "Si prega di inserire un indirizzo e-mail valido."
+        "invalidEmail": "Si prega di inserire un indirizzo e-mail valido.",
+        "generationError": "Si è verificato un errore durante la generazione del file di esportazione"
     },
     "loading": {
         "createaccount": "Iscrizione...",

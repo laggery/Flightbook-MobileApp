@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, OnDestroy, AfterViewInit } from '@angular/core';
-import { NavController, IonInfiniteScroll, LoadingController, IonContent } from '@ionic/angular';
+import { NavController, IonInfiniteScroll, LoadingController, IonContent, AlertController } from '@ionic/angular';
 import { takeUntil } from 'rxjs/operators';
 import { Subject, Observable } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
@@ -23,6 +23,7 @@ export class PlaceListPage implements OnInit, OnDestroy, AfterViewInit {
 
   constructor(
     public navCtrl: NavController,
+    private alertController: AlertController,
     private placeService: PlaceService,
     private translate: TranslateService,
     private loadingCtrl: LoadingController,
@@ -79,7 +80,11 @@ export class PlaceListPage implements OnInit, OnDestroy, AfterViewInit {
     });
   }
 
-  xlsxExport() {
+  async xlsxExport() {
+    let loading = await this.loadingCtrl.create({
+      message: this.translate.instant('loading.loading')
+    });
+    loading.present();
     this.placeService.getPlaces({ store: false }).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Place[]) => {
       if (Capacitor.isNative) {
         try {
@@ -92,14 +97,24 @@ export class PlaceListPage implements OnInit, OnDestroy, AfterViewInit {
             directory: FilesystemDirectory.Documents,
             recursive: true
           });
+          loading.dismiss();
           this.fileOpener.open(`${result.uri}`, 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         } catch (e) {
-          console.error("Unable to write file", e)
+          loading.dismiss();
+          const alert = await this.alertController.create({
+            header: this.translate.instant('message.infotitle'),
+            message: this.translate.instant('message.generationError'),
+            buttons: [this.translate.instant('buttons.done')]
+          });
+          await alert.present();
         }
       } else {
         let data: any = this.xlsxExportService.generatePlacesXlsxFile(res, { bookType: 'xlsx', type: "array" });
+        loading.dismiss();
         this.xlsxExportService.saveExcelFile(data, `places_export_${Date.now()}.xlsx`);
       }
+    }, async (error: any) => {
+      await loading.dismiss();
     });
   }
 }

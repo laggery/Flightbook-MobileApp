@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { MenuController, LoadingController } from '@ionic/angular';
+import { MenuController, LoadingController, AlertController } from '@ionic/angular';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { Subject, Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -19,6 +19,7 @@ export class NewsPage implements OnInit, OnDestroy {
 
   constructor(
     private menuCtrl: MenuController,
+    private alertController: AlertController,
     private translate: TranslateService,
     private newsService: NewsService,
     private gliderService: GliderService,
@@ -57,7 +58,11 @@ export class NewsPage implements OnInit, OnDestroy {
     this.unsubscribe$.complete();
   }
 
-  xlsxExport() {
+  async xlsxExport() {
+    let loading = await this.loadingCtrl.create({
+      message: this.translate.instant('loading.loading')
+    });
+    loading.present();
     let promiseList: Promise<any>[] = []
     promiseList.push(this.flightService.getFlights({ store: false }).pipe(takeUntil(this.unsubscribe$)).toPromise());
     promiseList.push(this.gliderService.getGliders({ store: false }).pipe(takeUntil(this.unsubscribe$)).toPromise());
@@ -75,14 +80,24 @@ export class NewsPage implements OnInit, OnDestroy {
             directory: FilesystemDirectory.Documents,
             recursive: true
           });
+          loading.dismiss();
           this.fileOpener.open(`${result.uri}`, 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         } catch (e) {
-          console.error("Unable to write file", e)
+          loading.dismiss();
+          const alert = await this.alertController.create({
+            header: this.translate.instant('message.infotitle'),
+            message: this.translate.instant('message.generationError'),
+            buttons: [this.translate.instant('buttons.done')]
+          });
+          await alert.present();
         }
       } else {
         let data: any = this.xlsxExportService.generateFlightbookXlsxFile(res[0], res[1], res[2], { bookType: 'xlsx', type: "array" });
+        loading.dismiss();
         this.xlsxExportService.saveExcelFile(data, `flightbook_export_${Date.now()}.xlsx`);
       }
-    })
+    }, async (error: any) => {
+      await loading.dismiss();
+    });
   }
 }

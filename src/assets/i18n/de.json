@@ -120,7 +120,8 @@
         "error": "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut oder senden Sie eine E-Mail an: yannick.lagger@flightbook.ch",
         "deleteError": "Diese Entität ist mit einem Flug verbunden und kann nicht gelöscht werden.",
         "mendatoryFields": "Pflichtfelder müssen angegeben werden.",
-        "invalidEmail": "Bitte geben Sie eine gültige E-Mail-Adresse ein."
+        "invalidEmail": "Bitte geben Sie eine gültige E-Mail-Adresse ein.",
+        "generationError": "Exportdatei konnte nicht generiert werden"
     },
     "loading": {
         "createaccount": "Registrieren...",

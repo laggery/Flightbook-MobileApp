@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit } from '@angular/core';
-import { NavController, ModalController, IonInfiniteScroll, IonContent, LoadingController } from '@ionic/angular';
+import { NavController, ModalController, IonInfiniteScroll, IonContent, LoadingController, AlertController } from '@ionic/angular';
 import { Subject, Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { GliderFilterComponent } from '../glider-filter/glider-filter.component'
@@ -25,6 +25,7 @@ export class GliderListPage implements OnInit, OnDestroy, AfterViewInit {
     public navCtrl: NavController,
     private gliderService: GliderService,
     public modalCtrl: ModalController,
+    private alertController: AlertController,
     private translate: TranslateService,
     private loadingCtrl: LoadingController,
     private xlsxExportService: XlsxExportService,
@@ -103,7 +104,11 @@ export class GliderListPage implements OnInit, OnDestroy, AfterViewInit {
     })
   }
 
-  xlsxExport() {
+  async xlsxExport() {
+    let loading = await this.loadingCtrl.create({
+      message: this.translate.instant('loading.loading')
+    });
+    loading.present();
     this.gliderService.getGliders({ store: false }).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Glider[]) => {
       if (Capacitor.isNative) {
         try {
@@ -116,14 +121,24 @@ export class GliderListPage implements OnInit, OnDestroy, AfterViewInit {
             directory: FilesystemDirectory.Documents,
             recursive: true
           });
+          loading.dismiss();
           this.fileOpener.open(`${result.uri}`, 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         } catch (e) {
-          console.error("Unable to write file", e)
+          loading.dismiss();
+          const alert = await this.alertController.create({
+            header: this.translate.instant('message.infotitle'),
+            message: this.translate.instant('message.generationError'),
+            buttons: [this.translate.instant('buttons.done')]
+          });
+          await alert.present();
         }
       } else {
         let data: any = this.xlsxExportService.generateGlidersXlsxFile(res, { bookType: 'xlsx', type: "array" });
+        loading.dismiss();
         this.xlsxExportService.saveExcelFile(data, `gliders_export_${Date.now()}.xlsx`);
       }
+    }, async (error: any) => {
+      await loading.dismiss();
     });
   }
 }

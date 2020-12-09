@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit } from '@angular/core';
-import { NavController, ModalController, IonInfiniteScroll, IonContent, LoadingController } from '@ionic/angular';
+import { NavController, ModalController, IonInfiniteScroll, IonContent, LoadingController, AlertController } from '@ionic/angular';
 import { Subject, Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { FlightFilterComponent } from 'src/app/form/flight-filter/flight-filter.component';
@@ -28,6 +28,7 @@ export class FlightListPage implements OnInit, OnDestroy, AfterViewInit {
     private flightService: FlightService,
     private accountService: AccountService,
     private modalCtrl: ModalController,
+    private alertController: AlertController,
     private translate: TranslateService,
     private loadingCtrl: LoadingController,
     private xlsxExportService: XlsxExportService,
@@ -109,7 +110,11 @@ export class FlightListPage implements OnInit, OnDestroy, AfterViewInit {
     })
   }
 
-  xlsxExport() {
+  async xlsxExport() {
+    let loading = await this.loadingCtrl.create({
+      message: this.translate.instant('loading.loading')
+    });
+    loading.present();
     this.flightService.getFlights({ store: false }).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Flight[]) => {
       res = res.sort((a: Flight, b: Flight) => b.number - a.number);
       if (Capacitor.isNative) {
@@ -123,18 +128,32 @@ export class FlightListPage implements OnInit, OnDestroy, AfterViewInit {
             directory: FilesystemDirectory.Documents,
             recursive: true
           });
+          loading.dismiss();
           this.fileOpener.open(`${result.uri}`, 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         } catch (e) {
-          console.error("Unable to write file", e)
+          loading.dismiss();
+          const alert = await this.alertController.create({
+            header: this.translate.instant('message.infotitle'),
+            message: this.translate.instant('message.generationError'),
+            buttons: [this.translate.instant('buttons.done')]
+          });
+          await alert.present();
         }
       } else {
         let data: any = this.xlsxExportService.generateFlightsXlsxFile(res, { bookType: 'xlsx', type: "array" });
+        loading.dismiss();
         this.xlsxExportService.saveExcelFile(data, `flights_export_${Date.now()}.xlsx`);
       }
+    }, async (error: any) => {
+      await loading.dismiss();
     });
   }
 
-  pdfExport() {
+  async pdfExport() {
+    let loading = await this.loadingCtrl.create({
+      message: this.translate.instant('loading.loading')
+    });
+    loading.present();
     this.flightService.getFlights({ store: false }).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Flight[]) => {
       res = res.sort((a: Flight, b: Flight) => b.number - a.number);
       res.reverse();
@@ -151,15 +170,24 @@ export class FlightListPage implements OnInit, OnDestroy, AfterViewInit {
               directory: FilesystemDirectory.Documents,
               recursive: true
             });
+            loading.dismiss();
             this.fileOpener.open(`${result.uri}`, 'application/pdf');
           } catch (e) {
-            console.error("Unable to write file", e)
+            loading.dismiss();
+            const alert = await this.alertController.create({
+              header: this.translate.instant('message.infotitle'),
+              message: this.translate.instant('message.generationError'),
+              buttons: [this.translate.instant('buttons.done')]
+            });
+            await alert.present();
           }
         });
       } else {
+        loading.dismiss();
         pdfObj.download(`flightbook_${Date.now()}.pdf`);
       }
-
+    }, async (error: any) => {
+      await loading.dismiss();
     });
   }
 }
