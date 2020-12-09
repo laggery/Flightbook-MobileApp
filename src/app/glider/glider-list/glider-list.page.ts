@@ -5,6 +5,9 @@ import { takeUntil } from 'rxjs/operators';
 import { GliderFilterComponent } from '../glider-filter/glider-filter.component'
 import { TranslateService } from '@ngx-translate/core';
 import { Glider, GliderService, XlsxExportService } from 'flightbook-commons-library';
+import { Capacitor, FilesystemDirectory, Plugins } from '@capacitor/core';
+import { FileOpener } from '@ionic-native/file-opener/ngx';
+const { Filesystem } = Plugins;
 
 @Component({
   selector: 'app-glider-list',
@@ -24,7 +27,8 @@ export class GliderListPage implements OnInit, OnDestroy, AfterViewInit {
     public modalCtrl: ModalController,
     private translate: TranslateService,
     private loadingCtrl: LoadingController,
-    private xlsxExportService: XlsxExportService
+    private xlsxExportService: XlsxExportService,
+    private fileOpener: FileOpener
   ) {
     this.gliders$ = this.gliderService.getState();
     this.filtered = this.gliderService.filtered$.getValue();
@@ -89,7 +93,7 @@ export class GliderListPage implements OnInit, OnDestroy, AfterViewInit {
     });
 
     this.modalOnDidDismiss(modal);
-    
+
     return await modal.present();
   }
 
@@ -101,7 +105,25 @@ export class GliderListPage implements OnInit, OnDestroy, AfterViewInit {
 
   xlsxExport() {
     this.gliderService.getGliders({ store: false }).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Glider[]) => {
-      this.xlsxExportService.exportGliders("gliders", res);
+      if (Capacitor.isNative) {
+        try {
+          let data: any = this.xlsxExportService.generateGlidersXlsxFile(res, { bookType: 'xlsx', type: "base64" });
+          let path = `xlsx/gliders_export_${Date.now()}.xlsx`;
+
+          const result = await Filesystem.writeFile({
+            path,
+            data,
+            directory: FilesystemDirectory.Documents,
+            recursive: true
+          });
+          this.fileOpener.open(`${result.uri}`, 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        } catch (e) {
+          console.error("Unable to write file", e)
+        }
+      } else {
+        let data: any = this.xlsxExportService.generateGlidersXlsxFile(res, { bookType: 'xlsx', type: "array" });
+        this.xlsxExportService.saveExcelFile(data, `gliders_export_${Date.now()}.xlsx`);
+      }
     });
   }
 }

@@ -8,6 +8,8 @@ import { PlaceListPageRoutingModule } from './place-list-routing.module';
 
 import { PlaceListPage } from './place-list.page';
 import { TranslateModule } from '@ngx-translate/core';
+import { FileOpener } from '@ionic-native/file-opener/ngx';
+import { ExportModule } from 'flightbook-commons-library';
 
 @NgModule({
   imports: [
@@ -15,7 +17,11 @@ import { TranslateModule } from '@ngx-translate/core';
     FormsModule,
     IonicModule,
     PlaceListPageRoutingModule,
-    TranslateModule.forChild()
+    TranslateModule.forChild(),
+    ExportModule
+  ],
+  providers: [
+    FileOpener
   ],
   declarations: [PlaceListPage]
 })

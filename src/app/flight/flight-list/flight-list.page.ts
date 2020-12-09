@@ -112,7 +112,25 @@ export class FlightListPage implements OnInit, OnDestroy, AfterViewInit {
   xlsxExport() {
     this.flightService.getFlights({ store: false }).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Flight[]) => {
       res = res.sort((a: Flight, b: Flight) => b.number - a.number);
-      this.xlsxExportService.exportFlights("flights", res);
+      if (Capacitor.isNative) {
+        try {
+          let data: any = this.xlsxExportService.generateFlightsXlsxFile(res, { bookType: 'xlsx', type: "base64" });
+          let path = `xlsx/flights_export_${Date.now()}.xlsx`;
+
+          const result = await Filesystem.writeFile({
+            path,
+            data,
+            directory: FilesystemDirectory.Documents,
+            recursive: true
+          });
+          this.fileOpener.open(`${result.uri}`, 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        } catch (e) {
+          console.error("Unable to write file", e)
+        }
+      } else {
+        let data: any = this.xlsxExportService.generateFlightsXlsxFile(res, { bookType: 'xlsx', type: "array" });
+        this.xlsxExportService.saveExcelFile(data, `flights_export_${Date.now()}.xlsx`);
+      }
     });
   }
 
@@ -123,7 +141,7 @@ export class FlightListPage implements OnInit, OnDestroy, AfterViewInit {
       let user = await this.accountService.currentUser().pipe(takeUntil(this.unsubscribe$)).toPromise();
       const pdfObj: TCreatedPdf = this.pdfExportService.generatePdf(res, user);
       if (Capacitor.isNative) {
-        pdfObj.getBase64(async(data) => {
+        pdfObj.getBase64(async (data) => {
           try {
             let path = `pdf/flightbook_${Date.now()}.pdf`;
 
@@ -139,9 +157,9 @@ export class FlightListPage implements OnInit, OnDestroy, AfterViewInit {
           }
         });
       } else {
-        pdfObj.open();
+        pdfObj.download(`flightbook_${Date.now()}.pdf`);
       }
-      
+
     });
   }
 }
