@@ -32,9 +32,7 @@ export class PlaceListPage implements OnInit, OnDestroy, AfterViewInit {
   ) {
     this.places$ = this.placeService.getState();
 
-    if (this.placeService.getValue().length === 0) {
-      this.initialDataLoad();
-    }
+    this.initialDataLoad();
   }
 
   private async initialDataLoad() {
@@ -42,7 +40,7 @@ export class PlaceListPage implements OnInit, OnDestroy, AfterViewInit {
       message: this.translate.instant('loading.loading')
     });
     await loading.present();
-    this.placeService.getPlaces({ limit: this.limit }).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Place[]) => {
+    this.placeService.getPlaces({ limit: this.limit, clearStore: true }).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Place[]) => {
       // @hack for hide export item
       setTimeout(async () => {
         this.content.scrollToPoint(0, 48);
