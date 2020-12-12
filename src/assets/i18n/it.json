@@ -149,6 +149,7 @@
         "flights": "Voli",
         "startplaces": "Luoghi di decollo",
         "landingplaces": "Luoghi di atterraggio",
-        "firstlastname": "Nome"
+        "firstlastname": "Nome",
+        "school": "Scuola di volo"
     }
 }

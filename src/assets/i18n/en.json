@@ -149,6 +149,7 @@
         "flights": "Flights",
         "startplaces": "Starting places",
         "landingplaces": "Landing places",
-        "firstlastname": "Name"
+        "firstlastname": "Name",
+        "school": "Flight school"
     }
 }

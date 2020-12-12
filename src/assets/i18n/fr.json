@@ -149,6 +149,7 @@
         "flights": "Vols",
         "startplaces": "Places de décollages",
         "landingplaces": "Places d'atterissages",
-        "firstlastname": "Nom"
+        "firstlastname": "Nom",
+        "school": "Ecole de pilote"
     }
 }

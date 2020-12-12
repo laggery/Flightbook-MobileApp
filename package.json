@@ -35,7 +35,7 @@
     "cordova-plugin-file-opener2": "^3.0.5",
     "core-js": "^2.5.4",
     "file-saver": "^2.0.2",
-    "flightbook-commons-library": "0.0.25",
+    "flightbook-commons-library": "0.0.26",
     "moment": "^2.26.0",
     "pdfmake": "^0.1.68",
     "rxjs": "~6.5.1",
