@@ -1,10 +1,11 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { ModalController, LoadingController } from '@ionic/angular';
 import { FlightFilterComponent } from '../../form/flight-filter/flight-filter.component';
 import { TranslateService } from '@ngx-translate/core';
 import { FlightService, FlightStatistic } from 'flightbook-commons-library';
+import { BarChartComponent } from 'src/app/charts/bar-chart/bar-chart.component';
 
 @Component({
   selector: 'app-flight-statistic',
@@ -12,8 +13,10 @@ import { FlightService, FlightStatistic } from 'flightbook-commons-library';
   styleUrls: ['./flight-statistic.page.scss'],
 })
 export class FlightStatisticPage implements OnInit, OnDestroy {
+  @ViewChild(BarChartComponent) barChart: BarChartComponent;
   unsubscribe$ = new Subject<void>();
   statistics: FlightStatistic;
+  statisticsList: FlightStatistic[];
   filtered: boolean;
 
   constructor(
@@ -28,7 +31,7 @@ export class FlightStatisticPage implements OnInit, OnDestroy {
     })
 
     this.statistics = new FlightStatistic();
-    this.initialDataLoad();
+    this.statisticsList = [];
   }
 
   private async initialDataLoad() {
@@ -36,15 +39,18 @@ export class FlightStatisticPage implements OnInit, OnDestroy {
       message: this.translate.instant('loading.loading')
     });
     await loading.present();
-    this.flightService.getStatistics().pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: FlightStatistic) => {
+    this.flightService.getStatistics(true).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: FlightStatistic[]) => {
       await loading.dismiss();
-      this.statistics = res;
+      this.statistics = res.find((stat:FlightStatistic) => (!stat.year));
+      this.statisticsList = res.filter((stat:FlightStatistic) => (stat.year));
+      this.barChart.displayBarChart(this.statisticsList);
     }, async (error: any) => {
       await loading.dismiss();
     });
   }
 
   ngOnInit() {
+    this.initialDataLoad();
   }
 
   ngOnDestroy() {
@@ -68,7 +74,9 @@ export class FlightStatisticPage implements OnInit, OnDestroy {
 
   async modalOnDidDismiss(modal: HTMLIonModalElement) {
     modal.onDidDismiss().then((resp: any) => {
-      this.statistics = resp.data.statistic;
+      this.statisticsList.splice(0, this.statisticsList.length);
+      this.statisticsList = resp.data.statistic.filter((stat:FlightStatistic) => (stat.year));
+      this.barChart.displayBarChart(this.statisticsList);
     })
   }
 }

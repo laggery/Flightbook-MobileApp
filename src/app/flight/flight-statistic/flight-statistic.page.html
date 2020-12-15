@@ -22,4 +22,6 @@
         id="averageTime">{{ statistics.average || "0" | hoursFormat }}</span></div>
     <div><label>{{ 'statistics.price' | translate }}:</label><span id="income">{{ statistics.income || "0" }}</span></div>
   </div>
+
+  <bar-chart></bar-chart>
 </ion-content>

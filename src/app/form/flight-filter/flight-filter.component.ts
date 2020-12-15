@@ -93,7 +93,7 @@ export class FlightFilterComponent implements OnInit, OnDestroy {
 
   private async closeStatisticFilter(loading: HTMLIonLoadingElement) {
     this.flightService.setState([]);
-    this.flightService.getStatistics().pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: FlightStatistic) => {
+    this.flightService.getStatistics(true).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: FlightStatistic) => {
       await loading.dismiss();
       this.modalCtrl.dismiss({
         'dismissed': true,

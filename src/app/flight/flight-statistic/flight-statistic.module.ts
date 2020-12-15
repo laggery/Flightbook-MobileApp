@@ -11,6 +11,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { FlightFilterComponent } from '../../form/flight-filter/flight-filter.component';
 import { FormModule } from 'src/app/form/form.module';
 import { ApplicationPipesModule } from 'flightbook-commons-library';
+import { ChartsModule } from 'src/app/charts/charts.module';
 
 @NgModule({
   imports: [
@@ -20,7 +21,8 @@ import { ApplicationPipesModule } from 'flightbook-commons-library';
     FlightStatisticPageRoutingModule,
     TranslateModule.forChild(),
     FormModule,
-    ApplicationPipesModule
+    ApplicationPipesModule,
+    ChartsModule
   ],
   declarations: [FlightStatisticPage],
   entryComponents: [FlightFilterComponent]
