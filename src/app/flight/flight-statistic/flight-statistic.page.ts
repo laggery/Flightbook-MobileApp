@@ -76,6 +76,7 @@ export class FlightStatisticPage implements OnInit, OnDestroy {
     modal.onDidDismiss().then((resp: any) => {
       this.statisticsList.splice(0, this.statisticsList.length);
       this.statisticsList = resp.data.statistic.filter((stat:FlightStatistic) => (stat.year));
+      this.statistics = resp.data.statistic.find((stat:FlightStatistic) => (!stat.year));
       this.barChart.displayBarChart(this.statisticsList);
     })
   }

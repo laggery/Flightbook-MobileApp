@@ -5,6 +5,7 @@ import * as d3 from 'd3-selection';
 import * as d3Scale from 'd3-scale';
 import * as d3Array from 'd3-array';
 import * as d3Axis from 'd3-axis';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'bar-chart',
@@ -22,7 +23,7 @@ export class BarChartComponent implements OnInit {
   svg: any;
   g: any;
 
-  constructor() {
+  constructor(private translate: TranslateService) {
     this.width = 900 - this.margin.left - this.margin.right;
     this.height = 500 - this.margin.top - this.margin.bottom;
   }
@@ -62,7 +63,7 @@ export class BarChartComponent implements OnInit {
       .attr('dy', '-3.7em')
       .attr("stroke", "black")
       .attr('text-anchor', 'end')
-      .text('Anzahl Flüge');
+      .text(this.translate.instant('statistics.nbflight'));
   }
 
   private drawBars(statisticsList: FlightStatistic[]) {
