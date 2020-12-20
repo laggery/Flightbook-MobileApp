@@ -23,5 +23,6 @@
     <div><label>{{ 'statistics.price' | translate }}:</label><span id="income">{{ statistics.income || "0" }}</span></div>
   </div>
 
-  <bar-chart></bar-chart>
+  <bar-chart #flightChart chartType="nbFlights"></bar-chart>
+  <bar-chart #incomeChart chartType="income"></bar-chart>
 </ion-content>

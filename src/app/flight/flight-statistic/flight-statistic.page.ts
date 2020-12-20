@@ -13,7 +13,8 @@ import { BarChartComponent } from 'src/app/charts/bar-chart/bar-chart.component'
   styleUrls: ['./flight-statistic.page.scss'],
 })
 export class FlightStatisticPage implements OnInit, OnDestroy {
-  @ViewChild(BarChartComponent) barChart: BarChartComponent;
+  @ViewChild('flightChart') flightBarChart: BarChartComponent;
+  @ViewChild('incomeChart') incomeBarChart: BarChartComponent;
   unsubscribe$ = new Subject<void>();
   statistics: FlightStatistic;
   statisticsList: FlightStatistic[];
@@ -43,7 +44,8 @@ export class FlightStatisticPage implements OnInit, OnDestroy {
       await loading.dismiss();
       this.statistics = res.find((stat:FlightStatistic) => (!stat.year));
       this.statisticsList = res.filter((stat:FlightStatistic) => (stat.year));
-      this.barChart.displayBarChart(this.statisticsList);
+      this.flightBarChart.displayBarChart(this.statisticsList);
+      this.incomeBarChart.displayBarChart(this.statisticsList);
     }, async (error: any) => {
       await loading.dismiss();
     });
@@ -77,7 +79,8 @@ export class FlightStatisticPage implements OnInit, OnDestroy {
       this.statisticsList.splice(0, this.statisticsList.length);
       this.statisticsList = resp.data.statistic.filter((stat:FlightStatistic) => (stat.year));
       this.statistics = resp.data.statistic.find((stat:FlightStatistic) => (!stat.year));
-      this.barChart.displayBarChart(this.statisticsList);
+      this.flightBarChart.displayBarChart(this.statisticsList);
+      this.incomeBarChart.displayBarChart(this.statisticsList);
     })
   }
 }
