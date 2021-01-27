@@ -5,6 +5,7 @@ import * as d3 from 'd3-selection';
 import * as d3Scale from 'd3-scale';
 import * as d3Array from 'd3-array';
 import * as d3Axis from 'd3-axis';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'bar-chart',
@@ -25,7 +26,7 @@ export class BarChartComponent implements OnInit {
   g: any;
   div: any;
 
-  constructor() {
+  constructor(private translate: TranslateService) {
     this.width = 900 - this.margin.left - this.margin.right;
     this.height = 500 - this.margin.top - this.margin.bottom;
   }
@@ -48,7 +49,7 @@ export class BarChartComponent implements OnInit {
     this.y.domain([0, d3Array.max(statisticsList, (d: any) => d[this.chartType])]);
   }
 
-  private drawAxis() {
+  private drawAxis(yAxisTranslation: string) {
     // x axis -> Years
     this.g.append('g')
       .attr('class', 'axis axis--x')
@@ -59,6 +60,13 @@ export class BarChartComponent implements OnInit {
     this.g.append('g')
       .attr('class', 'axis axis--yLeft')
       .call(d3Axis.axisLeft(this.y))
+      .append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("dy", ".75em")
+      .attr("y", 6)
+      .style("text-anchor", "end")
+      .attr('fill', 'black')
+      .text(yAxisTranslation);
   }
 
   private drawBars(statisticsList: FlightStatistic[]) {
@@ -94,7 +102,8 @@ export class BarChartComponent implements OnInit {
     if (d3Array.max(statisticsList, (d: any) => d[this.chartType]) > 0) {
       this.initSvg();
       this.initAxis(statisticsList);
-      this.drawAxis();
+      const yAxisTranslation = (this.chartType === 'nbFlights') ? this.translate.instant('statistics.nbflight') : this.translate.instant('statistics.price');
+      this.drawAxis(yAxisTranslation);
       this.drawBars(statisticsList);
     }
   }

@@ -48,7 +48,6 @@ export class SettingsPage implements OnInit {
   }
 
   setLanguage(lang: string) {
-    console.log(lang);
     localStorage.setItem('language', lang);
     this.translate.use(lang)
   }

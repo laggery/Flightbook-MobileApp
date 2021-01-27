@@ -6,6 +6,7 @@ import { FlightFilterComponent } from '../../form/flight-filter/flight-filter.co
 import { TranslateService } from '@ngx-translate/core';
 import { FlightService, FlightStatistic } from 'flightbook-commons-library';
 import { BarChartComponent } from 'src/app/charts/bar-chart/bar-chart.component';
+import { LineChartComponent } from 'src/app/charts/line-chart/line-chart.component';
 
 @Component({
   selector: 'app-flight-statistic',
@@ -15,6 +16,7 @@ import { BarChartComponent } from 'src/app/charts/bar-chart/bar-chart.component'
 export class FlightStatisticPage implements OnInit, OnDestroy {
   @ViewChild('flightChart') flightBarChart: BarChartComponent;
   @ViewChild('incomeChart') incomeBarChart: BarChartComponent;
+  @ViewChild(LineChartComponent) lineChart: LineChartComponent;
   unsubscribe$ = new Subject<void>();
   statistics: FlightStatistic;
   statisticsList: FlightStatistic[];
@@ -46,6 +48,7 @@ export class FlightStatisticPage implements OnInit, OnDestroy {
       this.statisticsList = res.filter((stat:FlightStatistic) => (stat.year));
       this.flightBarChart.displayBarChart(this.statisticsList);
       this.incomeBarChart.displayBarChart(this.statisticsList);
+      this.lineChart.displayLineChart(this.statisticsList);
     }, async (error: any) => {
       await loading.dismiss();
     });
@@ -81,6 +84,7 @@ export class FlightStatisticPage implements OnInit, OnDestroy {
       this.statistics = resp.data.statistic.find((stat:FlightStatistic) => (!stat.year));
       this.flightBarChart.displayBarChart(this.statisticsList);
       this.incomeBarChart.displayBarChart(this.statisticsList);
+      this.lineChart.displayLineChart(this.statisticsList);
     })
   }
 }
