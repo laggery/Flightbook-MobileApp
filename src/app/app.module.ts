@@ -35,33 +35,34 @@ export function tokenGetter() {
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-    imports: [
-        BrowserModule,
-        TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useFactory: (createTranslateLoader),
-                deps: [HttpClient]
-            }
-        }),
-        IonicModule.forRoot(),
-        FlightModule.forRoot(environment),
-        PlaceModule.forRoot(environment),
-        GliderModule.forRoot(environment),
-        NewsModule.forRoot(environment),
-        AccountModule.forRoot(environment),
-        HttpClientModule,
-        AppRoutingModule,
-        ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
-        SharedModule
-    ],
+  imports: [
+    BrowserModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: (createTranslateLoader),
+        deps: [HttpClient]
+      }
+    }),
+    IonicModule.forRoot(),
+    FlightModule.forRoot(environment),
+    PlaceModule.forRoot(environment),
+    GliderModule.forRoot(environment),
+    NewsModule.forRoot(environment),
+    AccountModule.forRoot(environment),
+    HttpClientModule,
+    AppRoutingModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
+    SharedModule
+  ],
   providers: [
     StatusBar,
     SplashScreen,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    { provide: HTTP_INTERCEPTORS, useClass: HttpAuthInterceptor, multi: true},
-    { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true}
+    {provide: RouteReuseStrategy, useClass: IonicRouteStrategy},
+    {provide: HTTP_INTERCEPTORS, useClass: HttpAuthInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true}
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
