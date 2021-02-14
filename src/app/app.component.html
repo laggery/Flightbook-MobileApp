@@ -10,7 +10,7 @@
         <ion-list id="inbox-list">
           <ion-menu-toggle auto-hide="false">
             <ion-item routerDirection="root" [routerLink]="['/news']" lines="full" detail="false">
-              <ion-label>{{ 'groupname.news' | translate }}</ion-label>
+              <fb-menu-item [icon]="'home'" [label]="'groupname.home'"></fb-menu-item>
             </ion-item>
           </ion-menu-toggle>
 
@@ -18,17 +18,17 @@
 
           <ion-menu-toggle auto-hide="false">
             <ion-item routerDirection="root" [routerLink]="['/flights/add']" lines="full" detail="false">
-              <ion-label>{{ 'buttons.add' | translate }}</ion-label>
+              <fb-menu-item [icon]="'flight'" [label]="'buttons.add'"></fb-menu-item>
             </ion-item>
           </ion-menu-toggle>
           <ion-menu-toggle auto-hide="false">
             <ion-item routerDirection="root" [routerLink]="['/flights']" lines="full" detail="false">
-              <ion-label>{{ 'buttons.show' | translate }}</ion-label>
+              <fb-menu-item [icon]="'eye'" [label]="'buttons.show'"></fb-menu-item>
             </ion-item>
           </ion-menu-toggle>
           <ion-menu-toggle auto-hide="false">
             <ion-item routerDirection="root" [routerLink]="['/flights/statistic']" lines="full" detail="false">
-              <ion-label>{{ 'buttons.statistics' | translate }}</ion-label>
+              <fb-menu-item [icon]="'stats-chart'" [label]="'buttons.statistics'"></fb-menu-item>
             </ion-item>
           </ion-menu-toggle>
 
@@ -36,12 +36,12 @@
 
           <ion-menu-toggle auto-hide="false">
             <ion-item routerDirection="root" [routerLink]="['/gliders/add']" lines="full" detail="false">
-              <ion-label>{{ 'buttons.add' | translate }}</ion-label>
+              <fb-menu-item [icon]="'glider'" [label]="'buttons.add'"></fb-menu-item>
             </ion-item>
           </ion-menu-toggle>
           <ion-menu-toggle auto-hide="false">
             <ion-item routerDirection="root" [routerLink]="['/gliders']" lines="full" detail="false">
-              <ion-label>{{ 'buttons.show' | translate }}</ion-label>
+              <fb-menu-item [icon]="'eye'" [label]="'buttons.show'"></fb-menu-item>
             </ion-item>
           </ion-menu-toggle>
 
@@ -49,12 +49,12 @@
 
           <ion-menu-toggle auto-hide="false">
             <ion-item routerDirection="root" [routerLink]="['/places/add']" lines="full" detail="false">
-              <ion-label>{{ 'buttons.add' | translate }}</ion-label>
+              <fb-menu-item [icon]="'place'" [label]="'buttons.add'"></fb-menu-item>
             </ion-item>
           </ion-menu-toggle>
           <ion-menu-toggle auto-hide="false">
             <ion-item routerDirection="root" [routerLink]="['/places']" lines="full" detail="false">
-              <ion-label>{{ 'buttons.show' | translate }}</ion-label>
+              <fb-menu-item [icon]="'eye'" [label]="'buttons.show'"></fb-menu-item>
             </ion-item>
           </ion-menu-toggle>
 
@@ -62,20 +62,19 @@
 
           <ion-menu-toggle auto-hide="false">
             <ion-item routerDirection="root" [routerLink]="['/settings']" lines="full" detail="false">
-              <ion-label>{{ 'buttons.settings' | translate }}</ion-label>
+              <fb-menu-item [icon]="'settings'" [label]="'buttons.settings'"></fb-menu-item>
             </ion-item>
           </ion-menu-toggle>
           <ion-menu-toggle auto-hide="false">
             <ion-item routerDirection="root" [routerLink]="['/password']" lines="full" detail="false">
-              <ion-label>{{ 'login.password' | translate }}</ion-label>
+              <fb-menu-item [icon]="'ellipsis-horizontal'" [label]="'login.password'"></fb-menu-item>
             </ion-item>
           </ion-menu-toggle>
           <ion-menu-toggle auto-hide="false">
             <ion-item routerDirection="root" [routerLink]="['/login']" (click)="logout()" lines="full" detail="false">
-              <ion-label>{{ 'buttons.logout' | translate }}</ion-label>
+              <fb-menu-item [icon]="'log-out-outline'" [label]="'buttons.logout'"></fb-menu-item>
             </ion-item>
           </ion-menu-toggle>
-          
         </ion-list>
       </ion-content>
     </ion-menu>
