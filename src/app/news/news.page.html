@@ -13,6 +13,20 @@
 </ion-header>
 
 <ion-content class="ion-padding">
+  <div class="dashboard">
+      <ion-card class="squared">
+        <div class="content"><ion-icon name="add-circle-outline"></ion-icon></div>
+        <div class="title">Add flight</div>
+      </ion-card>
+        <ion-card class="squared">
+          <div class="content">4</div>
+          <div class="title">Amount of flights</div>
+        </ion-card>
+    <ion-card class="squared">
+      <div class="content"><ion-icon name="place"></ion-icon></div>
+      <div class="title">Last Location: Fiescheralp</div>
+    </ion-card>
+  </div>
     <div class="news" *ngFor="let n of newsData$ | async">
       <ion-card>
       <p class="title"><span>{{ n.date | date:'dd.MM.yyyy'}}:</span> {{ n.title }}</p>
