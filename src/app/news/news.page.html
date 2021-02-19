@@ -15,11 +15,11 @@
 <ion-content class="ion-padding">
   <div class="dashboard">
       <ion-card class="squared">
-        <div class="content"><ion-icon name="add-circle-outline"></ion-icon></div>
+        <div class="content"><ion-icon [routerLink]="['/flights/add']" name="add-circle-outline"></ion-icon></div>
         <div class="title">Add flight</div>
       </ion-card>
         <ion-card class="squared">
-          <div class="content">4</div>
+          <div class="content">{{(amountOfFlights$  | async)?.length }}</div>
           <div class="title">Amount of flights</div>
         </ion-card>
     <ion-card class="squared">

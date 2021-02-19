@@ -2,8 +2,16 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MenuController, LoadingController, AlertController } from '@ionic/angular';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { Subject, Observable } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-import { FlightService, GliderService, News, NewsService, PlaceService, XlsxExportService } from 'flightbook-commons-library';
+import { map, takeUntil } from 'rxjs/operators';
+import {
+  Flight,
+  FlightService,
+  GliderService,
+  News,
+  NewsService,
+  PlaceService,
+  XlsxExportService
+} from 'flightbook-commons-library';
 import { Capacitor, FilesystemDirectory, Plugins } from '@capacitor/core';
 const { Filesystem } = Plugins;
 import { FileOpener } from '@ionic-native/file-opener/ngx';
@@ -16,6 +24,7 @@ import { FileOpener } from '@ionic-native/file-opener/ngx';
 export class NewsPage implements OnInit, OnDestroy {
   unsubscribe$ = new Subject<void>();
   newsData$: Observable<News[]>;
+  amountOfFlights$: Observable<Flight[]>;
 
   constructor(
     private menuCtrl: MenuController,
@@ -51,6 +60,8 @@ export class NewsPage implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    //TODO: Initial load
+    this.amountOfFlights$ = this.flightService.getState();
   }
 
   ngOnDestroy() {
