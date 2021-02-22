@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MenuController, LoadingController, AlertController } from '@ionic/angular';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { Subject, Observable } from 'rxjs';
-import { map, takeUntil } from 'rxjs/operators';
+import { last, map, take, takeLast, takeUntil } from 'rxjs/operators';
 import {
   Flight,
   FlightService,
@@ -15,6 +15,7 @@ import {
 import { Capacitor, FilesystemDirectory, Plugins } from '@capacitor/core';
 const { Filesystem } = Plugins;
 import { FileOpener } from '@ionic-native/file-opener/ngx';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-news',
@@ -35,6 +36,7 @@ export class NewsPage implements OnInit, OnDestroy {
     private placeService: PlaceService,
     private flightService: FlightService,
     private loadingCtrl: LoadingController,
+    private router: Router,
     private xlsxExportService: XlsxExportService,
     private fileOpener: FileOpener
   ) {
@@ -57,10 +59,18 @@ export class NewsPage implements OnInit, OnDestroy {
     }, async (error: any) => {
       await loading.dismiss();
     });
+    this.flightService.getFlights({ limit: this.flightService.defaultLimit, clearStore: true })
+      .pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Flight[]) => {
+      // @hack for hide export item
+      setTimeout(async () => {
+        await loading.dismiss();
+      }, 1);
+    }, async (error: any) => {
+      await loading.dismiss();
+    });
   }
 
   ngOnInit() {
-    //TODO: Initial load
     this.amountOfFlights$ = this.flightService.getState();
   }
 
@@ -111,4 +121,15 @@ export class NewsPage implements OnInit, OnDestroy {
       await loading.dismiss();
     });
   }
+
+    async copyLastFlight() {
+      this.flightService.getFlights({ limit: 1, store: false })
+        .pipe(take(1))
+        .pipe(takeUntil(this.unsubscribe$)).subscribe((res: Flight[]) => {
+        if (res.length > 0) {
+          this.router.navigate(['flights/edit'], { state: {flight: res[0]} });
+        }
+      });
+
+    }
 }

@@ -13,24 +13,43 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <div class="dashboard">
-      <ion-card class="squared">
-        <div class="content"><ion-icon [routerLink]="['/flights/add']" name="add-circle-outline"></ion-icon></div>
-        <div class="title">Add flight</div>
-      </ion-card>
-        <ion-card class="squared">
-          <div class="content">{{(amountOfFlights$  | async)?.length }}</div>
+
+  <div class="square">
+    <div class="content">
+      <div class="table">
+        <ion-card class="table-cell">
+          <div class="body"><ion-icon [routerLink]="['/flights/add']" name="add-circle-outline"></ion-icon></div>
+          <div class="title">Add flight</div>
+        </ion-card>
+      </div>
+    </div>
+  </div>
+  <div class="square">
+    <div class="content">
+      <div class="table">
+        <ion-card class="table-cell">
+          <div class="body" [routerLink]="['/flights/statistic']">{{(amountOfFlights$  | async)?.length }}</div>
           <div class="title">Amount of flights</div>
         </ion-card>
-    <ion-card class="squared">
-      <div class="content"><ion-icon name="place"></ion-icon></div>
-      <div class="title">Last Location: Fiescheralp</div>
-    </ion-card>
+      </div>
+    </div>
   </div>
+  <div class="square">
+    <div class="content">
+      <div class="table">
+        <ion-card class="table-cell">
+          <div class="body"><ion-icon (click)=copyLastFlight() name="place"></ion-icon></div>
+          <div class="title">Last flight: Fiescheralp</div>
+        </ion-card>
+      </div>
+    </div>
+  </div>
+  <div class="news-container">
     <div class="news" *ngFor="let n of newsData$ | async">
       <ion-card>
-      <p class="title"><span>{{ n.date | date:'dd.MM.yyyy'}}:</span> {{ n.title }}</p>
-      <p class="content" [innerHTML]="n.text"></p>
+        <p class="title"><span>{{ n.date | date:'dd.MM.yyyy'}}:</span> {{ n.title }}</p>
+        <p class="description" [innerHTML]="n.text"></p>
       </ion-card>
     </div>
+  </div>
 </ion-content>
