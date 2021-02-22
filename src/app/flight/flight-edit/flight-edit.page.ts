@@ -33,7 +33,7 @@ export class FlightEditPage implements OnInit, OnDestroy {
     this.initialFlight = this.flightService.getValue().find(flight => flight.id === this.flightId);
     this.flight = _.cloneDeep(this.initialFlight);
     if (!this.flight) {
-      this.getFlightFromDashboardNavigation();
+      this.router.navigate(['/flights'], { replaceUrl: true });
     }
 
     if (this.gliderService.isGliderlistComplete) {
@@ -63,7 +63,6 @@ export class FlightEditPage implements OnInit, OnDestroy {
 
     this.flightService.putFlight(flight).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Flight) => {
 
-      // TODO move this to add flight
       if (this.initialFlight?.date !== this.flight.date) {
         this.flightService.getFlights({ limit: this.flightService.defaultLimit, clearStore: true })
           .pipe(takeUntil(this.unsubscribe$))
@@ -134,13 +133,4 @@ export class FlightEditPage implements OnInit, OnDestroy {
     );
   }
 
-  private getFlightFromDashboardNavigation() {
-    const lastFlight = this.router.getCurrentNavigation().extras.state.flight;
-    if (!!lastFlight) {
-      lastFlight.date = new Date().toISOString().slice(0, 10);
-      this.flight = lastFlight;
-    } else {
-      this.router.navigate(['/flights'], { replaceUrl: true });
-    }
-  }
 }

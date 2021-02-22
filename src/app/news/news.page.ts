@@ -127,7 +127,7 @@ export class NewsPage implements OnInit, OnDestroy {
         .pipe(take(1))
         .pipe(takeUntil(this.unsubscribe$)).subscribe((res: Flight[]) => {
         if (res.length > 0) {
-          this.router.navigate(['flights/edit'], { state: {flight: res[0]} });
+          this.router.navigate(['flights/add'], { state: {flight: res[0]} });
         }
       });
 
