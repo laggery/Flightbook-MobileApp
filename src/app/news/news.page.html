@@ -28,7 +28,7 @@
     <div class="content">
       <div class="table">
         <ion-card class="table-cell">
-          <div class="body" [routerLink]="['/flights/statistic']">{{(amountOfFlights$  | async)?.length }}</div>
+          <div class="body" [routerLink]="['/flights/statistic']">{{(flights$  | async)?.length }}</div>
           <div class="title">Amount of flights</div>
         </ion-card>
       </div>
@@ -39,7 +39,7 @@
       <div class="table">
         <ion-card class="table-cell">
           <div class="body"><ion-icon (click)=copyLastFlight() name="place"></ion-icon></div>
-          <div class="title">Last flight: Fiescheralp</div>
+          <div class="title">Last flight: {{( flights$ | async)[0]?.start?.name }}</div>
         </ion-card>
       </div>
     </div>

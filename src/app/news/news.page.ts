@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MenuController, LoadingController, AlertController } from '@ionic/angular';
-import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 import { Subject, Observable } from 'rxjs';
-import { last, map, take, takeLast, takeUntil } from 'rxjs/operators';
+import { take, takeLast, takeUntil } from 'rxjs/operators';
 import {
   Flight,
   FlightService,
@@ -13,6 +13,7 @@ import {
   XlsxExportService
 } from 'flightbook-commons-library';
 import { Capacitor, FilesystemDirectory, Plugins } from '@capacitor/core';
+
 const { Filesystem } = Plugins;
 import { FileOpener } from '@ionic-native/file-opener/ngx';
 import { Router } from '@angular/router';
@@ -25,7 +26,7 @@ import { Router } from '@angular/router';
 export class NewsPage implements OnInit, OnDestroy {
   unsubscribe$ = new Subject<void>();
   newsData$: Observable<News[]>;
-  amountOfFlights$: Observable<Flight[]>;
+  flights$: Observable<Flight[]>;
 
   constructor(
     private menuCtrl: MenuController,
@@ -50,7 +51,7 @@ export class NewsPage implements OnInit, OnDestroy {
   }
 
   private async initialDataLoad() {
-    let loading = await this.loadingCtrl.create({
+    const loading = await this.loadingCtrl.create({
       message: this.translate.instant('loading.loading')
     });
     await loading.present();
@@ -71,7 +72,9 @@ export class NewsPage implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.amountOfFlights$ = this.flightService.getState();
+    this.flights$ = this.flightService.getState();
+    this.lastFlight$ = this.flightService.getState()
+      .pipe(take(1));
   }
 
   ngOnDestroy() {
@@ -80,11 +83,11 @@ export class NewsPage implements OnInit, OnDestroy {
   }
 
   async xlsxExport() {
-    let loading = await this.loadingCtrl.create({
+    const loading = await this.loadingCtrl.create({
       message: this.translate.instant('loading.loading')
     });
     loading.present();
-    let promiseList: Promise<any>[] = []
+    const promiseList: Promise<any>[] = [];
     promiseList.push(this.flightService.getFlights({ store: false }).pipe(takeUntil(this.unsubscribe$)).toPromise());
     promiseList.push(this.gliderService.getGliders({ store: false }).pipe(takeUntil(this.unsubscribe$)).toPromise());
     promiseList.push(this.placeService.getPlaces({ store: false }).pipe(takeUntil(this.unsubscribe$)).toPromise());
@@ -92,8 +95,11 @@ export class NewsPage implements OnInit, OnDestroy {
     Promise.all(promiseList).then(async (res: any) => {
       if (Capacitor.isNative) {
         try {
-          let data: any = this.xlsxExportService.generateFlightbookXlsxFile(res[0], res[1], res[2], { bookType: 'xlsx', type: "base64" });
-          let path = `xlsx/flightbook_export_${Date.now()}.xlsx`;
+          const data: any = this.xlsxExportService.generateFlightbookXlsxFile(res[0], res[1], res[2], {
+            bookType: 'xlsx',
+            type: 'base64'
+          });
+          const path = `xlsx/flightbook_export_${Date.now()}.xlsx`;
 
           const result = await Filesystem.writeFile({
             path,
@@ -113,7 +119,10 @@ export class NewsPage implements OnInit, OnDestroy {
           await alert.present();
         }
       } else {
-        let data: any = this.xlsxExportService.generateFlightbookXlsxFile(res[0], res[1], res[2], { bookType: 'xlsx', type: "array" });
+        const data: any = this.xlsxExportService.generateFlightbookXlsxFile(res[0], res[1], res[2], {
+          bookType: 'xlsx',
+          type: 'array'
+        });
         loading.dismiss();
         this.xlsxExportService.saveExcelFile(data, `flightbook_export_${Date.now()}.xlsx`);
       }
@@ -122,14 +131,14 @@ export class NewsPage implements OnInit, OnDestroy {
     });
   }
 
-    async copyLastFlight() {
-      this.flightService.getFlights({ limit: 1, store: false })
-        .pipe(take(1))
-        .pipe(takeUntil(this.unsubscribe$)).subscribe((res: Flight[]) => {
-        if (res.length > 0) {
-          this.router.navigate(['flights/add'], { state: {flight: res[0]} });
-        }
-      });
+  async copyLastFlight() {
+    this.flightService.getFlights({ limit: 1, store: false })
+      .pipe(take(1))
+      .pipe(takeUntil(this.unsubscribe$)).subscribe((res: Flight[]) => {
+      if (res.length > 0) {
+        this.router.navigate(['flights/add'], { state: { flight: res[0] } });
+      }
+    });
 
-    }
+  }
 }
