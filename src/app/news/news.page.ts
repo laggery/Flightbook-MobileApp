@@ -72,9 +72,7 @@ export class NewsPage implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.flights$ = this.flightService.getState();
-    this.lastFlight$ = this.flightService.getState()
-      .pipe(take(1));
+
   }
 
   ngOnDestroy() {

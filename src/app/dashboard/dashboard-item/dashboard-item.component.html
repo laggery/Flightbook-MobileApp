@@ -1,0 +1,15 @@
+<div class="square">
+    <div class="content">
+        <div class="table">
+            <ion-card class="dashboard-item" *ngIf="{flights: flights$ | async} as observables"
+                      [routerLink]="routerLink">
+                <div class="body">
+                    <ion-icon *ngIf=icon [name]="icon"></ion-icon>
+                    <div *ngIf="observables.flights && isStatistic">{{(flights$  | async)?.length }}</div>
+                </div>
+                <div class="title">{{ label | translate }}</div>
+                <div *ngIf="observables.flights && !isStatistic">{{(flights$  | async)[0]?.start?.name }}</div>
+            </ion-card>
+        </div>
+    </div>
+</div>

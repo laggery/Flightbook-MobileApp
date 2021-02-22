@@ -1,0 +1,19 @@
+<fb-dashboard-item
+        [routerLink]="'/flights/add'"
+        [icon]="'add-circle-outline'"
+        [label]="'add new flight'"
+        [isStatistic]="false">
+</fb-dashboard-item>
+<fb-dashboard-item
+        [routerLink]="'/flights/statistics'"
+        [label]="'amount of flights'"
+        [flights$]="flights$"
+        [isStatistic]="true">
+</fb-dashboard-item>
+<fb-dashboard-item
+        [routerLink]="'/flights/add'"
+        [icon]="'place'"
+        [label]="'last flight'"
+        [flights$]="flights$"
+        [isStatistic]="false">
+</fb-dashboard-item>

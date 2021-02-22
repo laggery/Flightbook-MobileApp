@@ -13,43 +13,11 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-
-  <div class="square">
-    <div class="content">
-      <div class="table">
-        <ion-card class="table-cell">
-          <div class="body"><ion-icon [routerLink]="['/flights/add']" name="add-circle-outline"></ion-icon></div>
-          <div class="title">Add flight</div>
-        </ion-card>
-      </div>
-    </div>
-  </div>
-  <div class="square">
-    <div class="content">
-      <div class="table">
-        <ion-card class="table-cell">
-          <div class="body" [routerLink]="['/flights/statistic']">{{(flights$  | async)?.length }}</div>
-          <div class="title">Amount of flights</div>
-        </ion-card>
-      </div>
-    </div>
-  </div>
-  <div class="square">
-    <div class="content">
-      <div class="table">
-        <ion-card class="table-cell">
-          <div class="body"><ion-icon (click)=copyLastFlight() name="place"></ion-icon></div>
-          <div class="title">Last flight: {{( flights$ | async)[0]?.start?.name }}</div>
-        </ion-card>
-      </div>
-    </div>
-  </div>
+  <fb-dashboard-container></fb-dashboard-container>
   <div class="news-container">
-    <div class="news" *ngFor="let n of newsData$ | async">
-      <ion-card>
+      <ion-card class="news" *ngFor="let n of newsData$ | async">
         <p class="title"><span>{{ n.date | date:'dd.MM.yyyy'}}:</span> {{ n.title }}</p>
         <p class="description" [innerHTML]="n.text"></p>
       </ion-card>
     </div>
-  </div>
 </ion-content>
