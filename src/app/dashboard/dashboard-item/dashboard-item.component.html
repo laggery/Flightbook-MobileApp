@@ -8,7 +8,7 @@
                     <div *ngIf="observables.flights && isStatistic">{{(flights$  | async)?.length }}</div>
                 </div>
                 <div class="title">{{ label | translate }}</div>
-                <div *ngIf="observables.flights && !isStatistic">{{(flights$  | async)[0]?.start?.name }}</div>
+                <div class="title" *ngIf="observables.flights && !isStatistic">{{(flights$  | async)[0]?.start?.name }}</div>
             </ion-card>
         </div>
     </div>

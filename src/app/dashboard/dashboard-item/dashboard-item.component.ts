@@ -1,6 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Flight } from 'flightbook-commons-library';
+import { EventEmitter } from 'events';
 
 @Component({
   selector: 'fb-dashboard-item',
@@ -34,9 +35,10 @@ export class DashboardItemComponent implements OnInit {
    */
   @Input() isStatistic: boolean;
 
+  constructor() {
+  }
 
-  constructor() { }
-
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
 }

@@ -10,7 +10,7 @@ import { DashboardItemModule } from '../dashboard-item/dashboard-item.module';
     DashboardContainerComponent
   ],
   imports: [
-    DashboardItemModule
+    DashboardItemModule,
   ]
 })
 export class DashboardContainerModule {
