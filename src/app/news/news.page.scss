@@ -1,15 +1,19 @@
 .news-container {
     display: inline-block;
-    margin: 0 -5px 0px -5px;
+    margin: -15px -5px 0px -5px;
 }
+
+@media only screen and (min-width: 1600px) {
+    .news-container {
+        display: grid;
+    }
+}
+
 .news .title {
     font-weight: bold;
     line-height: 0;
     margin:20px;
     font-size: 1.1em;
-}
-.news {
-    margin-bottom: -35px;
 }
 .news .description {
     margin: 20px;

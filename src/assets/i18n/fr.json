@@ -155,6 +155,7 @@
     "dashboard": {
         "addflight": "ajouter un vol",
         "amountofflights": "nombre de vols",
-        "lastflight": "dernier vol"
+        "lastflight": "dernier vol",
+        "noflights": "copier le dernier vol"
     }
 }
