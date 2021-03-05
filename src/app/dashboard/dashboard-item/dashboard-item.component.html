@@ -5,7 +5,7 @@
                       [routerLink]="routerLink">
                 <div class="body">
                     <ion-icon *ngIf=icon [name]="icon"></ion-icon>
-                    <div *ngIf="observables.flights && isStatistic">{{(flights$  | async)?.length }}</div>
+                    <div *ngIf="observables.flights && isStatistic" style="margin-bottom: 1vw">{{(flights$  | async)?.length }}</div>
                 </div>
                 <div class="title">{{ label | translate }}</div>
                 <div class="title"*ngIf="observables.flights && !isStatistic">
