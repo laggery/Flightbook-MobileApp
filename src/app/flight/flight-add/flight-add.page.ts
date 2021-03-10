@@ -32,11 +32,6 @@ export class FlightAddPage implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    if (!!this.router.getCurrentNavigation()?.extras?.state?.flight) {
-      const lastFlight = this.router.getCurrentNavigation().extras.state.flight;
-      lastFlight.date = new Date().toISOString().slice(0, 10);
-      Object.assign(this.flight, lastFlight);
-    } else {
       if (this.flightService.getValue().length > 0) {
         this.flight.glider = this.flightService.getValue()[0].glider;
       } else {
@@ -45,12 +40,9 @@ export class FlightAddPage implements OnInit, OnDestroy {
           .subscribe((res: Flight[]) => {
             if (res.length > 0) {
               this.flight.glider = res[0].glider;
-            }
-          });
-      }
+            }});
     }
-
-    if (this.gliderService.isGliderlistComplete) {
+      if (this.gliderService.isGliderlistComplete) {
       this.noGliderCheck();
       this.gliders = this.gliderService.getValue();
     } else {

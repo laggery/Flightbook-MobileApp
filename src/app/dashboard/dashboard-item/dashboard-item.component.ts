@@ -1,7 +1,6 @@
 import { Component, Input, OnInit, Output } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Flight } from 'flightbook-commons-library';
-import { EventEmitter } from 'events';
+import { Flight, FlightStatistic } from 'flightbook-commons-library';
 
 @Component({
   selector: 'fb-dashboard-item',
@@ -28,7 +27,12 @@ export class DashboardItemComponent implements OnInit {
   /**
    * Flight data to show
    */
-  @Input() flights$: Observable<Flight[]>;
+  @Input() flights$?: Observable<Flight[]>;
+
+  /**
+   * Flight statistic to show
+   */
+  @Input() flightStatistics$?: Observable<FlightStatistic[]>;
 
   /**
    * Toggle

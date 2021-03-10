@@ -33,7 +33,7 @@ export class FlightEditPage implements OnInit, OnDestroy {
     this.initialFlight = this.flightService.getValue().find(flight => flight.id === this.flightId);
     this.flight = _.cloneDeep(this.initialFlight);
     if (!this.flight) {
-      this.router.navigate(['/flights'], { replaceUrl: true });
+      this.getFlightFromDashboardNavigation();
     }
 
     if (this.gliderService.isGliderlistComplete) {
@@ -131,6 +131,16 @@ export class FlightEditPage implements OnInit, OnDestroy {
         }
       })
     );
+  }
+
+  private getFlightFromDashboardNavigation() {
+    const lastFlight = this.router.getCurrentNavigation().extras.state.flight;
+    if (!!lastFlight) {
+      lastFlight.date = new Date().toISOString().slice(0, 10);
+      this.flight = lastFlight;
+    } else {
+      this.router.navigate(['/flights'], { replaceUrl: true });
+    }
   }
 
 }

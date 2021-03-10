@@ -1,18 +1,15 @@
 <fb-dashboard-item
-        [routerLink]="'/flights/add'"
         [icon]="'flight'"
         [label]="'dashboard.addflight'"
-        [isStatistic]="false">
+        (click)="openAddFlight()">
 </fb-dashboard-item>
 <fb-dashboard-item
         [routerLink]="'/flights/statistic'"
         [label]="'dashboard.amountofflights'"
-        [flights$]="flights$"
-        [isStatistic]="true">
+        [flightStatistics$]="flightStatistics$">
 </fb-dashboard-item>
 <fb-dashboard-item
-        [icon]="'copyflight'"
+        [icon]="'place'"
         [flights$]="flights$"
-        [isStatistic]="false"
-        (click)="handleCopyLastFlight()">
+        (click)="openLastFlight()">
 </fb-dashboard-item>

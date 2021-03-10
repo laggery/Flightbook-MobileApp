@@ -154,8 +154,8 @@
     },
     "dashboard": {
         "addflight": "add flight",
-        "amountofflights": "amount of flights",
-        "lastflight": "last flight",
-        "noflights": "copy last flight"
+        "amountofflights": "no. of flights",
+        "noflights": "no flights",
+        "lastflight": "last flight"
     }
 }

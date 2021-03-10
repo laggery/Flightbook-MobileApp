@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Flight, FlightService } from 'flightbook-commons-library';
-import { take } from 'rxjs/operators';
+import { Flight, FlightService, FlightStatistic } from 'flightbook-commons-library';
+import { map, take } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
 @Component({
@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 })
 export class DashboardContainerComponent implements OnInit {
 
+  flightStatistics$: Observable<FlightStatistic | FlightStatistic[]>;
   flights$: Observable<Flight[]>;
 
   constructor(private flightService: FlightService,
@@ -20,15 +21,21 @@ export class DashboardContainerComponent implements OnInit {
 
   ngOnInit() {
     this.flights$ = this.flightService.getState();
+    this.flightStatistics$ = this.flightService.getStatistics(true).pipe(
+      map(flightStatistic => flightStatistic));
   }
 
-  async handleCopyLastFlight() {
+  async openLastFlight() {
     this.flights$
       .pipe(take(1))
       .subscribe((flightArray: Flight[]) => {
         if (flightArray.length > 0) {
-          this.router.navigate(['flights/add'], { state: { flight: flightArray[0] } });
+          this.router.navigate(['flights/edit'], { state: { flight: flightArray[0] }, replaceUrl: true });
         }
       });
+  }
+
+  async openAddFlight() {
+    await this.router.navigate(['flights/add'], { replaceUrl: true });
   }
 }

@@ -155,8 +155,8 @@
     "dashboard": {
         "addflight": "Flug hinzufügen",
         "amountofflights": "Anzahl Flüge",
-        "lastflight": "Letzter Flug",
-        "noflights": "Letzten Flug kopieren"
+        "noflights": "Keine Flüge",
+        "lastflight": "Letzter Flug"
     }
 
 }
