@@ -1,12 +1,22 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MenuController, LoadingController, AlertController } from '@ionic/angular';
-import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 import { Subject, Observable } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-import { FlightService, GliderService, News, NewsService, PlaceService, XlsxExportService } from 'flightbook-commons-library';
+import { take, takeLast, takeUntil } from 'rxjs/operators';
+import {
+  Flight,
+  FlightService,
+  GliderService,
+  News,
+  NewsService,
+  PlaceService,
+  XlsxExportService
+} from 'flightbook-commons-library';
 import { Capacitor, FilesystemDirectory, Plugins } from '@capacitor/core';
+
 const { Filesystem } = Plugins;
 import { FileOpener } from '@ionic-native/file-opener/ngx';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-news',
@@ -16,6 +26,7 @@ import { FileOpener } from '@ionic-native/file-opener/ngx';
 export class NewsPage implements OnInit, OnDestroy {
   unsubscribe$ = new Subject<void>();
   newsData$: Observable<News[]>;
+  flights$: Observable<Flight[]>;
 
   constructor(
     private menuCtrl: MenuController,
@@ -26,20 +37,27 @@ export class NewsPage implements OnInit, OnDestroy {
     private placeService: PlaceService,
     private flightService: FlightService,
     private loadingCtrl: LoadingController,
+    private router: Router,
     private xlsxExportService: XlsxExportService,
     private fileOpener: FileOpener
   ) {
     this.menuCtrl.enable(true);
+  }
 
+  ngOnInit() {
     this.newsData$ = this.newsService.getState();
-
     if (this.newsService.getValue().length === 0) {
       this.initialDataLoad();
     }
   }
 
+  ngOnDestroy() {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
+  }
+
   private async initialDataLoad() {
-    let loading = await this.loadingCtrl.create({
+    const loading = await this.loadingCtrl.create({
       message: this.translate.instant('loading.loading')
     });
     await loading.present();
@@ -48,22 +66,23 @@ export class NewsPage implements OnInit, OnDestroy {
     }, async (error: any) => {
       await loading.dismiss();
     });
-  }
-
-  ngOnInit() {
-  }
-
-  ngOnDestroy() {
-    this.unsubscribe$.next();
-    this.unsubscribe$.complete();
+    this.flightService.getFlights({ limit: this.flightService.defaultLimit, clearStore: true })
+      .pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Flight[]) => {
+      // @hack for hide export item
+      setTimeout(async () => {
+        await loading.dismiss();
+      }, 1);
+    }, async (error: any) => {
+      await loading.dismiss();
+    });
   }
 
   async xlsxExport() {
-    let loading = await this.loadingCtrl.create({
+    const loading = await this.loadingCtrl.create({
       message: this.translate.instant('loading.loading')
     });
-    loading.present();
-    let promiseList: Promise<any>[] = []
+    await loading.present();
+    const promiseList: Promise<any>[] = [];
     promiseList.push(this.flightService.getFlights({ store: false }).pipe(takeUntil(this.unsubscribe$)).toPromise());
     promiseList.push(this.gliderService.getGliders({ store: false }).pipe(takeUntil(this.unsubscribe$)).toPromise());
     promiseList.push(this.placeService.getPlaces({ store: false }).pipe(takeUntil(this.unsubscribe$)).toPromise());
@@ -71,8 +90,11 @@ export class NewsPage implements OnInit, OnDestroy {
     Promise.all(promiseList).then(async (res: any) => {
       if (Capacitor.isNative) {
         try {
-          let data: any = this.xlsxExportService.generateFlightbookXlsxFile(res[0], res[1], res[2], { bookType: 'xlsx', type: "base64" });
-          let path = `xlsx/flightbook_export_${Date.now()}.xlsx`;
+          const data: any = this.xlsxExportService.generateFlightbookXlsxFile(res[0], res[1], res[2], {
+            bookType: 'xlsx',
+            type: 'base64'
+          });
+          const path = `xlsx/flightbook_export_${Date.now()}.xlsx`;
 
           const result = await Filesystem.writeFile({
             path,
@@ -80,10 +102,10 @@ export class NewsPage implements OnInit, OnDestroy {
             directory: FilesystemDirectory.Documents,
             recursive: true
           });
-          loading.dismiss();
-          this.fileOpener.open(`${result.uri}`, 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+          await loading.dismiss();
+          await this.fileOpener.open(`${result.uri}`, 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         } catch (e) {
-          loading.dismiss();
+          await loading.dismiss();
           const alert = await this.alertController.create({
             header: this.translate.instant('message.infotitle'),
             message: this.translate.instant('message.generationError'),
@@ -92,12 +114,16 @@ export class NewsPage implements OnInit, OnDestroy {
           await alert.present();
         }
       } else {
-        let data: any = this.xlsxExportService.generateFlightbookXlsxFile(res[0], res[1], res[2], { bookType: 'xlsx', type: "array" });
-        loading.dismiss();
+        const data: any = this.xlsxExportService.generateFlightbookXlsxFile(res[0], res[1], res[2], {
+          bookType: 'xlsx',
+          type: 'array'
+        });
+        await loading.dismiss();
         this.xlsxExportService.saveExcelFile(data, `flightbook_export_${Date.now()}.xlsx`);
       }
     }, async (error: any) => {
       await loading.dismiss();
     });
   }
+
 }

@@ -151,5 +151,11 @@
         "landingplaces": "Places d'atterissages",
         "firstlastname": "Nom",
         "school": "Tampon / Signature"
+    },
+    "dashboard": {
+        "addflight": "Ajouter un vol",
+        "amountofflights": "Nombre de vols",
+        "noflights": "Pas de vols",
+        "lastflight": "Dernier vol"
     }
 }

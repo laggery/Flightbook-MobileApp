@@ -151,5 +151,11 @@
         "landingplaces": "Luoghi di atterraggio",
         "firstlastname": "Nome",
         "school": "Timbro / Firma"
+    },
+    "dashboard": {
+        "addflight": "Aggiungi volo",
+        "amountofflights": "Quantità di voli",
+        "noflights": "Niente voli",
+        "lastflight": "Ultimo volo"
     }
 }

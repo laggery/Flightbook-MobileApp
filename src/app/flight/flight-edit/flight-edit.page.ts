@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { takeUntil } from 'rxjs/operators';
@@ -12,10 +12,10 @@ import { Flight, FlightService, Glider, GliderService } from 'flightbook-commons
   templateUrl: './flight-edit.page.html',
   styleUrls: ['./flight-edit.page.scss'],
 })
-export class FlightEditPage implements OnInit {
+export class FlightEditPage implements OnInit, OnDestroy {
   unsubscribe$ = new Subject<void>();
-  private flightId: number;
-  private initialFlight: Flight;
+  private readonly flightId: number;
+  private readonly initialFlight: Flight;
   flight: Flight;
   gliders: Glider[] = [];
 
@@ -28,11 +28,12 @@ export class FlightEditPage implements OnInit {
     private translate: TranslateService,
     private loadingCtrl: LoadingController
   ) {
+
     this.flightId = +this.activeRoute.snapshot.paramMap.get('id');
     this.initialFlight = this.flightService.getValue().find(flight => flight.id === this.flightId);
     this.flight = _.cloneDeep(this.initialFlight);
     if (!this.flight) {
-      this.router.navigate(['/flights'], { replaceUrl: true });
+      this.getFlightFromDashboardNavigation();
     }
 
     if (this.gliderService.isGliderlistComplete) {
@@ -46,6 +47,7 @@ export class FlightEditPage implements OnInit {
   }
 
   ngOnInit() {
+
   }
 
   ngOnDestroy() {
@@ -54,17 +56,20 @@ export class FlightEditPage implements OnInit {
   }
 
   async saveFlight(flight: Flight) {
-    let loading = await this.loadingCtrl.create({
+    const loading = await this.loadingCtrl.create({
       message: this.translate.instant('loading.saveflight')
     });
     await loading.present();
 
     this.flightService.putFlight(flight).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Flight) => {
-      if (this.initialFlight.date != this.flight.date) {
-        this.flightService.getFlights({ limit: this.flightService.defaultLimit, clearStore: true }).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Flight[]) => {
+
+      if (this.initialFlight?.date !== this.flight.date) {
+        this.flightService.getFlights({ limit: this.flightService.defaultLimit, clearStore: true })
+          .pipe(takeUntil(this.unsubscribe$))
+          .subscribe(async (res: Flight[]) => {
           await loading.dismiss();
           this.router.navigate(['/flights'], { replaceUrl: true });
-        })
+        });
       } else {
         await loading.dismiss();
         this.router.navigate(['/flights'], { replaceUrl: true });
@@ -85,7 +90,7 @@ export class FlightEditPage implements OnInit {
   }
 
   async delete() {
-    let loading = await this.loadingCtrl.create({
+    const loading = await this.loadingCtrl.create({
       message: this.translate.instant('loading.deleteflight')
     });
     await loading.present();
@@ -101,16 +106,18 @@ export class FlightEditPage implements OnInit {
   }
 
   async copy() {
-    let loading = await this.loadingCtrl.create({
+    const loading = await this.loadingCtrl.create({
       message: this.translate.instant('loading.copyflight')
     });
     await loading.present();
 
     this.flightService.postFlight(this.flight, {clearStore: false}).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Flight) => {
-      this.flightService.getFlights({ limit: this.flightService.defaultLimit, clearStore: true }).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Flight[]) => {
+      this.flightService.getFlights({ limit: this.flightService.defaultLimit, clearStore: true })
+        .pipe(takeUntil(this.unsubscribe$))
+        .subscribe(async (res: Flight[]) => {
         await loading.dismiss();
         this.router.navigate(['/flights'], { replaceUrl: true });
-      })
+      });
     },
       (async (resp: any) => {
         await loading.dismiss();
@@ -125,4 +132,15 @@ export class FlightEditPage implements OnInit {
       })
     );
   }
+
+  private getFlightFromDashboardNavigation() {
+    const lastFlight = this.router.getCurrentNavigation().extras.state.flight;
+    if (!!lastFlight) {
+      lastFlight.date = new Date().toISOString().slice(0, 10);
+      this.flight = lastFlight;
+    } else {
+      this.router.navigate(['/flights'], { replaceUrl: true });
+    }
+  }
+
 }

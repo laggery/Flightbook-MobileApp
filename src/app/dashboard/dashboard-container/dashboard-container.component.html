@@ -1,0 +1,15 @@
+<fb-dashboard-item
+        [icon]="'flight'"
+        [label]="'dashboard.addflight'"
+        (click)="openAddFlight()">
+</fb-dashboard-item>
+<fb-dashboard-item
+        [routerLink]="'/flights/statistic'"
+        [label]="'dashboard.amountofflights'"
+        [flightStatistics$]="flightStatistics$">
+</fb-dashboard-item>
+<fb-dashboard-item
+        [icon]="'place'"
+        [flights$]="flights$"
+        (click)="openLastFlight()">
+</fb-dashboard-item>

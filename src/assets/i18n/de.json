@@ -151,5 +151,12 @@
         "landingplaces": "Landeplätze",
         "firstlastname": "Name",
         "school": "Stempel / Unterschrift"
+    },
+    "dashboard": {
+        "addflight": "Flug hinzufügen",
+        "amountofflights": "Anzahl Flüge",
+        "noflights": "Keine Flüge",
+        "lastflight": "Letzter Flug"
     }
+
 }

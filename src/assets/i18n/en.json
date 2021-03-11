@@ -151,5 +151,11 @@
         "landingplaces": "Landing places",
         "firstlastname": "Name",
         "school": "Stamp / Signature"
+    },
+    "dashboard": {
+        "addflight": "Add flight",
+        "amountofflights": "No. of flights",
+        "noflights": "No flights",
+        "lastflight": "Last flight"
     }
 }
