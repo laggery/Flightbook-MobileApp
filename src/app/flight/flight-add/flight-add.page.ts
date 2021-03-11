@@ -68,7 +68,7 @@ export class FlightAddPage implements OnInit, OnDestroy {
     });
     await loading.present();
 
-    this.flightService.postFlight(flight, { clearStore: true }).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Flight) => {
+    this.flightService.postFlight(flight).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Flight) => {
         await loading.dismiss();
         await this.router.navigate(['/flights'], { replaceUrl: true });
       },
