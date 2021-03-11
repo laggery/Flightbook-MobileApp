@@ -10,7 +10,7 @@
                 <div class="body">
                     <ion-icon *ngIf=icon [name]="icon"></ion-icon>
                     <div class="statistic-tile" *ngIf="observables.flightStatistics">
-                        <div>{{observables.flightStatistics[0].nbFlights}}</div>
+                        <div class="body">{{observables.flightStatistics[0].nbFlights}}</div>
                     </div>
                 </div>
                 <div class="title">{{ label | translate }}</div>
