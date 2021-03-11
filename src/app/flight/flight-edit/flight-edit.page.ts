@@ -6,6 +6,7 @@ import * as _ from 'lodash';
 import { LoadingController, AlertController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { Flight, FlightService, Glider, GliderService } from 'flightbook-commons-library';
+import HttpStatusCode from '../../shared/util/HttpStatusCode';
 
 @Component({
   selector: 'app-flight-edit',
@@ -68,16 +69,16 @@ export class FlightEditPage implements OnInit, OnDestroy {
           .pipe(takeUntil(this.unsubscribe$))
           .subscribe(async (res: Flight[]) => {
           await loading.dismiss();
-          this.router.navigate(['/flights'], { replaceUrl: true });
+          await this.router.navigate(['/flights'], { replaceUrl: true });
         });
       } else {
         await loading.dismiss();
-        this.router.navigate(['/flights'], { replaceUrl: true });
+        await this.router.navigate(['/flights'], { replaceUrl: true });
       }
     },
       (async (resp: any) => {
         await loading.dismiss();
-        if (resp.status === 422) {
+        if (resp.status === HttpStatusCode.UNPROCESSABLE_ENTITY) {
           const alert = await this.alertController.create({
             header: this.translate.instant('message.infotitle'),
             message: resp.error.message,
@@ -116,12 +117,12 @@ export class FlightEditPage implements OnInit, OnDestroy {
         .pipe(takeUntil(this.unsubscribe$))
         .subscribe(async (res: Flight[]) => {
         await loading.dismiss();
-        this.router.navigate(['/flights'], { replaceUrl: true });
+        await this.router.navigate(['/flights'], { replaceUrl: true });
       });
     },
       (async (resp: any) => {
         await loading.dismiss();
-        if (resp.status === 422) {
+        if (resp.status === HttpStatusCode.UNPROCESSABLE_ENTITY) {
           const alert = await this.alertController.create({
             header: this.translate.instant('message.infotitle'),
             message: resp.error.message,

@@ -39,7 +39,7 @@ export class FlightListPage implements OnInit, OnDestroy, AfterViewInit {
     this.filtered = this.flightService.filtered$.getValue();
     this.flightService.filtered$.pipe(takeUntil(this.unsubscribe$)).subscribe((value: boolean) => {
       this.filtered = value;
-    })
+    });
 
     if (this.flightService.getValue().length === 0) {
       this.initialDataLoad();
@@ -47,14 +47,16 @@ export class FlightListPage implements OnInit, OnDestroy, AfterViewInit {
   }
 
   private async initialDataLoad() {
-    let loading = await this.loadingCtrl.create({
+    const loading = await this.loadingCtrl.create({
       message: this.translate.instant('loading.loading')
     });
     await loading.present();
-    this.flightService.getFlights({ limit: this.flightService.defaultLimit, clearStore: true }).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Flight[]) => {
+    this.flightService.getFlights({ limit: this.flightService.defaultLimit, clearStore: true })
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(async (res: Flight[]) => {
       // @hack for hide export item
       setTimeout(async () => {
-        this.content.scrollToPoint(0, 48);
+        await this.content.scrollToPoint(0, 48);
         await loading.dismiss();
       }, 1);
     }, async (error: any) => {
@@ -94,8 +96,8 @@ export class FlightListPage implements OnInit, OnDestroy, AfterViewInit {
       component: FlightFilterComponent,
       cssClass: 'flight-filter-class',
       componentProps: {
-        'infiniteScroll': this.infiniteScroll,
-        'type': "FlightListPage"
+        infiniteScroll: this.infiniteScroll,
+        type: 'FlightListPage'
       }
     });
 
@@ -107,20 +109,20 @@ export class FlightListPage implements OnInit, OnDestroy, AfterViewInit {
   async modalOnDidDismiss(modal: HTMLIonModalElement) {
     modal.onDidDismiss().then((resp: any) => {
       this.content.scrollToPoint(0, 48);
-    })
+    });
   }
 
   async xlsxExport() {
-    let loading = await this.loadingCtrl.create({
+    const loading = await this.loadingCtrl.create({
       message: this.translate.instant('loading.loading')
     });
-    loading.present();
+    await loading.present();
     this.flightService.getFlights({ store: false }).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Flight[]) => {
       res = res.sort((a: Flight, b: Flight) => b.number - a.number);
       if (Capacitor.isNative) {
         try {
-          let data: any = this.xlsxExportService.generateFlightsXlsxFile(res, { bookType: 'xlsx', type: "base64" });
-          let path = `xlsx/flights_export_${Date.now()}.xlsx`;
+          const data: any = this.xlsxExportService.generateFlightsXlsxFile(res, { bookType: 'xlsx', type: 'base64' });
+          const path = `xlsx/flights_export_${Date.now()}.xlsx`;
 
           const result = await Filesystem.writeFile({
             path,
@@ -128,10 +130,10 @@ export class FlightListPage implements OnInit, OnDestroy, AfterViewInit {
             directory: FilesystemDirectory.Documents,
             recursive: true
           });
-          loading.dismiss();
-          this.fileOpener.open(`${result.uri}`, 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+          await loading.dismiss();
+          await this.fileOpener.open(`${result.uri}`, 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         } catch (e) {
-          loading.dismiss();
+          await loading.dismiss();
           const alert = await this.alertController.create({
             header: this.translate.instant('message.infotitle'),
             message: this.translate.instant('message.generationError'),
@@ -140,8 +142,8 @@ export class FlightListPage implements OnInit, OnDestroy, AfterViewInit {
           await alert.present();
         }
       } else {
-        let data: any = this.xlsxExportService.generateFlightsXlsxFile(res, { bookType: 'xlsx', type: "array" });
-        loading.dismiss();
+        const data: any = this.xlsxExportService.generateFlightsXlsxFile(res, { bookType: 'xlsx', type: 'array' });
+        await loading.dismiss();
         this.xlsxExportService.saveExcelFile(data, `flights_export_${Date.now()}.xlsx`);
       }
     }, async (error: any) => {
@@ -150,19 +152,19 @@ export class FlightListPage implements OnInit, OnDestroy, AfterViewInit {
   }
 
   async pdfExport() {
-    let loading = await this.loadingCtrl.create({
+    const loading = await this.loadingCtrl.create({
       message: this.translate.instant('loading.loading')
     });
-    loading.present();
+    await loading.present();
     this.flightService.getFlights({ store: false }).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Flight[]) => {
       res = res.sort((a: Flight, b: Flight) => b.number - a.number);
       res.reverse();
-      let user = await this.accountService.currentUser().pipe(takeUntil(this.unsubscribe$)).toPromise();
+      const user = await this.accountService.currentUser().pipe(takeUntil(this.unsubscribe$)).toPromise();
       const pdfObj: TCreatedPdf = this.pdfExportService.generatePdf(res, user, 'https://m.flightbook.ch');
       if (Capacitor.isNative) {
         pdfObj.getBase64(async (data) => {
           try {
-            let path = `pdf/flightbook_${Date.now()}.pdf`;
+            const path = `pdf/flightbook_${Date.now()}.pdf`;
 
             const result = await Filesystem.writeFile({
               path,
@@ -170,8 +172,8 @@ export class FlightListPage implements OnInit, OnDestroy, AfterViewInit {
               directory: FilesystemDirectory.Documents,
               recursive: true
             });
-            loading.dismiss();
-            this.fileOpener.open(`${result.uri}`, 'application/pdf');
+            await loading.dismiss();
+            await this.fileOpener.open(`${result.uri}`, 'application/pdf');
           } catch (e) {
             loading.dismiss();
             const alert = await this.alertController.create({
@@ -183,7 +185,7 @@ export class FlightListPage implements OnInit, OnDestroy, AfterViewInit {
           }
         });
       } else {
-        loading.dismiss();
+        await loading.dismiss();
         pdfObj.download(`flightbook_${Date.now()}.pdf`);
       }
     }, async (error: any) => {

@@ -42,4 +42,6 @@
   </ion-infinite-scroll>
 
   <p class="emptylist" *ngIf="(gliders$ | async)?.length == 0">{{ 'emptylist' | translate }}</p>
+
+  <ion-button class="submit-button" expand="block" [replaceUrl]="true" [routerLink]="['/gliders/add']">{{ 'buttons.add' | translate }}</ion-button>
 </ion-content>

@@ -40,8 +40,8 @@ export class AppComponent implements OnDestroy, OnInit {
       });
     }
 
-    setTimeout(function () {
-      const { SplashScreen } = Plugins
+    setTimeout(() => {
+      const { SplashScreen } = Plugins;
       SplashScreen.hide();
     }, 400);
   }

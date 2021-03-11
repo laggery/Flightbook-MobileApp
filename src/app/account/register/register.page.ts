@@ -5,6 +5,7 @@ import { takeUntil } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { AccountService, User } from 'flightbook-commons-library';
+import HttpStatusCode from '../../shared/util/HttpStatusCode';
 
 @Component({
   selector: 'app-register',
@@ -47,7 +48,7 @@ export class RegisterPage implements OnInit, OnDestroy {
       },
         (async (error: any) => {
           await loading.dismiss();
-          if (error.status === 409) {
+          if (error.status === 4) {
             const alert = await this.alertController.create({
               header: this.translate.instant('account.register'),
               message: this.translate.instant('message.userExist'),

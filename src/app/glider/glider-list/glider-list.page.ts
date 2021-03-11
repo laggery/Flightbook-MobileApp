@@ -1,12 +1,20 @@
 import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit } from '@angular/core';
-import { NavController, ModalController, IonInfiniteScroll, IonContent, LoadingController, AlertController } from '@ionic/angular';
+import {
+  NavController,
+  ModalController,
+  IonInfiniteScroll,
+  IonContent,
+  LoadingController,
+  AlertController
+} from '@ionic/angular';
 import { Subject, Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { GliderFilterComponent } from '../glider-filter/glider-filter.component'
+import { GliderFilterComponent } from '../glider-filter/glider-filter.component';
 import { TranslateService } from '@ngx-translate/core';
 import { Glider, GliderService, XlsxExportService } from 'flightbook-commons-library';
 import { Capacitor, FilesystemDirectory, Plugins } from '@capacitor/core';
 import { FileOpener } from '@ionic-native/file-opener/ngx';
+
 const { Filesystem } = Plugins;
 
 @Component({
@@ -35,25 +43,27 @@ export class GliderListPage implements OnInit, OnDestroy, AfterViewInit {
     this.filtered = this.gliderService.filtered$.getValue();
     this.gliderService.filtered$.pipe(takeUntil(this.unsubscribe$)).subscribe((value: boolean) => {
       this.filtered = value;
-    })
+    });
 
     this.initialDataLoad();
   }
 
   private async initialDataLoad() {
-    let loading = await this.loadingCtrl.create({
+    const loading = await this.loadingCtrl.create({
       message: this.translate.instant('loading.loading')
     });
     await loading.present();
-    this.gliderService.getGliders({ limit: this.gliderService.defaultLimit, clearStore: true }).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Glider[]) => {
-      // @hack for hide export item
-      setTimeout(async () => {
-        this.content.scrollToPoint(0, 48);
+    this.gliderService.getGliders({ limit: this.gliderService.defaultLimit, clearStore: true })
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(async (res: Glider[]) => {
+        // @hack for hide export item
+        setTimeout(async () => {
+          this.content.scrollToPoint(0, 48);
+          await loading.dismiss();
+        }, 1);
+      }, async (error: any) => {
         await loading.dismiss();
-      }, 1);
-    }, async (error: any) => {
-      await loading.dismiss();
-    });
+      });
   }
 
   ngOnInit() {
@@ -73,7 +83,10 @@ export class GliderListPage implements OnInit, OnDestroy, AfterViewInit {
   }
 
   loadData(event: any) {
-    this.gliderService.getGliders({ limit: this.gliderService.defaultLimit, offset: this.gliderService.getValue().length })
+    this.gliderService.getGliders({
+      limit: this.gliderService.defaultLimit,
+      offset: this.gliderService.getValue().length
+    })
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((res: Glider[]) => {
         event.target.complete();
@@ -89,11 +102,11 @@ export class GliderListPage implements OnInit, OnDestroy, AfterViewInit {
       component: GliderFilterComponent,
       cssClass: 'glider-filter-class',
       componentProps: {
-        'infiniteScroll': this.infiniteScroll
+        infiniteScroll: this.infiniteScroll
       }
     });
 
-    this.modalOnDidDismiss(modal);
+    await this.modalOnDidDismiss(modal);
 
     return await modal.present();
   }
@@ -101,19 +114,19 @@ export class GliderListPage implements OnInit, OnDestroy, AfterViewInit {
   async modalOnDidDismiss(modal: HTMLIonModalElement) {
     modal.onDidDismiss().then((resp: any) => {
       this.content.scrollToPoint(0, 48);
-    })
+    });
   }
 
   async xlsxExport() {
-    let loading = await this.loadingCtrl.create({
+    const loading = await this.loadingCtrl.create({
       message: this.translate.instant('loading.loading')
     });
     loading.present();
     this.gliderService.getGliders({ store: false }).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Glider[]) => {
       if (Capacitor.isNative) {
         try {
-          let data: any = this.xlsxExportService.generateGlidersXlsxFile(res, { bookType: 'xlsx', type: "base64" });
-          let path = `xlsx/gliders_export_${Date.now()}.xlsx`;
+          const data: any = this.xlsxExportService.generateGlidersXlsxFile(res, { bookType: 'xlsx', type: 'base64' });
+          const path = `xlsx/gliders_export_${Date.now()}.xlsx`;
 
           const result = await Filesystem.writeFile({
             path,
@@ -121,10 +134,10 @@ export class GliderListPage implements OnInit, OnDestroy, AfterViewInit {
             directory: FilesystemDirectory.Documents,
             recursive: true
           });
-          loading.dismiss();
-          this.fileOpener.open(`${result.uri}`, 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+          await loading.dismiss();
+          await this.fileOpener.open(`${result.uri}`, 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         } catch (e) {
-          loading.dismiss();
+          await loading.dismiss();
           const alert = await this.alertController.create({
             header: this.translate.instant('message.infotitle'),
             message: this.translate.instant('message.generationError'),
@@ -133,8 +146,8 @@ export class GliderListPage implements OnInit, OnDestroy, AfterViewInit {
           await alert.present();
         }
       } else {
-        let data: any = this.xlsxExportService.generateGlidersXlsxFile(res, { bookType: 'xlsx', type: "array" });
-        loading.dismiss();
+        const data: any = this.xlsxExportService.generateGlidersXlsxFile(res, { bookType: 'xlsx', type: 'array' });
+        await loading.dismiss();
         this.xlsxExportService.saveExcelFile(data, `gliders_export_${Date.now()}.xlsx`);
       }
     }, async (error: any) => {

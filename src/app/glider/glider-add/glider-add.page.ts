@@ -5,6 +5,7 @@ import { takeUntil } from 'rxjs/operators';
 import { LoadingController, AlertController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { Glider, GliderService } from 'flightbook-commons-library';
+import HttpStatusCode from '../../shared/util/HttpStatusCode';
 
 @Component({
   selector: 'app-glider-add',
@@ -34,18 +35,18 @@ export class GliderAddPage implements OnInit, OnDestroy {
   }
 
   async saveGlider(glider: Glider) {
-    let loading = await this.loadingCtrl.create({
+    const loading = await this.loadingCtrl.create({
       message: this.translate.instant('loading.saveglider')
     });
     await loading.present();
 
     this.gliderService.postGlider(glider).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Glider) => {
       await loading.dismiss();
-      this.router.navigate(['/gliders'], { replaceUrl: true });
+      await this.router.navigate(['/gliders'], { replaceUrl: true });
     },
       (async (resp: any) => {
         await loading.dismiss();
-        if (resp.status === 422) {
+        if (resp.status === HttpStatusCode.UNPROCESSABLE_ENTITY) {
           const alert = await this.alertController.create({
             header: this.translate.instant('message.infotitle'),
             message: resp.error.message,

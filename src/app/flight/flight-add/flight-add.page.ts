@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { Flight, FlightService, Place, Glider, GliderService } from 'flightbook-commons-library';
+import HttpStatusCode from '../../shared/util/HttpStatusCode';
 
 @Component({
   selector: 'app-flight-add',
@@ -32,17 +33,19 @@ export class FlightAddPage implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-      if (this.flightService.getValue().length > 0) {
-        this.flight.glider = this.flightService.getValue()[0].glider;
-      } else {
-        this.flightService.getFlights({ limit: 1, store: false })
-          .pipe(takeUntil(this.unsubscribe$))
-          .subscribe((res: Flight[]) => {
-            if (res.length > 0) {
-              this.flight.glider = res[0].glider;
-            }});
+    if (this.flightService.getValue().length > 0) {
+      this.flight.glider = this.flightService.getValue()[0].glider;
+    } else {
+      this.flightService.getFlights({ limit: 1, store: false })
+        .pipe(takeUntil(this.unsubscribe$))
+        .subscribe((res: Flight[]) => {
+          if (res.length > 0) {
+            this.flight.glider = res[0].glider;
+          }
+        });
     }
-      if (this.gliderService.isGliderlistComplete) {
+
+    if (this.gliderService.isGliderlistComplete) {
       this.noGliderCheck();
       this.gliders = this.gliderService.getValue();
     } else {
@@ -65,13 +68,13 @@ export class FlightAddPage implements OnInit, OnDestroy {
     });
     await loading.present();
 
-    this.flightService.postFlight(flight).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Flight) => {
+    this.flightService.postFlight(flight, { clearStore: true }).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Flight) => {
         await loading.dismiss();
-        this.router.navigate(['/flights'], { replaceUrl: true });
+        await this.router.navigate(['/flights'], { replaceUrl: true });
       },
-      (async (resp: any) => {
+      async (resp: any) => {
         await loading.dismiss();
-        if (resp.status === 422) {
+        if (resp.status === HttpStatusCode.UNPROCESSABLE_ENTITY) {
           const alert = await this.alertController.create({
             header: this.translate.instant('message.infotitle'),
             message: resp.error.message,
@@ -79,7 +82,7 @@ export class FlightAddPage implements OnInit, OnDestroy {
           });
           await alert.present();
         }
-      })
+      }
     );
   }
 
@@ -92,7 +95,7 @@ export class FlightAddPage implements OnInit, OnDestroy {
       });
 
       await alert.present();
-      this.router.navigate(['/gliders/add'], { replaceUrl: true });
+      await this.router.navigate(['/gliders/add'], { replaceUrl: true });
     }
   }
 }

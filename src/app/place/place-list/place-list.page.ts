@@ -36,11 +36,13 @@ export class PlaceListPage implements OnInit, OnDestroy, AfterViewInit {
   }
 
   private async initialDataLoad() {
-    let loading = await this.loadingCtrl.create({
+    const loading = await this.loadingCtrl.create({
       message: this.translate.instant('loading.loading')
     });
     await loading.present();
-    this.placeService.getPlaces({ limit: this.limit, clearStore: true }).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Place[]) => {
+    this.placeService.getPlaces({ limit: this.limit, clearStore: true })
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(async (res: Place[]) => {
       // @hack for hide export item
       setTimeout(async () => {
         this.content.scrollToPoint(0, 48);
@@ -79,15 +81,15 @@ export class PlaceListPage implements OnInit, OnDestroy, AfterViewInit {
   }
 
   async xlsxExport() {
-    let loading = await this.loadingCtrl.create({
+    const loading = await this.loadingCtrl.create({
       message: this.translate.instant('loading.loading')
     });
-    loading.present();
+    await loading.present();
     this.placeService.getPlaces({ store: false }).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Place[]) => {
       if (Capacitor.isNative) {
         try {
-          let data: any = this.xlsxExportService.generatePlacesXlsxFile(res, { bookType: 'xlsx', type: "base64" });
-          let path = `xlsx/places_export_${Date.now()}.xlsx`;
+          const data: any = this.xlsxExportService.generatePlacesXlsxFile(res, { bookType: 'xlsx', type: 'base64' });
+          const path = `xlsx/places_export_${Date.now()}.xlsx`;
 
           const result = await Filesystem.writeFile({
             path,
@@ -95,10 +97,10 @@ export class PlaceListPage implements OnInit, OnDestroy, AfterViewInit {
             directory: FilesystemDirectory.Documents,
             recursive: true
           });
-          loading.dismiss();
-          this.fileOpener.open(`${result.uri}`, 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+          await loading.dismiss();
+          await this.fileOpener.open(`${result.uri}`, 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         } catch (e) {
-          loading.dismiss();
+          await loading.dismiss();
           const alert = await this.alertController.create({
             header: this.translate.instant('message.infotitle'),
             message: this.translate.instant('message.generationError'),
@@ -107,8 +109,8 @@ export class PlaceListPage implements OnInit, OnDestroy, AfterViewInit {
           await alert.present();
         }
       } else {
-        let data: any = this.xlsxExportService.generatePlacesXlsxFile(res, { bookType: 'xlsx', type: "array" });
-        loading.dismiss();
+        const data: any = this.xlsxExportService.generatePlacesXlsxFile(res, { bookType: 'xlsx', type: 'array' });
+        await loading.dismiss();
         this.xlsxExportService.saveExcelFile(data, `places_export_${Date.now()}.xlsx`);
       }
     }, async (error: any) => {

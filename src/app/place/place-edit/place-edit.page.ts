@@ -6,6 +6,7 @@ import { Subject } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 import { LoadingController, AlertController } from '@ionic/angular';
 import { FlightService, Place, PlaceService } from 'flightbook-commons-library';
+import HttpStatusCode from '../../shared/util/HttpStatusCode';
 
 @Component({
   selector: 'app-place-edit',
@@ -14,7 +15,7 @@ import { FlightService, Place, PlaceService } from 'flightbook-commons-library';
 })
 export class PlaceEditPage implements OnInit, OnDestroy {
   unsubscribe$ = new Subject<void>();
-  private placeId: number;
+  private readonly placeId: number;
   place: Place;
   deleteDisabled: boolean;
 
@@ -35,8 +36,8 @@ export class PlaceEditPage implements OnInit, OnDestroy {
       this.router.navigate(['/places'], { replaceUrl: true });
     }
     this.flightService.nbFlightsByPlaceId(this.placeId).subscribe((resp: any) => {
-      if (resp.nbFlights == 0) {
-        this.deleteDisabled = false
+      if (resp.nbFlights === 0) {
+        this.deleteDisabled = false;
       }
     });
   }
@@ -50,7 +51,7 @@ export class PlaceEditPage implements OnInit, OnDestroy {
   }
 
   async savePlace(place: Place) {
-    let loading = await this.loadingCtrl.create({
+    const loading = await this.loadingCtrl.create({
       message: this.translate.instant('loading.saveplace')
     });
     await loading.present();
@@ -61,7 +62,7 @@ export class PlaceEditPage implements OnInit, OnDestroy {
     },
       (async (error: any) => {
         await loading.dismiss();
-        if (error.status === 409) {
+        if (error.status === HttpStatusCode.CONFLICT) {
           const alert = await this.alertController.create({
             header: this.translate.instant('place.place'),
             message: this.translate.instant('message.placeExist'),
@@ -74,18 +75,18 @@ export class PlaceEditPage implements OnInit, OnDestroy {
   }
 
   async delete() {
-    let loading = await this.loadingCtrl.create({
+    const loading = await this.loadingCtrl.create({
       message: this.translate.instant('loading.deleteplace')
     });
     await loading.present();
 
     this.placeService.deletePlace(this.place).subscribe(async (res: any) => {
       await loading.dismiss();
-      this.router.navigate(['/places'], { replaceUrl: true });
+      await this.router.navigate(['/places'], { replaceUrl: true });
     },
       (async (error: any) => {
         await loading.dismiss();
-        if (error.status === 409) {
+        if (error.status === HttpStatusCode.CONFLICT) {
           const alert = await this.alertController.create({
             header: this.translate.instant('place.place'),
             message: this.translate.instant('message.deleteError'),

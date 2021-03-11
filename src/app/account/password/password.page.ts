@@ -3,6 +3,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { AccountService } from 'flightbook-commons-library';
+import HttpStatusCode from '../../shared/util/HttpStatusCode';
 
 @Component({
   selector: 'app-password',
@@ -57,7 +58,7 @@ export class PasswordPage implements OnInit {
     },
       (async (error: any) => {
         await loading.dismiss();
-        if (error.status === 403) {
+        if (error.status === HttpStatusCode.FORBIDDEN) {
           const alert = await this.alertController.create({
             header: this.translate.instant('login.password'),
             message: this.translate.instant('message.pwdWrong'),

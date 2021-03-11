@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { NewsService, AccountService } from 'flightbook-commons-library';
+import HttpStatusCode from '../../shared/util/HttpStatusCode';
 
 @Component({
   selector: 'app-login',
@@ -56,7 +57,7 @@ export class LoginPage implements OnInit, OnDestroy {
       },
         (async (error: any) => {
           await loading.dismiss();
-          if (error.status === 401) {
+          if (error.status === HttpStatusCode.UNAUTHORIZED) {
             const alert = await this.alertController.create({
               header: this.translate.instant('buttons.login'),
               message: this.translate.instant('message.emailpwdnotcorrect'),

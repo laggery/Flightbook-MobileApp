@@ -59,7 +59,7 @@ export class FlightFilterComponent implements OnInit, OnDestroy {
   }
 
   clearDateButton(type: string) {
-    if (type === "from") {
+    if (type === 'from') {
       this.filter.from = null;
     } else {
       this.filter.to = null;
@@ -67,12 +67,12 @@ export class FlightFilterComponent implements OnInit, OnDestroy {
   }
 
   private async closeFilter() {
-    let loading = await this.loadingCtrl.create({
+    const loading = await this.loadingCtrl.create({
       message: this.translate.instant('loading.loading')
     });
     await loading.present();
 
-    if (this.type === "FlightListPage") {
+    if (this.type === 'FlightListPage') {
       this.closeFlightFilter(loading);
     } else {
       this.closeStatisticFilter(loading);
@@ -81,10 +81,11 @@ export class FlightFilterComponent implements OnInit, OnDestroy {
 
   private async closeFlightFilter(loading: HTMLIonLoadingElement) {
     this.infiniteScroll.disabled = false;
-    this.flightService.getFlights({ limit: this.flightService.defaultLimit, clearStore: true }).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Flight[]) => {
+    this.flightService.getFlights({ limit: this.flightService.defaultLimit, clearStore: true })
+      .pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Flight[]) => {
       await loading.dismiss();
       this.modalCtrl.dismiss({
-        'dismissed': true
+        dismissed: true
       });
     }, async (error: any) => {
       await loading.dismiss();
@@ -96,8 +97,8 @@ export class FlightFilterComponent implements OnInit, OnDestroy {
     this.flightService.getStatistics(true).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: FlightStatistic) => {
       await loading.dismiss();
       this.modalCtrl.dismiss({
-        'dismissed': true,
-        'statistic': res
+        dismissed: true,
+        statistic: res
       });
     }, async (error: any) => {
       await loading.dismiss();

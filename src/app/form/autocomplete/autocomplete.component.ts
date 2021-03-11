@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ElementRef, OnChanges } from '@angular/core';
 import { Place, PlaceService } from 'flightbook-commons-library';
 @Component({
   selector: 'autocomplete',
@@ -8,17 +8,17 @@ import { Place, PlaceService } from 'flightbook-commons-library';
     '(document:click)': 'onClick($event)',
   },
 })
-export class AutocompleteComponent implements OnInit {
+export class AutocompleteComponent implements OnInit, OnChanges {
   @Input()
   search: string;
   @Output()
   setInputValue = new EventEmitter<Place>();
 
 
-  show: boolean
+  show: boolean;
   listElement: Place[];
 
-  constructor(private placeService: PlaceService, private _eref: ElementRef) {
+  constructor(private placeService: PlaceService, private eRef: ElementRef) {
     this.search = null;
     this.show = false;
   }
@@ -26,21 +26,21 @@ export class AutocompleteComponent implements OnInit {
   ngOnInit() { }
 
   onClick(event: any) {
-    if (!this._eref.nativeElement.contains(event.target)) { // or some similar check
+    if (!this.eRef.nativeElement.contains(event.target)) { // or some similar check
       this.show = false;
     }
   }
 
   ngOnChanges() {
-    if (this.search && this.search !== "") {
+    if (this.search && this.search !== '') {
       this.placeService.getPlacesByName(this.search, { limit: 4 }).subscribe((res: Place[]) => {
         if (res && res.length > 0) {
           this.show = true;
-          this.listElement = res
+          this.listElement = res;
         } else {
           this.show = false;
         }
-      })
+      });
     } else {
       this.show = false;
     }
