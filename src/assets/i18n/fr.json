@@ -153,9 +153,9 @@
         "school": "Tampon / Signature"
     },
     "dashboard": {
-        "addflight": "ajouter un vol",
-        "amountofflights": "nombre de vols",
-        "noflights": "pas de vols",
-        "lastflight": "dernier vol"
+        "addflight": "Ajouter un vol",
+        "amountofflights": "Nombre de vols",
+        "noflights": "Pas de vols",
+        "lastflight": "Dernier vol"
     }
 }

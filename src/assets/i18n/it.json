@@ -153,9 +153,9 @@
         "school": "Timbro / Firma"
     },
     "dashboard": {
-        "addflight": "aggiungi volo",
-        "amountofflights": "quantità di voli",
-        "noflights": "niente voli",
-        "lastflight": "ultimo volo"
+        "addflight": "Aggiungi volo",
+        "amountofflights": "Quantità di voli",
+        "noflights": "Niente voli",
+        "lastflight": "Ultimo volo"
     }
 }

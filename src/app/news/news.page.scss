@@ -1,14 +1,28 @@
 .news-container {
-    display: inline-block;
-    margin: -15px -5px 0px -5px;
-}
-
-@media only screen and (min-width: 1600px) {
-    .news-container {
-        display: grid;
+    display: inline-grid;
+    .news {
+        margin-bottom: 1vw;
     }
 }
 
+@media only screen and (min-width: 1800px) {
+    .news-container {
+        width:100%;
+        padding: 0 1.5vw 0 1.5vw;
+        .news {
+            margin-bottom: 1vw;
+        }
+    }
+}
+@media only screen and (min-width: 450px) {
+    .news-container {
+        width:100%;
+        padding: 0 1.5vw 0 1.5vw;
+        .news {
+            margin-bottom: 1vw;
+        }
+    }
+}
 .news .title {
     font-weight: bold;
     line-height: 0;

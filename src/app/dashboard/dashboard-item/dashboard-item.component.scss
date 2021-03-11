@@ -39,3 +39,21 @@
 .statistic-tile {
   margin-bottom: 1vw
 }
+
+.statistic-tile .body {
+  font-size: 10vw;
+  margin-bottom: 2vw;
+}
+
+@media only screen and (min-width: 992px) {
+  .dashboard-item .body {
+    font-size: 9vw;
+  }
+  .dashboard-item .title {
+    font-size: 2vw;
+  }
+  .statistic-tile .body {
+    font-size: 7vw;
+    margin-bottom: 2.5vw;
+  }
+}
