@@ -38,17 +38,17 @@ export class RegisterPage implements OnInit, OnDestroy {
 
   async saveRegister(registerForm: any) {
     if (registerForm.valid) {
-      let loading = await this.loadingCtrl.create({
+      const loading = await this.loadingCtrl.create({
         message: this.translate.instant('loading.createaccount')
       });
       await loading.present();
       this.accountService.register(this.registerData).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: User) => {
         await loading.dismiss();
-        this.router.navigate(['/login'], { replaceUrl: true });
+        await this.router.navigate(['/login'], { replaceUrl: true });
       },
         (async (error: any) => {
           await loading.dismiss();
-          if (error.status === 4) {
+          if (error.status === HttpStatusCode.CONFLICT) {
             const alert = await this.alertController.create({
               header: this.translate.instant('account.register'),
               message: this.translate.instant('message.userExist'),

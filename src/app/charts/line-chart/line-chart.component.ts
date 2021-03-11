@@ -47,12 +47,16 @@ export class LineChartComponent implements OnInit {
 
     this.yAxis = this.svgInner
       .append('g')
-      .attr('class', 'axis axis--yLeft')
+      .style('font-size', '30px')
+      .style('font-wight', '700')
+      .attr('class', 'axis axis--yLeft');
 
     this.xScale = d3.scaleTime().rangeRound([0, this.width]).domain(d3.extent(statisticsList, d => new Date(d.date)));
 
     this.xAxis = this.svgInner
       .append('g')
+      .style('font-size', '30px')
+      .style('font-wight', '700')
       .attr('class', 'axis axis--x')
       .attr('transform', 'translate(0,' + this.height + ')')
 

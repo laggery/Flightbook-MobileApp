@@ -3,13 +3,6 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>{{ 'groupname.glider' | translate }} <span
-        *ngIf="filtered">({{ 'groupname.filtered' | translate }})</span></ion-title>
-    <ion-buttons slot="primary">
-      <ion-button (click)="openFilter()">
-        {{ 'buttons.filter' | translate }}
-      </ion-button>
-    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -23,6 +16,15 @@
       </ion-row>
     </ion-grid>
   </ion-item>
+  <ion-grid>
+    <ion-row class="action-row">
+      <ion-col size="1.5" offset="10.5">
+        <ion-button fill="clear" [replaceUrl]="true" [routerLink]="['/gliders/add']">
+          <ion-icon name="add"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
   <ion-list *ngIf="(gliders$ | async)?.length > 0">
     <ion-item button detail *ngFor="let glider of gliders$ | async" (click)="itemTapped($event, glider)">
       <p class="gliderRow">
@@ -43,5 +45,4 @@
 
   <p class="emptylist" *ngIf="(gliders$ | async)?.length == 0">{{ 'emptylist' | translate }}</p>
 
-  <ion-button class="submit-button" expand="block" [replaceUrl]="true" [routerLink]="['/gliders/add']">{{ 'buttons.add' | translate }}</ion-button>
 </ion-content>

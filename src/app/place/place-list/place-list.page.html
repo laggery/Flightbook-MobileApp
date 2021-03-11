@@ -17,6 +17,15 @@
       </ion-row>
     </ion-grid>
   </ion-item>
+  <ion-grid>
+    <ion-row class="action-row">
+      <ion-col size="1.5" offset="10.5">
+        <ion-button fill="clear" [replaceUrl]="true" [routerLink]="['/places/add']">
+          <ion-icon name="add"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
   <ion-list *ngIf="(places$ | async)?.length > 0" >
     <ion-item button detail *ngFor="let place of places$ | async" (click)="itemTapped($event, place)">
       <ion-grid>
@@ -42,5 +51,4 @@
 
   <p class="emptylist" *ngIf="(places$ | async)?.length == 0">{{ 'emptylist' | translate }}</p>
 
-  <ion-button class="submit-button" expand="block" [replaceUrl]="true"  [routerLink]="['/places/add']">{{ 'buttons.add' | translate }}</ion-button>
 </ion-content>

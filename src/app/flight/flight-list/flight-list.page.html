@@ -5,11 +5,6 @@
     </ion-buttons>
     <ion-title>{{ 'groupname.flight' | translate }} <span
         *ngIf="filtered">({{ 'groupname.filtered' | translate }})</span></ion-title>
-    <ion-buttons slot="primary">
-      <ion-button (click)="openFilter()">
-        {{ 'buttons.filter' | translate }}
-      </ion-button>
-    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -26,6 +21,20 @@
       </ion-row>
     </ion-grid>
   </ion-item>
+    <ion-grid>
+      <ion-row class="action-row">
+        <ion-col size="1.5" offset="9">
+          <ion-button fill="clear" [replaceUrl]="true" [routerLink]="['/flights/add']">
+            <ion-icon name="add"></ion-icon>
+          </ion-button>
+        </ion-col>
+          <ion-col size="1.5">
+          <ion-button fill="clear" (click)="openFilter()">
+            <ion-icon name="filter-outline"></ion-icon>
+          </ion-button>
+          </ion-col>
+      </ion-row>
+    </ion-grid>
   <ion-list *ngIf="(flights$ | async)?.length > 0">
     <ion-item button detail *ngFor="let flight of flights$ | async" (click)="itemTapped($event, flight)">
       <p class="flightRow">
@@ -48,7 +57,5 @@
   </ion-infinite-scroll>
 
   <p class="emptylist" *ngIf="(flights$ | async)?.length == 0">{{ 'emptylist' | translate }}</p>
-
-  <ion-button class="submit-button" expand="block" [replaceUrl]="true" [routerLink]="['/flights/add']">{{ 'buttons.add' | translate }}</ion-button>
 
 </ion-content>

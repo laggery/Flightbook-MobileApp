@@ -1,30 +1,47 @@
 <ion-header>
-  <ion-toolbar color='primary'>
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    <ion-title>{{ 'groupname.flight' | translate }} <span
-        *ngIf="filtered">({{ 'groupname.filtered' | translate }})</span></ion-title>
-    <ion-buttons slot="primary">
-      <ion-button (click)="openFilter()">
-        {{ 'buttons.filter' | translate }}
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
+    <ion-toolbar color='primary'>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>{{ 'groupname.flight' | translate }} <span
+                *ngIf="filtered">({{ 'groupname.filtered' | translate }})</span>
+        </ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
-  <div id="basic-stat">
-    <div><label>{{ 'statistics.nbflight' | translate }}:</label><span id="nbFlights">{{ statistics.nbFlights || "0" }}</span></div>
-    <div><label>{{ 'statistics.flighthour' | translate }}:</label><span
-        id="totalTime">{{ statistics.time || "0" | hoursFormat }}</span></div>
-    <div><label>{{ 'statistics.average' | translate }}:</label><span
-        id="averageTime">{{ statistics.average || "0" | hoursFormat }}</span></div>
-    <div><label>{{ 'statistics.price' | translate }}:</label><span id="income">{{ statistics.income || "0" }}</span></div>
-  </div>
+    <ion-card>
+        <ion-grid>
+            <ion-row class="action-row">
+                <ion-col size="10.5" class="action-row">
+                    <div id="basic-stat">
+                        <div><label>{{ 'statistics.nbflight' | translate }}:</label><span
+                                id="nbFlights">{{ statistics.nbFlights || "0" }}</span></div>
+                        <div><label>{{ 'statistics.flighthour' | translate }}:</label><span
+                                id="totalTime">{{ statistics.time || "0" | hoursFormat }}</span></div>
+                        <div><label>{{ 'statistics.average' | translate }}:</label><span
+                                id="averageTime">{{ statistics.average || "0" | hoursFormat }}</span></div>
+                        <div><label>{{ 'statistics.price' | translate }}:</label><span
+                                id="income">{{ statistics.income || "0" }}</span></div>
+                    </div>
+                </ion-col>
+                <ion-col size="1.5" class="action-row">
+                    <ion-button fill="clear" (click)="openFilter()">
+                        <ion-icon name="filter-outline"></ion-icon>
+                    </ion-button>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </ion-card>
 
-  <bar-chart #flightChart chartType="nbFlights"></bar-chart>
-  <bar-chart #incomeChart chartType="income"></bar-chart>
+    <ion-card>
+        <bar-chart #flightChart chartType="nbFlights"></bar-chart>
+    </ion-card>
+    <ion-card>
+        <bar-chart #incomeChart chartType="income"></bar-chart>
+    </ion-card>
 
-  <line-chart></line-chart>
+    <ion-card>
+        <line-chart></line-chart>
+    </ion-card>
 </ion-content>

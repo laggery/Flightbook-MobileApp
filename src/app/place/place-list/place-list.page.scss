@@ -12,3 +12,14 @@ ion-item {
     --padding-start: 8px;
     --min-height: 48px;
 }
+
+
+.action-row {
+    padding-right: 15px;
+}
+
+@media (min-width: 750px) {
+    .action-row {
+        padding-right: 0;
+    }
+}

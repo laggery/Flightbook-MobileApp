@@ -15,7 +15,7 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class BarChartComponent implements OnInit {
 
-  @Input() chartType: "nbFlights" | "income";
+  @Input() chartType: 'nbFlights' | 'income';
 
   width: number;
   height: number;
@@ -52,29 +52,33 @@ export class BarChartComponent implements OnInit {
   private drawAxis(yAxisTranslation: string) {
     // x axis -> Years
     this.g.append('g')
+      .style('font-size', '30px')
+      .style('font-wight', '700')
       .attr('class', 'axis axis--x')
       .attr('transform', 'translate(0,' + this.height + ')')
       .call(d3Axis.axisBottom(this.x));
 
     // y left axis -> nb flights
     this.g.append('g')
+      .style('font-size', '30px')
+      .style('font-wight', '700')
       .attr('class', 'axis axis--yLeft')
       .call(d3Axis.axisLeft(this.y))
-      .append("text")
-      .attr("transform", "rotate(-90)")
-      .attr("dy", ".75em")
-      .attr("y", 6)
-      .style("text-anchor", "end")
+      .append('text')
+      .attr('transform', 'rotate(-90)')
+      .attr('dy', '.75em')
+      .attr('y', 6)
+      .style('text-anchor', 'end')
       .attr('fill', 'black')
       .text(yAxisTranslation);
   }
 
   private drawBars(statisticsList: FlightStatistic[]) {
-    let rectG = this.g.selectAll('.bar')
+    const rectG = this.g.selectAll('.bar')
       .data(statisticsList)
-      .enter().append('g')
+      .enter().append('g');
 
-    rectG.append("rect")
+    rectG.append('rect')
       .attr('class', 'bar-nbFlight')
       .attr('x', (d: any) => this.x(d.year))
       .attr('y', (d: any) => this.y(d[this.chartType]))

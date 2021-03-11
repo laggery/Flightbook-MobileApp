@@ -58,7 +58,7 @@ export class GliderListPage implements OnInit, OnDestroy, AfterViewInit {
       .subscribe(async (res: Glider[]) => {
         // @hack for hide export item
         setTimeout(async () => {
-          this.content.scrollToPoint(0, 48);
+          await this.content.scrollToPoint(0, 48);
           await loading.dismiss();
         }, 1);
       }, async (error: any) => {
