@@ -3,6 +3,22 @@
     .news {
         margin-bottom: 1vw;
     }
+    .hydrated {
+        margin: 4vw 3vw 1vw 3vw;
+    }
+}
+
+@media only screen and (min-width: 450px) {
+    .news-container {
+        width:100%;
+        padding: 0 1.5vw 0 1.5vw;
+        .news {
+            margin-bottom: 1vw;
+        }
+        .hydrated {
+            margin: 1vw 0.5vw 1.5vw 0.5vw;
+        }
+    }
 }
 
 @media only screen and (min-width: 1800px) {
@@ -12,17 +28,12 @@
         .news {
             margin-bottom: 1vw;
         }
-    }
-}
-@media only screen and (min-width: 450px) {
-    .news-container {
-        width:100%;
-        padding: 0 1.5vw 0 1.5vw;
-        .news {
-            margin-bottom: 1vw;
+        .hydrated {
+            margin: 0 0 1.5vw 0;
         }
     }
 }
+
 .news .title {
     font-weight: bold;
     line-height: 0;
