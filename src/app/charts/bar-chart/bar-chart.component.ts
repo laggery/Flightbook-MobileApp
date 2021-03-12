@@ -37,7 +37,8 @@ export class BarChartComponent implements OnInit {
       .append('svg')
       .attr('width', '100%')
       .attr('height', '100%')
-      .attr('viewBox', '0 0 900 500');
+      .attr('viewBox', '-30 0 900 500')
+      .style('margin-bottom', '5vw');
     this.g = this.svg.append('g')
       .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
   }
@@ -52,7 +53,7 @@ export class BarChartComponent implements OnInit {
   private drawAxis(yAxisTranslation: string) {
     // x axis -> Years
     this.g.append('g')
-      .style('font-size', '30px')
+      .style('font-size', '20px')
       .style('font-wight', '700')
       .attr('class', 'axis axis--x')
       .attr('transform', 'translate(0,' + this.height + ')')
@@ -60,7 +61,7 @@ export class BarChartComponent implements OnInit {
 
     // y left axis -> nb flights
     this.g.append('g')
-      .style('font-size', '30px')
+      .style('font-size', '20px')
       .style('font-wight', '700')
       .attr('class', 'axis axis--yLeft')
       .call(d3Axis.axisLeft(this.y))
@@ -69,7 +70,7 @@ export class BarChartComponent implements OnInit {
       .attr('dy', '.75em')
       .attr('y', 6)
       .style('text-anchor', 'end')
-      .attr('fill', 'black')
+      .attr('fill', 'currentColor')
       .text(yAxisTranslation);
   }
 

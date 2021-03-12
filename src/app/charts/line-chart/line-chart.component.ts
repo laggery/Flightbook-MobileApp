@@ -47,7 +47,7 @@ export class LineChartComponent implements OnInit {
 
     this.yAxis = this.svgInner
       .append('g')
-      .style('font-size', '30px')
+      .style('font-size', '20px')
       .style('font-wight', '700')
       .attr('class', 'axis axis--yLeft');
 
@@ -55,7 +55,7 @@ export class LineChartComponent implements OnInit {
 
     this.xAxis = this.svgInner
       .append('g')
-      .style('font-size', '30px')
+      .style('font-size', '20px')
       .style('font-wight', '700')
       .attr('class', 'axis axis--x')
       .attr('transform', 'translate(0,' + this.height + ')');
@@ -86,7 +86,7 @@ export class LineChartComponent implements OnInit {
       .attr('dy', '.75em')
       .attr('y', 6)
       .style('text-anchor', 'end')
-      .attr('fill', 'black')
+      .attr('fill', 'currentColor')
       .text(this.translate.instant('statistics.flighthour'));
 
     const line = d3
