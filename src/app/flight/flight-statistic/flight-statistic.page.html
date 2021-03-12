@@ -3,7 +3,7 @@
         <ion-buttons slot="start">
             <ion-menu-button></ion-menu-button>
         </ion-buttons>
-        <ion-title>{{ 'groupname.flight' | translate }} <span
+        <ion-title>{{ 'groupname.statistics' | translate }} <span
                 *ngIf="filtered">({{ 'groupname.filtered' | translate }})</span></ion-title>
         <ion-buttons slot="primary">
             <ion-button (click)="openFilter()">
@@ -32,5 +32,5 @@
     <bar-chart #flightChart chartType="nbFlights"></bar-chart>
     <bar-chart #incomeChart chartType="income"></bar-chart>
 
-    <line-chart class="ion-margin-bottom"></line-chart>
+    <line-chart></line-chart>
 </ion-content>
