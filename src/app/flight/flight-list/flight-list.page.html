@@ -51,5 +51,8 @@
 
 </ion-content>
 <ion-footer>
-  <ion-button class="submit-button" expand="block" [replaceUrl]="true" [routerLink]="['/flights/add']">{{ 'buttons.add' | translate }}</ion-button>
+  <ion-button class="submit-button" expand="block" [replaceUrl]="true" [routerLink]="['/flights/add']">
+    <ion-icon name="add"></ion-icon>
+    {{ 'buttons.add' | translate }}
+  </ion-button>
 </ion-footer>
