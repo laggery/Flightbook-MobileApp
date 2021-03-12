@@ -4,6 +4,11 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>{{ 'groupname.place' | translate }}</ion-title>
+    <ion-buttons slot="primary">
+      <ion-button class="submit-button" [replaceUrl]="true" [routerLink]="['/places/add']">
+        <ion-icon name="add"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -43,8 +48,3 @@
   <p class="emptylist" *ngIf="(places$ | async)?.length == 0">{{ 'emptylist' | translate }}</p>
 
 </ion-content>
-<ion-footer>
-  <ion-button class="submit-button" expand="block" [replaceUrl]="true" [routerLink]="['/places/add']">
-    <ion-icon name="add"></ion-icon>
-    {{ 'buttons.add' | translate }}</ion-button>
-</ion-footer>

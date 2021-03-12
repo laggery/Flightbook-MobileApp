@@ -9,6 +9,9 @@
       <ion-button (click)="openFilter()">
         {{ 'buttons.filter' | translate }}
       </ion-button>
+      <ion-button class="submit-button" [replaceUrl]="true" [routerLink]="['/flights/add']">
+        <ion-icon name="add"></ion-icon>
+      </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -50,9 +53,3 @@
   <p class="emptylist" *ngIf="(flights$ | async)?.length == 0">{{ 'emptylist' | translate }}</p>
 
 </ion-content>
-<ion-footer>
-  <ion-button class="submit-button" expand="block" [replaceUrl]="true" [routerLink]="['/flights/add']">
-    <ion-icon name="add"></ion-icon>
-    {{ 'buttons.add' | translate }}
-  </ion-button>
-</ion-footer>
