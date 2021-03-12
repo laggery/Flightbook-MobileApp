@@ -54,7 +54,7 @@ export class BarChartComponent implements OnInit {
     // x axis -> Years
     this.g.append('g')
       .style('font-size', '20px')
-      .style('font-wight', '700')
+      .style('font-weight', '700')
       .attr('class', 'axis axis--x')
       .attr('transform', 'translate(0,' + this.height + ')')
       .call(d3Axis.axisBottom(this.x));
@@ -62,7 +62,7 @@ export class BarChartComponent implements OnInit {
     // y left axis -> nb flights
     this.g.append('g')
       .style('font-size', '20px')
-      .style('font-wight', '700')
+      .style('font-weight', '700')
       .attr('class', 'axis axis--yLeft')
       .call(d3Axis.axisLeft(this.y))
       .append('text')
