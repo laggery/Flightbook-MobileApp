@@ -1,70 +1,70 @@
 ion-item {
-    --padding-start: 8px;
+  --padding-start: 8px;
 }
 
 .flightRow {
-    max-height: 0px;
-    line-height: 60px;
-    margin-top: -42px;
+  max-height: 0px;
+  line-height: 60px;
+  margin-top: -42px;
 }
 
 .flightRow .item-native {
-    max-height: 50px !important;
+  max-height: 50px !important;
 }
 
 .flightRow span {
-    overflow-x: hidden;
-    text-overflow: ellipsis;
-    width: 150px;
-    white-space: nowrap;
-    display: inline-block;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+  width: 150px;
+  white-space: nowrap;
+  display: inline-block;
 }
 
 .flightRow .flightDate,
 .flightRow .flightTime {
-    width: 92px;
+  width: 92px;
 }
 
 .flightRow .flightTime {
-    margin-left: 10px;
+  margin-left: 10px;
 }
 
 .flightRow .flightStart,
 .flightRow .flightLanding {
-    min-width: 170px;
+  min-width: 170px;
 }
 
-.flightRow .flightKm{
-    width: 70px;
+.flightRow .flightKm {
+  width: 70px;
 }
 
 .flightRow .flightNumber {
-    width: 45px;
+  width: 45px;
 }
 
 .export-buttons ion-button {
-    width: 100%;
-    height: 36px;
+  width: 100%;
+  height: 36px;
 }
 
 ion-grid, ion-col {
-    padding-top: 0;
-    padding-bottom: 0;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
 ion-item {
-    --min-height: 48px;
+  --min-height: 48px;
 }
 
-@media (max-width:320px) {
-    .flightRow .flightNumber {
-        display: none;
-    }
+@media (max-width: 320px) {
+  .flightRow .flightNumber {
+    display: none;
+  }
 }
 
-@media (min-width:546px) and (max-width:684px) {
-    .flightRow .flightGlider {
-        width: 132px;
-        max-width: 150px;
-    }
+@media (min-width: 546px) and (max-width: 684px) {
+  .flightRow .flightGlider {
+    width: 132px;
+    max-width: 150px;
+  }
 }

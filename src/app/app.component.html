@@ -13,53 +13,29 @@
               <fb-menu-item [icon]="'home'" [label]="'groupname.home'"></fb-menu-item>
             </ion-item>
           </ion-menu-toggle>
-
           <p class="divider-menu">{{ 'groupname.flight' | translate }}</p>
-
-          <ion-menu-toggle auto-hide="false">
-            <ion-item routerDirection="root" [routerLink]="['/flights/add']" lines="full" detail="false">
-              <fb-menu-item [icon]="'flight'" [label]="'buttons.add'"></fb-menu-item>
-            </ion-item>
-          </ion-menu-toggle>
           <ion-menu-toggle auto-hide="false">
             <ion-item routerDirection="root" [routerLink]="['/flights']" lines="full" detail="false">
-              <fb-menu-item [icon]="'eye'" [label]="'buttons.show'"></fb-menu-item>
+              <fb-menu-item [icon]="'flight'" [label]="'groupname.flight'"></fb-menu-item>
             </ion-item>
           </ion-menu-toggle>
+          <ion-menu-toggle auto-hide="false">
+            <ion-item routerDirection="root" [routerLink]="['/gliders']" lines="full" detail="false">
+              <fb-menu-item [icon]="'glider'" [label]="'groupname.glider'"></fb-menu-item>
+            </ion-item>
+          </ion-menu-toggle>
+          <ion-menu-toggle auto-hide="false">
+            <ion-item routerDirection="root" [routerLink]="['/places']" lines="full" detail="false">
+              <fb-menu-item [icon]="'place'" [label]="'groupname.place'"></fb-menu-item>
+            </ion-item>
+          </ion-menu-toggle>
+
           <ion-menu-toggle auto-hide="false">
             <ion-item routerDirection="root" [routerLink]="['/flights/statistic']" lines="full" detail="false">
               <fb-menu-item [icon]="'stats-chart'" [label]="'buttons.statistics'"></fb-menu-item>
             </ion-item>
           </ion-menu-toggle>
-
-          <p class="divider-menu">{{ 'groupname.glider' | translate }}</p>
-
-          <ion-menu-toggle auto-hide="false">
-            <ion-item routerDirection="root" [routerLink]="['/gliders/add']" lines="full" detail="false">
-              <fb-menu-item [icon]="'glider'" [label]="'buttons.add'"></fb-menu-item>
-            </ion-item>
-          </ion-menu-toggle>
-          <ion-menu-toggle auto-hide="false">
-            <ion-item routerDirection="root" [routerLink]="['/gliders']" lines="full" detail="false">
-              <fb-menu-item [icon]="'eye'" [label]="'buttons.show'"></fb-menu-item>
-            </ion-item>
-          </ion-menu-toggle>
-
-          <p class="divider-menu">{{ 'groupname.place' | translate }}</p>
-
-          <ion-menu-toggle auto-hide="false">
-            <ion-item routerDirection="root" [routerLink]="['/places/add']" lines="full" detail="false">
-              <fb-menu-item [icon]="'place'" [label]="'buttons.add'"></fb-menu-item>
-            </ion-item>
-          </ion-menu-toggle>
-          <ion-menu-toggle auto-hide="false">
-            <ion-item routerDirection="root" [routerLink]="['/places']" lines="full" detail="false">
-              <fb-menu-item [icon]="'eye'" [label]="'buttons.show'"></fb-menu-item>
-            </ion-item>
-          </ion-menu-toggle>
-
           <p class="divider-menu">{{ 'groupname.account' | translate }}</p>
-
           <ion-menu-toggle auto-hide="false">
             <ion-item routerDirection="root" [routerLink]="['/settings']" lines="full" detail="false">
               <fb-menu-item [icon]="'settings'" [label]="'buttons.settings'"></fb-menu-item>

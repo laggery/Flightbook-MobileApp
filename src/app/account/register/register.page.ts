@@ -5,6 +5,7 @@ import { takeUntil } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { AccountService, User } from 'flightbook-commons-library';
+import HttpStatusCode from '../../shared/util/HttpStatusCode';
 
 @Component({
   selector: 'app-register',
@@ -37,17 +38,17 @@ export class RegisterPage implements OnInit, OnDestroy {
 
   async saveRegister(registerForm: any) {
     if (registerForm.valid) {
-      let loading = await this.loadingCtrl.create({
+      const loading = await this.loadingCtrl.create({
         message: this.translate.instant('loading.createaccount')
       });
       await loading.present();
       this.accountService.register(this.registerData).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: User) => {
         await loading.dismiss();
-        this.router.navigate(['/login'], { replaceUrl: true });
+        await this.router.navigate(['/login'], { replaceUrl: true });
       },
         (async (error: any) => {
           await loading.dismiss();
-          if (error.status === 409) {
+          if (error.status === HttpStatusCode.CONFLICT) {
             const alert = await this.alertController.create({
               header: this.translate.instant('account.register'),
               message: this.translate.instant('message.userExist'),

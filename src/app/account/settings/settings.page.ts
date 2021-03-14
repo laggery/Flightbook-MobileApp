@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { AccountService, User } from 'flightbook-commons-library';
+import HttpStatusCode from '../../shared/util/HttpStatusCode';
 
 @Component({
   selector: 'app-settings',
@@ -36,7 +37,7 @@ export class SettingsPage implements OnInit {
     },
     (async (error: any) => {
       await loading.dismiss();
-      if (error.status === 409) {
+      if (error.status === HttpStatusCode.CONFLICT) {
         const alert = await this.alertController.create({
           header: this.translate.instant('message.infotitle'),
           message: this.translate.instant('message.userExist'),

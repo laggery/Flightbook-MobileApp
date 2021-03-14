@@ -22,7 +22,7 @@ export class LineChartComponent implements OnInit {
   private xAxis: any;
   private yAxis: any;
   private lineGroup: any;
-  private color = "rgb(56, 128, 255)";
+  private color = 'rgb(56, 128, 255)';
 
   constructor(private translate: TranslateService) {
     this.width = 900 - this.margin.left - this.margin.right;
@@ -47,14 +47,18 @@ export class LineChartComponent implements OnInit {
 
     this.yAxis = this.svgInner
       .append('g')
-      .attr('class', 'axis axis--yLeft')
+      .style('font-size', '20px')
+      .style('font-weight', '700')
+      .attr('class', 'axis axis--yLeft');
 
     this.xScale = d3.scaleTime().rangeRound([0, this.width]).domain(d3.extent(statisticsList, d => new Date(d.date)));
 
     this.xAxis = this.svgInner
       .append('g')
+      .style('font-size', '20px')
+      .style('font-weight', '700')
       .attr('class', 'axis axis--x')
-      .attr('transform', 'translate(0,' + this.height + ')')
+      .attr('transform', 'translate(0,' + this.height + ')');
 
     this.lineGroup = this.svgInner
       .append('g')
@@ -62,7 +66,7 @@ export class LineChartComponent implements OnInit {
       .attr('id', 'line')
       .style('fill', 'none')
       .style('stroke', this.color)
-      .style('stroke-width', '2px')
+      .style('stroke-width', '2px');
   }
 
   private drawChart(statisticsList: any[]): void {
@@ -77,12 +81,12 @@ export class LineChartComponent implements OnInit {
     const yAxis = d3
       .axisLeft(this.yScale);
 
-    this.yAxis.call(yAxis).append("text")
-      .attr("transform", "rotate(-90)")
-      .attr("dy", ".75em")
-      .attr("y", 6)
-      .style("text-anchor", "end")
-      .attr('fill', 'black')
+    this.yAxis.call(yAxis).append('text')
+      .attr('transform', 'rotate(-90)')
+      .attr('dy', '.75em')
+      .attr('y', 6)
+      .style('text-anchor', 'end')
+      .attr('fill', 'currentColor')
       .text(this.translate.instant('statistics.flighthour'));
 
     const line = d3
@@ -97,21 +101,21 @@ export class LineChartComponent implements OnInit {
 
     this.lineGroup.attr('d', line(points));
 
-    this.svg.selectAll("myCircles")
+    this.svg.selectAll('myCircles')
       .data(statisticsList)
       .enter()
-      .append("circle")
-      .attr("fill", "white")
-      .attr("stroke", this.color)
-      .style("stroke-width", 2)
-      .attr("cx", (d: any) => { return this.xScale(new Date(d.date)) + this.margin.left })
-      .attr("cy", (d: any) => { return this.yScale(d.hourTime) + this.margin.top })
-      .attr("r", 5).
+      .append('circle')
+      .attr('fill', 'white')
+      .attr('stroke', this.color)
+      .style('stroke-width', 2)
+      .attr('cx', (d: any) => this.xScale(new Date(d.date)) + this.margin.left)
+      .attr('cy', (d: any) => this.yScale(d.hourTime) + this.margin.top)
+      .attr('r', 5).
       on('mouseover', (d: any, i: any) => {
         // Create a group for the popup objects
-        let popup = this.svg.append("g");
-        let popupHeight = 23;
-        let popupWidth = 66;
+        const popup = this.svg.append('g');
+        const popupHeight = 23;
+        const popupWidth = 66;
 
         // Add a rectangle surrounding the chart
         let x;
@@ -122,53 +126,53 @@ export class LineChartComponent implements OnInit {
         }
         let y;
         if (d.target.cy.animVal.value - (popupHeight / 2) > this.height - popupHeight) {
-          y = this.height - popupHeight + this.margin.top
+          y = this.height - popupHeight + this.margin.top;
         } else if (d.target.cy.animVal.value - (popupHeight / 2) < 0) {
           y = 0 + this.margin.top;
         } else {
           y = d.target.cy.animVal.value - (popupHeight / 2);
         }
         popup
-          .append("rect")
-          .attr("x", x)
-          .attr("y", y)
-          .attr("width", popupWidth)
-          .attr("height", popupHeight)
-          .attr("rx", 5)
-          .attr("ry", 5)
+          .append('rect')
+          .attr('x', x)
+          .attr('y', y)
+          .attr('width', popupWidth)
+          .attr('height', popupHeight)
+          .attr('rx', 5)
+          .attr('ry', 5)
           .attr('class', 'popup')
-          .style("fill", 'rgb(219 232 255)')
-          .style("stroke", this.color)
-          .style("stroke-width", 2);
+          .style('fill', 'rgb(219 232 255)')
+          .style('stroke', this.color)
+          .style('stroke-width', 2);
 
         // Add the series value text
-        const formattedTime = (i.time === 0) ? "00:00:00" : new HoursFormatPipe().transform(i.time);
+        const formattedTime = (i.time === 0) ? '00:00:00' : new HoursFormatPipe().transform(i.time);
         popup
-          .append("text")
-          .attr("x", x + 10)
-          .attr("y", y + 15)
+          .append('text')
+          .attr('x', x + 10)
+          .attr('y', y + 15)
           .attr('class', 'popup')
           .text(formattedTime)
-          .style("font-family", "sans-serif")
-          .style("font-size", 12)
-          .style("fill", "black");
+          .style('font-family', 'sans-serif')
+          .style('font-size', 12)
+          .style('fill', 'black');
       })
-      .on("mouseout", function () {
+      .on('mouseout', function() {
         d3Selection.selectAll('.lineChart svg .popup').remove();
       });
   }
 
   public displayLineChart(statisticsList: FlightStatistic[]) {
     d3Selection.selectAll('.lineChart svg').remove();
-    let slice: any[] = [];
+    const slice: any[] = [];
     statisticsList.forEach((element: FlightStatistic) => {
       if (element.year != '') {
-        let newVal: any = element;
+        const newVal: any = element;
         newVal.date = moment(`${element.year}-01-01`); // Convert year to date
         newVal.hourTime = (element.time / 60) / 60; // Convert second to hours
-        slice.push(newVal)
+        slice.push(newVal);
       }
-    })
+    });
     this.initializeChart(slice);
     this.drawChart(slice);
   }

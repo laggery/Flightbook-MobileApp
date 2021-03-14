@@ -5,6 +5,7 @@ import { takeUntil } from 'rxjs/operators';
 import { LoadingController, AlertController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { Place, PlaceService } from 'flightbook-commons-library';
+import HttpStatusCode from '../../shared/util/HttpStatusCode';
 
 @Component({
   selector: 'app-place-add',
@@ -34,18 +35,18 @@ export class PlaceAddPage implements OnInit, OnDestroy {
   }
 
   async savePlace(place: Place) {
-    let loading = await this.loadingCtrl.create({
+    const loading = await this.loadingCtrl.create({
       message: this.translate.instant('loading.saveplace')
     });
     await loading.present();
 
     this.placeService.postPlace(place).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Place) => {
       await loading.dismiss();
-      this.router.navigate(['/places'], { replaceUrl: true });
+      await this.router.navigate(['/places'], { replaceUrl: true });
     },
       (async (error: any) => {
         await loading.dismiss();
-        if (error.status === 409) {
+        if (error.status === HttpStatusCode.CONFLICT) {
           const alert = await this.alertController.create({
             header: this.translate.instant('place.place'),
             message: this.translate.instant('message.placeExist'),

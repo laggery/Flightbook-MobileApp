@@ -43,17 +43,19 @@ export class GliderFilterComponent implements OnInit, OnDestroy {
   }
 
   private async closeFilter() {
-    let loading = await this.loadingCtrl.create({
+    const loading = await this.loadingCtrl.create({
       message: this.translate.instant('loading.loading')
     });
     await loading.present();
 
     this.infiniteScroll.disabled = false;
 
-    this.gliderService.getGliders({ limit: this.gliderService.defaultLimit, clearStore: true }).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Glider[]) => {
+    this.gliderService.getGliders({ limit: this.gliderService.defaultLimit, clearStore: true })
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(async (res: Glider[]) => {
       await loading.dismiss();
       this.modalCtrl.dismiss({
-        'dismissed': true
+        dismissed: true
       });
     }, async (error: any) => {
       await loading.dismiss();

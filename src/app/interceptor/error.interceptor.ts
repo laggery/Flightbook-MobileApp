@@ -10,6 +10,7 @@ import { MenuController, AlertController } from '@ionic/angular';
 import { Injectable } from '@angular/core';
 import { catchError } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
+import HttpStatusCode from '../shared/util/HttpStatusCode';
 
 @Injectable()
 export class HttpErrorInterceptor implements HttpInterceptor {
@@ -23,7 +24,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         return next.handle(request).pipe(catchError(err => {
-            if (err.status === 401) {
+            if (err.status === HttpStatusCode.UNAUTHORIZED) {
                 this.menuCtrl.enable(false);
                 this.router.navigate(['login']);
             }

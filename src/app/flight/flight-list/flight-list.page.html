@@ -6,8 +6,11 @@
     <ion-title>{{ 'groupname.flight' | translate }} <span
         *ngIf="filtered">({{ 'groupname.filtered' | translate }})</span></ion-title>
     <ion-buttons slot="primary">
+      <ion-button class="submit-button" [replaceUrl]="true" [routerLink]="['/flights/add']">
+        <ion-icon name="add"></ion-icon>
+      </ion-button>
       <ion-button (click)="openFilter()">
-        {{ 'buttons.filter' | translate }}
+        <ion-icon name="filter-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -48,4 +51,5 @@
   </ion-infinite-scroll>
 
   <p class="emptylist" *ngIf="(flights$ | async)?.length == 0">{{ 'emptylist' | translate }}</p>
+
 </ion-content>
