@@ -3,6 +3,7 @@ import { AlertController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { Flight, Place, Glider } from 'flightbook-commons-library';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'flight-form',
@@ -45,7 +46,7 @@ export class FlightFormComponent implements OnInit {
     }
   }
 
-  async saveElement(loginForm: any) {
+  async saveElement(loginForm: NgForm) {
     if (loginForm.valid) {
       if (!Number.isNaN(Date.parse(this.flight.time))) {
         this.flight.time = moment(this.flight.time).format('HH:mm:ss');
