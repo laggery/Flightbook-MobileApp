@@ -43,6 +43,6 @@
     <ion-label color="primary" position="stacked">{{ 'flight.description' | translate }}</ion-label>
     <ion-textarea [(ngModel)]="flight.description" name="description" autocomplete="on" autocorrect="on"></ion-textarea>
   </ion-item>
-  <file-input [(ngModel)]="flight.file" name="file"></file-input>
+  <file-input [(ngModel)]="flight.file"  (fileContent) ="prefill($event)" name="file"></file-input>
   <ion-button expand="block" type="submit">{{ 'buttons.save' | translate }}</ion-button>
 </form>

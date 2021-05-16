@@ -4,12 +4,14 @@ import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { Flight, Place, Glider } from 'flightbook-commons-library';
 import { NgForm } from '@angular/forms';
+const IGCParser = require('igc-parser');
 
 @Component({
   selector: 'flight-form',
   templateUrl: 'flight-form.html'
 })
 export class FlightFormComponent implements OnInit {
+
   @Input()
   flight: Flight;
   @Input()
@@ -92,4 +94,12 @@ export class FlightFormComponent implements OnInit {
     this.flight.landing.name = event.name;
   }
 
+
+  prefill($event: string | ArrayBuffer) {
+    if (typeof $event === 'string') {
+      const result = IGCParser.parse($event, 'utf8');
+      this.flight.date = result.date;
+      this.flight.time = result.fixes[0].time;
+    }
+  }
 }

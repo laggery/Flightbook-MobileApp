@@ -1,6 +1,6 @@
-import { NgForm } from '@angular/forms';
-import { Component, forwardRef, HostBinding, Input } from '@angular/core';
+import { Component, EventEmitter, forwardRef, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Place } from 'flightbook-commons-library';
 
 @Component({
   selector: 'file-input',
@@ -15,10 +15,13 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
   styleUrls: ['file-input.component.scss']
 })
 export class FileInputComponent implements ControlValueAccessor {
+
   private isDisabled: boolean;
-  @Input() formGroup2: NgForm;
 
   fileName = '';
+
+  @Output()
+  fileContent = new EventEmitter<string | ArrayBuffer>();
 
   val = File;
 
@@ -42,7 +45,7 @@ export class FileInputComponent implements ControlValueAccessor {
   }
 
   set value(val: any) {
-    if ( val !== undefined) {
+    if (val !== undefined) {
       this.val = val;
       this.onChange(val);
       this.onTouch(val);
@@ -55,10 +58,13 @@ export class FileInputComponent implements ControlValueAccessor {
   onTouch: any = () => {
   }
 
-  onFileSelected(event: { target: { files: File[]; }; }) {
-    const file: File = event.target.files[0];
-    if (file) {
-      this.fileName = file.name;
-    }
+  onFileSelected(event: Event) {
+    const file: File = (event.target as HTMLInputElement).files[0];
+    this.fileName = file.name;
+    const reader = new FileReader();
+    reader.readAsText(file);
+    reader.onload = e => {
+      this.fileContent.emit(reader.result);
+    };
   }
 }
