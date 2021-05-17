@@ -4,7 +4,8 @@ import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { Flight, Place, Glider } from 'flightbook-commons-library';
 import { NgForm } from '@angular/forms';
-const IGCParser = require('igc-parser');
+import * as IGCParser from 'igc-parser';
+import { solver, scoringRules as scoring } from 'igc-xc-score';
 
 @Component({
   selector: 'flight-form',
@@ -97,9 +98,13 @@ export class FlightFormComponent implements OnInit {
 
   prefill($event: string | ArrayBuffer) {
     if (typeof $event === 'string') {
-      const result = IGCParser.parse($event, 'utf8');
-      this.flight.date = result.date;
-      this.flight.time = result.fixes[0].time;
+      const igcFile = IGCParser.parse($event, {lenient: true});
+      const result = solver(igcFile, scoring.XCScoring, {}).next().value;
+      if (result.optimal) {
+        this.flight.km = result.scoreInfo.distance;
+      }
+      this.flight.date = igcFile.date;
+      this.flight.time = igcFile.fixes[0].time;
     }
   }
 }

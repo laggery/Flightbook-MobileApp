@@ -38,6 +38,7 @@
     "file-saver": "^2.0.2",
     "flightbook-commons-library": "0.0.29",
     "igc-parser": "^1.0.0",
+    "igc-xc-score": "^1.6.0",
     "moment": "^2.26.0",
     "pdfmake": "^0.1.68",
     "rxjs": "~6.5.1",
