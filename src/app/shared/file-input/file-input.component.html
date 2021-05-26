@@ -1,12 +1,14 @@
 <input type="file" class="file-input" [(ngModel)]="value"
        (change)="onFileSelected($event)" #fileUpload>
 
-<div class="file-upload">
-
-  {{fileName || "Add .igc File"}}
-
-  <ion-button color="primary" class="upload-btn"
-          (click)="fileUpload.click()">
-    <ion-icon name="document"></ion-icon>
-  </ion-button>
+<div class="menu-item-wrap">
+    <ion-card>
+        <ion-card-content>
+            {{fileName || "Add .igc File"}}
+        </ion-card-content>
+    </ion-card>
+    <ion-button color="primary" class="upload-btn"
+                (click)="fileUpload.click()">
+        <ion-icon name="document"></ion-icon>
+    </ion-button>
 </div>

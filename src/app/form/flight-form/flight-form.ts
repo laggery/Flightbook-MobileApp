@@ -2,11 +2,10 @@ import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
-import { Flight, Place, Glider } from 'flightbook-commons-library';
+import { Flight, Place, Glider, FileUploadService } from 'flightbook-commons-library';
 import { NgForm } from '@angular/forms';
 import * as IGCParser from 'igc-parser';
 import { solver, scoringRules as scoring } from 'igc-xc-score';
-
 @Component({
   selector: 'flight-form',
   templateUrl: 'flight-form.html'
@@ -26,8 +25,10 @@ export class FlightFormComponent implements OnInit {
 
   constructor(
     private alertController: AlertController,
-    private translate: TranslateService
-  ) { }
+    private translate: TranslateService,
+    private fileUploadService: FileUploadService
+  ) {
+  }
 
   ngOnInit() {
     if (this.flight.glider.brand && this.flight.glider.name) {
@@ -49,19 +50,28 @@ export class FlightFormComponent implements OnInit {
     }
   }
 
-  async saveElement(loginForm: NgForm) {
-    if (loginForm.valid) {
-      if (!Number.isNaN(Date.parse(this.flight.time))) {
-        this.flight.time = moment(this.flight.time).format('HH:mm:ss');
-      }
+  async submitForm({ valid }: NgForm) {
+    if (valid) {
+      this.formatDate();
       this.saveFlight.emit(this.flight);
     } else {
-      const alert = await this.alertController.create({
-        header: this.translate.instant('message.errortitle'),
-        message: this.translate.instant('message.mendatoryFields'),
-        buttons: [this.translate.instant('buttons.done')]
-      });
-      await alert.present();
+      await this.showAlert();
+    }
+  }
+
+  private async showAlert() {
+    const alert = await this.alertController.create({
+      header: this.translate.instant('message.errortitle'),
+      message: this.translate.instant('message.mendatoryFields'),
+      buttons: [this.translate.instant('buttons.done')]
+    });
+    await alert.present();
+  }
+
+  private formatDate() {
+    const validNumber = !Number.isNaN(Date.parse(this.flight.time));
+    if (validNumber) {
+      this.flight.time = moment(this.flight.time).format('HH:mm:ss');
     }
   }
 
@@ -95,10 +105,9 @@ export class FlightFormComponent implements OnInit {
     this.flight.landing.name = event.name;
   }
 
-
-  prefill($event: string | ArrayBuffer) {
+  prefillWithIGCData($event: string | ArrayBuffer) {
     if (typeof $event === 'string') {
-      const igcFile = IGCParser.parse($event, {lenient: true});
+      const igcFile = IGCParser.parse($event, { lenient: true });
       const result = solver(igcFile, scoring.XCScoring, {}).next().value;
       if (result.optimal) {
         this.flight.km = result.scoreInfo.distance;
@@ -106,5 +115,11 @@ export class FlightFormComponent implements OnInit {
       this.flight.date = igcFile.date;
       this.flight.time = igcFile.fixes[0].time;
     }
+  }
+
+  uploadIgcFile($event: FormData) {
+    this.fileUploadService.uploadFile($event, '1234').pipe()
+      .subscribe(async (res: boolean) => {
+      });
   }
 }

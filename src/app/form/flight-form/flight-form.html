@@ -1,4 +1,5 @@
-<form #form="ngForm" (ngSubmit)="saveElement(form)" *ngIf="flight">
+<form #form="ngForm" (ngSubmit)="submitForm(form)" *ngIf="flight">
+  <file-input (file)="uploadIgcFile($event)"  (fileContent) ="prefillWithIGCData($event)" name="file"></file-input>
   <ion-item *ngIf="gliders.length > 0">
     <ion-label color="primary" position="stacked">{{ 'flight.glider' | translate }}<span style="color:red"> *</span></ion-label>
     <ion-select required [value]="flight.glider.id?.toString()" (ionChange)="onSelectChange($event)" name="glider"
@@ -43,6 +44,5 @@
     <ion-label color="primary" position="stacked">{{ 'flight.description' | translate }}</ion-label>
     <ion-textarea [(ngModel)]="flight.description" name="description" autocomplete="on" autocorrect="on"></ion-textarea>
   </ion-item>
-  <file-input [(ngModel)]="flight.file"  (fileContent) ="prefill($event)" name="file"></file-input>
   <ion-button expand="block" type="submit">{{ 'buttons.save' | translate }}</ion-button>
 </form>

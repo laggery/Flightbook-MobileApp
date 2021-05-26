@@ -23,7 +23,7 @@ export class FlightAddPage implements OnInit, OnDestroy {
     private gliderService: GliderService,
     private alertController: AlertController,
     private translate: TranslateService,
-    private loadingCtrl: LoadingController
+    private loadingCtrl: LoadingController,
   ) {
     this.flight = new Flight();
     this.flight.date = new Date().toISOString();
@@ -67,7 +67,6 @@ export class FlightAddPage implements OnInit, OnDestroy {
       message: this.translate.instant('loading.saveflight')
     });
     await loading.present();
-
     this.flightService.postFlight(flight).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Flight) => {
         await loading.dismiss();
         await this.router.navigate(['/flights'], { replaceUrl: true });

@@ -4,20 +4,25 @@ import { IonicModule } from '@ionic/angular';
 import { TranslateModule } from '@ngx-translate/core';
 import { FileInputComponent } from './file-input/file-input.component';
 import { FormsModule } from '@angular/forms';
+import { MapComponent } from './map/map.component';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
     MenuItemComponent,
-    FileInputComponent
+    FileInputComponent,
+    MapComponent,
   ],
   exports: [
     MenuItemComponent,
-    FileInputComponent
+    FileInputComponent,
+    MapComponent
   ],
   imports: [
     IonicModule,
     TranslateModule,
-    FormsModule
+    FormsModule,
+    CommonModule
   ]
 })
 export class SharedModule {

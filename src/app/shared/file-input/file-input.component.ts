@@ -1,6 +1,6 @@
-import { Component, EventEmitter, forwardRef, Output } from '@angular/core';
+import { Component, EventEmitter, forwardRef, Input, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { Place } from 'flightbook-commons-library';
+import { readFileSync } from 'fs';
 
 @Component({
   selector: 'file-input',
@@ -22,6 +22,9 @@ export class FileInputComponent implements ControlValueAccessor {
 
   @Output()
   fileContent = new EventEmitter<string | ArrayBuffer>();
+
+  @Output()
+  file = new EventEmitter<FormData>();
 
   val = File;
 
@@ -59,10 +62,13 @@ export class FileInputComponent implements ControlValueAccessor {
   }
 
   onFileSelected(event: Event) {
-    const file: File = (event.target as HTMLInputElement).files[0];
-    this.fileName = file.name;
+    const target = event.target as HTMLInputElement;
+    const file = target.files[0];
+    const formData = new FormData();
+    formData.append('file', file, file.name);
+    this.file.emit(formData);
     const reader = new FileReader();
-    reader.readAsText(file);
+    this.fileName = file.name;
     reader.onload = e => {
       this.fileContent.emit(reader.result);
     };

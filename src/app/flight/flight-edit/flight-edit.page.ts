@@ -29,7 +29,6 @@ export class FlightEditPage implements OnInit, OnDestroy {
     private translate: TranslateService,
     private loadingCtrl: LoadingController
   ) {
-
     this.flightId = +this.activeRoute.snapshot.paramMap.get('id');
     this.initialFlight = this.flightService.getValue().find(flight => flight.id === this.flightId);
     this.flight = _.cloneDeep(this.initialFlight);
@@ -111,7 +110,6 @@ export class FlightEditPage implements OnInit, OnDestroy {
       message: this.translate.instant('loading.copyflight')
     });
     await loading.present();
-
     this.flightService.postFlight(this.flight, {clearStore: false}).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Flight) => {
       this.flightService.getFlights({ limit: this.flightService.defaultLimit, clearStore: true })
         .pipe(takeUntil(this.unsubscribe$))
