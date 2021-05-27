@@ -1,11 +1,12 @@
-import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
-import { Flight, Place, Glider, FileUploadService } from 'flightbook-commons-library';
+import { FileUploadService, Flight, Glider, Place } from 'flightbook-commons-library';
 import { NgForm } from '@angular/forms';
 import * as IGCParser from 'igc-parser';
-import { solver, scoringRules as scoring } from 'igc-xc-score';
+import { scoringRules as scoring, solver } from 'igc-xc-score';
+
 @Component({
   selector: 'flight-form',
   templateUrl: 'flight-form.html'
@@ -118,7 +119,7 @@ export class FlightFormComponent implements OnInit {
   }
 
   uploadIgcFile($event: FormData) {
-    this.fileUploadService.uploadFile($event, '1234').pipe()
+    this.fileUploadService.uploadFile($event).pipe()
       .subscribe(async (res: boolean) => {
       });
   }

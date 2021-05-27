@@ -1,24 +1,16 @@
-import { Component, EventEmitter, forwardRef, Input, Output } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { readFileSync } from 'fs';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
-  selector: 'file-input',
+  selector: 'fb-file-input',
   templateUrl: 'file-input.component.html',
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => FileInputComponent),
-      multi: true
-    }
-  ],
   styleUrls: ['file-input.component.scss']
 })
-export class FileInputComponent implements ControlValueAccessor {
+export class FileInputComponent implements OnInit {
 
-  private isDisabled: boolean;
-
-  fileName = '';
+  uploadForm: FormGroup;
+  fileName: string;
 
   @Output()
   fileContent = new EventEmitter<string | ArrayBuffer>();
@@ -26,51 +18,32 @@ export class FileInputComponent implements ControlValueAccessor {
   @Output()
   file = new EventEmitter<FormData>();
 
-  val = File;
-
-  constructor() {
+  constructor(private formBuilder: FormBuilder, private httpClient: HttpClient) {
   }
 
-  writeValue(value: any): void {
-    this.value = value;
+  ngOnInit() {
+    this.uploadForm = this.formBuilder.group({
+      file: ['']
+    });
   }
 
-  registerOnChange(fn: any): void {
-    this.onChange = fn;
-  }
-
-  registerOnTouched(fn: any): void {
-    this.onTouch = fn;
-  }
-
-  setDisabledState?(isDisabled: boolean): void {
-    this.isDisabled = isDisabled;
-  }
-
-  set value(val: any) {
-    if (val !== undefined) {
-      this.val = val;
-      this.onChange(val);
-      this.onTouch(val);
+  onFileSelect(event: any) {
+    if (event.target.files.length > 0) {
+      const file: File = (event.target as HTMLInputElement).files[0];
+      this.uploadForm.get('file').setValue(file);
+      this.fileName = file.name;
+      const reader = new FileReader();
+      reader.readAsText(file);
+      reader.onload = e => {
+        this.fileContent.emit(reader.result);
+      };
     }
   }
 
-  onChange: any = () => {
-  }
-
-  onTouch: any = () => {
-  }
-
-  onFileSelected(event: Event) {
-    const target = event.target as HTMLInputElement;
-    const file = target.files[0];
+  onSubmit() {
     const formData = new FormData();
+    const file = this.uploadForm.get('file').value;
     formData.append('file', file, file.name);
     this.file.emit(formData);
-    const reader = new FileReader();
-    this.fileName = file.name;
-    reader.onload = e => {
-      this.fileContent.emit(reader.result);
-    };
   }
 }

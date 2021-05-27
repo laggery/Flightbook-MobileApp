@@ -3,7 +3,7 @@ import { MenuItemComponent } from './layout/menu-item/menu-item.component';
 import { IonicModule } from '@ionic/angular';
 import { TranslateModule } from '@ngx-translate/core';
 import { FileInputComponent } from './file-input/file-input.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MapComponent } from './map/map.component';
 import { CommonModule } from '@angular/common';
 
@@ -22,7 +22,8 @@ import { CommonModule } from '@angular/common';
     IonicModule,
     TranslateModule,
     FormsModule,
-    CommonModule
+    CommonModule,
+    ReactiveFormsModule
   ]
 })
 export class SharedModule {

@@ -1,14 +1,22 @@
-<input type="file" class="file-input" [(ngModel)]="value"
-       (change)="onFileSelected($event)" #fileUpload>
+<div>
+    <form [formGroup]="uploadForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
+        <div class="menu-item-wrap">
+            <ion-card>
+                <ion-card-content>
+                    {{fileName || "Add .igc File"}}
+                </ion-card-content>
+            </ion-card>
+            <div>
 
-<div class="menu-item-wrap">
-    <ion-card>
-        <ion-card-content>
-            {{fileName || "Add .igc File"}}
-        </ion-card-content>
-    </ion-card>
-    <ion-button color="primary" class="upload-btn"
-                (click)="fileUpload.click()">
-        <ion-icon name="document"></ion-icon>
-    </ion-button>
+                <label class="custom-file-upload">
+                    <ion-button color="primary" class="upload-btn" (click)="fileUpload.click()">
+                    <input type="file" name="file" (change)="onFileSelect($event)" #fileUpload/>
+                        <ion-icon name="document"></ion-icon>
+                    </ion-button>
+                    <ion-button color="primary" type="submit">Upload</ion-button>
+                </label>
+            </div>
+        </div>
+    </form>
 </div>
+
