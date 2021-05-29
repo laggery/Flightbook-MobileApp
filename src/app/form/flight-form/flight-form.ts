@@ -23,6 +23,7 @@ export class FlightFormComponent implements OnInit {
   glider: string;
   searchStart: string;
   searchLanding: string;
+  igcFile: string;
 
   constructor(
     private alertController: AlertController,
@@ -108,6 +109,7 @@ export class FlightFormComponent implements OnInit {
 
   prefillWithIGCData($event: string | ArrayBuffer) {
     if (typeof $event === 'string') {
+      this.igcFile = $event;
       const igcFile = IGCParser.parse($event, { lenient: true });
       const result = solver(igcFile, scoring.XCScoring, {}).next().value;
       if (result.optimal) {
