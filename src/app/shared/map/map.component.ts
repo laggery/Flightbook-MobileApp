@@ -10,8 +10,6 @@ import { Circle as CircleStyle, Fill, Stroke, Style } from 'ol/style';
 import { LineString, Point } from 'ol/geom';
 import { Tile as TileLayer, Vector as VectorLayer } from 'ol/layer';
 import { getVectorContext } from 'ol/render';
-import { Coordinate } from 'ol/coordinate';
-import * as IGCParser from 'igc-parser';
 
 @Component({
   selector: 'fb-map',
@@ -28,16 +26,15 @@ export class MapComponent implements AfterViewInit {
   @Input()
   igcFile: string | File;
 
+
+
   ngAfterViewInit() {
 
-    const colors = {
-      Rex: 'rgba(0, 0, 255, 0.7)',
-    };
 
     const styleCache = {};
     const styleFunction = (feature: { get: (arg0: string) => string | number; }) => {
       // @ts-ignore
-      const color = colors[feature.get('PLT')];
+      const color = 'rgba(0, 140, 173, 1)';
       // @ts-ignore
       // tslint:disable-next-line:no-shadowed-variable
       let style = styleCache[color];
@@ -55,27 +52,26 @@ export class MapComponent implements AfterViewInit {
     };
     const vectorSource = new VectorSource();
 
-    const igcFormat = new IGC();
-    if (typeof this.igcFile === 'string') {
-      const igcFile = IGCParser.parse(this.igcFile, { lenient: true });
-      const features = igcFormat.readFeatures(this.igcFile, {
-        featureProjection: 'EPSG:3857',
-      });
-      vectorSource.addFeatures(features);
-    }
-
     const time = {
       start: Infinity,
       stop: -Infinity,
       duration: 0,
     };
     vectorSource.on('addfeature', evt => {
-      console.log('test3');
       const geometry = evt.feature.getGeometry() as LineString;
       time.start = Math.min(time.start, geometry.getFirstCoordinate()[2]);
       time.stop = Math.max(time.stop, geometry.getLastCoordinate()[2]);
       time.duration = time.stop - time.start;
     });
+
+    const igcFormat = new IGC();
+    if (typeof this.igcFile === 'string') {
+      const features = igcFormat.readFeatures(this.igcFile, {
+        featureProjection: 'EPSG:3857',
+      });
+      vectorSource.addFeatures(features);
+    }
+
 
     const vectorLayer = new VectorLayer({
       source: vectorSource,
@@ -93,53 +89,13 @@ export class MapComponent implements AfterViewInit {
         vectorLayer],
       target: 'map',
       view: new View({
-        center: [703365.7089403362, 5714629.865071137],
+        center: [913365.7089403362, 5914629.865071137],
         zoom: 7,
       }),
     });
 
-    let point: any = null;
-    let line: any = null;
-    const displaySnap = (coordinate: Coordinate) => {
-      const closestFeature = vectorSource.getClosestFeatureToCoordinate(coordinate);
-      const info = document.getElementById('info');
-      if (closestFeature === null) {
-        point = null;
-        line = null;
-        info.innerHTML = '&nbsp;';
-      } else {
-        const geometry = closestFeature.getGeometry();
-        const closestPoint = geometry.getClosestPoint(coordinate);
-        if (point === null) {
-          point = new Point(closestPoint);
-        } else {
-          point.setCoordinates(closestPoint);
-        }
-        const date = new Date(closestPoint[2] * 1000);
-        info.innerHTML =
-          closestFeature.get('PLT') + ' (' + date.toUTCString() + ')';
-        const coordinates = [coordinate, [closestPoint[0], closestPoint[1]]];
-        if (line === null) {
-          line = new LineString(coordinates);
-        } else {
-          line.setCoordinates(coordinates);
-        }
-      }
-      map.render();
-    };
-
-    map.on('pointermove', evt => {
-      if (evt.dragging) {
-        return;
-      }
-      const coordinate = map.getEventCoordinate(evt.originalEvent as MouseEvent);
-      displaySnap(coordinate);
-    });
-
-    map.on('click', evt => {
-      displaySnap(evt.coordinate);
-    });
-
+    const point: any = null;
+    const line: any = null;
     const stroke = new Stroke({
       color: 'rgba(255,0,0,0.9)',
       width: 5,
@@ -197,4 +153,6 @@ export class MapComponent implements AfterViewInit {
       });
     }
   }
+
+
 }
