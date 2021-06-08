@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <flight-form [flight]=flight [gliders]=gliders (saveFlight)="saveFlight($event)" [igcFileEdit]="igcFile$ | async"></flight-form>
+  <flight-form [flight]=flight [gliders]=gliders (saveFlight)="saveFlight($event)" [igcFileEdit]="igcFile$ | async" [isEdit]="true"></flight-form>
   <ion-button class="copy" expand="block" (click)="copy()" >{{ 'buttons.copy' | translate }}</ion-button>
   <ion-button class="delete" expand="block" color="danger" (click)="delete()" >{{ 'buttons.delete' | translate }}</ion-button>
 </ion-content>

@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'fb-file-input',
@@ -15,6 +14,9 @@ export class FileInputComponent implements OnInit {
   @Input()
   uploadSuccessful = false;
 
+  @Input()
+  isEdit = false;
+
   progress = 0;
 
   @Output()
@@ -23,7 +25,10 @@ export class FileInputComponent implements OnInit {
   @Output()
   file = new EventEmitter<File>();
 
-  constructor(private formBuilder: FormBuilder, private httpClient: HttpClient) {
+  @Output()
+  deleteEvent = new EventEmitter<string>();
+
+  constructor(private formBuilder: FormBuilder) {
   }
 
   ngOnInit() {
@@ -47,5 +52,9 @@ export class FileInputComponent implements OnInit {
 
   onSubmit() {
     this.file.emit(this.uploadForm.get('file').value);
+  }
+
+  deleteFile() {
+    this.deleteEvent.emit(this.fileName);
   }
 }

@@ -7,6 +7,7 @@ import { NgForm } from '@angular/forms';
 import * as IGCParser from 'igc-parser';
 import { scoringRules as scoring, solver } from 'igc-xc-score';
 import { StringDecoder } from 'string_decoder';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'flight-form',
@@ -20,6 +21,8 @@ export class FlightFormComponent implements OnInit {
   gliders: Glider[];
   @Input()
   igcFileEdit: any;
+  @Input()
+  isEdit: any;
 
   @Output()
   saveFlight = new EventEmitter<Flight>();
@@ -147,5 +150,11 @@ export class FlightFormComponent implements OnInit {
         this.uploadSuccessful = true;
         this.flight.filepath = $event.name;
       });
+  }
+
+  deleteFile() {
+    this.fileUploadService.deleteFile(this.flight.filepath).subscribe(
+      this.igcFile = null
+    );
   }
 }
