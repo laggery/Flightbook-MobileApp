@@ -29,7 +29,6 @@ export class FlightEditPage implements OnInit, OnDestroy {
     private alertController: AlertController,
     private translate: TranslateService,
     private loadingCtrl: LoadingController,
-    private fileUploadService: FileUploadService
   ) {
     this.flightId = +this.activeRoute.snapshot.paramMap.get('id');
     this.initialFlight = this.flightService.getValue().find(flight => flight.id === this.flightId);

@@ -6,6 +6,7 @@ import { FileUploadService, Flight, Glider, Place } from 'flightbook-commons-lib
 import { NgForm } from '@angular/forms';
 import * as IGCParser from 'igc-parser';
 import { scoringRules as scoring, solver } from 'igc-xc-score';
+import { StringDecoder } from 'string_decoder';
 
 @Component({
   selector: 'flight-form',
@@ -29,6 +30,7 @@ export class FlightFormComponent implements OnInit {
   igcFile: string;
   progress: number;
   uploadSuccessful = false;
+  private decoder = new TextDecoder('utf-8');
 
   constructor(
     private alertController: AlertController,
@@ -39,11 +41,12 @@ export class FlightFormComponent implements OnInit {
 
   async ngOnInit() {
     if (this.flight.filepath) {
-      let test = await this.fileUploadService.getFile(this.flight.filepath);
-      console.log(test);
-      test.subscribe(async x => {
-        return this.igcFile = await x.text();
-      });
+      await this.fileUploadService.getFile(this.flight.filepath)
+        .subscribe(async blob => {
+          await blob.text().then(res => {
+            this.igcFile = this.decodeBlobToFileContent(res);
+          });
+        });
       if (this.flight.glider.brand && this.flight.glider.name) {
         this.glider = `${this.flight.glider.brand} ${this.flight.glider.name}`;
       }
@@ -54,6 +57,10 @@ export class FlightFormComponent implements OnInit {
         this.flight.landing = new Place();
       }
     }
+  }
+
+  private decodeBlobToFileContent(res: string) {
+    return this.decoder.decode(new Uint8Array(JSON.parse(res).data));
   }
 
   onSelectChange(selectedValue: any) {
