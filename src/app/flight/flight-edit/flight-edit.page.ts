@@ -1,11 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { takeUntil } from 'rxjs/operators';
 import * as _ from 'lodash';
-import { LoadingController, AlertController } from '@ionic/angular';
+import { AlertController, LoadingController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
-import { Flight, FlightService, Glider, GliderService } from 'flightbook-commons-library';
+import { FileUploadService, Flight, FlightService, Glider, GliderService } from 'flightbook-commons-library';
 import HttpStatusCode from '../../shared/util/HttpStatusCode';
 
 @Component({
@@ -19,6 +19,7 @@ export class FlightEditPage implements OnInit, OnDestroy {
   private readonly initialFlight: Flight;
   flight: Flight;
   gliders: Glider[] = [];
+  igcFile$: Observable<any>;
 
   constructor(
     private activeRoute: ActivatedRoute,
@@ -27,7 +28,8 @@ export class FlightEditPage implements OnInit, OnDestroy {
     private gliderService: GliderService,
     private alertController: AlertController,
     private translate: TranslateService,
-    private loadingCtrl: LoadingController
+    private loadingCtrl: LoadingController,
+    private fileUploadService: FileUploadService
   ) {
     this.flightId = +this.activeRoute.snapshot.paramMap.get('id');
     this.initialFlight = this.flightService.getValue().find(flight => flight.id === this.flightId);

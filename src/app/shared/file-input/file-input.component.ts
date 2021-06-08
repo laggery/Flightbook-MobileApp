@@ -21,7 +21,7 @@ export class FileInputComponent implements OnInit {
   fileContent = new EventEmitter<string | ArrayBuffer>();
 
   @Output()
-  file = new EventEmitter<FormData>();
+  file = new EventEmitter<File>();
 
   constructor(private formBuilder: FormBuilder, private httpClient: HttpClient) {
   }
@@ -46,9 +46,6 @@ export class FileInputComponent implements OnInit {
   }
 
   onSubmit() {
-    const formData = new FormData();
-    const file = this.uploadForm.get('file').value;
-    formData.append('file', file, file.name);
-    this.file.emit(formData);
+    this.file.emit(this.uploadForm.get('file').value);
   }
 }

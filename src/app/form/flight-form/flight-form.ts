@@ -17,6 +17,9 @@ export class FlightFormComponent implements OnInit {
   flight: Flight;
   @Input()
   gliders: Glider[];
+  @Input()
+  igcFileEdit: any;
+
   @Output()
   saveFlight = new EventEmitter<Flight>();
 
@@ -34,15 +37,22 @@ export class FlightFormComponent implements OnInit {
   ) {
   }
 
-  ngOnInit() {
-    if (this.flight.glider.brand && this.flight.glider.name) {
-      this.glider = `${this.flight.glider.brand} ${this.flight.glider.name}`;
-    }
-    if (!this.flight.start) {
-      this.flight.start = new Place();
-    }
-    if (!this.flight.landing) {
-      this.flight.landing = new Place();
+  async ngOnInit() {
+    if (this.flight.filepath) {
+      let test = await this.fileUploadService.getFile(this.flight.filepath);
+      console.log(test);
+      test.subscribe(async x => {
+        return this.igcFile = await x.text();
+      });
+      if (this.flight.glider.brand && this.flight.glider.name) {
+        this.glider = `${this.flight.glider.brand} ${this.flight.glider.name}`;
+      }
+      if (!this.flight.start) {
+        this.flight.start = new Place();
+      }
+      if (!this.flight.landing) {
+        this.flight.landing = new Place();
+      }
     }
   }
 
@@ -126,6 +136,7 @@ export class FlightFormComponent implements OnInit {
     this.fileUploadService.uploadFile($event).pipe()
       .subscribe((res: any) => {
         this.uploadSuccessful = true;
+        this.flight.filepath = $event.name;
       });
   }
 }

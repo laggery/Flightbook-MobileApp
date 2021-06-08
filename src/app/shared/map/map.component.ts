@@ -26,11 +26,7 @@ export class MapComponent implements AfterViewInit {
   @Input()
   igcFile: string | File;
 
-
-
   ngAfterViewInit() {
-
-
     const styleCache = {};
     const styleFunction = (feature: { get: (arg0: string) => string | number; }) => {
       // @ts-ignore
