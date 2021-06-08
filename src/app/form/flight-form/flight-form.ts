@@ -132,8 +132,10 @@ export class FlightFormComponent implements OnInit {
     }
   }
 
-  uploadIgcFile($event: FormData) {
-    this.fileUploadService.uploadFile($event).pipe()
+  uploadIgcFile($event: File) {
+    const formData = new FormData();
+    formData.append('file', $event, $event.name);
+    this.fileUploadService.uploadFile(formData).pipe()
       .subscribe((res: any) => {
         this.uploadSuccessful = true;
         this.flight.filepath = $event.name;
