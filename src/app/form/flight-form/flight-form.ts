@@ -24,6 +24,8 @@ export class FlightFormComponent implements OnInit {
   searchStart: string;
   searchLanding: string;
   igcFile: string;
+  progress: number;
+  uploadSuccessful = false;
 
   constructor(
     private alertController: AlertController,
@@ -122,7 +124,8 @@ export class FlightFormComponent implements OnInit {
 
   uploadIgcFile($event: FormData) {
     this.fileUploadService.uploadFile($event).pipe()
-      .subscribe(async (res: boolean) => {
+      .subscribe((res: any) => {
+        this.uploadSuccessful = true;
       });
   }
 }

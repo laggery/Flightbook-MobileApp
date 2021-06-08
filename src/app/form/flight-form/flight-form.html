@@ -1,5 +1,6 @@
 <form #form="ngForm" (ngSubmit)="submitForm(form)" *ngIf="flight">
-  <fb-file-input (file)="uploadIgcFile($event)"  (fileContent)="prefillWithIGCData($event)" name="file"></fb-file-input>
+  <fb-file-input (file)="uploadIgcFile($event)"  (fileContent)="prefillWithIGCData($event)" [uploadSuccessful]="uploadSuccessful"></fb-file-input>
+
   <fb-map *ngIf="igcFile" [igcFile]="igcFile"></fb-map>
   <ion-item *ngIf="gliders.length > 0">
     <ion-label color="primary" position="stacked">{{ 'flight.glider' | translate }}<span style="color:red"> *</span></ion-label>

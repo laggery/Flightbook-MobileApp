@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 
@@ -11,6 +11,11 @@ export class FileInputComponent implements OnInit {
 
   uploadForm: FormGroup;
   fileName: string;
+
+  @Input()
+  uploadSuccessful = false;
+
+  progress = 0;
 
   @Output()
   fileContent = new EventEmitter<string | ArrayBuffer>();
