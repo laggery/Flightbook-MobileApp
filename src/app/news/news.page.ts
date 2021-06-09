@@ -45,6 +45,11 @@ export class NewsPage implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    setTimeout(() => {
+      const { SplashScreen } = Plugins;
+      SplashScreen.hide();
+    }, 500);
+
     this.newsData$ = this.newsService.getState();
     if (this.newsService.getValue().length === 0) {
       this.initialDataLoad();

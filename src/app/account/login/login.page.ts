@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { NewsService, AccountService } from 'flightbook-commons-library';
+import { Plugins } from '@capacitor/core';
 import HttpStatusCode from '../../shared/util/HttpStatusCode';
 
 @Component({
@@ -33,6 +34,10 @@ export class LoginPage implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    setTimeout(() => {
+      const { SplashScreen } = Plugins;
+      SplashScreen.hide();
+    }, 500);
   }
 
   ngOnDestroy() {
