@@ -1,4 +1,4 @@
-import informations from '../../package.json';
+import * as informations from '../../package.json';
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.

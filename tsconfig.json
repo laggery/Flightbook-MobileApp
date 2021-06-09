@@ -18,9 +18,7 @@
       "es2018",
       "dom"
     ],
-    "resolveJsonModule": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true
+    "resolveJsonModule": true
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
