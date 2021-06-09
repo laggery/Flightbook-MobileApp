@@ -35,7 +35,7 @@ export class AppComponent implements OnDestroy, OnInit {
   ngOnInit(): void {
     if (this.swUpdate.isEnabled) {
       this.swUpdate.available.subscribe(() => {
-        window.location.reload();
+        this.swUpdate.activateUpdate().then(() => document.location.reload());
       });
     }
   }
