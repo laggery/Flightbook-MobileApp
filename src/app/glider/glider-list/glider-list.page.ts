@@ -12,10 +12,9 @@ import { takeUntil } from 'rxjs/operators';
 import { GliderFilterComponent } from '../glider-filter/glider-filter.component';
 import { TranslateService } from '@ngx-translate/core';
 import { Glider, GliderService, XlsxExportService } from 'flightbook-commons-library';
-import { Capacitor, FilesystemDirectory, Plugins } from '@capacitor/core';
+import { Capacitor } from '@capacitor/core';
+import { Filesystem, Directory } from '@capacitor/filesystem';
 import { FileOpener } from '@ionic-native/file-opener/ngx';
-
-const { Filesystem } = Plugins;
 
 @Component({
   selector: 'app-glider-list',
@@ -123,7 +122,7 @@ export class GliderListPage implements OnInit, OnDestroy, AfterViewInit {
     });
     loading.present();
     this.gliderService.getGliders({ store: false }).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Glider[]) => {
-      if (Capacitor.isNative) {
+      if (Capacitor.isNativePlatform()) {
         try {
           const data: any = this.xlsxExportService.generateGlidersXlsxFile(res, { bookType: 'xlsx', type: 'base64' });
           const path = `xlsx/gliders_export_${Date.now()}.xlsx`;
@@ -131,7 +130,7 @@ export class GliderListPage implements OnInit, OnDestroy, AfterViewInit {
           const result = await Filesystem.writeFile({
             path,
             data,
-            directory: FilesystemDirectory.Documents,
+            directory: Directory.Documents,
             recursive: true
           });
           await loading.dismiss();

@@ -5,7 +5,8 @@ import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { NewsService, AccountService } from 'flightbook-commons-library';
-import { Plugins, Capacitor } from '@capacitor/core';
+import { Capacitor } from '@capacitor/core';
+import { SplashScreen } from '@capacitor/splash-screen';
 import HttpStatusCode from '../../shared/util/HttpStatusCode';
 import { environment } from 'src/environments/environment';
 import { AppVersion } from '@ionic-native/app-version/ngx';
@@ -40,7 +41,6 @@ export class LoginPage implements OnInit, OnDestroy {
 
   ngOnInit() {
     setTimeout(() => {
-      const { SplashScreen } = Plugins;
       SplashScreen.hide();
     }, 500);
   }
@@ -51,7 +51,7 @@ export class LoginPage implements OnInit, OnDestroy {
   }
 
   async defineVersion() {
-    if (Capacitor.isNative) {
+    if (Capacitor.isNativePlatform()) {
       this.version = await this.appVersion.getVersionNumber();
     } else {
       this.version = environment.appVersion;

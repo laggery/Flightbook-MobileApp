@@ -4,8 +4,8 @@ import { takeUntil } from 'rxjs/operators';
 import { Subject, Observable } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 import { Place, PlaceService, XlsxExportService } from 'flightbook-commons-library';
-import { Capacitor, FilesystemDirectory, Plugins } from '@capacitor/core';
-const { Filesystem } = Plugins;
+import { Capacitor } from '@capacitor/core';
+import { Filesystem, Directory } from '@capacitor/filesystem';
 import { FileOpener } from '@ionic-native/file-opener/ngx';
 
 @Component({
@@ -86,7 +86,7 @@ export class PlaceListPage implements OnInit, OnDestroy, AfterViewInit {
     });
     await loading.present();
     this.placeService.getPlaces({ store: false }).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Place[]) => {
-      if (Capacitor.isNative) {
+      if (Capacitor.isNativePlatform()) {
         try {
           const data: any = this.xlsxExportService.generatePlacesXlsxFile(res, { bookType: 'xlsx', type: 'base64' });
           const path = `xlsx/places_export_${Date.now()}.xlsx`;
@@ -94,7 +94,7 @@ export class PlaceListPage implements OnInit, OnDestroy, AfterViewInit {
           const result = await Filesystem.writeFile({
             path,
             data,
-            directory: FilesystemDirectory.Documents,
+            directory: Directory.Documents,
             recursive: true
           });
           await loading.dismiss();
