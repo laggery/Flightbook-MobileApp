@@ -36,6 +36,10 @@
         <ion-select-option value="1">{{ 'glider.tandem' | translate }}</ion-select-option>
       </ion-select>
     </ion-item>
+    <ion-item>
+      <ion-label color="primary" position="stacked">{{ 'flight.description' | translate }}</ion-label>
+      <ion-input type="text" [(ngModel)]="filter.description" name="description"></ion-input>
+    </ion-item>
     <ion-button type="button" (click)="clearFilter()">{{ 'buttons.clear' | translate }}</ion-button>
     <ion-button type="submit">{{ 'buttons.filter' | translate }}</ion-button>
   </form>

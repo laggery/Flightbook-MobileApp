@@ -157,6 +157,6 @@
         "amountofflights": "Anzahl Flüge",
         "noflights": "Keine Flüge",
         "lastflight": "Letzter Flug"
-    }
-
+    },
+    "version": "Version"
 }

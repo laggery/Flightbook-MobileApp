@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 
 import { Platform, MenuController } from '@ionic/angular';
-import { Plugins } from '@capacitor/core';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { TranslateService } from '@ngx-translate/core';
 import { Subject } from 'rxjs';
@@ -36,14 +35,9 @@ export class AppComponent implements OnDestroy, OnInit {
   ngOnInit(): void {
     if (this.swUpdate.isEnabled) {
       this.swUpdate.available.subscribe(() => {
-        window.location.reload();
+        this.swUpdate.activateUpdate().then(() => document.location.reload());
       });
     }
-
-    setTimeout(() => {
-      const { SplashScreen } = Plugins;
-      SplashScreen.hide();
-    }, 400);
   }
 
   initializeApp() {

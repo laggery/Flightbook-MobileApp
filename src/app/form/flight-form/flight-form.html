@@ -44,7 +44,7 @@
   </ion-item>
   <ion-item>
     <ion-label color="primary" position="stacked">{{ 'flight.description' | translate }}</ion-label>
-    <ion-textarea [(ngModel)]="flight.description" name="description" autocomplete="on" autocorrect="on"></ion-textarea>
+    <ion-textarea [(ngModel)]="flight.description" name="description" autocomplete="on" autocorrect="on" auto-grow="true"></ion-textarea>
   </ion-item>
   <ion-button expand="block" type="submit">{{ 'buttons.save' | translate }}</ion-button>
 </form>

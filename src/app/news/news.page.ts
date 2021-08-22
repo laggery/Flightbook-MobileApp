@@ -12,9 +12,9 @@ import {
   PlaceService,
   XlsxExportService
 } from 'flightbook-commons-library';
-import { Capacitor, FilesystemDirectory, Plugins } from '@capacitor/core';
-
-const { Filesystem } = Plugins;
+import { Capacitor } from '@capacitor/core';
+import { Filesystem, Directory } from '@capacitor/filesystem';
+import { SplashScreen } from '@capacitor/splash-screen';
 import { FileOpener } from '@ionic-native/file-opener/ngx';
 import { Router } from '@angular/router';
 
@@ -45,6 +45,10 @@ export class NewsPage implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    setTimeout(() => {
+      SplashScreen.hide();
+    }, 500);
+
     this.newsData$ = this.newsService.getState();
     if (this.newsService.getValue().length === 0) {
       this.initialDataLoad();
@@ -88,7 +92,7 @@ export class NewsPage implements OnInit, OnDestroy {
     promiseList.push(this.placeService.getPlaces({ store: false }).pipe(takeUntil(this.unsubscribe$)).toPromise());
 
     Promise.all(promiseList).then(async (res: any) => {
-      if (Capacitor.isNative) {
+      if (Capacitor.isNativePlatform()) {
         try {
           const data: any = this.xlsxExportService.generateFlightbookXlsxFile(res[0], res[1], res[2], {
             bookType: 'xlsx',
@@ -99,7 +103,7 @@ export class NewsPage implements OnInit, OnDestroy {
           const result = await Filesystem.writeFile({
             path,
             data,
-            directory: FilesystemDirectory.Documents,
+            directory: Directory.Documents,
             recursive: true
           });
           await loading.dismiss();

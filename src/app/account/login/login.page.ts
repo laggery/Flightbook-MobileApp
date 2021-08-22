@@ -5,7 +5,11 @@ import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { NewsService, AccountService } from 'flightbook-commons-library';
+import { Capacitor } from '@capacitor/core';
+import { SplashScreen } from '@capacitor/splash-screen';
 import HttpStatusCode from '../../shared/util/HttpStatusCode';
+import { environment } from 'src/environments/environment';
+import { AppVersion } from '@ionic-native/app-version/ngx';
 
 @Component({
   selector: 'app-login',
@@ -18,6 +22,7 @@ export class LoginPage implements OnInit, OnDestroy {
     email: '',
     password: ''
   };
+  version = '';
 
   constructor(
     private translate: TranslateService,
@@ -27,17 +32,30 @@ export class LoginPage implements OnInit, OnDestroy {
     private accountService: AccountService,
     private newsService: NewsService,
     private alertController: AlertController,
-    private loadingCtrl: LoadingController
+    private loadingCtrl: LoadingController,
+    private appVersion: AppVersion
   ) {
     this.menuCtrl.enable(false);
+    this.defineVersion();
   }
 
   ngOnInit() {
+    setTimeout(() => {
+      SplashScreen.hide();
+    }, 500);
   }
 
   ngOnDestroy() {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
+  }
+
+  async defineVersion() {
+    if (Capacitor.isNativePlatform()) {
+      this.version = await this.appVersion.getVersionNumber();
+    } else {
+      this.version = environment.appVersion;
+    }
   }
 
   async login(loginForm: any) {

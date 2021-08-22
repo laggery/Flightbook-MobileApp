@@ -8,8 +8,8 @@ import { AccountService, Flight, FlightService, PdfExportService, XlsxExportServ
 import { TCreatedPdf } from 'pdfmake/build/pdfmake';
 import { FileOpener } from '@ionic-native/file-opener/ngx';
 
-import { Capacitor, FilesystemDirectory, Plugins } from '@capacitor/core';
-const { Filesystem } = Plugins;
+import { Capacitor } from '@capacitor/core';
+import { Filesystem, Directory } from '@capacitor/filesystem';
 
 @Component({
   selector: 'app-flight-list',
@@ -119,7 +119,7 @@ export class FlightListPage implements OnInit, OnDestroy, AfterViewInit {
     await loading.present();
     this.flightService.getFlights({ store: false }).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Flight[]) => {
       res = res.sort((a: Flight, b: Flight) => b.number - a.number);
-      if (Capacitor.isNative) {
+      if (Capacitor.isNativePlatform()) {
         try {
           const data: any = this.xlsxExportService.generateFlightsXlsxFile(res, { bookType: 'xlsx', type: 'base64' });
           const path = `xlsx/flights_export_${Date.now()}.xlsx`;
@@ -127,7 +127,7 @@ export class FlightListPage implements OnInit, OnDestroy, AfterViewInit {
           const result = await Filesystem.writeFile({
             path,
             data,
-            directory: FilesystemDirectory.Documents,
+            directory: Directory.Documents,
             recursive: true
           });
           await loading.dismiss();
@@ -161,7 +161,7 @@ export class FlightListPage implements OnInit, OnDestroy, AfterViewInit {
       res.reverse();
       const user = await this.accountService.currentUser().pipe(takeUntil(this.unsubscribe$)).toPromise();
       const pdfObj: TCreatedPdf = this.pdfExportService.generatePdf(res, user, 'https://m.flightbook.ch');
-      if (Capacitor.isNative) {
+      if (Capacitor.isNativePlatform()) {
         pdfObj.getBase64(async (data) => {
           try {
             const path = `pdf/flightbook_${Date.now()}.pdf`;
@@ -169,7 +169,7 @@ export class FlightListPage implements OnInit, OnDestroy, AfterViewInit {
             const result = await Filesystem.writeFile({
               path,
               data,
-              directory: FilesystemDirectory.Documents,
+              directory: Directory.Documents,
               recursive: true
             });
             await loading.dismiss();
