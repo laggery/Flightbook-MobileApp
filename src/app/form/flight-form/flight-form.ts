@@ -2,12 +2,8 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
-import { FileUploadService, Flight, Glider, Place } from 'flightbook-commons-library';
+import { Flight, Glider, Place } from 'flightbook-commons-library';
 import { NgForm } from '@angular/forms';
-import * as IGCParser from 'igc-parser';
-import { scoringRules as scoring, solver } from 'igc-xc-score';
-import { StringDecoder } from 'string_decoder';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'flight-form',
@@ -22,7 +18,7 @@ export class FlightFormComponent implements OnInit {
   @Input()
   igcFileEdit: any;
   @Input()
-  isEdit: any;
+  igcFile: string
 
   @Output()
   saveFlight = new EventEmitter<Flight>();
@@ -30,40 +26,25 @@ export class FlightFormComponent implements OnInit {
   glider: string;
   searchStart: string;
   searchLanding: string;
-  igcFile: string;
   progress: number;
   uploadSuccessful = false;
-  private decoder = new TextDecoder('utf-8');
 
   constructor(
     private alertController: AlertController,
-    private translate: TranslateService,
-    private fileUploadService: FileUploadService
+    private translate: TranslateService
   ) {
   }
 
   async ngOnInit() {
-    if (this.flight.filepath) {
-      await this.fileUploadService.getFile(this.flight.filepath)
-        .subscribe(async blob => {
-          await blob.text().then(res => {
-            this.igcFile = this.decodeBlobToFileContent(res);
-          });
-        });
-      if (this.flight.glider.brand && this.flight.glider.name) {
-        this.glider = `${this.flight.glider.brand} ${this.flight.glider.name}`;
-      }
-      if (!this.flight.start) {
-        this.flight.start = new Place();
-      }
-      if (!this.flight.landing) {
-        this.flight.landing = new Place();
-      }
+    if (this.flight.glider.brand && this.flight.glider.name) {
+      this.glider = `${this.flight.glider.brand} ${this.flight.glider.name}`;
     }
-  }
-
-  private decodeBlobToFileContent(res: string) {
-    return this.decoder.decode(new Uint8Array(JSON.parse(res).data));
+    if (!this.flight.start) {
+      this.flight.start = new Place();
+    }
+    if (!this.flight.landing) {
+      this.flight.landing = new Place();
+    }
   }
 
   onSelectChange(selectedValue: any) {
@@ -127,34 +108,5 @@ export class FlightFormComponent implements OnInit {
 
   setLandingInput(event: any) {
     this.flight.landing.name = event.name;
-  }
-
-  prefillWithIGCData($event: string | ArrayBuffer) {
-    if (typeof $event === 'string') {
-      this.igcFile = $event;
-      const igcFile = IGCParser.parse($event, { lenient: true });
-      const result = solver(igcFile, scoring.XCScoring, {}).next().value;
-      if (result.optimal) {
-        this.flight.km = result.scoreInfo.distance;
-      }
-      this.flight.date = igcFile.date;
-      this.flight.time = igcFile.fixes[0].time;
-    }
-  }
-
-  uploadIgcFile($event: File) {
-    const formData = new FormData();
-    formData.append('file', $event, $event.name);
-    this.fileUploadService.uploadFile(formData).pipe()
-      .subscribe((res: any) => {
-        this.uploadSuccessful = true;
-        this.flight.filepath = $event.name;
-      });
-  }
-
-  deleteFile() {
-    this.fileUploadService.deleteFile(this.flight.filepath).subscribe(
-      this.igcFile = null
-    );
   }
 }

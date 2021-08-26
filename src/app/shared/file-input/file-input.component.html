@@ -1,23 +1,17 @@
 <div>
-    <form [formGroup]="uploadForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
-        <div class="menu-item-wrap">
-            <ion-card>
-                <ion-card-content>
-                    {{fileName || "Import your .igc file to view your flight and populate some fields automatically"}}
-                </ion-card-content>
-            </ion-card>
-            <div>
-                <label class="custom-file-upload">
-                    <ion-button color="primary" class="upload-btn" (click)="fileUpload.click()">
-                    <input type="file" name="file" (change)="onFileSelect($event)" #fileUpload/>
-                        <ion-icon name="document"></ion-icon>
-                    </ion-button>
-                    <ion-button color="primary" type="submit">Upload</ion-button>
-                </label>
-            </div>
-            <ion-icon class="upload-icon" *ngIf="uploadSuccessful" name="cloud-done"></ion-icon>
-            <ion-button color="secondary"  (click)="deleteFile()">Delete</ion-button>
+    <div class="menu-item-wrap">
+        <ion-card>
+            <ion-card-content>
+                {{fileName || "Import your .igc file to view your flight and populate some fields automatically"}}
+            </ion-card-content>
+        </ion-card>
+        <div>
+            <label class="custom-file-upload">
+                <ion-button color="primary" class="upload-btn" (click)="fileUpload.click()">
+                    <input type="file" name="file" (change)="onFileSelect($event)" #fileUpload />
+                    <ion-icon name="document"></ion-icon>
+                </ion-button>
+            </label>
         </div>
-    </form>
+    </div>
 </div>
-

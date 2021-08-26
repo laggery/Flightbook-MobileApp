@@ -4,8 +4,10 @@ import { takeUntil } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
-import { Flight, FlightService, Place, Glider, GliderService } from 'flightbook-commons-library';
+import { Flight, FlightService, Place, Glider, GliderService, FileUploadService } from 'flightbook-commons-library';
 import HttpStatusCode from '../../shared/util/HttpStatusCode';
+import * as IGCParser from 'igc-parser';
+import { scoringRules as scoring, solver } from 'igc-xc-score';
 
 @Component({
   selector: 'app-flight-add',
@@ -16,6 +18,7 @@ export class FlightAddPage implements OnInit, OnDestroy {
   unsubscribe$ = new Subject<void>();
   flight: Flight;
   gliders: Glider[] = [];
+  igcFile: string;
 
   constructor(
     private router: Router,
@@ -24,6 +27,7 @@ export class FlightAddPage implements OnInit, OnDestroy {
     private alertController: AlertController,
     private translate: TranslateService,
     private loadingCtrl: LoadingController,
+    private fileUploadService: FileUploadService
   ) {
     this.flight = new Flight();
     this.flight.date = new Date().toISOString();
@@ -67,10 +71,15 @@ export class FlightAddPage implements OnInit, OnDestroy {
       message: this.translate.instant('loading.saveflight')
     });
     await loading.present();
+
+    if (flight.igcFile) {
+      await this.uploadIgc(flight, loading);
+    }
+
     this.flightService.postFlight(flight).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Flight) => {
-        await loading.dismiss();
-        await this.router.navigate(['/flights'], { replaceUrl: true });
-      },
+      await loading.dismiss();
+      await this.router.navigate(['/flights'], { replaceUrl: true });
+    },
       async (resp: any) => {
         await loading.dismiss();
         if (resp.status === HttpStatusCode.UNPROCESSABLE_ENTITY) {
@@ -83,6 +92,44 @@ export class FlightAddPage implements OnInit, OnDestroy {
         }
       }
     );
+  }
+
+  private async uploadIgc(flight: Flight, loading: any) {
+    const formData = new FormData();
+    formData.append('file', flight.igcFile, flight.igcFile.name);
+    try {
+      const res = await this.fileUploadService.uploadFile(formData).toPromise();
+      flight.igcFilepath = flight.igcFile.name;
+      return true;
+    } catch (error) {
+      const alert = await this.alertController.create({
+        header: this.translate.instant('message.infotitle'),
+        message: "IGC File could not be uploaded",
+        buttons: [this.translate.instant('buttons.done')]
+      });
+      loading.dismiss();
+      await alert.present();
+      await alert.onDidDismiss();
+      await loading.present();
+      return false;
+    }
+  }
+
+  onFileSelectEvent($event: File) {
+    this.flight.igcFile = $event;
+  }
+
+  prefillWithIGCData($event: string | ArrayBuffer) {
+    if (typeof $event === 'string') {
+      this.igcFile = $event;
+      const igcFile = IGCParser.parse($event, { lenient: true });
+      const result = solver(igcFile, scoring.XCScoring, {}).next().value;
+      if (result.optimal) {
+        this.flight.km = result.scoreInfo.distance;
+      }
+      this.flight.date = igcFile.date;
+      this.flight.time = igcFile.fixes[0].time;
+    }
   }
 
   private async noGliderCheck() {

@@ -1,7 +1,4 @@
 <form #form="ngForm" (ngSubmit)="submitForm(form)" *ngIf="flight">
-  <fb-file-input (file)="uploadIgcFile($event)" (deleteEvent)="deleteFile()" (fileContent)="prefillWithIGCData($event)" [uploadSuccessful]="uploadSuccessful" [isEdit]="isEdit"></fb-file-input>
-
-  <fb-map *ngIf="igcFile" [igcFile]="igcFile"></fb-map>
   <ion-item *ngIf="gliders.length > 0">
     <ion-label color="primary" position="stacked">{{ 'flight.glider' | translate }}<span style="color:red"> *</span></ion-label>
     <ion-select required [value]="flight.glider.id?.toString()" (ionChange)="onSelectChange($event)" name="glider"
@@ -46,5 +43,8 @@
     <ion-label color="primary" position="stacked">{{ 'flight.description' | translate }}</ion-label>
     <ion-textarea [(ngModel)]="flight.description" name="description" autocomplete="on" autocorrect="on" auto-grow="true"></ion-textarea>
   </ion-item>
+
+  <fb-map *ngIf="igcFile" [igcFile]="igcFile"></fb-map>
+  
   <ion-button expand="block" type="submit">{{ 'buttons.save' | translate }}</ion-button>
 </form>

@@ -17,9 +17,10 @@ export class FlightEditPage implements OnInit, OnDestroy {
   unsubscribe$ = new Subject<void>();
   private readonly flightId: number;
   private readonly initialFlight: Flight;
+  private decoder = new TextDecoder('utf-8');
   flight: Flight;
   gliders: Glider[] = [];
-  igcFile$: Observable<any>;
+  igcFile: string;
 
   constructor(
     private activeRoute: ActivatedRoute,
@@ -29,6 +30,7 @@ export class FlightEditPage implements OnInit, OnDestroy {
     private alertController: AlertController,
     private translate: TranslateService,
     private loadingCtrl: LoadingController,
+    private fileUploadService: FileUploadService
   ) {
     this.flightId = +this.activeRoute.snapshot.paramMap.get('id');
     this.initialFlight = this.flightService.getValue().find(flight => flight.id === this.flightId);
@@ -45,10 +47,10 @@ export class FlightEditPage implements OnInit, OnDestroy {
         this.gliders = this.gliderService.getValue();
       });
     }
+    this.loadIgcData();
   }
 
   ngOnInit() {
-
   }
 
   ngOnDestroy() {
@@ -143,4 +145,13 @@ export class FlightEditPage implements OnInit, OnDestroy {
     }
   }
 
+  private async loadIgcData() {
+    if (this.flight.igcFilepath) {
+      this.fileUploadService.getFile(this.flight.igcFilepath).pipe(takeUntil(this.unsubscribe$)).subscribe(async blob => {
+        await blob.text().then(res => {
+          this.igcFile = this.decoder.decode(new Uint8Array(JSON.parse(res).data));
+        });
+      })
+    }
+  }
 }

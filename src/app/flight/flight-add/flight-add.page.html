@@ -8,5 +8,6 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <flight-form [flight]=flight [gliders]=gliders (saveFlight)="saveFlight($event)"></flight-form>
+  <fb-file-input (onFileSelectEvent)="onFileSelectEvent($event)" (fileContent)="prefillWithIGCData($event)"></fb-file-input>
+  <flight-form [flight]=flight [gliders]=gliders [igcFile]=igcFile (saveFlight)="saveFlight($event)"></flight-form>
 </ion-content>
