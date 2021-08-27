@@ -104,7 +104,7 @@ export class FlightAddPage implements OnInit, OnDestroy {
     } catch (error) {
       const alert = await this.alertController.create({
         header: this.translate.instant('message.infotitle'),
-        message: "IGC File could not be uploaded",
+        message: this.translate.instant('message.igcUploadError'),
         buttons: [this.translate.instant('buttons.done')]
       });
       loading.dismiss();

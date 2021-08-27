@@ -65,7 +65,8 @@
         "km": "Km",
         "description": "Description",
         "price": "Price",
-        "signature": "Signature"
+        "signature": "Signature",
+        "chooseIgc": "Choose an IGC file"
     },
     "statistics": {
         "nbflight": "Number of flights",
@@ -121,7 +122,10 @@
         "deleteError": "This entity is conected with a flight and can not be deleted.",
         "mendatoryFields": "Mandatory fields must be provided.",
         "invalidEmail": "Please enter a valid email address.",
-        "generationError": "Unable to generate export file"
+        "generationError": "Unable to generate export file",
+        "wrongIgcFileType": "Please choose an IGC file",
+        "emptyIgcFile": "This IGC file is empty",
+        "igcUploadError": "IGC File could not be uploaded"
     },
     "loading": {
         "createaccount": "Create account...",

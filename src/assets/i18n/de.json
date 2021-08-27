@@ -65,7 +65,8 @@
         "km": "Km",
         "description": "Beschreibung",
         "price": "Preis",
-        "signature": "Unterschrift"
+        "signature": "Unterschrift",
+        "chooseIgc": "Wählen Sie eine IGC-Datei"
     },
     "statistics": {
         "nbflight": "Anzahl Flüge",
@@ -121,7 +122,10 @@
         "deleteError": "Diese Entität ist mit einem Flug verbunden und kann nicht gelöscht werden.",
         "mendatoryFields": "Pflichtfelder müssen angegeben werden.",
         "invalidEmail": "Bitte geben Sie eine gültige E-Mail-Adresse ein.",
-        "generationError": "Exportdatei konnte nicht generiert werden"
+        "generationError": "Exportdatei konnte nicht generiert werden",
+        "wrongIgcFileType": "Bitte wählen Sie eine IGC-Datei",
+        "emptyIgcFile": "Diese IGC-Datei ist leer",
+        "igcUploadError": "IGC-Datei konnte nicht hochgeladen werden"
     },
     "loading": {
         "createaccount": "Registrieren...",

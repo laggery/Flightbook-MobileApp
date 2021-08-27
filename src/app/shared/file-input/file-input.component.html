@@ -2,13 +2,13 @@
     <div class="menu-item-wrap">
         <ion-card>
             <ion-card-content>
-                {{fileName || "Import your .igc file to view your flight and populate some fields automatically"}}
+                {{fileName || 'flight.chooseIgc' | translate}}
             </ion-card-content>
         </ion-card>
         <div>
             <label class="custom-file-upload">
                 <ion-button color="primary" class="upload-btn" (click)="fileUpload.click()">
-                    <input type="file" name="file" (change)="onFileSelect($event)" #fileUpload />
+                    <input type="file" name="file" (change)="onFileSelect($event)" #fileUpload accept=".igc" />
                     <ion-icon name="document"></ion-icon>
                 </ion-button>
             </label>

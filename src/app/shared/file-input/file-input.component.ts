@@ -1,4 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { AlertController } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
+import { v4 as uuidv4 } from 'uuid';
 
 @Component({
   selector: 'fb-file-input',
@@ -23,14 +26,39 @@ export class FileInputComponent implements OnInit {
   @Output()
   deleteEvent = new EventEmitter<string>();
 
-  constructor() {}
+  constructor(
+    private alertController: AlertController,
+    private translate: TranslateService) {
+  }
 
   ngOnInit() {
   }
 
-  onFileSelect(event: any) {
+  async onFileSelect(event: any) {
+    const fileType = (event.target as HTMLInputElement).files[0].name.slice(-3);
+    if (fileType != "igc") {
+      const alert = await this.alertController.create({
+        header: this.translate.instant('message.infotitle'),
+        message: this.translate.instant('message.wrongIgcFileType'),
+        buttons: [this.translate.instant('buttons.done')]
+      });
+      await alert.present();
+      return;
+    }
+
     if (event.target.files.length > 0) {
-      const file: File = (event.target as HTMLInputElement).files[0];
+      if (event.target.files[0].size === 0) {
+        const alert = await this.alertController.create({
+          header: this.translate.instant('message.infotitle'),
+          message: this.translate.instant('message.emptyIgcFile'),
+          buttons: [this.translate.instant('buttons.done')]
+        });
+        await alert.present();
+        return;
+      }
+
+      this.fileName = `${uuidv4()}-${(event.target as HTMLInputElement).files[0].name}`;
+      const file: File = new File([(event.target as HTMLInputElement).files[0]], this.fileName);
       this.fileName = file.name;
       const reader = new FileReader();
       reader.readAsText(file);
@@ -39,9 +67,5 @@ export class FileInputComponent implements OnInit {
       };
       this.onFileSelectEvent.emit(file);
     }
-  }
-
-  deleteFile() {
-    this.deleteEvent.emit(this.fileName);
   }
 }
