@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input } from '@angular/core';
+import { AfterViewInit, OnChanges, OnInit, Component, Input, SimpleChange, SimpleChanges } from '@angular/core';
 import 'ol/ol.css';
 import Feature from 'ol/Feature';
 import IGC from 'ol/format/IGC';
@@ -23,8 +23,26 @@ export class MapComponent implements AfterViewInit {
 
   map: Map;
 
+  igcFileValue: string;
+
+  private vectorSource: any;
+
+  // @Input()
+  // igcFile: string | File;
+
   @Input()
-  igcFile: string | File;
+  set igcFile(val: string) {
+    this.igcFileValue = val
+    const igcFormat = new IGC();
+    if (typeof val === 'string') {
+      const features = igcFormat.readFeatures(val, {
+        featureProjection: 'EPSG:3857',
+      });
+      if (this.vectorSource){
+        this.vectorSource.addFeatures(features);
+      }
+    }
+  }
 
   ngAfterViewInit() {
     const styleCache = {};
@@ -46,6 +64,7 @@ export class MapComponent implements AfterViewInit {
       }
       return style;
     };
+
     const vectorSource = new VectorSource();
 
     const time = {
@@ -61,13 +80,12 @@ export class MapComponent implements AfterViewInit {
     });
 
     const igcFormat = new IGC();
-    if (typeof this.igcFile === 'string') {
-      const features = igcFormat.readFeatures(this.igcFile, {
+    if (typeof this.igcFileValue === 'string') {
+      const features = igcFormat.readFeatures(this.igcFileValue, {
         featureProjection: 'EPSG:3857',
       });
       vectorSource.addFeatures(features);
     }
-
 
     const vectorLayer = new VectorLayer({
       source: vectorSource,

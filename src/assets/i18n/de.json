@@ -66,7 +66,8 @@
         "description": "Beschreibung",
         "price": "Preis",
         "signature": "Unterschrift",
-        "chooseIgc": "Wählen Sie eine IGC-Datei"
+        "chooseIgc": "Wählen Sie eine IGC-Datei",
+        "copyIgc": "Möchten sie die IGC Datei auch kopieren?"
     },
     "statistics": {
         "nbflight": "Anzahl Flüge",
@@ -125,7 +126,8 @@
         "generationError": "Exportdatei konnte nicht generiert werden",
         "wrongIgcFileType": "Bitte wählen Sie eine IGC-Datei",
         "emptyIgcFile": "Diese IGC-Datei ist leer",
-        "igcUploadError": "IGC-Datei konnte nicht hochgeladen werden"
+        "igcUploadError": "IGC-Datei konnte nicht hochgeladen werden",
+        "igcCopyError": "IGC-Datei konnte nicht kopiert werden"
     },
     "loading": {
         "createaccount": "Registrieren...",
@@ -139,7 +141,8 @@
         "saveflight": "Flug speichern...",
         "deleteflight": "Flug löschen...",
         "loading": "Laden...",
-        "copyflight": "Flug kopieren..."
+        "copyflight": "Flug kopieren...",
+        "igcRead": "IGC Daten werden gelesen"
     },
     "filter": {
         "from": "Von",

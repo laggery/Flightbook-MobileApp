@@ -7,6 +7,7 @@ import { AlertController, LoadingController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { FileUploadService, Flight, FlightService, Glider, GliderService } from 'flightbook-commons-library';
 import HttpStatusCode from '../../shared/util/HttpStatusCode';
+import { v4 as uuidv4 } from 'uuid';
 
 @Component({
   selector: 'app-flight-edit',
@@ -112,7 +113,39 @@ export class FlightEditPage implements OnInit, OnDestroy {
     const loading = await this.loadingCtrl.create({
       message: this.translate.instant('loading.copyflight')
     });
-    await loading.present();
+
+    if (this.flight.igcFilepath){
+      const alert = await this.alertController.create({
+        header: this.translate.instant('message.infotitle'),
+        message: this.translate.instant('flight.copyIgc'),
+        buttons: [
+          {
+            text: this.translate.instant('buttons.yes'),
+            handler: async() => {
+              await this.copyIgc(loading);
+              await this.postFlightRequest(loading);
+            }
+          },
+          {
+            text:this.translate.instant('buttons.no'),
+            handler: () => {
+              this.flight.igcFilepath = null;
+              loading.present();
+              this.postFlightRequest(loading);
+            }
+          }
+          
+        ]
+      });
+      await alert.present();
+      await alert.onDidDismiss();
+    } else {
+      loading.present();
+      this.postFlightRequest(loading);
+    }
+  }
+
+  private postFlightRequest(loading: any) {
     this.flightService.postFlight(this.flight, {clearStore: false}).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Flight) => {
       this.flightService.getFlights({ limit: this.flightService.defaultLimit, clearStore: true })
         .pipe(takeUntil(this.unsubscribe$))
@@ -135,6 +168,32 @@ export class FlightEditPage implements OnInit, OnDestroy {
     );
   }
 
+  // @hack -> copyObject is not working on digitalocean
+  private async copyIgc(loading: any) {
+    await loading.present();
+    const destinationFileName = `${uuidv4()}-${this.flight.igcFilepath.substring(37)}`;
+    const file: File = new File([this.igcFile], destinationFileName);
+    const formData = new FormData();
+    formData.append('file', file, destinationFileName);
+    try {
+      const res = await this.fileUploadService.uploadFile(formData).toPromise();
+      this.flight.igcFilepath = destinationFileName;
+      return true;
+    } catch (error) {
+      this.flight.igcFilepath = null;
+      const alert = await this.alertController.create({
+        header: this.translate.instant('message.infotitle'),
+        message: this.translate.instant('message.igcCopyError'),
+        buttons: [this.translate.instant('buttons.done')]
+      });
+      loading.dismiss();
+      await alert.present();
+      await alert.onDidDismiss();
+      await loading.present();
+      return false;
+    }
+  }
+
   private getFlightFromDashboardNavigation() {
     const lastFlight = this.router.getCurrentNavigation().extras.state.flight;
     if (!!lastFlight) {
@@ -148,9 +207,8 @@ export class FlightEditPage implements OnInit, OnDestroy {
   private async loadIgcData() {
     if (this.flight.igcFilepath) {
       this.fileUploadService.getFile(this.flight.igcFilepath).pipe(takeUntil(this.unsubscribe$)).subscribe(async blob => {
-        await blob.text().then(res => {
-          this.igcFile = this.decoder.decode(new Uint8Array(JSON.parse(res).data));
-        });
+        const blobText = await blob.text();
+        this.igcFile = this.decoder.decode(new Uint8Array(JSON.parse(blobText).data));
       })
     }
   }

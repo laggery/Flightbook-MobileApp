@@ -66,7 +66,8 @@
         "description": "Descrizione",
         "price": "Prezzo",
         "signature": "Firma",
-        "chooseIgc": "Scegliere un file IGC"
+        "chooseIgc": "Scegliere un file IGC",
+        "copyIgc": "Vuoi anche copiare il file IGC?"
     },
     "statistics": {
         "nbflight": "Numero di voli",
@@ -125,7 +126,8 @@
         "generationError": "Si è verificato un errore durante la generazione del file di esportazione",
         "wrongIgcFileType": "Scegliere un file IGC",
         "emptyIgcFile": "Questo file IGC è vuoto",
-        "igcUploadError": "Il file IGC non può essere caricato"
+        "igcUploadError": "Il file IGC non può essere caricato",
+        "igcCopyError": "Il file IGC non può essere copiato"
     },
     "loading": {
         "createaccount": "Iscrizione...",
@@ -139,7 +141,8 @@
         "saveflight": "Salvataggio volo...",
         "deleteflight": "Eliminazione volo...",
         "loading": "Carica...",
-        "copyflight": "Copio volo..."
+        "copyflight": "Copio volo...",
+        "igcRead": "Lettura dei dati IGC"
     },
     "filter": {
         "from": "Da",

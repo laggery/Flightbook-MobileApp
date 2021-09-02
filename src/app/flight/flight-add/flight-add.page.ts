@@ -119,16 +119,25 @@ export class FlightAddPage implements OnInit, OnDestroy {
     this.flight.igcFile = $event;
   }
 
-  prefillWithIGCData($event: string | ArrayBuffer) {
+  async prefillWithIGCData($event: string | ArrayBuffer) {
     if (typeof $event === 'string') {
+      const loading = await this.loadingCtrl.create({
+        message: this.translate.instant('loading.igcRead')
+      });
+
+      await loading.present();
+
       this.igcFile = $event;
-      const igcFile = IGCParser.parse($event, { lenient: true });
+      const igcFile: any = IGCParser.parse($event, { lenient: true });
       const result = solver(igcFile, scoring.XCScoring, {}).next().value;
+      await loading.dismiss();
       if (result.optimal) {
+        console.log(result);
         this.flight.km = result.scoreInfo.distance;
       }
       this.flight.date = igcFile.date;
-      this.flight.time = igcFile.fixes[0].time;
+      const timeInMillisecond = (igcFile.ll[0].landing - igcFile.ll[0].launch) * 1000
+      this.flight.time = new Date(timeInMillisecond).toISOString().substr(11, 8);
     }
   }
 
