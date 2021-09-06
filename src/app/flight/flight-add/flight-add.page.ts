@@ -132,7 +132,6 @@ export class FlightAddPage implements OnInit, OnDestroy {
       const result = solver(igcFile, scoring.XCScoring, {}).next().value;
       await loading.dismiss();
       if (result.optimal) {
-        console.log(result);
         this.flight.km = result.scoreInfo.distance;
       }
       this.flight.date = igcFile.date;

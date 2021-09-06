@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { takeUntil } from 'rxjs/operators';
 import * as _ from 'lodash';
@@ -8,6 +8,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { FileUploadService, Flight, FlightService, Glider, GliderService } from 'flightbook-commons-library';
 import HttpStatusCode from '../../shared/util/HttpStatusCode';
 import { v4 as uuidv4 } from 'uuid';
+import * as IGCParser from 'igc-parser';
+import { scoringRules as scoring, solver } from 'igc-xc-score';
 
 @Component({
   selector: 'app-flight-edit',
@@ -65,15 +67,19 @@ export class FlightEditPage implements OnInit, OnDestroy {
     });
     await loading.present();
 
+    if (flight.igcFile) {
+      await this.uploadIgc(flight, loading);
+    }
+
     this.flightService.putFlight(flight).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Flight) => {
 
       if (this.initialFlight?.date !== this.flight.date) {
         this.flightService.getFlights({ limit: this.flightService.defaultLimit, clearStore: true })
           .pipe(takeUntil(this.unsubscribe$))
           .subscribe(async (res: Flight[]) => {
-          await loading.dismiss();
-          await this.router.navigate(['/flights'], { replaceUrl: true });
-        });
+            await loading.dismiss();
+            await this.router.navigate(['/flights'], { replaceUrl: true });
+          });
       } else {
         await loading.dismiss();
         await this.router.navigate(['/flights'], { replaceUrl: true });
@@ -114,27 +120,26 @@ export class FlightEditPage implements OnInit, OnDestroy {
       message: this.translate.instant('loading.copyflight')
     });
 
-    if (this.flight.igcFilepath){
+    if (this.flight.igcFilepath) {
       const alert = await this.alertController.create({
         header: this.translate.instant('message.infotitle'),
         message: this.translate.instant('flight.copyIgc'),
         buttons: [
           {
             text: this.translate.instant('buttons.yes'),
-            handler: async() => {
+            handler: async () => {
               await this.copyIgc(loading);
               await this.postFlightRequest(loading);
             }
           },
           {
-            text:this.translate.instant('buttons.no'),
+            text: this.translate.instant('buttons.no'),
             handler: () => {
               this.flight.igcFilepath = null;
               loading.present();
               this.postFlightRequest(loading);
             }
           }
-          
         ]
       });
       await alert.present();
@@ -146,13 +151,13 @@ export class FlightEditPage implements OnInit, OnDestroy {
   }
 
   private postFlightRequest(loading: any) {
-    this.flightService.postFlight(this.flight, {clearStore: false}).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Flight) => {
+    this.flightService.postFlight(this.flight, { clearStore: false }).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Flight) => {
       this.flightService.getFlights({ limit: this.flightService.defaultLimit, clearStore: true })
         .pipe(takeUntil(this.unsubscribe$))
         .subscribe(async (res: Flight[]) => {
-        await loading.dismiss();
-        await this.router.navigate(['/flights'], { replaceUrl: true });
-      });
+          await loading.dismiss();
+          await this.router.navigate(['/flights'], { replaceUrl: true });
+        });
     },
       (async (resp: any) => {
         await loading.dismiss();
@@ -194,6 +199,56 @@ export class FlightEditPage implements OnInit, OnDestroy {
     }
   }
 
+  onFileSelectEvent($event: File) {
+    this.flight.igcFile = $event;
+  }
+
+  async prefillWithIGCData($event: string) {
+    this.igcFile = $event;
+    const igcFile: any = IGCParser.parse($event, { lenient: true });
+    if (await this.doOverride(igcFile)) {
+      const loading = await this.loadingCtrl.create({
+        message: this.translate.instant('loading.igcRead')
+      });
+
+      await loading.present();
+
+      const result = solver(igcFile, scoring.XCScoring, {}).next().value;
+      await loading.dismiss();
+      if (result.optimal) {
+        this.flight.km = result.scoreInfo.distance;
+      }
+      this.flight.date = igcFile.date;
+      const timeInMillisecond = (igcFile.ll[0].landing - igcFile.ll[0].launch) * 1000
+      this.flight.time = new Date(timeInMillisecond).toISOString().substr(11, 8);
+    }
+  }
+
+  private async doOverride(igcFile: any): Promise<boolean> {
+    let doOverride = false;
+    if ((this.flight.km || this.flight.time) || new Date(this.flight.date).toDateString() != new Date(igcFile.date).toDateString()) {
+      const alert = await this.alertController.create({
+        header: this.translate.instant('message.infotitle'),
+        message: this.translate.instant('flight.override'),
+        buttons: [
+          {
+            text: this.translate.instant('buttons.yes'),
+            handler: () => {
+              doOverride = true;
+            }
+          },
+          this.translate.instant('buttons.no')
+
+        ]
+      });
+
+      await alert.present();
+      await alert.onDidDismiss();
+      await alert.dismiss();
+      return doOverride;
+    }
+  }
+
   private getFlightFromDashboardNavigation() {
     const lastFlight = this.router.getCurrentNavigation().extras.state.flight;
     if (!!lastFlight) {
@@ -210,6 +265,27 @@ export class FlightEditPage implements OnInit, OnDestroy {
         const blobText = await blob.text();
         this.igcFile = this.decoder.decode(new Uint8Array(JSON.parse(blobText).data));
       })
+    }
+  }
+
+  private async uploadIgc(flight: Flight, loading: any) {
+    const formData = new FormData();
+    formData.append('file', flight.igcFile, flight.igcFile.name);
+    try {
+      const res = await this.fileUploadService.uploadFile(formData).toPromise();
+      flight.igcFilepath = flight.igcFile.name;
+      return true;
+    } catch (error) {
+      const alert = await this.alertController.create({
+        header: this.translate.instant('message.infotitle'),
+        message: this.translate.instant('message.igcUploadError'),
+        buttons: [this.translate.instant('buttons.done')]
+      });
+      loading.dismiss();
+      await alert.present();
+      await alert.onDidDismiss();
+      await loading.present();
+      return false;
     }
   }
 }

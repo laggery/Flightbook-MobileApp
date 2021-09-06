@@ -67,7 +67,8 @@
         "price": "Preis",
         "signature": "Unterschrift",
         "chooseIgc": "Wählen Sie eine IGC-Datei",
-        "copyIgc": "Möchten sie die IGC Datei auch kopieren?"
+        "copyIgc": "Möchten sie die IGC Datei auch kopieren?",
+        "override": "Möchten sie das Datum, die Kilometer und die Flugdauer überschreiben mit den Daten aus der IGC-Datei überschreiben?"
     },
     "statistics": {
         "nbflight": "Anzahl Flüge",
