@@ -57,7 +57,7 @@ export class MapComponent implements AfterViewInit {
       }
 
       if (this.map) {
-        this.map.getView().setCenter(this.geometry.getFlatMidpoint());
+        this.mapCenter();
       }
     }
   }
@@ -159,11 +159,10 @@ export class MapComponent implements AfterViewInit {
         }),
         this.vectorLayer],
       target: 'map',
-      view: new View({
-        center: this.geometry.getFlatMidpoint(),
-        zoom: 7,
-      }),
+      view: new View(),
     });
+
+    this.mapCenter();
 
     this.featureOverlay = new VectorLayer({
       source: this.vectorSourceOverlay,
@@ -177,5 +176,11 @@ export class MapComponent implements AfterViewInit {
         }),
       }),
     });
+  }
+
+  private mapCenter() {
+    this.map.getView().fit(this.geometry.getExtent());
+    const zoom = this.map.getView().getZoom();
+    this.map.getView().setZoom(zoom - 1);
   }
 }
