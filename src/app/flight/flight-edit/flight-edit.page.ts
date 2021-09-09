@@ -5,7 +5,7 @@ import { takeUntil } from 'rxjs/operators';
 import * as _ from 'lodash';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
-import { FileUploadService, Flight, FlightService, Glider, GliderService } from 'flightbook-commons-library';
+import { FileUploadService, Flight, FlightService, Glider, GliderService, Igc } from 'flightbook-commons-library';
 import HttpStatusCode from '../../shared/util/HttpStatusCode';
 import { v4 as uuidv4 } from 'uuid';
 import * as IGCParser from 'igc-parser';
@@ -120,7 +120,7 @@ export class FlightEditPage implements OnInit, OnDestroy {
       message: this.translate.instant('loading.copyflight')
     });
 
-    if (this.flight.igcFilepath) {
+    if (this.flight.igc) {
       const alert = await this.alertController.create({
         header: this.translate.instant('message.infotitle'),
         message: this.translate.instant('flight.copyIgc'),
@@ -135,7 +135,7 @@ export class FlightEditPage implements OnInit, OnDestroy {
           {
             text: this.translate.instant('buttons.no'),
             handler: () => {
-              this.flight.igcFilepath = null;
+              this.flight.igc = null;
               loading.present();
               this.postFlightRequest(loading);
             }
@@ -176,16 +176,16 @@ export class FlightEditPage implements OnInit, OnDestroy {
   // @hack -> copyObject is not working on digitalocean
   private async copyIgc(loading: any) {
     await loading.present();
-    const destinationFileName = `${uuidv4()}-${this.flight.igcFilepath.substring(37)}`;
+    const destinationFileName = `${uuidv4()}-${this.flight.igc.filepath.substring(37)}`;
     const file: File = new File([this.igcFile], destinationFileName);
     const formData = new FormData();
     formData.append('file', file, destinationFileName);
     try {
       const res = await this.fileUploadService.uploadFile(formData).toPromise();
-      this.flight.igcFilepath = destinationFileName;
+      this.flight.igc.filepath = destinationFileName;
       return true;
     } catch (error) {
-      this.flight.igcFilepath = null;
+      this.flight.igc = null;
       const alert = await this.alertController.create({
         header: this.translate.instant('message.infotitle'),
         message: this.translate.instant('message.igcCopyError'),
@@ -205,23 +205,31 @@ export class FlightEditPage implements OnInit, OnDestroy {
 
   async prefillWithIGCData($event: string) {
     this.igcFile = $event;
+    const igc = new Igc();
     const igcFile: any = IGCParser.parse($event, { lenient: true });
-    if (await this.doOverride(igcFile)) {
-      const loading = await this.loadingCtrl.create({
-        message: this.translate.instant('loading.igcRead')
-      });
+    const loading = await this.loadingCtrl.create({
+      message: this.translate.instant('loading.igcRead')
+    });
 
-      await loading.present();
+    await loading.present();
 
-      const result = solver(igcFile, scoring.XCScoring, {}).next().value;
-      await loading.dismiss();
-      if (result.optimal) {
+    const result = solver(igcFile, scoring.XCScoring, {}).next().value;
+    await loading.dismiss();
+    const override = await this.doOverride(igcFile);
+    if (result.optimal) {
+      if (override) {
         this.flight.km = result.scoreInfo.distance;
       }
+      igc.start = result.scoreInfo.ep.start;
+      igc.landing = result.scoreInfo.ep.finish;
+      igc.tp = result.scoreInfo.tp;
+    }
+    if (override) {
       this.flight.date = igcFile.date;
       const timeInMillisecond = (igcFile.ll[0].landing - igcFile.ll[0].launch) * 1000
       this.flight.time = new Date(timeInMillisecond).toISOString().substr(11, 8);
     }
+    this.flight.igc = igc;
   }
 
   private async doOverride(igcFile: any): Promise<boolean> {
@@ -260,8 +268,8 @@ export class FlightEditPage implements OnInit, OnDestroy {
   }
 
   private async loadIgcData() {
-    if (this.flight.igcFilepath) {
-      this.fileUploadService.getFile(this.flight.igcFilepath).pipe(takeUntil(this.unsubscribe$)).subscribe(async blob => {
+    if (this.flight.igc && this.flight.igc.filepath) {
+      this.fileUploadService.getFile(this.flight.igc.filepath).pipe(takeUntil(this.unsubscribe$)).subscribe(async blob => {
         const blobText = await blob.text();
         this.igcFile = this.decoder.decode(new Uint8Array(JSON.parse(blobText).data));
       })
@@ -273,7 +281,7 @@ export class FlightEditPage implements OnInit, OnDestroy {
     formData.append('file', flight.igcFile, flight.igcFile.name);
     try {
       const res = await this.fileUploadService.uploadFile(formData).toPromise();
-      flight.igcFilepath = flight.igcFile.name;
+      flight.igc.filepath = flight.igcFile.name;
       return true;
     } catch (error) {
       const alert = await this.alertController.create({

@@ -4,7 +4,7 @@ import { takeUntil } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
-import { Flight, FlightService, Place, Glider, GliderService, FileUploadService } from 'flightbook-commons-library';
+import { Flight, FlightService, Place, Glider, GliderService, FileUploadService, Igc } from 'flightbook-commons-library';
 import HttpStatusCode from '../../shared/util/HttpStatusCode';
 import * as IGCParser from 'igc-parser';
 import { scoringRules as scoring, solver } from 'igc-xc-score';
@@ -99,7 +99,7 @@ export class FlightAddPage implements OnInit, OnDestroy {
     formData.append('file', flight.igcFile, flight.igcFile.name);
     try {
       const res = await this.fileUploadService.uploadFile(formData).toPromise();
-      flight.igcFilepath = flight.igcFile.name;
+      flight.igc.filepath = flight.igcFile.name;
       return true;
     } catch (error) {
       const alert = await this.alertController.create({
@@ -128,15 +128,20 @@ export class FlightAddPage implements OnInit, OnDestroy {
       await loading.present();
 
       this.igcFile = $event;
+      const igc = new Igc();
       const igcFile: any = IGCParser.parse($event, { lenient: true });
       const result = solver(igcFile, scoring.XCScoring, {}).next().value;
       await loading.dismiss();
       if (result.optimal) {
         this.flight.km = result.scoreInfo.distance;
+        igc.start = result.scoreInfo.ep.start;
+        igc.landing = result.scoreInfo.ep.finish;
+        igc.tp = result.scoreInfo.tp;
       }
       this.flight.date = igcFile.date;
       const timeInMillisecond = (igcFile.ll[0].landing - igcFile.ll[0].launch) * 1000
       this.flight.time = new Date(timeInMillisecond).toISOString().substr(11, 8);
+      this.flight.igc = igc;
     }
   }
 
