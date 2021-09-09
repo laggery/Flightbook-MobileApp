@@ -1,4 +1,4 @@
-import { AfterViewInit, OnChanges, OnInit, Component, Input, SimpleChange, SimpleChanges } from '@angular/core';
+import { AfterViewInit, Component, Input } from '@angular/core';
 import 'ol/ol.css';
 import Feature from 'ol/Feature';
 import IGC from 'ol/format/IGC';
@@ -18,17 +18,17 @@ import { getVectorContext } from 'ol/render';
 })
 export class MapComponent implements AfterViewInit {
 
-  constructor() {
-  }
-
-  map: Map;
-
   igcFileValue: string;
+  inputValue = 0;
 
-  private vectorSource: any;
-
-  // @Input()
-  // igcFile: string | File;
+  private styleCache = {};
+  private vectorSource = new VectorSource();
+  private vectorSourceOverlay = new VectorSource();
+  private time: any;
+  private vectorLayer: VectorLayer;
+  private featureOverlay: VectorLayer;
+  private map: Map;
+  private geometry: LineString;
 
   @Input()
   set igcFile(val: string) {
@@ -38,76 +38,53 @@ export class MapComponent implements AfterViewInit {
       const features = igcFormat.readFeatures(val, {
         featureProjection: 'EPSG:3857',
       });
-      if (this.vectorSource){
+
+      this.geometry = features[0].getGeometry() as LineString;
+
+      if (this.vectorSource) {
+        this.vectorSource.clear();
+        this.time = {
+          start: Infinity,
+          stop: -Infinity,
+          duration: 0,
+        };
         this.vectorSource.addFeatures(features);
+      }
+
+      if (this.vectorSourceOverlay) {
+        this.vectorSourceOverlay.clear();
+        this.inputValue = 0;
+      }
+
+      if (this.map) {
+        this.map.getView().setCenter(this.geometry.getFlatMidpoint());
       }
     }
   }
 
+  constructor() {
+    this.vectorSource.on('addfeature', this.onAddfeature);
+
+    this.vectorLayer = new VectorLayer({
+      source: this.vectorSource,
+      style: this.styleFunction,
+    });
+
+    this.vectorLayer.on('postrender', this.onPostrender);
+  }
+
   ngAfterViewInit() {
-    const styleCache = {};
-    const styleFunction = (feature: { get: (arg0: string) => string | number; }) => {
-      // @ts-ignore
-      const color = 'rgba(0, 140, 173, 1)';
-      // @ts-ignore
-      // tslint:disable-next-line:no-shadowed-variable
-      let style = styleCache[color];
-      if (!style) {
-        style = new Style({
-          stroke: new Stroke({
-            color,
-            width: 3,
-          }),
-        });
-        // @ts-ignore
-        styleCache[color] = style;
-      }
-      return style;
-    };
+    this.initMap();
+  }
 
-    const vectorSource = new VectorSource();
+  onAddfeature = ((evt: any) => {
+    const geometry = evt.feature.getGeometry() as LineString;
+    this.time.start = Math.min(this.time.start, geometry.getFirstCoordinate()[2]);
+    this.time.stop = Math.max(this.time.stop, geometry.getLastCoordinate()[2]);
+    this.time.duration = this.time.stop - this.time.start;
+  });
 
-    const time = {
-      start: Infinity,
-      stop: -Infinity,
-      duration: 0,
-    };
-    vectorSource.on('addfeature', evt => {
-      const geometry = evt.feature.getGeometry() as LineString;
-      time.start = Math.min(time.start, geometry.getFirstCoordinate()[2]);
-      time.stop = Math.max(time.stop, geometry.getLastCoordinate()[2]);
-      time.duration = time.stop - time.start;
-    });
-
-    const igcFormat = new IGC();
-    if (typeof this.igcFileValue === 'string') {
-      const features = igcFormat.readFeatures(this.igcFileValue, {
-        featureProjection: 'EPSG:3857',
-      });
-      vectorSource.addFeatures(features);
-    }
-
-    const vectorLayer = new VectorLayer({
-      source: vectorSource,
-      style: styleFunction,
-    });
-
-    const map = new Map({
-      layers: [
-        new TileLayer({
-          source: new OSM({
-            url:
-              'https://{a-c}.tile.openstreetmap.org/{z}/{x}/{y}.png'
-          }),
-        }),
-        vectorLayer],
-      target: 'map',
-      view: new View({
-        center: [913365.7089403362, 5914629.865071137],
-        zoom: 7,
-      }),
-    });
-
+  onPostrender = ((evt: any) => {
     const point: any = null;
     const line: any = null;
     const stroke = new Stroke({
@@ -122,20 +99,75 @@ export class MapComponent implements AfterViewInit {
         stroke,
       }),
     });
-    vectorLayer.on('postrender', evt => {
-      const vectorContext = getVectorContext(evt);
-      vectorContext.setStyle(style);
-      if (point !== null) {
-        vectorContext.drawGeometry(point);
-      }
-      if (line !== null) {
-        vectorContext.drawGeometry(line);
+
+    const vectorContext = getVectorContext(evt);
+    vectorContext.setStyle(style);
+    if (point !== null) {
+      vectorContext.drawGeometry(point);
+    }
+    if (line !== null) {
+      vectorContext.drawGeometry(line);
+    }
+  });
+
+  onTimeSliderInput($event: any) {
+    const value = $event.target.value / 100;
+    const m = this.time.start + this.time.duration * value;
+    this.vectorSource.forEachFeature(feature => {
+      const geometry = (feature.getGeometry() as LineString);
+      const coordinate = geometry.getCoordinateAtM(m, true);
+      let highlight = feature.get('highlight');
+      if (highlight === undefined) {
+        highlight = new Feature(new Point(coordinate));
+        feature.set('highlight', highlight);
+        this.featureOverlay.getSource().addFeature(highlight);
+      } else {
+        highlight.getGeometry().setCoordinates(coordinate);
       }
     });
 
-    const featureOverlay = new VectorLayer({
-      source: new VectorSource(),
-      map,
+    this.map.render();
+  }
+
+  private styleFunction = (feature: { get: (arg0: string) => string | number; }) => {
+    // @ts-ignore
+    const color = 'rgba(0, 140, 173, 1)';
+    // @ts-ignore
+    // tslint:disable-next-line:no-shadowed-variable
+    let style = this.styleCache[color];
+    if (!style) {
+      style = new Style({
+        stroke: new Stroke({
+          color,
+          width: 3,
+        }),
+      });
+      // @ts-ignore
+      this.styleCache[color] = style;
+    }
+    return style;
+  };
+
+  private initMap() {
+    this.map = new Map({
+      layers: [
+        new TileLayer({
+          source: new OSM({
+            url:
+              'https://{a-c}.tile.opentopomap.org/{z}/{x}/{y}.png'
+          }),
+        }),
+        this.vectorLayer],
+      target: 'map',
+      view: new View({
+        center: this.geometry.getFlatMidpoint(),
+        zoom: 7,
+      }),
+    });
+
+    this.featureOverlay = new VectorLayer({
+      source: this.vectorSourceOverlay,
+      map: this.map,
       style: new Style({
         image: new CircleStyle({
           radius: 5,
@@ -145,28 +177,5 @@ export class MapComponent implements AfterViewInit {
         }),
       }),
     });
-
-    const elementById = document.getElementById('time');
-    if (elementById) {
-      elementById.addEventListener('input', function () {
-        const value = parseInt((this as HTMLInputElement).value, 10) / 100;
-        const m = time.start + time.duration * value;
-        vectorSource.forEachFeature(feature => {
-          const geometry = (feature.getGeometry() as LineString);
-          const coordinate = geometry.getCoordinateAtM(m, true);
-          let highlight = feature.get('highlight');
-          if (highlight === undefined) {
-            highlight = new Feature(new Point(coordinate));
-            feature.set('highlight', highlight);
-            featureOverlay.getSource().addFeature(highlight);
-          } else {
-            highlight.getGeometry().setCoordinates(coordinate);
-          }
-        });
-        map.render();
-      });
-    }
   }
-
-
 }

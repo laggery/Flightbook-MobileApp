@@ -1,5 +1,6 @@
 <div *ngIf="igcFileValue">
     <div id="map" class="map"></div>
-    <input class="range-slider" id="time" type="range" value="0" step="1"/>
+    <input class="range-slider" id="time" type="range" [(ngModel)]="inputValue" step="1" (input)="onTimeSliderInput($event)"/>
+    <!-- <ion-range color="primary" min="0" step="1" [(ngModel)]="inputValue" (ionChange)="onTimeSliderInput($event)"></ion-range> -->
     <div id="info">&nbsp;</div>
 </div>
