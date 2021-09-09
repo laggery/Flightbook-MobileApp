@@ -2,7 +2,6 @@
   display: block;
   margin-left: auto;
   margin-right: auto;
-  width: 50%;
   height: 50vh;
   border: 5px solid #555;
 }
@@ -12,7 +11,7 @@
   display: block;
   margin-left: auto;
   margin-right: auto;
-  width: 50%;
+  width: 100%;
   height: var(--height);
   cursor: grab;
   touch-action: pan-y;
