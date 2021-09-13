@@ -66,6 +66,7 @@
         "description": "Description",
         "price": "Price",
         "signature": "Signature",
+        "igcFile": "Igc file",
         "chooseIgc": "Choose an IGC file",
         "copyIgc": "Do you also want to copy the IGC file?",
         "override": "Do you want to override the date, kilometres and flight duration with the data from the IGC file?"
