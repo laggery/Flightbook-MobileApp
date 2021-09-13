@@ -36,7 +36,7 @@ export class FileInputComponent implements OnInit {
 
   async onFileSelect(event: any) {
     const fileType = (event.target as HTMLInputElement).files[0].name.slice(-3);
-    if (fileType != "igc") {
+    if (fileType.toLowerCase() != "igc") {
       const alert = await this.alertController.create({
         header: this.translate.instant('message.infotitle'),
         message: this.translate.instant('message.wrongIgcFileType'),
