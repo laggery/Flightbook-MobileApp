@@ -6,6 +6,7 @@ import Map from 'ol/Map';
 import OSM from 'ol/source/OSM';
 import VectorSource from 'ol/source/Vector';
 import View from 'ol/View';
+import Attribution from 'ol/control/Attribution';
 import { Circle as CircleStyle, Fill, Stroke, Style } from 'ol/style';
 import { LineString, Point } from 'ol/geom';
 import { Tile as TileLayer, Vector as VectorLayer } from 'ol/layer';
@@ -29,6 +30,8 @@ export class MapComponent implements AfterViewInit {
   private featureOverlay: VectorLayer;
   private map: Map;
   private geometry: LineString;
+  
+  private attribution = `map data: © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> | map style: © <a href="https://opentopomap.org/">OpenTopoMap</a> <a href="https://creativecommons.org/licenses/by-sa/3.0/">(CC-BY-SA)</a>`;
 
   @Input()
   set igcFile(val: string) {
@@ -149,15 +152,21 @@ export class MapComponent implements AfterViewInit {
   };
 
   private initMap() {
+    const attributionControl = new Attribution({
+      collapsible: true,
+      collapsed: true
+    })
     this.map = new Map({
       layers: [
         new TileLayer({
           source: new OSM({
-            url:
-              'https://{a-c}.tile.opentopomap.org/{z}/{x}/{y}.png'
+            url: 'https://{a-c}.tile.opentopomap.org/{z}/{x}/{y}.png',
+            attributions: this.attribution,
           }),
         }),
-        this.vectorLayer],
+        this.vectorLayer
+      ],
+      controls: [attributionControl],
       target: 'map',
       view: new View(),
     });
