@@ -14,6 +14,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "preserveSymlinks": true,
             "aot": true,
             "outputPath": "www",
             "index": "src/index.html",

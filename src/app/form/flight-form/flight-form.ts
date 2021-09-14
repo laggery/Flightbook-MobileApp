@@ -1,31 +1,41 @@
-import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
-import { Flight, Place, Glider } from 'flightbook-commons-library';
+import { Flight, Glider, Place } from 'flightbook-commons-library';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'flight-form',
   templateUrl: 'flight-form.html'
 })
 export class FlightFormComponent implements OnInit {
+
   @Input()
   flight: Flight;
   @Input()
   gliders: Glider[];
+  @Input()
+  igcFileEdit: any;
+  @Input()
+  igcFile: string
+
   @Output()
   saveFlight = new EventEmitter<Flight>();
 
   glider: string;
   searchStart: string;
   searchLanding: string;
+  progress: number;
+  uploadSuccessful = false;
 
   constructor(
     private alertController: AlertController,
     private translate: TranslateService
-  ) { }
+  ) {
+  }
 
-  ngOnInit() {
+  async ngOnInit() {
     if (this.flight.glider.brand && this.flight.glider.name) {
       this.glider = `${this.flight.glider.brand} ${this.flight.glider.name}`;
     }
@@ -45,19 +55,28 @@ export class FlightFormComponent implements OnInit {
     }
   }
 
-  async saveElement(loginForm: any) {
-    if (loginForm.valid) {
-      if (!Number.isNaN(Date.parse(this.flight.time))) {
-        this.flight.time = moment(this.flight.time).format('HH:mm:ss');
-      }
+  async submitForm({ valid }: NgForm) {
+    if (valid) {
+      this.formatDate();
       this.saveFlight.emit(this.flight);
     } else {
-      const alert = await this.alertController.create({
-        header: this.translate.instant('message.errortitle'),
-        message: this.translate.instant('message.mendatoryFields'),
-        buttons: [this.translate.instant('buttons.done')]
-      });
-      await alert.present();
+      await this.showAlert();
+    }
+  }
+
+  private async showAlert() {
+    const alert = await this.alertController.create({
+      header: this.translate.instant('message.errortitle'),
+      message: this.translate.instant('message.mendatoryFields'),
+      buttons: [this.translate.instant('buttons.done')]
+    });
+    await alert.present();
+  }
+
+  private formatDate() {
+    const validNumber = !Number.isNaN(Date.parse(this.flight.time));
+    if (validNumber) {
+      this.flight.time = moment(this.flight.time).format('HH:mm:ss');
     }
   }
 
@@ -90,5 +109,4 @@ export class FlightFormComponent implements OnInit {
   setLandingInput(event: any) {
     this.flight.landing.name = event.name;
   }
-
 }

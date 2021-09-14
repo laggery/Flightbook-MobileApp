@@ -65,7 +65,11 @@
         "km": "Km",
         "description": "Description",
         "price": "Price",
-        "signature": "Signature"
+        "signature": "Signature",
+        "igcFile": "Igc file",
+        "chooseIgc": "Choose an IGC file",
+        "copyIgc": "Do you also want to copy the IGC file?",
+        "override": "Do you want to override the date, kilometres and flight duration with the data from the IGC file?"
     },
     "statistics": {
         "nbflight": "Number of flights",
@@ -121,7 +125,11 @@
         "deleteError": "This entity is conected with a flight and can not be deleted.",
         "mendatoryFields": "Mandatory fields must be provided.",
         "invalidEmail": "Please enter a valid email address.",
-        "generationError": "Unable to generate export file"
+        "generationError": "Unable to generate export file",
+        "wrongIgcFileType": "Please choose an IGC file",
+        "emptyIgcFile": "This IGC file is empty",
+        "igcUploadError": "IGC File could not be uploaded",
+        "igcCopyError": "IGC File could not be copied"
     },
     "loading": {
         "createaccount": "Create account...",
@@ -135,7 +143,8 @@
         "saveflight": "Save flight...",
         "deleteflight": "Delete flight...",
         "loading": "Loading...",
-        "copyflight": "Copy flight..."
+        "copyflight": "Copy flight...",
+        "igcRead": "Reading IGC data"
     },
     "filter": {
         "from": "From",

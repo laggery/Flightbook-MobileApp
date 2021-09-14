@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AutocompleteComponent } from './autocomplete/autocomplete.component';
 import { FlightFilterComponent } from './flight-filter/flight-filter.component';
+import { SharedModule } from '../shared/shared.module';
 @NgModule({
     declarations: [
         PlaceFormComponent,
@@ -20,7 +21,8 @@ import { FlightFilterComponent } from './flight-filter/flight-filter.component';
         CommonModule,
         FormsModule,
         IonicModule,
-        TranslateModule.forChild()
+        TranslateModule.forChild(),
+        SharedModule
     ],
     exports: [
         PlaceFormComponent,
