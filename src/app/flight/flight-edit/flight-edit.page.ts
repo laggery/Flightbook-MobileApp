@@ -220,8 +220,8 @@ export class FlightEditPage implements OnInit, OnDestroy {
       if (override) {
         this.flight.km = result.scoreInfo.distance;
       }
-      igc.start = result.scoreInfo.ep.start;
-      igc.landing = result.scoreInfo.ep.finish;
+      igc.start = result.scoreInfo.ep?.start;
+      igc.landing = result.scoreInfo.ep?.finish;
       igc.tp = result.scoreInfo.tp;
     }
     if (override) {

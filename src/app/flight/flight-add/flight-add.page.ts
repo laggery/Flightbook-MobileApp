@@ -134,8 +134,8 @@ export class FlightAddPage implements OnInit, OnDestroy {
       await loading.dismiss();
       if (result.optimal) {
         this.flight.km = result.scoreInfo.distance;
-        igc.start = result.scoreInfo.ep.start;
-        igc.landing = result.scoreInfo.ep.finish;
+        igc.start = result.scoreInfo.ep?.start;
+        igc.landing = result.scoreInfo.ep?.finish;
         igc.tp = result.scoreInfo.tp;
       }
       this.flight.date = igcFile.date;

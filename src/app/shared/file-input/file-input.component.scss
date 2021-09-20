@@ -25,3 +25,14 @@ input[type="file"] {
   color: #428CFF;
   font-size: 35px;
 }
+
+// ******* ios style ********
+.ios,ion-card{
+  height: 46px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.ios ion-card-content {
+  line-height: 10px;
+}
