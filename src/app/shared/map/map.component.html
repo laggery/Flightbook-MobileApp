@@ -1,5 +1,10 @@
 <div *ngIf="igcFileValue">
     <div id="map" class="igc-map"></div>
-    <input class="range-slider" id="time" type="range" [(ngModel)]="inputValue" step="1" (input)="onTimeSliderInput($event)"/>
-    <div id="info">&nbsp;</div>
+    <ion-range color="primary" id="time" min="0" step="0.1" [(ngModel)]="inputValue" (ionChange)="onTimeSliderInput($event)"></ion-range>
+    <ion-card *ngIf="inputValue != 0" class="info">
+        <ul>
+            <li>{{ 'flight.time' | translate }}: {{sliderInfo.time}} UTC</li>
+            <li>{{ 'place.altitude' | translate }}: {{sliderInfo.gpsAltitude}}</li>
+        </ul>
+    </ion-card>
 </div>

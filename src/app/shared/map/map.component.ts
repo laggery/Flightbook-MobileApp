@@ -11,6 +11,7 @@ import { Circle as CircleStyle, Fill, Stroke, Style } from 'ol/style';
 import { LineString, Point } from 'ol/geom';
 import { Tile as TileLayer, Vector as VectorLayer } from 'ol/layer';
 import { getVectorContext } from 'ol/render';
+import * as IGCParser from 'igc-parser';
 
 @Component({
   selector: 'fb-map',
@@ -21,6 +22,7 @@ export class MapComponent implements AfterViewInit {
 
   igcFileValue: string;
   inputValue = 0;
+  sliderInfo: any;
 
   private styleCache = {};
   private vectorSource = new VectorSource();
@@ -30,6 +32,7 @@ export class MapComponent implements AfterViewInit {
   private featureOverlay: VectorLayer;
   private map: Map;
   private geometry: LineString;
+  private igcParserValue: any;
   
   private attribution = `map data: © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> | map style: © <a href="https://opentopomap.org/">OpenTopoMap</a> <a href="https://creativecommons.org/licenses/by-sa/3.0/">(CC-BY-SA)</a>`;
 
@@ -38,6 +41,7 @@ export class MapComponent implements AfterViewInit {
     this.igcFileValue = val
     const igcFormat = new IGC();
     if (typeof val === 'string') {
+      this.igcParserValue = IGCParser.parse(val, { lenient: true });
       const features = igcFormat.readFeatures(val, {
         featureProjection: 'EPSG:3857',
       });
@@ -57,6 +61,7 @@ export class MapComponent implements AfterViewInit {
       if (this.vectorSourceOverlay) {
         this.vectorSourceOverlay.clear();
         this.inputValue = 0;
+        this.sliderInfo = null;
       }
 
       if (this.map) {
@@ -116,6 +121,8 @@ export class MapComponent implements AfterViewInit {
   onTimeSliderInput($event: any) {
     const value = $event.target.value / 100;
     const m = this.time.start + this.time.duration * value;
+    this.sliderInfo = this.igcParserValue.fixes.find((val: any) => {return val.time == new Date(m * 1000).toISOString().substr(11, 8)})
+
     this.vectorSource.forEachFeature(feature => {
       const geometry = (feature.getGeometry() as LineString);
       const coordinate = geometry.getCoordinateAtM(m, true);
