@@ -9,6 +9,7 @@ import { FlightEditPageRoutingModule } from './flight-edit-routing.module';
 import { FlightEditPage } from './flight-edit.page';
 import { TranslateModule } from '@ngx-translate/core';
 import { FormModule } from 'src/app/form/form.module';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { FormModule } from 'src/app/form/form.module';
     IonicModule,
     FlightEditPageRoutingModule,
     TranslateModule.forChild(),
-    FormModule
+    FormModule,
+    SharedModule
   ],
   declarations: [FlightEditPage]
 })

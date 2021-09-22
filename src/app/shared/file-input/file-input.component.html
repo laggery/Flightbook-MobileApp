@@ -1,0 +1,15 @@
+<div>
+    <div class="menu-item-wrap">
+        <ion-card>
+            <ion-card-content>
+                {{(fileName | slice:37) || 'flight.igcFile' | translate}}
+            </ion-card-content>
+        </ion-card>
+        <label class="custom-file-upload">
+            <ion-button color="primary" class="upload-btn" (click)="fileUpload.click()">
+                <input type="file" name="file" (change)="onFileSelect($event)" #fileUpload />
+                <ion-icon name="document"></ion-icon>
+            </ion-button>
+        </label>
+    </div>
+</div>

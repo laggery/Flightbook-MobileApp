@@ -65,7 +65,11 @@
         "km": "Km",
         "description": "Descrizione",
         "price": "Prezzo",
-        "signature": "Firma"
+        "signature": "Firma",
+        "igcFile": "File Igc",
+        "chooseIgc": "Scegliere un file IGC",
+        "copyIgc": "Vuoi anche copiare il file IGC?",
+        "override": "Vuole sovrascrivere la data, i chilometri e la durata del volo con i dati del file IGC?"
     },
     "statistics": {
         "nbflight": "Numero di voli",
@@ -121,7 +125,11 @@
         "deleteError": "Questa entità è collegata ad un volo e non può essere cancellata.",
         "mendatoryFields": "I campi obbligatori devono essere forniti.",
         "invalidEmail": "Si prega di inserire un indirizzo e-mail valido.",
-        "generationError": "Si è verificato un errore durante la generazione del file di esportazione"
+        "generationError": "Si è verificato un errore durante la generazione del file di esportazione",
+        "wrongIgcFileType": "Scegliere un file IGC",
+        "emptyIgcFile": "Questo file IGC è vuoto",
+        "igcUploadError": "Il file IGC non può essere caricato",
+        "igcCopyError": "Il file IGC non può essere copiato"
     },
     "loading": {
         "createaccount": "Iscrizione...",
@@ -135,7 +143,8 @@
         "saveflight": "Salvataggio volo...",
         "deleteflight": "Eliminazione volo...",
         "loading": "Carica...",
-        "copyflight": "Copio volo..."
+        "copyflight": "Copio volo...",
+        "igcRead": "Lettura dei dati IGC"
     },
     "filter": {
         "from": "Da",

@@ -65,7 +65,11 @@
         "km": "Km",
         "description": "Beschreibung",
         "price": "Preis",
-        "signature": "Unterschrift"
+        "signature": "Unterschrift",
+        "igcFile": "IGC-Datei",
+        "chooseIgc": "Wählen Sie eine IGC-Datei",
+        "copyIgc": "Möchten sie die IGC Datei auch kopieren?",
+        "override": "Möchten sie das Datum, die Kilometer und die Flugdauer überschreiben mit den Daten aus der IGC-Datei überschreiben?"
     },
     "statistics": {
         "nbflight": "Anzahl Flüge",
@@ -121,7 +125,11 @@
         "deleteError": "Diese Entität ist mit einem Flug verbunden und kann nicht gelöscht werden.",
         "mendatoryFields": "Pflichtfelder müssen angegeben werden.",
         "invalidEmail": "Bitte geben Sie eine gültige E-Mail-Adresse ein.",
-        "generationError": "Exportdatei konnte nicht generiert werden"
+        "generationError": "Exportdatei konnte nicht generiert werden",
+        "wrongIgcFileType": "Bitte wählen Sie eine IGC-Datei",
+        "emptyIgcFile": "Diese IGC-Datei ist leer",
+        "igcUploadError": "IGC-Datei konnte nicht hochgeladen werden",
+        "igcCopyError": "IGC-Datei konnte nicht kopiert werden"
     },
     "loading": {
         "createaccount": "Registrieren...",
@@ -135,7 +143,8 @@
         "saveflight": "Flug speichern...",
         "deleteflight": "Flug löschen...",
         "loading": "Laden...",
-        "copyflight": "Flug kopieren..."
+        "copyflight": "Flug kopieren...",
+        "igcRead": "IGC Daten werden gelesen"
     },
     "filter": {
         "from": "Von",
