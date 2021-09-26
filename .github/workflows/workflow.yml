@@ -1,0 +1,45 @@
+# This workfow shows how to build a Docker image, tag and push it to DigitalOcean Container Registry, and
+# deploy the application on a DIgitalOcean Kubernetes cluster.
+
+name: Build, push, and deploy
+on:
+  push:
+    branches:
+      - 'feature/migrate-to-kubernetes'
+    paths:
+      - 'Dockerfile'
+      - '.github/workflows/**'
+      - 'kubernetes/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout master
+        uses: actions/checkout@main
+
+      - name: Install doctl
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+
+      - name: Build container image
+        run: docker build -t registry.digitalocean.com/flightbook-container-registry/flightbook-repository:$(echo $GITHUB_SHA | head -c7) .
+
+      - name: Log in to Digital Ocean Container Registry with short-lived credentials
+        run: doctl registry login --expiry-seconds 1800
+
+      - name: Push image to DigitalOcean Container Registry
+        run: docker push registry.digitalocean.com/flightbook-container-registry/flightbook-repository:$(echo $GITHUB_SHA | head -c7)
+
+      - name: Update deployment file
+        run: TAG=$(echo $GITHUB_SHA | head -c7) && sed -i 's|<IMAGE>|registry.digitalocean.com/flightbook-container-registry/flightbook-repository:'${TAG}'|' $GITHUB_WORKSPACE/kubernetes/deployment.yml
+
+      - name: Save DigitalOcean kubeconfig with short-lived credentials
+        run: doctl kubernetes cluster kubeconfig save --expiry-seconds 600 k8s-1-21-2-do-2-ams3-1628844727688
+
+      - name: Deploy to DigitalOcean Kubernetes
+        run: kubectl apply -f $GITHUB_WORKSPACE/kubernetes/deployment.yml
+
+      - name: Verify deployment
+        run: kubectl rollout status deployment/flightbook
