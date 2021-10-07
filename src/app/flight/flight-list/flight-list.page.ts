@@ -121,7 +121,7 @@ export class FlightListPage implements OnInit, OnDestroy, AfterViewInit {
       res = res.sort((a: Flight, b: Flight) => b.number - a.number);
       if (Capacitor.isNativePlatform()) {
         try {
-          const data: any = this.xlsxExportService.generateFlightsXlsxFile(res, { bookType: 'xlsx', type: 'base64' });
+          const data: any = await this.xlsxExportService.generateFlightsXlsxFile(res, { bookType: 'xlsx', type: 'base64' });
           const path = `xlsx/flights_export_${Date.now()}.xlsx`;
 
           const result = await Filesystem.writeFile({
@@ -142,7 +142,7 @@ export class FlightListPage implements OnInit, OnDestroy, AfterViewInit {
           await alert.present();
         }
       } else {
-        const data: any = this.xlsxExportService.generateFlightsXlsxFile(res, { bookType: 'xlsx', type: 'array' });
+        const data: any = await this.xlsxExportService.generateFlightsXlsxFile(res, { bookType: 'xlsx', type: 'array' });
         await loading.dismiss();
         this.xlsxExportService.saveExcelFile(data, `flights_export_${Date.now()}.xlsx`);
       }
@@ -160,7 +160,7 @@ export class FlightListPage implements OnInit, OnDestroy, AfterViewInit {
       res = res.sort((a: Flight, b: Flight) => b.number - a.number);
       res.reverse();
       const user = await this.accountService.currentUser().pipe(takeUntil(this.unsubscribe$)).toPromise();
-      const pdfObj: TCreatedPdf = this.pdfExportService.generatePdf(res, user, 'https://m.flightbook.ch');
+      const pdfObj: TCreatedPdf = await this.pdfExportService.generatePdf(res, user, 'https://m.flightbook.ch');
       if (Capacitor.isNativePlatform()) {
         pdfObj.getBase64(async (data) => {
           try {

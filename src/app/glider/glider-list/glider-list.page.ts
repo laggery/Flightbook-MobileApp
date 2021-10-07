@@ -124,7 +124,7 @@ export class GliderListPage implements OnInit, OnDestroy, AfterViewInit {
     this.gliderService.getGliders({ store: false }).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Glider[]) => {
       if (Capacitor.isNativePlatform()) {
         try {
-          const data: any = this.xlsxExportService.generateGlidersXlsxFile(res, { bookType: 'xlsx', type: 'base64' });
+          const data: any = await this.xlsxExportService.generateGlidersXlsxFile(res, { bookType: 'xlsx', type: 'base64' });
           const path = `xlsx/gliders_export_${Date.now()}.xlsx`;
 
           const result = await Filesystem.writeFile({
@@ -145,7 +145,7 @@ export class GliderListPage implements OnInit, OnDestroy, AfterViewInit {
           await alert.present();
         }
       } else {
-        const data: any = this.xlsxExportService.generateGlidersXlsxFile(res, { bookType: 'xlsx', type: 'array' });
+        const data: any = await this.xlsxExportService.generateGlidersXlsxFile(res, { bookType: 'xlsx', type: 'array' });
         await loading.dismiss();
         this.xlsxExportService.saveExcelFile(data, `gliders_export_${Date.now()}.xlsx`);
       }

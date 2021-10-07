@@ -88,7 +88,7 @@ export class PlaceListPage implements OnInit, OnDestroy, AfterViewInit {
     this.placeService.getPlaces({ store: false }).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Place[]) => {
       if (Capacitor.isNativePlatform()) {
         try {
-          const data: any = this.xlsxExportService.generatePlacesXlsxFile(res, { bookType: 'xlsx', type: 'base64' });
+          const data: any = await this.xlsxExportService.generatePlacesXlsxFile(res, { bookType: 'xlsx', type: 'base64' });
           const path = `xlsx/places_export_${Date.now()}.xlsx`;
 
           const result = await Filesystem.writeFile({
@@ -109,7 +109,7 @@ export class PlaceListPage implements OnInit, OnDestroy, AfterViewInit {
           await alert.present();
         }
       } else {
-        const data: any = this.xlsxExportService.generatePlacesXlsxFile(res, { bookType: 'xlsx', type: 'array' });
+        const data: any = await this.xlsxExportService.generatePlacesXlsxFile(res, { bookType: 'xlsx', type: 'array' });
         await loading.dismiss();
         this.xlsxExportService.saveExcelFile(data, `places_export_${Date.now()}.xlsx`);
       }

@@ -94,7 +94,7 @@ export class NewsPage implements OnInit, OnDestroy {
     Promise.all(promiseList).then(async (res: any) => {
       if (Capacitor.isNativePlatform()) {
         try {
-          const data: any = this.xlsxExportService.generateFlightbookXlsxFile(res[0], res[1], res[2], {
+          const data: any = await this.xlsxExportService.generateFlightbookXlsxFile(res[0], res[1], res[2], {
             bookType: 'xlsx',
             type: 'base64'
           });
@@ -118,7 +118,7 @@ export class NewsPage implements OnInit, OnDestroy {
           await alert.present();
         }
       } else {
-        const data: any = this.xlsxExportService.generateFlightbookXlsxFile(res[0], res[1], res[2], {
+        const data: any = await this.xlsxExportService.generateFlightbookXlsxFile(res[0], res[1], res[2], {
           bookType: 'xlsx',
           type: 'array'
         });
