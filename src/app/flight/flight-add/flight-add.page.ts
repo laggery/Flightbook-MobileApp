@@ -139,6 +139,7 @@ export class FlightAddPage implements OnInit, OnDestroy {
         igc.tp = result.scoreInfo.tp;
       }
       this.flight.date = igcFile.date;
+      this.flight.start.name = igcFile.site;
       const timeInMillisecond = (igcFile.ll[0].landing - igcFile.ll[0].launch) * 1000
       this.flight.time = new Date(timeInMillisecond).toISOString().substr(11, 8);
       this.flight.igc = igc;
