@@ -3,12 +3,12 @@ kind: Deployment
 metadata:
   name: mobile-flightbook
   labels:
-    app: mobile-flightbook
+    name: mobile-flightbook
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: mobile-flightbook
+      name: mobile-flightbook
   strategy:
     rollingUpdate:
       maxSurge: 1
@@ -17,7 +17,7 @@ spec:
   template:
     metadata:
       labels:
-        app: mobile-flightbook
+        name: mobile-flightbook
     spec:
       containers:
         - name: mobile-flightbook
