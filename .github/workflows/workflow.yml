@@ -10,6 +10,7 @@ on:
       - 'Dockerfile'
       - '.github/workflows/**'
       - 'kubernetes/**'
+      - 'src/app/account/login/**'
 
 jobs:
   build:
