@@ -4,11 +4,10 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { FlightEditPageRoutingModule } from './flight-edit-routing.module';
+import { MultipleIgcPageRoutingModule } from './multiple-igc-routing.module';
 
-import { FlightEditPage } from './flight-edit.page';
+import { MultipleIgcPage } from './multiple-igc.page';
 import { TranslateModule } from '@ngx-translate/core';
-import { FormModule } from 'src/app/form/form.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 import {
   IgcModule
@@ -20,12 +19,11 @@ import { environment } from 'src/environments/environment';
     CommonModule,
     FormsModule,
     IonicModule,
-    FlightEditPageRoutingModule,
+    MultipleIgcPageRoutingModule,
     TranslateModule.forChild(),
-    FormModule,
     SharedModule,
     IgcModule.forRoot(environment)
   ],
-  declarations: [FlightEditPage]
+  declarations: [MultipleIgcPage]
 })
-export class FlightEditPageModule {}
+export class MultipleIgcPageModule {}

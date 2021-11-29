@@ -4,10 +4,8 @@ import { takeUntil } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
-import { Flight, FlightService, Place, Glider, GliderService, FileUploadService, Igc } from 'flightbook-commons-library';
+import { Flight, FlightService, Place, Glider, GliderService, FileUploadService, IgcService } from 'flightbook-commons-library';
 import HttpStatusCode from '../../shared/util/HttpStatusCode';
-import * as IGCParser from 'igc-parser';
-import { scoringRules as scoring, solver } from 'igc-xc-score';
 
 @Component({
   selector: 'app-flight-add',
@@ -27,7 +25,8 @@ export class FlightAddPage implements OnInit, OnDestroy {
     private alertController: AlertController,
     private translate: TranslateService,
     private loadingCtrl: LoadingController,
-    private fileUploadService: FileUploadService
+    private fileUploadService: FileUploadService,
+    private igcService: IgcService
   ) {
     this.flight = new Flight();
     this.flight.date = new Date().toISOString();
@@ -115,35 +114,17 @@ export class FlightAddPage implements OnInit, OnDestroy {
     }
   }
 
-  onFileSelectEvent($event: File) {
-    this.flight.igcFile = $event;
-  }
+  async onFilesSelectEvent($event: File[]) {
+    this.flight.igcFile = $event[0];
+    const loading = await this.loadingCtrl.create({
+      message: this.translate.instant('loading.igcRead')
+    });
 
-  async prefillWithIGCData($event: string | ArrayBuffer) {
-    if (typeof $event === 'string') {
-      const loading = await this.loadingCtrl.create({
-        message: this.translate.instant('loading.igcRead')
-      });
+    await loading.present();
 
-      await loading.present();
+    this.igcFile = await this.igcService.getIgcFileContentAndPrefillFlight(this.flight, this.flight.igcFile);
 
-      this.igcFile = $event;
-      const igc = new Igc();
-      const igcFile: any = IGCParser.parse($event, { lenient: true });
-      const result = solver(igcFile, scoring.XCScoring, {}).next().value;
-      await loading.dismiss();
-      if (result.optimal) {
-        this.flight.km = result.scoreInfo.distance;
-        igc.start = result.scoreInfo.ep?.start;
-        igc.landing = result.scoreInfo.ep?.finish;
-        igc.tp = result.scoreInfo.tp;
-      }
-      this.flight.date = igcFile.date;
-      this.flight.start.name = igcFile.site;
-      const timeInMillisecond = (igcFile.ll[0].landing - igcFile.ll[0].launch) * 1000
-      this.flight.time = new Date(timeInMillisecond).toISOString().substr(11, 8);
-      this.flight.igc = igc;
-    }
+    await loading.dismiss();
   }
 
   private async noGliderCheck() {

@@ -35,6 +35,12 @@
               <fb-menu-item [icon]="'stats-chart'" [label]="'buttons.statistics'"></fb-menu-item>
             </ion-item>
           </ion-menu-toggle>
+          <p class="divider-menu">{{ 'groupname.import' | translate }}</p>
+          <ion-menu-toggle auto-hide="false">
+            <ion-item routerDirection="root" [routerLink]="['/imports/igc']" lines="full" detail="false">
+              <fb-menu-item [icon]="'document'" [label]="'buttons.multipleIgc'"></fb-menu-item>
+            </ion-item>
+          </ion-menu-toggle>
           <p class="divider-menu">{{ 'groupname.account' | translate }}</p>
           <ion-menu-toggle auto-hide="false">
             <ion-item routerDirection="root" [routerLink]="['/settings']" lines="full" detail="false">
