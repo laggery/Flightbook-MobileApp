@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar color='primary'>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>{{ 'buttons.multipleIgc' | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <fb-file-input [multiple]="true" (onFilesSelectEvent)="onFilesSelectEvent($event)"></fb-file-input>
+
+  <ion-list *ngIf="flightStateList && flightStateList.length > 0">
+    <ion-item *ngFor="let flightSate of flightStateList; let i = index" [attr.data-index]="i">
+      <ion-spinner class=loadingSpinner name="lines" *ngIf="flightSate.state == state.LOADING; else displayData"></ion-spinner>
+
+      <ng-template #displayData>
+        <span class="info glider">
+          <fb-glider-select [flight]=flightSate.flight [gliders]=gliders></fb-glider-select>
+        </span>
+        <span class="info date">{{ flightSate.flight.date | date:'dd.MM.yyyy' }}</span>
+        <span class="info time">{{ flightSate.flight.time }}</span>
+        <span class="info start">{{ flightSate.flight.start?.name }}</span>
+        <span class="info km">{{ flightSate.flight.km }}km</span>
+        <ion-button *ngIf="flightSate.state != state.SAVED && flightSate.state != state.ERROR" color="danger" slot="end" (click)="removeFlight(i)">
+          <ion-icon name="trash-outline"></ion-icon>
+        </ion-button>
+        <ion-icon slot="end" color="success"  *ngIf="flightSate.state == state.SAVED" name="cloud-done-outline"></ion-icon>
+        <ion-icon slot="end" color="danger"  *ngIf="flightSate.state == state.ERROR" name="alert"></ion-icon>
+      </ng-template>
+
+    </ion-item>
+  </ion-list>
+  <ion-button *ngIf="!isSaved" expand="block" (click)="save()">{{ 'buttons.save' | translate }}</ion-button>
+  <ion-button *ngIf="isSaved" expand="block" (click)="clear()">{{ 'buttons.clear' | translate }}</ion-button>
+
+</ion-content>

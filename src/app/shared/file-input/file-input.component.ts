@@ -10,10 +10,11 @@ import { v4 as uuidv4 } from 'uuid';
 })
 export class FileInputComponent implements OnInit {
 
-  fileName: string;
-
   @Input()
   uploadSuccessful = false;
+
+  @Input()
+  multiple = false;
 
   progress = 0;
 
@@ -21,10 +22,7 @@ export class FileInputComponent implements OnInit {
   fileContent = new EventEmitter<string | ArrayBuffer>();
 
   @Output()
-  onFileSelectEvent = new EventEmitter<File>();
-
-  @Output()
-  deleteEvent = new EventEmitter<string>();
+  onFilesSelectEvent = new EventEmitter<File[]>();
 
   constructor(
     private alertController: AlertController,
@@ -34,38 +32,32 @@ export class FileInputComponent implements OnInit {
   ngOnInit() {
   }
 
-  async onFileSelect(event: any) {
-    const fileType = (event.target as HTMLInputElement).files[0].name.slice(-3);
-    if (fileType.toLowerCase() != "igc") {
-      const alert = await this.alertController.create({
-        header: this.translate.instant('message.infotitle'),
-        message: this.translate.instant('message.wrongIgcFileType'),
-        buttons: [this.translate.instant('buttons.done')]
-      });
-      await alert.present();
-      return;
-    }
+  async onFilesSelect(event: any) {
+    const files = (event.target as HTMLInputElement).files;
+    const newFiles = [];
 
-    if (event.target.files.length > 0) {
-      if (event.target.files[0].size === 0) {
+    if (!this.multiple) {
+      const fileType = files[0].name.slice(-3);
+      if (fileType.toLowerCase() != "igc") {
         const alert = await this.alertController.create({
           header: this.translate.instant('message.infotitle'),
-          message: this.translate.instant('message.emptyIgcFile'),
+          message: this.translate.instant('message.wrongIgcFileType'),
           buttons: [this.translate.instant('buttons.done')]
         });
         await alert.present();
         return;
       }
-
-      this.fileName = `${uuidv4()}-${(event.target as HTMLInputElement).files[0].name}`;
-      const file: File = new File([(event.target as HTMLInputElement).files[0]], this.fileName);
-      this.fileName = file.name;
-      const reader = new FileReader();
-      reader.readAsText(file);
-      reader.onload = e => {
-        this.fileContent.emit(reader.result);
-      };
-      this.onFileSelectEvent.emit(file);
     }
+
+    for (let i = 0; i < files.length; i++) {
+      const file = (event.target as HTMLInputElement).files[i]
+      const fileType = file.name.slice(-3);
+      if (file.size > 0 && fileType.toLocaleLowerCase() == "igc") {
+        let fileName = `${uuidv4()}-${file.name}`;
+        newFiles.push(new File([file], fileName));
+      }
+    }
+
+    this.onFilesSelectEvent.emit(newFiles);
   }
 }

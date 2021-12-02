@@ -5,11 +5,9 @@ import { takeUntil } from 'rxjs/operators';
 import * as _ from 'lodash';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
-import { FileUploadService, Flight, FlightService, Glider, GliderService, Igc } from 'flightbook-commons-library';
+import { FileUploadService, Flight, FlightService, Glider, GliderService, IgcService } from 'flightbook-commons-library';
 import HttpStatusCode from '../../shared/util/HttpStatusCode';
 import { v4 as uuidv4 } from 'uuid';
-import * as IGCParser from 'igc-parser';
-import { scoringRules as scoring, solver } from 'igc-xc-score';
 
 @Component({
   selector: 'app-flight-edit',
@@ -33,7 +31,8 @@ export class FlightEditPage implements OnInit, OnDestroy {
     private alertController: AlertController,
     private translate: TranslateService,
     private loadingCtrl: LoadingController,
-    private fileUploadService: FileUploadService
+    private fileUploadService: FileUploadService,
+    private igcService: IgcService
   ) {
     this.flightId = +this.activeRoute.snapshot.paramMap.get('id');
     this.initialFlight = this.flightService.getValue().find(flight => flight.id === this.flightId);
@@ -199,63 +198,42 @@ export class FlightEditPage implements OnInit, OnDestroy {
     }
   }
 
-  onFileSelectEvent($event: File) {
-    this.flight.igcFile = $event;
-  }
-
-  async prefillWithIGCData($event: string) {
-    this.igcFile = $event;
-    const igc = new Igc();
-    const igcFile: any = IGCParser.parse($event, { lenient: true });
+  async onFilesSelectEvent($event: File[]) {
+    this.flight.igcFile = $event[0];
     const loading = await this.loadingCtrl.create({
       message: this.translate.instant('loading.igcRead')
     });
 
+    const override = await this.doOverride();
+
     await loading.present();
 
-    const result = solver(igcFile, scoring.XCScoring, {}).next().value;
+    this.igcFile = await this.igcService.getIgcFileContentAndPrefillFlight(this.flight, this.flight.igcFile, override);
+
     await loading.dismiss();
-    const override = await this.doOverride(igcFile);
-    if (result.optimal) {
-      if (override) {
-        this.flight.km = result.scoreInfo.distance;
-      }
-      igc.start = result.scoreInfo.ep?.start;
-      igc.landing = result.scoreInfo.ep?.finish;
-      igc.tp = result.scoreInfo.tp;
-    }
-    if (override) {
-      this.flight.date = igcFile.date;
-      this.flight.start.name = igcFile.site;
-      const timeInMillisecond = (igcFile.ll[0].landing - igcFile.ll[0].launch) * 1000
-      this.flight.time = new Date(timeInMillisecond).toISOString().substr(11, 8);
-    }
-    this.flight.igc = igc;
   }
 
-  private async doOverride(igcFile: any): Promise<boolean> {
+  private async doOverride(): Promise<boolean> {
     let doOverride = false;
-    if ((this.flight.km || this.flight.time) || new Date(this.flight.date).toDateString() != new Date(igcFile.date).toDateString()) {
-      const alert = await this.alertController.create({
-        header: this.translate.instant('message.infotitle'),
-        message: this.translate.instant('flight.override'),
-        buttons: [
-          {
-            text: this.translate.instant('buttons.yes'),
-            handler: () => {
-              doOverride = true;
-            }
-          },
-          this.translate.instant('buttons.no')
+    const alert = await this.alertController.create({
+      header: this.translate.instant('message.infotitle'),
+      message: this.translate.instant('flight.override'),
+      buttons: [
+        {
+          text: this.translate.instant('buttons.yes'),
+          handler: () => {
+            doOverride = true;
+          }
+        },
+        this.translate.instant('buttons.no')
 
-        ]
-      });
+      ]
+    });
 
-      await alert.present();
-      await alert.onDidDismiss();
-      await alert.dismiss();
-      return doOverride;
-    }
+    await alert.present();
+    await alert.onDidDismiss();
+    await alert.dismiss();
+    return doOverride;
   }
 
   private getFlightFromDashboardNavigation() {

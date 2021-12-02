@@ -26,7 +26,8 @@
         "filter": "Filtra",
         "close": "Vicino",
         "yes": "Si",
-        "no": "No"
+        "no": "No",
+        "multipleIgc": "Diversi IGC"
     },
     "login": {
         "email": "E-Mail",
@@ -69,7 +70,7 @@
         "igcFile": "File Igc",
         "chooseIgc": "Scegliere un file IGC",
         "copyIgc": "Vuoi anche copiare il file IGC?",
-        "override": "Vuole sovrascrivere la data, i chilometri e la durata del volo con i dati del file IGC?"
+        "override": "Vuole sovrascrivere la vela, la data, i chilometri e la durata del volo con i dati del file IGC?"
     },
     "statistics": {
         "nbflight": "Numero di voli",
@@ -102,7 +103,8 @@
         "news": "Novità",
         "account": "Account",
         "filtered": "filtrato",
-        "menu": "Menu"
+        "menu": "Menu",
+        "import": "Importazione"
     },
     "message": {
         "infotitle": "Informazione",

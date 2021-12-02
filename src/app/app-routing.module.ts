@@ -64,6 +64,11 @@ const routes: Routes = [
     canActivate: [AuthGuardService]
   },
   {
+    path: 'imports/igc',
+    loadChildren: () => import('./imports/multiple-igc/multiple-igc.module').then( m => m.MultipleIgcPageModule),
+    canActivate: [AuthGuardService]
+  },
+  {
     path: 'login',
     loadChildren: () => import('./account/login/login.module').then(m => m.LoginPageModule)
   },
