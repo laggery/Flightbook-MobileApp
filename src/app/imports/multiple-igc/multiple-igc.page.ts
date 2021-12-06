@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LoadingController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { Flight, Glider, GliderService, IgcService, Place, FileUploadService, FlightService } from 'flightbook-commons-library';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({
@@ -52,6 +52,10 @@ export class MultipleIgcPage implements OnInit {
       flight.igcFile = file;
 
       await this.igcService.getIgcFileContentAndPrefillFlight(flight, flight.igcFile);
+
+      if (!flight.glider.name) {
+        flight.glider = this.gliders[0];
+      }
 
       flightState.state = State.LOADED;
     }

@@ -1,6 +1,6 @@
 {
   "name": "flightbook",
-  "version": "2.2.3",
+  "version": "2.2.4",
   "author": "Yannick Lagger",
   "homepage": "https://flightbook.ch/",
   "scripts": {
@@ -45,7 +45,7 @@
     "core-js": "^2.5.4",
     "d3": "^6.3.1",
     "file-saver": "^2.0.2",
-    "flightbook-commons-library": "^0.0.40",
+    "flightbook-commons-library": "^0.0.41",
     "igc-parser": "^1.1.0",
     "igc-xc-score": "^1.6.0",
     "moment": "^2.26.0",
