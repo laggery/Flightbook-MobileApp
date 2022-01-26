@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Flight, FlightService, FlightStatistic } from 'flightbook-commons-library';
 import { map, take } from 'rxjs/operators';
-import { Router } from '@angular/router';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'fb-dashboard-container',
@@ -15,7 +15,7 @@ export class DashboardContainerComponent implements OnInit {
   flights$: Observable<Flight[]>;
 
   constructor(private flightService: FlightService,
-              private router: Router
+              public navCtrl: NavController
   ) {
   }
 
@@ -30,12 +30,12 @@ export class DashboardContainerComponent implements OnInit {
       .pipe(take(1))
       .subscribe((flightArray: Flight[]) => {
         if (flightArray.length > 0) {
-          this.router.navigate(['flights/edit'], { state: { flight: flightArray[0] }, replaceUrl: true });
+          this.navCtrl.navigateForward(`flights/${flightArray[0].id}`);
         }
       });
   }
 
   async openAddFlight() {
-    await this.router.navigate(['flights/add'], { replaceUrl: true });
+    this.navCtrl.navigateForward('flights/add');
   }
 }
