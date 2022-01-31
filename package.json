@@ -14,13 +14,13 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/common": "~11.0.4",
-    "@angular/core": "~11.0.4",
-    "@angular/forms": "~11.0.4",
-    "@angular/platform-browser": "~11.0.4",
-    "@angular/platform-browser-dynamic": "~11.0.4",
-    "@angular/router": "~11.0.4",
-    "@angular/service-worker": "~11.0.4",
+    "@angular/common": "~12.2.16",
+    "@angular/core": "~12.2.16",
+    "@angular/forms": "~12.2.16",
+    "@angular/platform-browser": "~12.2.16",
+    "@angular/platform-browser-dynamic": "~12.2.16",
+    "@angular/router": "~12.2.16",
+    "@angular/service-worker": "~12.2.16",
     "@auth0/angular-jwt": "^5.0.1",
     "@capacitor/android": "^3.2.3",
     "@capacitor/app": "^1.0.1",
@@ -45,7 +45,7 @@
     "core-js": "^2.5.4",
     "d3": "^6.3.1",
     "file-saver": "^2.0.2",
-    "flightbook-commons-library": "^0.0.41",
+    "flightbook-commons-library": "^0.0.43",
     "igc-parser": "^1.1.0",
     "igc-xc-score": "^1.6.0",
     "moment": "^2.26.0",
@@ -55,14 +55,14 @@
     "tslib": "^1.10.0",
     "uuid": "^3.4.0",
     "xlsx": "^0.16.8",
-    "zone.js": "~0.10.2"
+    "zone.js": "~0.11.4"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^0.1100.3",
-    "@angular/cli": "~11.0.3",
-    "@angular/compiler": "~11.0.4",
-    "@angular/compiler-cli": "~11.0.4",
-    "@angular/language-service": "~11.0.4",
+    "@angular-devkit/build-angular": "^12.2.16",
+    "@angular/cli": "~12.2.16",
+    "@angular/compiler": "~12.2.16",
+    "@angular/compiler-cli": "~12.2.16",
+    "@angular/language-service": "~12.2.16",
     "@babel/compat-data": "~7.8.0",
     "@capacitor/cli": "^3.2.3",
     "@ionic/angular-toolkit": "^5.0.3",
@@ -77,7 +77,7 @@
     "codelyzer": "^5.1.2",
     "jasmine-core": "~3.4.0",
     "jasmine-spec-reporter": "~4.2.1",
-    "karma": "^5.1.1",
+    "karma": "^6.3.12",
     "karma-chrome-launcher": "~2.2.0",
     "karma-coverage-istanbul-reporter": "~2.0.1",
     "karma-jasmine": "~2.0.1",
@@ -85,7 +85,7 @@
     "protractor": "~7.0.0",
     "ts-node": "~7.0.0",
     "tslint": "~6.1.0",
-    "typescript": "~4.0.3"
+    "typescript": "~4.3.5"
   },
   "description": "An Ionic project"
 }

@@ -1,4 +1,4 @@
-import * as informations from '../../package.json';
+import informations from '../../package.json';
 
 export const environment = {
   production: true,
