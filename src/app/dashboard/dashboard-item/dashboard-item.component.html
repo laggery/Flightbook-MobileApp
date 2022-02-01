@@ -5,8 +5,7 @@
                       *ngIf="{
                       flights: flights$ | async,
                       flightStatistics: flightStatistics$ | async}
-                      as observables"
-                      [routerLink]="routerLink">
+                      as observables">
                 <div class="body">
                     <ion-icon *ngIf=icon [name]="icon"></ion-icon>
                     <div class="statistic-tile" *ngIf="observables.flightStatistics">

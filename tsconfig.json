@@ -19,7 +19,8 @@
       "dom"
     ],
     "allowSyntheticDefaultImports":true,
-    "resolveJsonModule":true
+    "resolveJsonModule":true,
+    "skipLibCheck": true 
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,

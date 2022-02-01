@@ -20,11 +20,6 @@ export class DashboardItemComponent implements OnInit {
   @Input() label: string;
 
   /**
-   * Routerlink to navigate to
-   */
-  @Input() routerLink: string;
-
-  /**
    * Flight data to show
    */
   @Input() flights$?: Observable<Flight[]>;
