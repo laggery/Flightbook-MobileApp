@@ -10,8 +10,8 @@ import { FlightStatisticPage } from './flight-statistic.page';
 import { TranslateModule } from '@ngx-translate/core';
 import { FlightFilterComponent } from '../../form/flight-filter/flight-filter.component';
 import { FormModule } from 'src/app/form/form.module';
-import { ApplicationPipesModule } from 'flightbook-commons-library';
 import { ChartsModule } from 'src/app/charts/charts.module';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   imports: [
@@ -21,8 +21,8 @@ import { ChartsModule } from 'src/app/charts/charts.module';
     FlightStatisticPageRoutingModule,
     TranslateModule.forChild(),
     FormModule,
-    ApplicationPipesModule,
-    ChartsModule
+    ChartsModule,
+    SharedModule
   ],
   declarations: [FlightStatisticPage],
   entryComponents: [FlightFilterComponent]

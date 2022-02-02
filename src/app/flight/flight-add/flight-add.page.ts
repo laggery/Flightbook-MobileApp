@@ -4,8 +4,14 @@ import { takeUntil } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
-import { Flight, FlightService, Place, Glider, GliderService, FileUploadService, IgcService } from 'flightbook-commons-library';
 import HttpStatusCode from '../../shared/util/HttpStatusCode';
+import { Flight } from 'src/app/core/domain/flight';
+import { Glider } from 'src/app/core/domain/glider';
+import { FlightService } from 'src/app/core/services/flight.service';
+import { GliderService } from 'src/app/core/services/glider.service';
+import { FileUploadService } from 'src/app/core/services/fileupload.service';
+import { IgcService } from 'src/app/core/services/igc.service';
+import { Place } from 'src/app/core/domain/place';
 
 @Component({
   selector: 'app-flight-add',

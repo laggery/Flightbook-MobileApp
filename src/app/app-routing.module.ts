@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { AuthGuardService } from 'flightbook-commons-library';
+import { AuthGuardService } from './core/services/auth-guard.service';
 
 const routes: Routes = [
   {

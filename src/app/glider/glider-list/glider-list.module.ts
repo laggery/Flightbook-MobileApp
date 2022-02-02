@@ -9,8 +9,8 @@ import { GliderListPageRoutingModule } from './glider-list-routing.module';
 import { GliderListPage } from './glider-list.page';
 import { TranslateModule } from '@ngx-translate/core';
 import { GliderFilterComponent } from '../glider-filter/glider-filter.component';
-import { ApplicationPipesModule, ExportModule } from 'flightbook-commons-library';
 import { FileOpener } from '@ionic-native/file-opener/ngx';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   imports: [
@@ -19,8 +19,7 @@ import { FileOpener } from '@ionic-native/file-opener/ngx';
     IonicModule,
     GliderListPageRoutingModule,
     TranslateModule.forChild(),
-    ApplicationPipesModule,
-    ExportModule
+    SharedModule
   ],
   providers: [
     FileOpener

@@ -4,8 +4,9 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { AccountService, User } from 'flightbook-commons-library';
 import HttpStatusCode from '../../shared/util/HttpStatusCode';
+import { AccountService } from 'src/app/core/services/account.service';
+import { User } from 'src/app/core/domain/user';
 
 @Component({
   selector: 'app-register',

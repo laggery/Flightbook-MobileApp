@@ -4,12 +4,13 @@ import { MenuController, NavController, AlertController, LoadingController } fro
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { NewsService, AccountService } from 'flightbook-commons-library';
 import { Capacitor } from '@capacitor/core';
 import { SplashScreen } from '@capacitor/splash-screen';
 import HttpStatusCode from '../../shared/util/HttpStatusCode';
 import { environment } from 'src/environments/environment';
 import { AppVersion } from '@ionic-native/app-version/ngx';
+import { AccountService } from 'src/app/core/services/account.service';
+import { NewsService } from 'src/app/core/services/news.service';
 
 @Component({
   selector: 'app-login',

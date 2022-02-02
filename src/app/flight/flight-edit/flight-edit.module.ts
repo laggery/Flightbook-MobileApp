@@ -10,9 +10,6 @@ import { FlightEditPage } from './flight-edit.page';
 import { TranslateModule } from '@ngx-translate/core';
 import { FormModule } from 'src/app/form/form.module';
 import { SharedModule } from 'src/app/shared/shared.module';
-import {
-  IgcModule
-} from 'flightbook-commons-library';
 import { environment } from 'src/environments/environment';
 
 @NgModule({
@@ -23,8 +20,7 @@ import { environment } from 'src/environments/environment';
     FlightEditPageRoutingModule,
     TranslateModule.forChild(),
     FormModule,
-    SharedModule,
-    IgcModule.forRoot(environment)
+    SharedModule
   ],
   declarations: [FlightEditPage]
 })

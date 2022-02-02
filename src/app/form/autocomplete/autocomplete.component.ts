@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, ElementRef, OnChanges } from '@angular/core';
-import { Place, PlaceService } from 'flightbook-commons-library';
+import { Place } from 'src/app/core/domain/place';
+import { PlaceService } from 'src/app/core/services/place.service';
 @Component({
   selector: 'autocomplete',
   templateUrl: './autocomplete.component.html',

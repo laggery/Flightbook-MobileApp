@@ -9,9 +9,6 @@ import { MultipleIgcPageRoutingModule } from './multiple-igc-routing.module';
 import { MultipleIgcPage } from './multiple-igc.page';
 import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from 'src/app/shared/shared.module';
-import {
-  IgcModule
-} from 'flightbook-commons-library';
 import { environment } from 'src/environments/environment';
 
 @NgModule({
@@ -21,8 +18,7 @@ import { environment } from 'src/environments/environment';
     IonicModule,
     MultipleIgcPageRoutingModule,
     TranslateModule.forChild(),
-    SharedModule,
-    IgcModule.forRoot(environment)
+    SharedModule
   ],
   declarations: [MultipleIgcPage]
 })

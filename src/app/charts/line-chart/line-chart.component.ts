@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FlightStatistic, HoursFormatPipe } from 'flightbook-commons-library';
 import * as moment from 'moment';
 
 import * as d3 from 'd3';
 import * as d3Selection from 'd3-selection';
 import { TranslateService } from '@ngx-translate/core';
+import { FlightStatistic } from 'src/app/core/domain/flightStatistic';
+import { HoursFormatPipe } from 'src/app/shared/pipes/hours-format/hours-format.pipe';
 
 @Component({
   selector: 'line-chart',

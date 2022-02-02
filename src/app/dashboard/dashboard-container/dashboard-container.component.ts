@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Flight, FlightService, FlightStatistic } from 'flightbook-commons-library';
 import { map, take } from 'rxjs/operators';
 import { NavController } from '@ionic/angular';
+import { FlightStatistic } from 'src/app/core/domain/flightStatistic';
+import { Flight } from 'src/app/core/domain/flight';
+import { FlightService } from 'src/app/core/services/flight.service';
 
 @Component({
   selector: 'fb-dashboard-container',

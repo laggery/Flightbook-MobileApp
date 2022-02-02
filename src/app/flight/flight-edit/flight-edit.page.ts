@@ -5,9 +5,14 @@ import { takeUntil } from 'rxjs/operators';
 import * as _ from 'lodash';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
-import { FileUploadService, Flight, FlightService, Glider, GliderService, IgcService } from 'flightbook-commons-library';
 import HttpStatusCode from '../../shared/util/HttpStatusCode';
 import { v4 as uuidv4 } from 'uuid';
+import { Flight } from 'src/app/core/domain/flight';
+import { Glider } from 'src/app/core/domain/glider';
+import { FlightService } from 'src/app/core/services/flight.service';
+import { GliderService } from 'src/app/core/services/glider.service';
+import { FileUploadService } from 'src/app/core/services/fileupload.service';
+import { IgcService } from 'src/app/core/services/igc.service';
 
 @Component({
   selector: 'app-flight-edit',

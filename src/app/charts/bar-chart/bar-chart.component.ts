@@ -1,11 +1,11 @@
 import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
-import { FlightStatistic } from 'flightbook-commons-library';
 
 import * as d3 from 'd3-selection';
 import * as d3Scale from 'd3-scale';
 import * as d3Array from 'd3-array';
 import * as d3Axis from 'd3-axis';
 import { TranslateService } from '@ngx-translate/core';
+import { FlightStatistic } from 'src/app/core/domain/flightStatistic';
 
 @Component({
   selector: 'bar-chart',

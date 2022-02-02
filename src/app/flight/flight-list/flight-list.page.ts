@@ -4,12 +4,16 @@ import { Subject, Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { FlightFilterComponent } from 'src/app/form/flight-filter/flight-filter.component';
 import { TranslateService } from '@ngx-translate/core';
-import { AccountService, Flight, FlightService, PdfExportService, XlsxExportService } from 'flightbook-commons-library';
 import { TCreatedPdf } from 'pdfmake/build/pdfmake';
 import { FileOpener } from '@ionic-native/file-opener/ngx';
 
 import { Capacitor } from '@capacitor/core';
 import { Filesystem, Directory } from '@capacitor/filesystem';
+import { XlsxExportService } from '../../core/services/xlsx-export.service';
+import { Flight } from 'src/app/core/domain/flight';
+import { FlightService } from 'src/app/core/services/flight.service';
+import { AccountService } from 'src/app/core/services/account.service';
+import { PdfExportService } from 'src/app/core/services/pdf-export.service';
 
 @Component({
   selector: 'app-flight-list',

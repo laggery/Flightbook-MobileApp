@@ -3,10 +3,12 @@ import { NavController, IonInfiniteScroll, LoadingController, IonContent, AlertC
 import { takeUntil } from 'rxjs/operators';
 import { Subject, Observable } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
-import { Place, PlaceService, XlsxExportService } from 'flightbook-commons-library';
 import { Capacitor } from '@capacitor/core';
 import { Filesystem, Directory } from '@capacitor/filesystem';
 import { FileOpener } from '@ionic-native/file-opener/ngx';
+import { Place } from 'src/app/core/domain/place';
+import { PlaceService } from 'src/app/core/services/place.service';
+import { XlsxExportService } from 'src/app/core/services/xlsx-export.service';
 
 @Component({
   selector: 'app-place-list',

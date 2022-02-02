@@ -6,7 +6,10 @@ import { TranslateService } from '@ngx-translate/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { SwUpdate } from '@angular/service-worker';
-import { AccountService, FlightService, GliderService, PlaceService } from 'flightbook-commons-library';
+import { AccountService } from './core/services/account.service';
+import { FlightService } from './core/services/flight.service';
+import { GliderService } from './core/services/glider.service';
+import { PlaceService } from './core/services/place.service';
 
 @Component({
   selector: 'app-root',

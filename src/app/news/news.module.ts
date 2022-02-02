@@ -9,7 +9,6 @@ import { NewsPageRoutingModule } from './news-routing.module';
 import { NewsPage } from './news.page';
 import { TranslateModule } from '@ngx-translate/core';
 import { FileOpener } from '@ionic-native/file-opener/ngx';
-import { ExportModule } from 'flightbook-commons-library';
 import { DashboardContainerModule } from '../dashboard/dashboard-container/dashboard-container.module';
 import { DashboardItemModule } from '../dashboard/dashboard-item/dashboard-item.module';
 
@@ -20,7 +19,6 @@ import { DashboardItemModule } from '../dashboard/dashboard-item/dashboard-item.
     IonicModule,
     NewsPageRoutingModule,
     TranslateModule.forChild(),
-    ExportModule,
     DashboardContainerModule,
     DashboardItemModule
   ],
