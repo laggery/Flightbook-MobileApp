@@ -38,7 +38,7 @@ export class PlaceEditPage implements OnInit, OnDestroy {
       this.router.navigate(['/places'], { replaceUrl: true });
     }
     this.flightService.nbFlightsByPlaceId(this.placeId).subscribe((resp: any) => {
-      if (resp.nbFlights === 0) {
+      if (resp.nbFlights == 0) {
         this.deleteDisabled = false;
       }
     });
