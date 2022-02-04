@@ -47,7 +47,6 @@ export class HttpAuthInterceptor implements HttpInterceptor {
                 }
                 return next.handle(this.setHeaders(req)).toPromise();
             } else {
-                // this.menuCtrl.enable(false);
                 this.router.navigate(['login']);
             }
         } else {

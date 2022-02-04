@@ -20,8 +20,7 @@ export class XlsxExportService {
 
   async loadXlsx() {
     if (!this.XLSX) {
-      const xlsxModule = await import('xlsx');
-      this.XLSX = xlsxModule;
+      this.XLSX = await import('xlsx');
     }
   }
 
@@ -60,8 +59,7 @@ export class XlsxExportService {
       workbook.SheetNames.push('places');
     }
 
-    const data: any = this.XLSX.write(workbook, writeOptions);
-    return data;
+    return this.XLSX.write(workbook, writeOptions);
   }
 
   public saveExcelFile(buffer: any, fileName: string): void {
