@@ -3,7 +3,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import HttpStatusCode from '../../shared/util/HttpStatusCode';
-import { AccountService } from 'src/app/core/services/account.service';
+import { AccountService } from '../shared/account.service';
 
 @Component({
   selector: 'app-password',

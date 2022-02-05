@@ -6,9 +6,9 @@ import { Subject } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 import { LoadingController, AlertController } from '@ionic/angular';
 import HttpStatusCode from '../../shared/util/HttpStatusCode';
-import { Place } from 'src/app/core/domain/place';
-import { PlaceService } from 'src/app/core/services/place.service';
-import { FlightService } from 'src/app/core/services/flight.service';
+import { Place } from 'src/app/place/shared/place.model';
+import { PlaceService } from '../shared/place.service';
+import { FlightService } from 'src/app/flight/shared/flight.service';
 
 @Component({
   selector: 'app-place-edit',

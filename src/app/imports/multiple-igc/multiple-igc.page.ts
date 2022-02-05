@@ -3,13 +3,13 @@ import { LoadingController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { Flight } from 'src/app/core/domain/flight';
-import { Glider } from 'src/app/core/domain/glider';
-import { Place } from 'src/app/core/domain/place';
-import { FileUploadService } from 'src/app/core/services/fileupload.service';
-import { FlightService } from 'src/app/core/services/flight.service';
-import { GliderService } from 'src/app/core/services/glider.service';
-import { IgcService } from 'src/app/core/services/igc.service';
+import { Place } from 'src/app/place/shared/place.model';
+import { FileUploadService } from 'src/app/flight/shared/fileupload.service';
+import { Glider } from 'src/app/glider/shared/glider.model';
+import { GliderService } from 'src/app/glider/shared/glider.service';
+import { IgcService } from 'src/app/flight/shared/igc.service';
+import { FlightService } from 'src/app/flight/shared/flight.service';
+import { Flight } from 'src/app/flight/shared/flight.model';
 
 @Component({
   selector: 'app-multiple-igc',

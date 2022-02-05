@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { HttpParams, HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
-import { Store } from './store.class';
-import { Glider } from '../domain/glider';
-import { GliderFilter } from '../domain/glider-filter';
 import { environment } from 'src/environments/environment';
-import { Pager } from '../domain/pager';
+import { Store } from 'src/app/shared/services/store.class';
+import { Glider } from './glider.model';
+import { GliderFilter } from './glider-filter.model';
+import { Pager } from 'src/app/shared/domain/pager.model';
 
 @Injectable({
   providedIn: 'root'

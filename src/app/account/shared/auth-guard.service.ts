@@ -16,7 +16,6 @@ export class AuthGuardService implements CanActivate {
     const authenticated = await this.accoutService.isAuth();
 
     if (!authenticated) {
-      // this.menuCtrl.enable(false);
       this.router.navigate(['login']);
     }
 

@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import * as IGCParser from 'igc-parser';
 import { scoringRules as scoring, solver } from 'igc-xc-score';
-import { Flight } from '../domain/flight';
-import { Igc } from '../domain/igc';
-import { GliderService } from './glider.service';
+import { GliderService } from 'src/app/glider/shared/glider.service';
+import { Flight } from './flight.model';
+import { Igc } from './igc.model';
 
 @Injectable({
   providedIn: 'root'

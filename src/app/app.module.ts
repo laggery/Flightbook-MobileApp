@@ -15,8 +15,8 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { SharedModule } from './shared/shared.module';
 
-import { HttpAuthInterceptor } from './core/interceptor/auth.interceptor';
-import { HttpErrorInterceptor } from './core/interceptor/error.interceptor';
+import { HttpAuthInterceptor } from './shared/interceptor/auth.interceptor';
+import { HttpErrorInterceptor } from './shared/interceptor/error.interceptor';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');

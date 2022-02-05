@@ -6,8 +6,8 @@ import { FlightFilterComponent } from '../../form/flight-filter/flight-filter.co
 import { TranslateService } from '@ngx-translate/core';
 import { BarChartComponent } from 'src/app/charts/bar-chart/bar-chart.component';
 import { LineChartComponent } from 'src/app/charts/line-chart/line-chart.component';
-import { FlightStatistic } from 'src/app/core/domain/flightStatistic';
-import { FlightService } from 'src/app/core/services/flight.service';
+import { FlightStatistic } from '../shared/flightStatistic.model';
+import { FlightService } from '../shared/flight.service';
 
 @Component({
   selector: 'app-flight-statistic',

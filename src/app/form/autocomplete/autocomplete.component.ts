@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, ElementRef, OnChanges } from '@angular/core';
-import { Place } from 'src/app/core/domain/place';
-import { PlaceService } from 'src/app/core/services/place.service';
+import { Place } from 'src/app/place/shared/place.model';
+import { PlaceService } from 'src/app/place/shared/place.service';
 @Component({
   selector: 'autocomplete',
   templateUrl: './autocomplete.component.html',

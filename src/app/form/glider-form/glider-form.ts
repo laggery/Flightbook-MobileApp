@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
-import { Glider } from 'src/app/core/domain/glider';
+import { Glider } from 'src/app/glider/shared/glider.model';
 
 @Component({
   selector: 'glider-form',

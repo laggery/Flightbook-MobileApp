@@ -6,9 +6,9 @@ import { TranslateService } from '@ngx-translate/core';
 import { Capacitor } from '@capacitor/core';
 import { Filesystem, Directory } from '@capacitor/filesystem';
 import { FileOpener } from '@ionic-native/file-opener/ngx';
-import { Place } from 'src/app/core/domain/place';
-import { PlaceService } from 'src/app/core/services/place.service';
-import { XlsxExportService } from 'src/app/core/services/xlsx-export.service';
+import { Place } from 'src/app/place/shared/place.model';
+import { XlsxExportService } from 'src/app/shared/services/xlsx-export.service';
+import { PlaceService } from '../shared/place.service';
 
 @Component({
   selector: 'app-place-list',

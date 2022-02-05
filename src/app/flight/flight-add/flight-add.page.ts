@@ -5,13 +5,13 @@ import { Router } from '@angular/router';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import HttpStatusCode from '../../shared/util/HttpStatusCode';
-import { Flight } from 'src/app/core/domain/flight';
-import { Glider } from 'src/app/core/domain/glider';
-import { FlightService } from 'src/app/core/services/flight.service';
-import { GliderService } from 'src/app/core/services/glider.service';
-import { FileUploadService } from 'src/app/core/services/fileupload.service';
-import { IgcService } from 'src/app/core/services/igc.service';
-import { Place } from 'src/app/core/domain/place';
+import { FileUploadService } from 'src/app/flight/shared/fileupload.service';
+import { Place } from 'src/app/place/shared/place.model';
+import { Flight } from '../shared/flight.model';
+import { Glider } from 'src/app/glider/shared/glider.model';
+import { FlightService } from '../shared/flight.service';
+import { GliderService } from 'src/app/glider/shared/glider.service';
+import { IgcService } from '../shared/igc.service';
 
 @Component({
   selector: 'app-flight-add',

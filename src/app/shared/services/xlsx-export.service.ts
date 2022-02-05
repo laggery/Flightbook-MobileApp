@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import * as fileSaver from 'file-saver';
 import * as moment from 'moment';
 import { TranslateService } from '@ngx-translate/core';
-import { Flight } from '../domain/flight';
-import { Glider } from '../domain/glider';
-import { Place } from '../domain/place';
+import { Place } from '../../place/shared/place.model';
 import { HoursFormatPipe } from 'src/app/shared/pipes/hours-format/hours-format.pipe';
+import { Flight } from 'src/app/flight/shared/flight.model';
+import { Glider } from 'src/app/glider/shared/glider.model';
 const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
 const EXCEL_EXTENSION = '.xlsx';
 

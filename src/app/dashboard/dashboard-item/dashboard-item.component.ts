@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, Output } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Flight } from 'src/app/core/domain/flight';
-import { FlightStatistic } from 'src/app/core/domain/flightStatistic';
+import { Flight } from 'src/app/flight/shared/flight.model';
+import { FlightStatistic } from 'src/app/flight/shared/flightStatistic.model';
 
 @Component({
   selector: 'fb-dashboard-item',

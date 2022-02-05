@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { map } from 'rxjs/operators';
-import { Store } from './store.class';
-import { Place } from '../domain/place';
 import { environment } from 'src/environments/environment';
-import { Pager } from '../domain/pager';
+import { Store } from 'src/app/shared/services/store.class';
+import { Place } from './place.model';
+import { Pager } from 'src/app/shared/domain/pager.model';
 
 @Injectable({
   providedIn: 'root'

@@ -6,9 +6,9 @@ import { takeUntil } from 'rxjs/operators';
 import { LoadingController, AlertController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import HttpStatusCode from '../../shared/util/HttpStatusCode';
-import { Glider } from 'src/app/core/domain/glider';
-import { GliderService } from 'src/app/core/services/glider.service';
-import { FlightService } from 'src/app/core/services/flight.service';
+import { Glider } from '../shared/glider.model';
+import { GliderService } from '../shared/glider.service';
+import { FlightService } from 'src/app/flight/shared/flight.service';
 
 @Component({
   selector: 'app-glider-edit',

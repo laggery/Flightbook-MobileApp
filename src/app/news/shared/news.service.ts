@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
-import { Store } from './store.class';
-import { News } from '../domain/news';
 import { environment } from 'src/environments/environment';
+import { Store } from 'src/app/shared/services/store.class';
+import { News } from './news.model';
 
 @Injectable({
   providedIn: 'root'

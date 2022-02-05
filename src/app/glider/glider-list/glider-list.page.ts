@@ -14,9 +14,9 @@ import { TranslateService } from '@ngx-translate/core';
 import { Capacitor } from '@capacitor/core';
 import { Filesystem, Directory } from '@capacitor/filesystem';
 import { FileOpener } from '@ionic-native/file-opener/ngx';
-import { Glider } from 'src/app/core/domain/glider';
-import { GliderService } from 'src/app/core/services/glider.service';
-import { XlsxExportService } from 'src/app/core/services/xlsx-export.service';
+import { XlsxExportService } from 'src/app/shared/services/xlsx-export.service';
+import { Glider } from '../shared/glider.model';
+import { GliderService } from '../shared/glider.service';
 
 @Component({
   selector: 'app-glider-list',

@@ -7,7 +7,7 @@ import {
 import { Observable, from } from 'rxjs';
 import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
-import { AccountService } from '../services/account.service';
+import { AccountService } from 'src/app/account/shared/account.service';
 
 @Injectable()
 export class HttpAuthInterceptor implements HttpInterceptor {

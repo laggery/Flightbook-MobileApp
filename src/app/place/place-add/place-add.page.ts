@@ -5,8 +5,8 @@ import { takeUntil } from 'rxjs/operators';
 import { LoadingController, AlertController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import HttpStatusCode from '../../shared/util/HttpStatusCode';
-import { PlaceService } from 'src/app/core/services/place.service';
-import { Place } from 'src/app/core/domain/place';
+import { Place } from 'src/app/place/shared/place.model';
+import { PlaceService } from '../shared/place.service';
 
 @Component({
   selector: 'app-place-add',

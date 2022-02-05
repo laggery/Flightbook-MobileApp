@@ -9,11 +9,11 @@ import { FileOpener } from '@ionic-native/file-opener/ngx';
 
 import { Capacitor } from '@capacitor/core';
 import { Filesystem, Directory } from '@capacitor/filesystem';
-import { XlsxExportService } from '../../core/services/xlsx-export.service';
-import { Flight } from 'src/app/core/domain/flight';
-import { FlightService } from 'src/app/core/services/flight.service';
-import { AccountService } from 'src/app/core/services/account.service';
-import { PdfExportService } from 'src/app/core/services/pdf-export.service';
+import { XlsxExportService } from '../../shared/services/xlsx-export.service';
+import { PdfExportService } from 'src/app/shared/services/pdf-export.service';
+import { Flight } from '../shared/flight.model';
+import { FlightService } from '../shared/flight.service';
+import { AccountService } from 'src/app/account/shared/account.service';
 
 @Component({
   selector: 'app-flight-list',

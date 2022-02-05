@@ -2,8 +2,8 @@ import { DatePipe } from '@angular/common';
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { TDocumentDefinitions } from 'pdfmake/interfaces';
-import { Flight } from '../domain/flight';
-import { User } from '../domain/user';
+import { Flight } from 'src/app/flight/shared/flight.model';
+import { User } from '../../account/shared/user.model';
 
 @Injectable({
   providedIn: 'root'

@@ -3,12 +3,12 @@ import { IonInfiniteScroll, ModalController, LoadingController } from '@ionic/an
 import { Subject } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 import { takeUntil } from 'rxjs/operators';
-import { Glider } from 'src/app/core/domain/glider';
-import { FlightFilter } from 'src/app/core/domain/flight-filter';
-import { FlightService } from 'src/app/core/services/flight.service';
-import { GliderService } from 'src/app/core/services/glider.service';
-import { FlightStatistic } from 'src/app/core/domain/flightStatistic';
-import { Flight } from 'src/app/core/domain/flight';
+import { FlightFilter } from 'src/app/flight/shared/flight-filter.model';
+import { Glider } from 'src/app/glider/shared/glider.model';
+import { FlightService } from 'src/app/flight/shared/flight.service';
+import { GliderService } from 'src/app/glider/shared/glider.service';
+import { Flight } from 'src/app/flight/shared/flight.model';
+import { FlightStatistic } from 'src/app/flight/shared/flightStatistic.model';
 
 @Component({
   selector: 'app-flight-filter',

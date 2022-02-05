@@ -10,7 +10,6 @@ import { FlightEditPage } from './flight-edit.page';
 import { TranslateModule } from '@ngx-translate/core';
 import { FormModule } from 'src/app/form/form.module';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { environment } from 'src/environments/environment';
 
 @NgModule({
   imports: [

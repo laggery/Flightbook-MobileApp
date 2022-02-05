@@ -1,6 +1,6 @@
-import { Glider } from "./glider";
-import { Igc } from "./igc";
-import { Place } from "./place";
+import { Glider } from "src/app/glider/shared/glider.model";
+import { Place } from "src/app/place/shared/place.model";
+import { Igc } from "./igc.model";
 
 export class Flight {
     id: number;

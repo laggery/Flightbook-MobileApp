@@ -8,13 +8,13 @@ import { Filesystem, Directory } from '@capacitor/filesystem';
 import { SplashScreen } from '@capacitor/splash-screen';
 import { FileOpener } from '@ionic-native/file-opener/ngx';
 import { Router } from '@angular/router';
-import { News } from '../core/domain/news';
-import { Flight } from '../core/domain/flight';
-import { NewsService } from '../core/services/news.service';
-import { GliderService } from '../core/services/glider.service';
-import { PlaceService } from '../core/services/place.service';
-import { FlightService } from '../core/services/flight.service';
-import { XlsxExportService } from '../core/services/xlsx-export.service';
+import { News } from './shared/news.model';
+import { XlsxExportService } from '../shared/services/xlsx-export.service';
+import { Flight } from '../flight/shared/flight.model';
+import { NewsService } from './shared/news.service';
+import { GliderService } from '../glider/shared/glider.service';
+import { PlaceService } from '../place/shared/place.service';
+import { FlightService } from '../flight/shared/flight.service';
 
 @Component({
   selector: 'app-news',

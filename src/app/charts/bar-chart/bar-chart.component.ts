@@ -5,7 +5,7 @@ import * as d3Scale from 'd3-scale';
 import * as d3Array from 'd3-array';
 import * as d3Axis from 'd3-axis';
 import { TranslateService } from '@ngx-translate/core';
-import { FlightStatistic } from 'src/app/core/domain/flightStatistic';
+import { FlightStatistic } from 'src/app/flight/shared/flightStatistic.model';
 
 @Component({
   selector: 'bar-chart',

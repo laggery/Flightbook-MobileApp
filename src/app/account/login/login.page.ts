@@ -9,8 +9,8 @@ import { SplashScreen } from '@capacitor/splash-screen';
 import HttpStatusCode from '../../shared/util/HttpStatusCode';
 import { environment } from 'src/environments/environment';
 import { AppVersion } from '@ionic-native/app-version/ngx';
-import { AccountService } from 'src/app/core/services/account.service';
-import { NewsService } from 'src/app/core/services/news.service';
+import { AccountService } from '../shared/account.service';
+import { NewsService } from 'src/app/news/shared/news.service';
 
 @Component({
   selector: 'app-login',

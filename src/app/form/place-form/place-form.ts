@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
-import { Place } from 'src/app/core/domain/place';
+import { Place } from 'src/app/place/shared/place.model';
 
 @Component({
   selector: 'place-form',

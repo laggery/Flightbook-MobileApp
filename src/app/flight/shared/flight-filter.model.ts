@@ -1,4 +1,4 @@
-import { Glider } from "./glider";
+import { Glider } from "src/app/glider/shared/glider.model";
 
 export class FlightFilter {
     glider: Glider;

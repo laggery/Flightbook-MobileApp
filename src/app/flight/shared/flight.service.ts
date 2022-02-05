@@ -3,12 +3,12 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import * as moment from 'moment';
-import { Store } from './store.class';
-import { Flight } from '../domain/flight';
-import { FlightFilter } from '../domain/flight-filter';
-import { FlightStatistic } from '../domain/flightStatistic';
-import { Pager } from '../domain/pager';
 import { environment } from 'src/environments/environment';
+import { Store } from 'src/app/shared/services/store.class';
+import { Flight } from './flight.model';
+import { FlightFilter } from './flight-filter.model';
+import { FlightStatistic } from './flightStatistic.model';
+import { Pager } from 'src/app/shared/domain/pager.model';
 
 @Injectable({
   providedIn: 'root'

@@ -3,9 +3,9 @@ import { AlertController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { NgForm } from '@angular/forms';
-import { Flight } from 'src/app/core/domain/flight';
-import { Glider } from 'src/app/core/domain/glider';
-import { Place } from 'src/app/core/domain/place';
+import { Place } from 'src/app/place/shared/place.model';
+import { Flight } from 'src/app/flight/shared/flight.model';
+import { Glider } from 'src/app/glider/shared/glider.model';
 
 @Component({
   selector: 'flight-form',
