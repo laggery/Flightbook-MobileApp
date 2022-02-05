@@ -5,8 +5,10 @@ import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 import { LoadingController, AlertController } from '@ionic/angular';
-import { FlightService, Place, PlaceService } from 'flightbook-commons-library';
 import HttpStatusCode from '../../shared/util/HttpStatusCode';
+import { Place } from 'src/app/place/shared/place.model';
+import { PlaceService } from '../shared/place.service';
+import { FlightService } from 'src/app/flight/shared/flight.service';
 
 @Component({
   selector: 'app-place-edit',
@@ -36,7 +38,7 @@ export class PlaceEditPage implements OnInit, OnDestroy {
       this.router.navigate(['/places'], { replaceUrl: true });
     }
     this.flightService.nbFlightsByPlaceId(this.placeId).subscribe((resp: any) => {
-      if (resp.nbFlights === 0) {
+      if (resp.nbFlights == 0) {
         this.deleteDisabled = false;
       }
     });

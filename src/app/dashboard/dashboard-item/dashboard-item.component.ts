@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, Output } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Flight, FlightStatistic } from 'flightbook-commons-library';
+import { Flight } from 'src/app/flight/shared/flight.model';
+import { FlightStatistic } from 'src/app/flight/shared/flightStatistic.model';
 
 @Component({
   selector: 'fb-dashboard-item',
@@ -18,11 +19,6 @@ export class DashboardItemComponent implements OnInit {
    * Label of the menu item
    */
   @Input() label: string;
-
-  /**
-   * Routerlink to navigate to
-   */
-  @Input() routerLink: string;
 
   /**
    * Flight data to show

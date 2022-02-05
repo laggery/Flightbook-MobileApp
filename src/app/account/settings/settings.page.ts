@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { AlertController, LoadingController } from '@ionic/angular';
-import { AccountService, User } from 'flightbook-commons-library';
 import HttpStatusCode from '../../shared/util/HttpStatusCode';
+import { User } from 'src/app/account/shared/user.model';
+import { AccountService } from '../shared/account.service';
 
 @Component({
   selector: 'app-settings',

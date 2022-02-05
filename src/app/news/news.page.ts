@@ -3,20 +3,18 @@ import { MenuController, LoadingController, AlertController } from '@ionic/angul
 import { TranslateService } from '@ngx-translate/core';
 import { Subject, Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import {
-  Flight,
-  FlightService,
-  GliderService,
-  News,
-  NewsService,
-  PlaceService,
-  XlsxExportService
-} from 'flightbook-commons-library';
 import { Capacitor } from '@capacitor/core';
 import { Filesystem, Directory } from '@capacitor/filesystem';
 import { SplashScreen } from '@capacitor/splash-screen';
 import { FileOpener } from '@ionic-native/file-opener/ngx';
 import { Router } from '@angular/router';
+import { News } from './shared/news.model';
+import { XlsxExportService } from '../shared/services/xlsx-export.service';
+import { Flight } from '../flight/shared/flight.model';
+import { NewsService } from './shared/news.service';
+import { GliderService } from '../glider/shared/glider.service';
+import { PlaceService } from '../place/shared/place.service';
+import { FlightService } from '../flight/shared/flight.service';
 
 @Component({
   selector: 'app-news',

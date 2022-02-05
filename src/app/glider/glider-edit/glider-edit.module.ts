@@ -10,7 +10,6 @@ import { GliderEditPage } from './glider-edit.page';
 import { TranslateModule } from '@ngx-translate/core';
 import { FormModule } from '../../form/form.module';
 import { environment } from 'src/environments/environment';
-import { FlightModule } from 'flightbook-commons-library';
 
 @NgModule({
   imports: [
@@ -19,8 +18,7 @@ import { FlightModule } from 'flightbook-commons-library';
     IonicModule,
     GliderEditPageRoutingModule,
     TranslateModule.forChild(),
-    FormModule,
-    FlightModule.forRoot(environment)
+    FormModule
   ],
   declarations: [GliderEditPage]
 })

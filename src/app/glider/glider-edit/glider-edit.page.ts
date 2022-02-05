@@ -5,8 +5,10 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { LoadingController, AlertController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
-import { FlightService, Glider, GliderService } from 'flightbook-commons-library';
 import HttpStatusCode from '../../shared/util/HttpStatusCode';
+import { Glider } from '../shared/glider.model';
+import { GliderService } from '../shared/glider.service';
+import { FlightService } from 'src/app/flight/shared/flight.service';
 
 @Component({
   selector: 'app-glider-edit',

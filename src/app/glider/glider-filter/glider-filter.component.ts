@@ -3,7 +3,9 @@ import { ModalController, LoadingController, IonInfiniteScroll } from '@ionic/an
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
-import { GliderFilter, GliderService, Glider } from 'flightbook-commons-library';
+import { GliderFilter } from 'src/app/glider/shared/glider-filter.model';
+import { GliderService } from '../shared/glider.service';
+import { Glider } from '../shared/glider.model';
 
 @Component({
   selector: 'app-glider-filter',

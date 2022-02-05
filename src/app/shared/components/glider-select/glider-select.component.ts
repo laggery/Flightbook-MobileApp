@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Flight, Glider } from 'flightbook-commons-library';
+import { Flight } from 'src/app/flight/shared/flight.model';
+import { Glider } from 'src/app/glider/shared/glider.model';
 
 @Component({
   selector: 'fb-glider-select',

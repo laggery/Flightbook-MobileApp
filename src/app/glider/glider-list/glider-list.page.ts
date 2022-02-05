@@ -11,10 +11,12 @@ import { Subject, Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { GliderFilterComponent } from '../glider-filter/glider-filter.component';
 import { TranslateService } from '@ngx-translate/core';
-import { Glider, GliderService, XlsxExportService } from 'flightbook-commons-library';
 import { Capacitor } from '@capacitor/core';
 import { Filesystem, Directory } from '@capacitor/filesystem';
 import { FileOpener } from '@ionic-native/file-opener/ngx';
+import { XlsxExportService } from 'src/app/shared/services/xlsx-export.service';
+import { Glider } from '../shared/glider.model';
+import { GliderService } from '../shared/glider.service';
 
 @Component({
   selector: 'app-glider-list',

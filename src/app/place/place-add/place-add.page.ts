@@ -4,8 +4,9 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { LoadingController, AlertController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
-import { Place, PlaceService } from 'flightbook-commons-library';
 import HttpStatusCode from '../../shared/util/HttpStatusCode';
+import { Place } from 'src/app/place/shared/place.model';
+import { PlaceService } from '../shared/place.service';
 
 @Component({
   selector: 'app-place-add',

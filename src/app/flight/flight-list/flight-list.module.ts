@@ -10,7 +10,6 @@ import { FlightListPage } from './flight-list.page';
 import { TranslateModule } from '@ngx-translate/core';
 import { FormModule } from 'src/app/form/form.module';
 import { FlightFilterComponent } from 'src/app/form/flight-filter/flight-filter.component';
-import { ExportModule } from 'flightbook-commons-library';
 import { FileOpener } from '@ionic-native/file-opener/ngx';
 
 @NgModule({
@@ -20,7 +19,6 @@ import { FileOpener } from '@ionic-native/file-opener/ngx';
     IonicModule,
     FlightListPageRoutingModule,
     TranslateModule.forChild(),
-    ExportModule,
     FormModule
   ],
   providers: [

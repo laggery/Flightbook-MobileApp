@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Flight, FlightService, FlightStatistic } from 'flightbook-commons-library';
 import { map, take } from 'rxjs/operators';
 import { NavController } from '@ionic/angular';
+import { FlightStatistic } from 'src/app/flight/shared/flightStatistic.model';
+import { Flight } from 'src/app/flight/shared/flight.model';
+import { FlightService } from 'src/app/flight/shared/flight.service';
 
 @Component({
   selector: 'fb-dashboard-container',
@@ -37,5 +39,9 @@ export class DashboardContainerComponent implements OnInit {
 
   async openAddFlight() {
     this.navCtrl.navigateForward('flights/add');
+  }
+
+  async openStatistics() {
+    this.navCtrl.navigateForward('flights/statistic');
   }
 }

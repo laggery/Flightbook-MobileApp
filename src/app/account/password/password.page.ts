@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { Router } from '@angular/router';
-import { AccountService } from 'flightbook-commons-library';
 import HttpStatusCode from '../../shared/util/HttpStatusCode';
+import { AccountService } from '../shared/account.service';
 
 @Component({
   selector: 'app-password',

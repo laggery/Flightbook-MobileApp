@@ -10,7 +10,7 @@ import { MenuController, AlertController } from '@ionic/angular';
 import { Injectable } from '@angular/core';
 import { catchError } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
-import HttpStatusCode from '../shared/util/HttpStatusCode';
+import HttpStatusCode from '../util/HttpStatusCode';
 
 @Injectable()
 export class HttpErrorInterceptor implements HttpInterceptor {

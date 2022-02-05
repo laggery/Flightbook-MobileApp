@@ -1,9 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { LoadingController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
-import { Flight, Glider, GliderService, IgcService, Place, FileUploadService, FlightService } from 'flightbook-commons-library';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { Place } from 'src/app/place/shared/place.model';
+import { FileUploadService } from 'src/app/flight/shared/fileupload.service';
+import { Glider } from 'src/app/glider/shared/glider.model';
+import { GliderService } from 'src/app/glider/shared/glider.service';
+import { IgcService } from 'src/app/flight/shared/igc.service';
+import { FlightService } from 'src/app/flight/shared/flight.service';
+import { Flight } from 'src/app/flight/shared/flight.model';
 
 @Component({
   selector: 'app-multiple-igc',

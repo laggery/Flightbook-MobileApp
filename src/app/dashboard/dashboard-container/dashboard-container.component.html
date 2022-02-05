@@ -4,9 +4,9 @@
         (click)="openAddFlight()">
 </fb-dashboard-item>
 <fb-dashboard-item
-        [routerLink]="'/flights/statistic'"
         [label]="'dashboard.amountofflights'"
-        [flightStatistics$]="flightStatistics$">
+        [flightStatistics$]="flightStatistics$"
+        (click)="openStatistics()">
 </fb-dashboard-item>
 <fb-dashboard-item
         [icon]="'place'"
