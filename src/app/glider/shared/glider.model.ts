@@ -1,6 +1,6 @@
 export class Glider {
     id: number;
-    buyDate: Date;
+    buyDate: string;
     brand: string;
     name: string;
     tandem: boolean;

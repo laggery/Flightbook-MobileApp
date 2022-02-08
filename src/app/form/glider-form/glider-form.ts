@@ -12,11 +12,13 @@ export class GliderFormComponent {
   glider: Glider;
   @Output()
   saveGlider = new EventEmitter<Glider>();
+  language;
 
   constructor(
     private alertController: AlertController,
     private translate: TranslateService
   ) {
+    this.language = this.translate.currentLang;
   }
 
   async saveElement(loginForm: any) {

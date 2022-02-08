@@ -15,17 +15,25 @@
     </ion-item>
     <ion-item>
       <ion-label color="primary" position="stacked">{{ 'filter.from' | translate }}</ion-label>
-      <ion-datetime [(ngModel)]="filter.from" name="from" displayFormat="DD/MMMM/YYYY"
-        doneText="{{ 'buttons.done' | translate }}" cancelText="{{ 'buttons.clear' | translate }}" (ionCancel)="clearDateButton('from')"
-        monthNames="{{ 'months.1' | translate }},{{ 'months.2' | translate }},{{ 'months.3' | translate }},{{ 'months.4' | translate }},{{ 'months.5' | translate }},{{ 'months.6' | translate }},
-    {{ 'months.7' | translate }},{{ 'months.8' | translate }},{{ 'months.9' | translate }},{{ 'months.10' | translate }},{{ 'months.11' | translate }},{{ 'months.12' | translate }}"></ion-datetime>
+      <ion-input value="{{ filter.from | date:'dd.MM.yyyy' }}" id="filterFrom"></ion-input>
+      <ion-popover trigger="filterFrom">
+        <ng-template>
+          <ion-datetime presentation="date" [ngModelOptions]="{standalone: true}" [(ngModel)]="filter.from"  locale="{{ language }}" [showDefaultButtons]="true"
+            doneText="{{ 'buttons.done' | translate }}" cancelText="{{ 'buttons.clear' | translate }}" (ionCancel)="clearDateButton('from')">
+          </ion-datetime>
+        </ng-template>
+      </ion-popover>
     </ion-item>
     <ion-item>
       <ion-label color="primary" position="stacked">{{ 'filter.to' | translate }}</ion-label>
-      <ion-datetime [(ngModel)]="filter.to" name="to" displayFormat="DD/MMMM/YYYY"
-        doneText="{{ 'buttons.done' | translate }}" cancelText="{{ 'buttons.clear' | translate }}" (ionCancel)="clearDateButton('to')"
-        monthNames="{{ 'months.1' | translate }},{{ 'months.2' | translate }},{{ 'months.3' | translate }},{{ 'months.4' | translate }},{{ 'months.5' | translate }},{{ 'months.6' | translate }},
-        {{ 'months.7' | translate }},{{ 'months.8' | translate }},{{ 'months.9' | translate }},{{ 'months.10' | translate }},{{ 'months.11' | translate }},{{ 'months.12' | translate }}"></ion-datetime>
+      <ion-input value="{{ filter.to | date:'dd.MM.yyyy' }}" id="filterTo"></ion-input>
+      <ion-popover trigger="filterTo">
+        <ng-template>
+          <ion-datetime presentation="date" [ngModelOptions]="{standalone: true}" [(ngModel)]="filter.to"  locale="{{ language }}" [showDefaultButtons]="true"
+            doneText="{{ 'buttons.done' | translate }}" cancelText="{{ 'buttons.clear' | translate }}" (ionCancel)="clearDateButton('to')">
+          </ion-datetime>
+        </ng-template>
+      </ion-popover>
     </ion-item>
     <ion-item>
       <ion-label color="primary" position="stacked">{{ 'glider.type' | translate }}</ion-label>

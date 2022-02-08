@@ -9,6 +9,7 @@ import HttpStatusCode from '../../shared/util/HttpStatusCode';
 import { Glider } from '../shared/glider.model';
 import { GliderService } from '../shared/glider.service';
 import { FlightService } from 'src/app/flight/shared/flight.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-glider-edit',
@@ -38,7 +39,7 @@ export class GliderEditPage implements OnInit, OnDestroy {
       this.router.navigate(['/gliders'], { replaceUrl: true });
     }
     this.flightService.nbFlightsByGliderId(this.gliderId).subscribe((resp: any) => {
-      if (resp.nbFlights === 0) {
+      if (resp.nbFlights == 0) {
         this.deleteDisabled = false;
       }
     });
@@ -57,6 +58,10 @@ export class GliderEditPage implements OnInit, OnDestroy {
       message: this.translate.instant('loading.saveglider')
     });
     await loading.present();
+
+    if (glider.buyDate){
+      glider.buyDate = moment(glider.buyDate).format('YYYY-MM-DD');
+    }
 
     this.gliderService.putGlider(glider).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Glider) => {
       await loading.dismiss();

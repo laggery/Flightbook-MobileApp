@@ -30,11 +30,13 @@ export class FlightFormComponent implements OnInit {
   searchLanding: string;
   progress: number;
   uploadSuccessful = false;
+  language;
 
   constructor(
     private alertController: AlertController,
     private translate: TranslateService
   ) {
+    this.language = this.translate.currentLang;
   }
 
   async ngOnInit() {
@@ -84,11 +86,7 @@ export class FlightFormComponent implements OnInit {
 
   setDefaultTime() {
     if (!this.flight.time) {
-      const time = new Date();
-      time.setHours(0);
-      time.setMinutes(0);
-      time.setSeconds(0);
-      this.flight.time = time.toDateString();
+      this.flight.time = "00:00"
     }
   }
 

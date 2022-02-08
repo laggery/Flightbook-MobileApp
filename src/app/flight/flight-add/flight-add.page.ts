@@ -12,6 +12,7 @@ import { Glider } from 'src/app/glider/shared/glider.model';
 import { FlightService } from '../shared/flight.service';
 import { GliderService } from 'src/app/glider/shared/glider.service';
 import { IgcService } from '../shared/igc.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-flight-add',
@@ -35,7 +36,7 @@ export class FlightAddPage implements OnInit, OnDestroy {
     private igcService: IgcService
   ) {
     this.flight = new Flight();
-    this.flight.date = new Date().toISOString();
+    this.flight.date = moment().format('YYYY-MM-DD');
     this.flight.glider = new Glider();
     this.flight.start = new Place();
     this.flight.landing = new Place();

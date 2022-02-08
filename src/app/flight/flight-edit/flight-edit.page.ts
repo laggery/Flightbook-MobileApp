@@ -13,6 +13,7 @@ import { Glider } from 'src/app/glider/shared/glider.model';
 import { FlightService } from '../shared/flight.service';
 import { GliderService } from 'src/app/glider/shared/glider.service';
 import { IgcService } from '../shared/igc.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-flight-edit',
@@ -44,6 +45,11 @@ export class FlightEditPage implements OnInit, OnDestroy {
     this.flight = _.cloneDeep(this.initialFlight);
     if (!this.flight) {
       this.getFlightFromDashboardNavigation();
+    }
+    this.flight.date = moment(this.flight.date).format('YYYY-MM-DD');
+    
+    if (this.flight.time) {
+      this.flight.time = this.flight.time.substring(0,5);
     }
 
     if (this.gliderService.isGliderlistComplete) {
