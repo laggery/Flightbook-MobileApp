@@ -30,7 +30,7 @@
     <ion-input (click)="setDefaultTime()" value="{{ flight.time }}" id="flightTime"></ion-input>
     <ion-popover trigger="flightTime">
       <ng-template>
-        <ion-datetime presentation="time" [ngModelOptions]="{standalone: true}" [(ngModel)]="flight.time" locale="{{ language }}" [showDefaultButtons]="true"
+        <ion-datetime presentation="time" hour-cycle="h23" [ngModelOptions]="{standalone: true}" [(ngModel)]="flight.time" locale="{{ language }}" [showDefaultButtons]="true"
           doneText="{{ 'buttons.done' | translate }}" cancelText="{{ 'buttons.clear' | translate }}" (ionCancel)="cancelButton()" displayFormat="HH:mm">
         </ion-datetime>
       </ng-template>
