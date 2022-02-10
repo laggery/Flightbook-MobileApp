@@ -21,6 +21,7 @@ export class FlightFilterComponent implements OnInit, OnDestroy {
   public gliders: Glider[];
   private unsubscribe$ = new Subject<void>();
   public filter: FlightFilter;
+  public language;
 
   constructor(
     private modalCtrl: ModalController,
@@ -30,6 +31,7 @@ export class FlightFilterComponent implements OnInit, OnDestroy {
     private translate: TranslateService
   ) {
     this.filter = this.flightService.filter;
+    this.language = translate.currentLang;
 
     if (this.gliderService.isGliderlistComplete) {
       this.gliders = this.gliderService.getValue();

@@ -7,6 +7,7 @@ import { TranslateService } from '@ngx-translate/core';
 import HttpStatusCode from '../../shared/util/HttpStatusCode';
 import { Glider } from '../shared/glider.model';
 import { GliderService } from '../shared/glider.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-glider-add',
@@ -40,6 +41,10 @@ export class GliderAddPage implements OnInit, OnDestroy {
       message: this.translate.instant('loading.saveglider')
     });
     await loading.present();
+
+    if (glider.buyDate){
+      glider.buyDate = moment(glider.buyDate).format('YYYY-MM-DD');
+    }
 
     this.gliderService.postGlider(glider).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Glider) => {
       await loading.dismiss();
