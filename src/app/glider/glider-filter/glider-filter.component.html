@@ -23,6 +23,15 @@
         <ion-select-option value="1">{{ 'glider.tandem' | translate }}</ion-select-option>
       </ion-select>
     </ion-item>
+    <ion-item>
+      <ion-label color="primary" position="stacked">{{ 'glider.archived' | translate }}</ion-label>
+      <ion-select [(ngModel)]="filter.archived" name="type" okText="{{ 'buttons.done' | translate }}"
+        cancelText="{{ 'buttons.cancel' | translate }}">
+        <ion-select-option value="">{{ 'glider.all' | translate }}</ion-select-option>
+        <ion-select-option value="1">{{ 'buttons.yes' | translate }}</ion-select-option>
+        <ion-select-option value="0">{{ 'buttons.no' | translate }}</ion-select-option>
+      </ion-select>
+    </ion-item>
     <ion-button type="button" (click)="clearFilter()">{{ 'buttons.clear' | translate }}</ion-button>
     <ion-button type="submit">{{ 'buttons.filter' | translate }}</ion-button>
   </form>

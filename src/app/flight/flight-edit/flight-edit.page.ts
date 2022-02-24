@@ -52,14 +52,12 @@ export class FlightEditPage implements OnInit, OnDestroy {
       this.flight.time = this.flight.time.substring(0,5);
     }
 
-    if (this.gliderService.isGliderlistComplete) {
-      this.gliders = this.gliderService.getValue();
-    } else {
-      this.gliderService.getGliders().pipe(takeUntil(this.unsubscribe$)).subscribe((resp: Glider[]) => {
-        this.gliderService.isGliderlistComplete = true;
-        this.gliders = this.gliderService.getValue();
-      });
-    }
+    const archivedValue = this.gliderService.filter.archived;
+    this.gliderService.filter.archived = "0";
+    this.gliderService.getGliders({ store: false }).pipe(takeUntil(this.unsubscribe$)).subscribe((resp: Glider[]) => {
+      this.gliders = resp;
+      this.gliderService.filter.archived = archivedValue;
+    });
     this.loadIgcData();
   }
 

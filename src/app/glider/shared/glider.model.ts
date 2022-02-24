@@ -4,6 +4,7 @@ export class Glider {
     brand: string;
     name: string;
     tandem: boolean;
+    archived: boolean;
     time: number;
     nbFlights: number;
 }

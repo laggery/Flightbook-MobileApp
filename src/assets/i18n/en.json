@@ -54,7 +54,9 @@
         "tandem": "Tandem",
         "type": "Type",
         "all": "All",
-        "solo": "Solo"
+        "solo": "Solo",
+        "archived": "Archived",
+        "archive": "Archive ?"
     },
     "flight": {
         "number": "No",

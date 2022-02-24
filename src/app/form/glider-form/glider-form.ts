@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { Glider } from 'src/app/glider/shared/glider.model';
@@ -7,18 +7,25 @@ import { Glider } from 'src/app/glider/shared/glider.model';
   selector: 'glider-form',
   templateUrl: 'glider-form.html'
 })
-export class GliderFormComponent {
+export class GliderFormComponent implements OnInit {
   @Input()
   glider: Glider;
   @Output()
   saveGlider = new EventEmitter<Glider>();
   language;
+  displayArchived = false;
 
   constructor(
     private alertController: AlertController,
     private translate: TranslateService
   ) {
     this.language = this.translate.currentLang;
+  }
+
+  ngOnInit() {
+    if (this.glider.name) {
+      this.displayArchived = true;
+    }
   }
 
   async saveElement(loginForm: any) {

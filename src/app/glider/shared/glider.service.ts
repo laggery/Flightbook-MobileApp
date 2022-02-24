@@ -113,6 +113,10 @@ export class GliderService extends Store<Glider[]> {
       params = params.append('type', this.filter.type);
       filterState = true
     }
+    if (this.filter.archived && this.filter.archived !== "") {
+      params = params.append('archived', this.filter.archived);
+      filterState = true
+    }
 
     if (limit) {
       params = params.append('limit', limit.toString());

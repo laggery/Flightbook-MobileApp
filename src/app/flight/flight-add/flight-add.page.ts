@@ -55,16 +55,13 @@ export class FlightAddPage implements OnInit, OnDestroy {
         });
     }
 
-    if (this.gliderService.isGliderlistComplete) {
+    const archivedValue = this.gliderService.filter.archived;
+    this.gliderService.filter.archived = "0";
+    this.gliderService.getGliders({ store: false }).pipe(takeUntil(this.unsubscribe$)).subscribe((resp: Glider[]) => {
+      this.gliders = resp;
+      this.gliderService.filter.archived = archivedValue;
       this.noGliderCheck();
-      this.gliders = this.gliderService.getValue();
-    } else {
-      this.gliderService.getGliders({ clearStore: true }).pipe(takeUntil(this.unsubscribe$)).subscribe((resp: Glider[]) => {
-        this.noGliderCheck();
-        this.gliderService.isGliderlistComplete = true;
-        this.gliders = this.gliderService.getValue();
-      });
-    }
+    });
   }
 
   ngOnDestroy() {
@@ -135,7 +132,7 @@ export class FlightAddPage implements OnInit, OnDestroy {
   }
 
   private async noGliderCheck() {
-    if (this.gliderService.getValue().length === 0) {
+    if (this.gliders.length === 0) {
       const alert = await this.alertController.create({
         header: this.translate.instant('message.noglidertitle'),
         message: this.translate.instant('message.noglider'),
