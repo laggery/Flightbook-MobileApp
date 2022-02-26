@@ -190,3 +190,14 @@
 // ion-content{
 //   --ion-background-color:rgb(238, 238, 238);
 // }
+
+ion-modal.dateModal {
+  --background: transparent;
+  --max-width: 420px;
+  --min-width: 300px;
+  --max-height: 390px;
+}
+
+.ios .dateModal ion-content {
+  --background: transparent;
+}

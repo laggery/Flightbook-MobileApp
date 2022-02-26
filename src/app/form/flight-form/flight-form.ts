@@ -9,7 +9,8 @@ import { Glider } from 'src/app/glider/shared/glider.model';
 
 @Component({
   selector: 'flight-form',
-  templateUrl: 'flight-form.html'
+  templateUrl: 'flight-form.html',
+  styleUrls: ['./flight-form.scss'],
 })
 export class FlightFormComponent implements OnInit {
 

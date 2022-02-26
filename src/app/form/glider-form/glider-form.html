@@ -1,14 +1,7 @@
 <form #form="ngForm" (ngSubmit)="saveElement(form)">
-  <ion-item>
+  <ion-item id="buyDateInput">
     <ion-label color="primary" position="stacked">{{ 'glider.buydate' | translate }}</ion-label>
-    <ion-input value="{{ glider.buyDate | date:'dd.MM.yyyy' }}" id="buyDateInput"></ion-input>
-    <ion-popover trigger="buyDateInput">
-      <ng-template>
-        <ion-datetime presentation="date" [ngModelOptions]="{standalone: true}" [(ngModel)]="glider.buyDate" locale="{{ language }}" [showDefaultButtons]="true"
-          doneText="{{ 'buttons.done' | translate }}" cancelText="{{ 'buttons.cancel' | translate }}">
-        </ion-datetime>
-      </ng-template>
-    </ion-popover>
+    <ion-input value="{{ glider.buyDate | date:'dd.MM.yyyy' }}"></ion-input>
   </ion-item>
   <ion-item>
     <ion-label color="primary" position="stacked">{{ 'glider.brand' | translate }}<span style="color:red"> *</span></ion-label>
@@ -28,3 +21,13 @@
   </ion-item>
   <ion-button expand="block" type="submit">{{ 'buttons.save' | translate }}</ion-button>
 </form>
+
+<ion-modal class="dateModal" trigger='buyDateInput'>
+  <ng-template>
+    <ion-content>
+        <ion-datetime size="cover" presentation="date" [ngModelOptions]="{standalone: true}" [(ngModel)]="glider.buyDate" locale="{{ language }}" [showDefaultButtons]="true"
+          doneText="{{ 'buttons.done' | translate }}" cancelText="{{ 'buttons.cancel' | translate }}">
+        </ion-datetime>
+    </ion-content>
+  </ng-template>
+</ion-modal>

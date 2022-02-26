@@ -3,16 +3,9 @@
     <ion-label color="primary" position="stacked">{{ 'flight.glider' | translate }}<span style="color:red"> *</span></ion-label>
     <fb-glider-select style="width: 100%;" [flight]=flight [gliders]=gliders></fb-glider-select>
   </ion-item>
-  <ion-item>
+  <ion-item id="flightDateInput">
     <ion-label color="primary" position="stacked">{{ 'flight.date' | translate }}<span style="color:red"> *</span></ion-label>
-    <ion-input value="{{ flight.date | date:'dd.MM.yyyy' }}" id="flightDateInput"></ion-input>
-    <ion-popover trigger="flightDateInput">
-      <ng-template>
-        <ion-datetime presentation="date" [ngModelOptions]="{standalone: true}" [(ngModel)]="flight.date" locale="{{ language }}" [showDefaultButtons]="true"
-          doneText="{{ 'buttons.done' | translate }}" cancelText="{{ 'buttons.cancel' | translate }}">
-        </ion-datetime>
-      </ng-template>
-    </ion-popover>
+    <ion-input value="{{ flight.date | date:'dd.MM.yyyy' }}" ></ion-input>
   </ion-item>
   <ion-item>
     <ion-label color="primary" position="stacked">{{ 'flight.start' | translate }}</ion-label>
@@ -25,16 +18,16 @@
     </ion-input>
   </ion-item>
   <autocomplete [search]="searchLanding" (setInputValue)="setLandingInput($event)"></autocomplete>
-  <ion-item>
+  <ion-item id="flightTime">
     <ion-label color="primary" position="stacked">{{ 'flight.time' | translate }}</ion-label>
-    <ion-input (click)="setDefaultTime()" value="{{ flight.time }}" id="flightTime"></ion-input>
-    <ion-popover trigger="flightTime">
+    <ion-input (click)="setDefaultTime()" value="{{ flight.time }}"></ion-input>
+    <!-- <ion-popover trigger="flightTime">
       <ng-template>
         <ion-datetime presentation="time" hour-cycle="h23" [ngModelOptions]="{standalone: true}" [(ngModel)]="flight.time" locale="{{ language }}" [showDefaultButtons]="true"
           doneText="{{ 'buttons.done' | translate }}" cancelText="{{ 'buttons.clear' | translate }}" (ionCancel)="cancelButton()" displayFormat="HH:mm">
         </ion-datetime>
       </ng-template>
-    </ion-popover>
+    </ion-popover> -->
   </ion-item>
   <ion-item *ngIf="flight.glider.tandem">
     <ion-label color="primary" position="stacked">{{ 'flight.price' | translate }}</ion-label>
@@ -53,3 +46,23 @@
 
   <ion-button expand="block" type="submit">{{ 'buttons.save' | translate }}</ion-button>
 </form>
+
+<ion-modal class="dateModal" trigger='flightDateInput'>
+  <ng-template>
+    <ion-content>
+      <ion-datetime size="cover" presentation="date" [ngModelOptions]="{standalone: true}" [(ngModel)]="flight.date" locale="{{ language }}" [showDefaultButtons]="true"
+          doneText="{{ 'buttons.done' | translate }}" cancelText="{{ 'buttons.cancel' | translate }}">
+        </ion-datetime>
+    </ion-content>
+  </ng-template>
+</ion-modal>
+
+<ion-modal class="timeModal" trigger='flightTime'>
+  <ng-template>
+    <ion-content>
+      <ion-datetime size="cover" presentation="time" hour-cycle="h23" [ngModelOptions]="{standalone: true}" [(ngModel)]="flight.time" locale="{{ language }}" [showDefaultButtons]="true"
+          doneText="{{ 'buttons.done' | translate }}" cancelText="{{ 'buttons.clear' | translate }}" (ionCancel)="cancelButton()" displayFormat="HH:mm">
+        </ion-datetime>
+    </ion-content>
+  </ng-template>
+</ion-modal>
