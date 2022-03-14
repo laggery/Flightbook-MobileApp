@@ -30,7 +30,9 @@ export class IgcService {
 
       if (override) {
         flight.date = igcFile.date;
-        flight.start.name = igcFile.site;
+        if (igcFile.site && igcFile.site != "") {
+          flight.start.name = igcFile.site;
+        }
         const timeInMillisecond = (igcFile.ll[0].landing - igcFile.ll[0].launch) * 1000
         flight.time = new Date(timeInMillisecond).toISOString().substr(11, 8);
         if (igcFile.gliderType && igcFile.gliderType != '') {
