@@ -4,4 +4,8 @@ export class FlightStatistic {
     public time: number;
     public income: number;
     public average: number;
+    public nbStartplaces: number;
+    public nbLandingplaces: number;
+    public totalDistance: number;
+    public bestDistance: number;
 }

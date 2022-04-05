@@ -79,7 +79,11 @@
         "flighthour": "Flight hours",
         "average": "Average time",
         "price" : "Income",
-        "longset": "Longest flight"
+        "longset": "Longest flight",
+        "nbStartplaces": "Number of starting places",
+        "nbLandingplaces": "Number of landing places",
+        "totalDistance": "Total distance",
+        "bestDistance": "Best distance"
     },
     "emptylist": "This list is empty",
     "months": {

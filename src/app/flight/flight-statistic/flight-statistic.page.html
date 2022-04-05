@@ -25,6 +25,14 @@
                         id="averageTime">{{ statistics.average || "0" | hoursFormat }}</span></div>
                 <div><label>{{ 'statistics.price' | translate }}:</label><span
                         id="income">{{ statistics.income || "0" }}</span></div>
+                <div><label>{{ 'statistics.nbStartplaces' | translate }}:</label><span
+                        id="nbStartplaces">{{ statistics.nbStartplaces || "0" }}</span></div>
+                <div><label>{{ 'statistics.nbLandingplaces' | translate }}:</label><span
+                        id="nbLandingplaces">{{ statistics.nbLandingplaces || "0" }}</span></div>
+                <div><label>{{ 'statistics.totalDistance' | translate }}:</label><span
+                        id="totalDistance">{{ statistics.totalDistance || "0" }} km</span></div>
+                <div><label>{{ 'statistics.bestDistance' | translate }}:</label><span
+                        id="bestDistance">{{ statistics.bestDistance || "0" }} km</span></div>
             </ion-card-content>
         </ion-card>
     </div>
