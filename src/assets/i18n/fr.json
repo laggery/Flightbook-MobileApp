@@ -79,7 +79,11 @@
         "flighthour": "Heures de vols",
         "average": "Temps moyen",
         "price": "Revenu",
-        "longset": "Vol le plus long"
+        "longset": "Vol le plus long",
+        "nbStartplaces": "Nombre de places de décollages",
+        "nbLandingplaces": "Nombre de places d'atterissages",
+        "totalDistance": "Distance totale",
+        "bestDistance": "Meilleure distance"
     },
     "emptylist": "Cette liste est vide",
     "months": {
