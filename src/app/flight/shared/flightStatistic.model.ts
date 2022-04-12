@@ -1,3 +1,5 @@
+import {CountryStatistic} from './countryStatistic.model';
+
 export class FlightStatistic {
     public year: string;
     public nbFlights: number;
@@ -8,4 +10,5 @@ export class FlightStatistic {
     public nbLandingplaces: number;
     public totalDistance: number;
     public bestDistance: number;
+    public countries: CountryStatistic[];
 }

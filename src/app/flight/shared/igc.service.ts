@@ -22,6 +22,7 @@ export class IgcService {
       if (result.optimal) {
         if (override) {
           flight.km = result.scoreInfo.distance;
+          flight.score = result.scoreInfo.score;
         }
         igc.start = result.scoreInfo.ep?.start;
         igc.landing = result.scoreInfo.ep?.finish;

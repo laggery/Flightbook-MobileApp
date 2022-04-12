@@ -45,7 +45,8 @@
     "place": {
         "place": "Lieu",
         "name": "Nom",
-        "altitude": "Altitude"
+        "altitude": "Altitude",
+        "country": "Pays"
     },
     "glider": {
         "buydate": "Date d'achat",

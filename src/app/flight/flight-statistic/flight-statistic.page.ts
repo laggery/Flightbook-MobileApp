@@ -6,7 +6,9 @@ import { FlightFilterComponent } from '../../form/flight-filter/flight-filter.co
 import { TranslateService } from '@ngx-translate/core';
 import { BarChartComponent } from 'src/app/charts/bar-chart/bar-chart.component';
 import { LineChartComponent } from 'src/app/charts/line-chart/line-chart.component';
+import { PieChartComponent } from 'src/app/charts/pie-chart/pie-chart.component';
 import { FlightStatistic } from '../shared/flightStatistic.model';
+import { CountryStatistic } from '../shared/countryStatistic.model';
 import { FlightService } from '../shared/flight.service';
 
 @Component({
@@ -16,11 +18,13 @@ import { FlightService } from '../shared/flight.service';
 })
 export class FlightStatisticPage implements OnInit, OnDestroy {
   @ViewChild('flightChart') flightBarChart: BarChartComponent;
+  @ViewChild('countryChart') countryPieChart: PieChartComponent;
   @ViewChild('incomeChart') incomeBarChart: BarChartComponent;
   @ViewChild(LineChartComponent) lineChart: LineChartComponent;
   unsubscribe$ = new Subject<void>();
   statistics: FlightStatistic;
   statisticsList: FlightStatistic[];
+  countryStatisticsList: CountryStatistic[];
   filtered: boolean;
 
   constructor(
@@ -48,6 +52,7 @@ export class FlightStatisticPage implements OnInit, OnDestroy {
       this.statistics = res.find((stat: FlightStatistic) => (!stat.year));
       this.statisticsList = res.filter((stat: FlightStatistic) => (stat.year));
       this.flightBarChart.displayBarChart(this.statisticsList);
+      this.countryPieChart.displayPieChart(this.statistics);
       this.incomeBarChart.displayBarChart(this.statisticsList);
       this.lineChart.displayLineChart(this.statisticsList);
     }, async (error: any) => {
@@ -83,6 +88,7 @@ export class FlightStatisticPage implements OnInit, OnDestroy {
       this.statisticsList = resp.data.statistic.filter((stat: FlightStatistic) => (stat.year));
       this.statistics = resp.data.statistic.find((stat: FlightStatistic) => (!stat.year));
       this.flightBarChart.displayBarChart(this.statisticsList);
+      this.countryPieChart.displayPieChart(this.statistics);
       this.incomeBarChart.displayBarChart(this.statisticsList);
       this.lineChart.displayLineChart(this.statisticsList);
     });
