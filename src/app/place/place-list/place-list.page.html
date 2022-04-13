@@ -33,7 +33,7 @@
             {{ place.altitude}}
           </ion-col>
           <ion-col>
-            <nxt-flag country="{{ place.country}}" size="m"></nxt-flag>
+            <nxt-flag country="{{ place.country}}" size="s"></nxt-flag> {{ getCountryNameByCode(place.country) }}
           </ion-col>
         </ion-row>
       </ion-grid>

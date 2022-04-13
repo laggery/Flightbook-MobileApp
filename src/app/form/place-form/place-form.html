@@ -10,7 +10,7 @@
   <ion-item>
     <ion-label color="primary" position="stacked">{{ 'place.country' | translate }}</ion-label>
     <ion-select [(ngModel)]="place.country" name="country">
-      <ion-select-option *ngFor="let country of countries" value="{{ country.code }}">{{ country[getLanguageKey()] }}</ion-select-option>
+      <ion-select-option *ngFor="let country of countries" value="{{ country.code }}">{{ country.name[this.lang] }}</ion-select-option>
     </ion-select>
   </ion-item>
   <ion-button expand="block" type="submit" >{{ 'buttons.save' | translate }}</ion-button>

@@ -23,11 +23,7 @@ export class PlaceFormComponent {
     private translate: TranslateService
   ) {
     this.lang = this.translate.currentLang;
-    this.countries.sort((a,b) => a[this.getLanguageKey()].localeCompare(b[this.getLanguageKey()]));
-  }
-
-  getLanguageKey() {
-    return 'name_' + this.lang;
+    this.countries.sort((a,b) => a.name[this.lang].localeCompare(b.name[this.lang]));
   }
 
   async saveElement(loginForm: any) {

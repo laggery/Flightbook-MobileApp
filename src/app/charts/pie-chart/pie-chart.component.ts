@@ -3,6 +3,7 @@ import { D3Service } from "../d3.service";
 import {CountryStatistic} from '../../flight/shared/countryStatistic.model';
 import {FlightStatistic} from '../../flight/shared/flightStatistic.model';
 import { TranslateService } from '@ngx-translate/core';
+import { Countries, Country } from 'src/app/place/shared/place.countries';
 
 @Component({
     selector: 'pie-chart',
@@ -21,6 +22,7 @@ export class PieChartComponent implements OnInit {
     private width = 750;
     private height = 450;
     private lang;
+    private countries: Country[] = Countries;
 
     // The radius of the pie chart is half the smallest side
     private radius = Math.min(this.width, this.height) / 2 - this.margin;
@@ -63,6 +65,9 @@ export class PieChartComponent implements OnInit {
     }
 
     private drawChart(data = this.pieData): void {
+        data.forEach((element: CountryStatistic) => {
+            element.code = this.countries.find(x => x.code === element.code).name[this.lang];
+        });
         // Compute the position of each group on the pie
         const pie = this.d3.d3.pie<any>().value((d: any) => Number(d.count));
         const data_ready = pie(data);

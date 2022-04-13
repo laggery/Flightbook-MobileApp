@@ -6,6 +6,8 @@ import { Place } from '../../place/shared/place.model';
 import { HoursFormatPipe } from 'src/app/shared/pipes/hours-format/hours-format.pipe';
 import { Flight } from 'src/app/flight/shared/flight.model';
 import { Glider } from 'src/app/glider/shared/glider.model';
+import { Countries, Country } from 'src/app/place/shared/place.countries';
+
 const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
 const EXCEL_EXTENSION = '.xlsx';
 
@@ -15,8 +17,12 @@ const EXCEL_EXTENSION = '.xlsx';
 export class XlsxExportService {
 
   XLSX: any;
+  countries: Country[] = Countries;
+  lang : string;
 
-  constructor(private translate: TranslateService) { }
+  constructor(private translate: TranslateService) {
+    this.lang = this.translate.currentLang;
+  }
 
   async loadXlsx() {
     if (!this.XLSX) {
@@ -112,7 +118,7 @@ export class XlsxExportService {
       let flatPlace: any = [];
       flatPlace[this.translate.instant('place.name')] = place.name;
       flatPlace[this.translate.instant('place.altitude')] = place.altitude;
-      flatPlace[this.translate.instant('place.country')] = place.country;
+      flatPlace[this.translate.instant('place.country')] = this.countries.find(x => x.code === place.country).name[this.lang];
       list.push(flatPlace);
     })
 
