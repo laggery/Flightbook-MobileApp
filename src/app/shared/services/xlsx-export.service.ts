@@ -118,7 +118,8 @@ export class XlsxExportService {
       let flatPlace: any = [];
       flatPlace[this.translate.instant('place.name')] = place.name;
       flatPlace[this.translate.instant('place.altitude')] = place.altitude;
-      flatPlace[this.translate.instant('place.country')] = this.countries.find(x => x.code === place.country).name[this.lang];
+      flatPlace[this.translate.instant('place.country')] = place.country ? this.countries.find(x => x.code === place.country).name[this.lang] : "";
+      flatPlace[this.translate.instant('place.notes')] = place.notes;
       list.push(flatPlace);
     })
 

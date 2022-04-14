@@ -3,4 +3,5 @@ export class Place {
     name: string;
     altitude: number;
     country: string;
+    notes: string;
 }

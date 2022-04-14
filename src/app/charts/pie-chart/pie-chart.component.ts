@@ -16,18 +16,18 @@ export class PieChartComponent implements OnInit {
     @Input("isPercentage") private isPercentage: boolean = false;
     @Input("enablePolylines") private enablePolylines: boolean = false;
 
-    public chartId;
-    private svg;
-    private margin = 25;
-    private width = 750;
-    private height = 450;
-    private lang;
+    public chartId: string;
+    private svg: any;
+    private margin: number = 25;
+    private width: number = 750;
+    private height: number = 450;
+    private readonly lang: string;
     private countries: Country[] = Countries;
+    private colors: any;
 
     // The radius of the pie chart is half the smallest side
     private radius = Math.min(this.width, this.height) / 2 - this.margin;
 
-    private colors;
     constructor(
         private d3: D3Service,
         private translate: TranslateService
@@ -66,7 +66,8 @@ export class PieChartComponent implements OnInit {
 
     private drawChart(data = this.pieData): void {
         data.forEach((element: CountryStatistic) => {
-            element.code = this.countries.find(x => x.code === element.code).name[this.lang];
+            const result = this.countries.find(x => x.code === element.code);
+            element.code = result ? result.name[this.lang] : this.translate.instant('statistics.unknownCountry');
         });
         // Compute the position of each group on the pie
         const pie = this.d3.d3.pie<any>().value((d: any) => Number(d.count));
@@ -101,7 +102,7 @@ export class PieChartComponent implements OnInit {
                     .innerRadius(0)
                     .outerRadius(this.radius)
             )
-            .attr("fill", (d, i) => (this.colors(i)))
+            .attr("fill", (d: any, i: any) => (this.colors(i)))
             .attr("stroke", "#121926")
             .style("stroke-width", "1px");
         // Now add the annotation. Use the centroid method to get the best coordinates
@@ -116,7 +117,7 @@ export class PieChartComponent implements OnInit {
             .data(pie(data))
             .enter()
             .append("text")
-            .text(d => {
+            .text((d: any) => {
                 if (
                     ((d.endAngle - d.startAngle) / (2 * Math.PI)) * 100 > 5 ||
                     !this.enablePolylines
@@ -130,7 +131,7 @@ export class PieChartComponent implements OnInit {
                     );
                 }
             })
-            .attr("transform", d => "translate(" + labelLocation.centroid(d) + ")")
+            .attr("transform", (d: any) => "translate(" + labelLocation.centroid(d) + ")")
             .style("text-anchor", "middle")
             .style("font-size", 28)
             .attr("fill", this.textColor);
@@ -140,7 +141,7 @@ export class PieChartComponent implements OnInit {
                 .data(data_ready)
                 .enter()
                 .append("text")
-                .text(d => {
+                .text((d: any) => {
                     if (((d.endAngle - d.startAngle) / (2 * Math.PI)) * 100 > 5) {
                         return null;
                     } else {
@@ -154,7 +155,7 @@ export class PieChartComponent implements OnInit {
                     }
                 })
                 .style("font-size", "28px")
-                .attr("dy", d => {
+                .attr("dy", (d: any) => {
                     if (((d.endAngle - d.startAngle) / (2 * Math.PI)) * 100 > 5) {
                         return null;
                     } else {
@@ -165,7 +166,7 @@ export class PieChartComponent implements OnInit {
                         return value.toString() + "em";
                     }
                 })
-                .attr("transform", d => {
+                .attr("transform", (d: any) => {
                     if (((d.endAngle - d.startAngle) / (2 * Math.PI)) * 100 > 5) {
                         return null;
                     } else {
@@ -175,7 +176,7 @@ export class PieChartComponent implements OnInit {
                         return "translate(" + pos + ")";
                     }
                 })
-                .style("text-anchor", d => {
+                .style("text-anchor", (d: any) => {
                     let midangle = d.startAngle + (d.endAngle - d.startAngle) / 2;
                     return midangle < Math.PI ? "start" : "end";
                 });
@@ -189,7 +190,7 @@ export class PieChartComponent implements OnInit {
                 .attr("stroke", "black")
                 .style("fill", "none")
                 .attr("stroke-width", 1)
-                .attr("points", d => {
+                .attr("points", (d: any) => {
                     if (((d.endAngle - d.startAngle) / (2 * Math.PI)) * 100 > 5) {
                         return null;
                     } else {

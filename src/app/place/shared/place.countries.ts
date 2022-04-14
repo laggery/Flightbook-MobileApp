@@ -1,10 +1,11 @@
 export interface Country {
     code: string;
-    name: {
+    name : {
         de: string;
         en: string;
         fr: string;
         it: string;
+        [key: string]: string;
     };
 }
 

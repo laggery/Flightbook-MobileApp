@@ -86,7 +86,7 @@ export class PlaceListPage implements OnInit, OnDestroy, AfterViewInit {
   }
 
   getCountryNameByCode(code: string) {
-    return this.countries.find(x => x.code === code).name[this.lang];
+    return code ? this.countries.find(x => x.code === code).name[this.lang] : "";
   }
 
   async xlsxExport() {

@@ -46,7 +46,8 @@
         "place": "Ort",
         "name": "Name",
         "altitude": "Höhe",
-        "country": "Land"
+        "country": "Land",
+        "notes": "Notizen"
     },
     "glider": {
         "buydate": "Kaufdatum",
@@ -84,7 +85,8 @@
         "nbStartplaces": "Anzahl Startplätze",
         "nbLandingplaces": "Anzahl Landeplätze",
         "totalDistance": "Gesamt Distanz",
-        "bestDistance": "Beste Distanz"
+        "bestDistance": "Beste Distanz",
+        "unknownCountry": "Unbekannt"
     },
     "emptylist": "Diese Liste ist leer",
     "months": {

@@ -61,6 +61,8 @@ export class PdfExportService {
       startPlacesList.push([
         { text: place.name, style: 'tableRow' },
         { text: place.altitude, style: 'tableRow' },
+        { text: place.country, style: 'tableRow' },
+        { text: place.notes, style: 'tableRow' }
       ]);
     })
 
@@ -70,6 +72,8 @@ export class PdfExportService {
       landingPlacesList.push([
         { text: place.name, style: 'tableRow' },
         { text: place.altitude, style: 'tableRow' },
+        { text: place.country, style: 'tableRow' },
+        { text: place.notes, style: 'tableRow' }
       ]);
     })
 
@@ -163,7 +167,9 @@ export class PdfExportService {
                   body: [
                     [
                       { text: this.translate.instant('place.name'), style: 'tableHeader' },
-                      { text: this.translate.instant('place.altitude'), style: 'tableHeader' }
+                      { text: this.translate.instant('place.altitude'), style: 'tableHeader' },
+                      { text: this.translate.instant('place.country'), style: 'tableHeader' },
+                      { text: this.translate.instant('place.notes'), style: 'tableHeader' }
                     ],
                     ...startPlacesList
                   ]
@@ -183,7 +189,9 @@ export class PdfExportService {
                   body: [
                     [
                       { text: this.translate.instant('place.name'), style: 'tableHeader' },
-                      { text: this.translate.instant('place.altitude'), style: 'tableHeader' }
+                      { text: this.translate.instant('place.altitude'), style: 'tableHeader' },
+                      { text: this.translate.instant('place.country'), style: 'tableHeader' },
+                      { text: this.translate.instant('place.notes'), style: 'tableHeader' },
                     ],
                     ...landingPlacesList
                   ]
