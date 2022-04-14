@@ -85,7 +85,8 @@
         "nbStartplaces": "Numero luoghi di decollo",
         "nbLandingplaces": "Numero luoghi di atterraggio",
         "totalDistance": "Distanza totale",
-        "bestDistance": "Miglior distanza"
+        "bestDistance": "Miglior distanza",
+        "unknownCountry": "Sconosciuto"
     },
     "emptylist": "Questo elenco è vuoto",
     "months": {

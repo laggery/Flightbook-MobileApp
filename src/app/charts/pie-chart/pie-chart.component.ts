@@ -12,7 +12,7 @@ import { Countries, Country } from 'src/app/place/shared/place.countries';
 })
 export class PieChartComponent implements OnInit {
     @Input("pieData") private pieData: CountryStatistic[] = [];
-    @Input("textColor") private textColor: string = "#ffffff";
+    @Input("textColor") private textColor: string = "#000000";
     @Input("isPercentage") private isPercentage: boolean = false;
     @Input("enablePolylines") private enablePolylines: boolean = false;
 

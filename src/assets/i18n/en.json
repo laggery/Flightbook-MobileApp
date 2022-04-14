@@ -85,7 +85,8 @@
         "nbStartplaces": "Number of starting places",
         "nbLandingplaces": "Number of landing places",
         "totalDistance": "Total distance",
-        "bestDistance": "Best distance"
+        "bestDistance": "Best distance",
+        "unknownCountry": "Unknown"
     },
     "emptylist": "This list is empty",
     "months": {
