@@ -10,6 +10,8 @@
   </form>
   <ion-button expand="block" (click)="register()" >{{ 'buttons.createAccount' | translate }}</ion-button>
 
+  <ion-button expand="block" (click)="googleLogin()">Google login</ion-button>
+
   <div class="language-list">
     <p>
       <a (click)="setLanguage('fr')" class="language">{{ 'language.fr' | translate }}</a>

@@ -10,6 +10,7 @@ import { AccountService } from './account/shared/account.service';
 import { FlightService } from './flight/shared/flight.service';
 import { GliderService } from './glider/shared/glider.service';
 import { PlaceService } from './place/shared/place.service';
+import { User } from './account/shared/user.model';
 
 @Component({
   selector: 'app-root',
@@ -18,6 +19,7 @@ import { PlaceService } from './place/shared/place.service';
 })
 export class AppComponent implements OnDestroy, OnInit {
   unsubscribe$ = new Subject<void>();
+  user: User;
 
   constructor(
     private platform: Platform,
@@ -33,6 +35,10 @@ export class AppComponent implements OnDestroy, OnInit {
     this.initializeApp();
     this.translate.setDefaultLang('en');
     this.translate.use(localStorage.getItem('language') || navigator.language.split('-')[0]);
+
+    // this.accountService.currentUser().subscribe((resp: User) => {
+    //   this.user = resp;
+    // })
   }
 
   ngOnInit(): void {

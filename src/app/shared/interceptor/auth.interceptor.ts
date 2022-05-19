@@ -20,6 +20,7 @@ export class HttpAuthInterceptor implements HttpInterceptor {
         this.excludeUrl = [
             ['assets/i18n', 'GET'],
             ['auth/login', 'POST'],
+            ['auth/google/login', 'POST'],
             ['users', 'POST'],
             ['auth/refresh', 'GET'],
             ['auth/reset-password', 'GET'],

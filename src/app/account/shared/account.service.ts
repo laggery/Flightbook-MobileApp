@@ -23,6 +23,10 @@ export class AccountService {
     return this.http.post<any>(`${environment.baseUrl}/auth/login`, loginData);
   }
 
+  googleLogin(token: string): Observable<any> {
+    return this.http.post<any>(`${environment.baseUrl}/auth/google/login/${token}`, {});
+  }
+
   register(user: User): Observable<any> {
     return this.http.post<any>(`${environment.baseUrl}/users`, user);
   }
