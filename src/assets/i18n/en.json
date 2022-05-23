@@ -80,8 +80,8 @@
         "average": "Average time",
         "price" : "Income",
         "longset": "Longest flight",
-        "nbStartplaces": "Number of starting places",
-        "nbLandingplaces": "Number of landing places",
+        "nbStartplaces": "Nb. of starting places",
+        "nbLandingplaces": "Nb. of landing places",
         "totalDistance": "Total distance",
         "bestDistance": "Best distance"
     },

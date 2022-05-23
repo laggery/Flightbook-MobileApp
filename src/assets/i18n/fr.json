@@ -80,8 +80,8 @@
         "average": "Temps moyen",
         "price": "Revenu",
         "longset": "Vol le plus long",
-        "nbStartplaces": "Nombre de places de décollages",
-        "nbLandingplaces": "Nombre de places d'atterissages",
+        "nbStartplaces": "Nb. places de décollages",
+        "nbLandingplaces": "Nb. places d'atterissages",
         "totalDistance": "Distance totale",
         "bestDistance": "Meilleure distance"
     },

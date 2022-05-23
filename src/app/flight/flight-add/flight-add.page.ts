@@ -98,10 +98,9 @@ export class FlightAddPage implements OnInit, OnDestroy {
   }
 
   private async uploadIgc(flight: Flight, loading: any) {
-    const formData = new FormData();
-    formData.append('file', flight.igcFile, flight.igcFile.name);
     try {
-      const res = await this.fileUploadService.uploadFile(formData).toPromise();
+      const res = await this.fileUploadService.getPresignedUploadUrl(flight.igcFile.name).toPromise();
+      await this.fileUploadService.uploadFileToS3(res.url, flight.igcFile).toPromise();
       flight.igc.filepath = flight.igcFile.name;
       return true;
     } catch (error) {
