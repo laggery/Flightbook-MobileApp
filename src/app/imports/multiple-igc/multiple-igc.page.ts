@@ -103,9 +103,8 @@ export class MultipleIgcPage implements OnInit {
   }
 
   private async uploadIgc(flight: Flight) {
-    const formData = new FormData();
-    formData.append('file', flight.igcFile, flight.igcFile.name);
-    const res = await this.fileUploadService.uploadFile(formData).toPromise();
+    const res = await this.fileUploadService.getPresignedUploadUrl(flight.igcFile.name).toPromise();
+    await this.fileUploadService.uploadFileToS3(res.url, flight.igcFile).toPromise();
     flight.igc.filepath = flight.igcFile.name;
   }
 

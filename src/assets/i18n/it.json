@@ -80,8 +80,8 @@
         "average": "Media",
         "price" : "Entrate",
         "longset": "Volo più lungo",
-        "nbStartplaces": "No. luoghi di decollo",
-        "nbLandingplaces": "No. luoghi di atterraggio",
+        "nbStartplaces": "No. decollo",
+        "nbLandingplaces": "No. atterraggio",
         "totalDistance": "Distanza totale",
         "bestDistance": "Miglior distanza"
     },
