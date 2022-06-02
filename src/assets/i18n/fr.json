@@ -114,6 +114,8 @@
     },
     "message": {
         "infotitle": "Information",
+        "warning": "Attention",
+        "deleteAccount": "Êtes-vous sûr de vouloir supprimer votre compte ?<br><br>Votre compte sera désactivé et après 90 jours complètement supprimé.",
         "noglidertitle": "Aucun parapente trouvé",
         "browser": "Nous somme désolé mais actuellement l’application est uniquement supportée par des navigateurs WebKit (Chrome, Safari)",
         "noglider": "Avant de pourvoir ajouter un vol, veuillez insérer un parapente",

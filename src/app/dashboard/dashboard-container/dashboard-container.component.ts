@@ -38,7 +38,7 @@ export class DashboardContainerComponent implements OnInit {
   }
 
   async openAddFlight() {
-    this.navCtrl.navigateForward('flights/add');
+    this.navCtrl.navigateRoot('flights/add');
   }
 
   async openStatistics() {
