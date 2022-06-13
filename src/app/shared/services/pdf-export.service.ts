@@ -48,7 +48,9 @@ export class PdfExportService {
         { text: this.datePipe.transform(flight.date, 'dd.MM.yyyy'), style: 'tableRow' },
         { text: `${flight.glider.brand} ${flight.glider.name}`, style: 'tableRow' },
         { text: flight.start?.name, style: 'tableRow' },
+        { text: flight.start?.country, style: 'tableRow' },
         { text: flight.landing?.name, style: 'tableRow' },
+        { text: flight.landing?.country, style: 'tableRow' },
         { text: flight.time, style: 'tableRow' },
         { text: flight.km, style: 'tableRow' },
         { text: flight.description, style: 'tableRow' }
@@ -162,7 +164,7 @@ export class PdfExportService {
               {
                 style: 'placeTable',
                 table: {
-                  widths: ['auto', '*'],
+                  widths: ['auto', 'auto', 'auto', '*'],
                   headerRows: 1,
                   body: [
                     [
@@ -184,7 +186,7 @@ export class PdfExportService {
               {
                 style: 'placeTable',
                 table: {
-                  widths: ['auto', '*'],
+                  widths: ['auto', 'auto', 'auto', '*'],
                   headerRows: 1,
                   body: [
                     [
@@ -205,7 +207,7 @@ export class PdfExportService {
         {
           style: 'flightTable',
           table: {
-            widths: ['auto', 'auto', 80, 'auto', 'auto', 45, 20, '*'],
+            widths: ['auto', 'auto', 80, 'auto', 'auto', 'auto', 'auto', 45, 20, '*'],
             headerRows: 1,
             body: [
               [
@@ -213,7 +215,9 @@ export class PdfExportService {
                 { text: this.translate.instant('flight.date'), style: 'tableHeader' },
                 { text: this.translate.instant('flight.glider'), style: 'tableHeader' },
                 { text: this.translate.instant('flight.start'), style: 'tableHeader' },
+                { text: this.translate.instant('flight.startCountry'), style: 'tableHeader' },
                 { text: this.translate.instant('flight.landing'), style: 'tableHeader' },
+                { text: this.translate.instant('flight.landingCountry'), style: 'tableHeader' },
                 { text: this.translate.instant('flight.time'), style: 'tableHeader' },
                 { text: this.translate.instant('flight.km'), style: 'tableHeader' },
                 { text: this.translate.instant('flight.description'), style: 'tableHeader' }

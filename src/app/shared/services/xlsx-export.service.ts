@@ -82,7 +82,9 @@ export class XlsxExportService {
       flatFlight[this.translate.instant('flight.number')] = flight.number;
       flatFlight[this.translate.instant('flight.date')] = moment(flight.date).format('DD.MM.YYYY');
       flatFlight[this.translate.instant('flight.start')] = flight.start?.name;
+      flatFlight[this.translate.instant('flight.startCountry')] = flight.start?.country ? this.countries.find(x => x.code === flight.start?.country).name[this.lang] : "";
       flatFlight[this.translate.instant('flight.landing')] = flight.landing?.name;
+      flatFlight[this.translate.instant('flight.landingCountry')] = flight.landing?.country ? this.countries.find(x => x.code === flight.landing?.country).name[this.lang] : "";
       flatFlight[this.translate.instant('flight.time')] = flight.time;
       flatFlight[this.translate.instant('flight.km')] = flight.km;
       flatFlight[this.translate.instant('flight.price')] = flight.price;
