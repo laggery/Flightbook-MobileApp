@@ -19,6 +19,7 @@ export class HttpAuthInterceptor implements HttpInterceptor {
     ) {
         this.excludeUrl = [
             ['assets/i18n', 'GET'],
+            ['flightbook-bucket', 'PUT'],
             ['auth/login', 'POST'],
             ['users', 'POST'],
             ['auth/refresh', 'GET'],

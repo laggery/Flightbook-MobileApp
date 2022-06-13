@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
@@ -17,6 +17,16 @@ export class FileUploadService {
         reportProgress: true,
         observe: 'events',
       })
+  }
+
+  getPresignedUploadUrl(filename: string): Observable<any> {
+    return this.httpClient.get(`${environment.baseUrl}/file/upload/url/${filename}`);
+  }
+
+  uploadFileToS3(url: string, file: File) {
+    const headers = new HttpHeaders();
+    headers.append("Content-Type", file.type);
+    return this.httpClient.put(url, file, {headers: headers})
   }
 
   copyFile(sourceFileName: string, destinationFileName: string): Observable<any> {

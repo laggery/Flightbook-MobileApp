@@ -117,6 +117,8 @@
     },
     "message": {
         "infotitle": "Information",
+        "warning": "Achtung",
+        "deleteAccount": "Sind Sie sicher, dass Sie Ihr Konto löschen wollen?<br><br>Ihr Konto wird deaktiviert und nach 90 Tagen vollständig gelöscht.",
         "noglidertitle": "Kein Gleitschirm gefunden",
         "browser": "Es tut uns leid aber diese Applikation wird momentan nur von Webkit Browsers unterstützt (Chrome, Safari)",
         "noglider": "Bevor Sie einen Flug hinzufügen können, müssen Sie einen Gleitschirm hinzufügen",

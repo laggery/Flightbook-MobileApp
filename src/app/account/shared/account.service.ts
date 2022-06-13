@@ -47,6 +47,10 @@ export class AccountService {
     return this.http.get<any>(`${environment.baseUrl}/auth/reset-password/${email}`);
   }
 
+  deleteUser(): Observable<any> {
+    return this.http.delete(`${environment.baseUrl}/users`);
+  }
+
   async isAuth(): Promise<boolean> {
     let authenticated = true;
     const accessToken = localStorage.getItem('access_token');
