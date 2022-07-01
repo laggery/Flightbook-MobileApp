@@ -11,7 +11,6 @@ export class Flight {
     landing?: Place;
     time?: string;
     km?: number;
-    score?: number;
     description?: string;
     price?: number;
     timestamp?: Date;
