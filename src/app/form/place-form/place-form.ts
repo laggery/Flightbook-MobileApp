@@ -2,6 +2,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { Place } from 'src/app/place/shared/place.model';
+import { Countries, Country } from 'src/app/place/shared/place.countries';
 
 @Component({
   selector: 'place-form',
@@ -14,10 +15,15 @@ export class PlaceFormComponent {
   @Output()
   savePlace = new EventEmitter<Place>();
 
+  countries: Country[] = Countries;
+  lang : string;
+
   constructor(
     private alertController: AlertController,
     private translate: TranslateService
   ) {
+    this.lang = this.translate.currentLang;
+    this.countries.sort((a,b) => a.name[this.lang].localeCompare(b.name[this.lang]));
   }
 
   async saveElement(loginForm: any) {
@@ -31,6 +37,10 @@ export class PlaceFormComponent {
       });
       await alert.present();
     }
+  }
+
+  clearCountry() {
+    this.place.country = null;
   }
 
 }

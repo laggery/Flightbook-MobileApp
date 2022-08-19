@@ -24,16 +24,11 @@
   </ion-item>
   <ion-list *ngIf="(places$ | async)?.length > 0" >
     <ion-item button detail *ngFor="let place of places$ | async" (click)="itemTapped($event, place)">
-      <ion-grid>
-        <ion-row>
-          <ion-col size="9">
-            {{place.name}}
-          </ion-col>
-          <ion-col>
-            {{ place.altitude}}
-          </ion-col>
-        </ion-row>
-      </ion-grid>
+      <p class="placeRow">
+        <span class="placeName">{{place.name}}</span>
+        <span class="placeAltitude">{{ place.altitude}}</span>
+        <span class="placeCountry"><nxt-flag country="{{ place.country}}" size="s"></nxt-flag> {{ getCountryNameByCode(place.country) }}</span>
+      </p>
       <ion-icon item-end></ion-icon>
     </ion-item>
   </ion-list>

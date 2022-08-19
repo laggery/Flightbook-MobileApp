@@ -6,6 +6,8 @@ import { Place } from '../../place/shared/place.model';
 import { HoursFormatPipe } from 'src/app/shared/pipes/hours-format/hours-format.pipe';
 import { Flight } from 'src/app/flight/shared/flight.model';
 import { Glider } from 'src/app/glider/shared/glider.model';
+import { Countries, Country } from 'src/app/place/shared/place.countries';
+
 const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
 const EXCEL_EXTENSION = '.xlsx';
 
@@ -15,8 +17,12 @@ const EXCEL_EXTENSION = '.xlsx';
 export class XlsxExportService {
 
   XLSX: any;
+  countries: Country[] = Countries;
+  lang : string;
 
-  constructor(private translate: TranslateService) { }
+  constructor(private translate: TranslateService) {
+    this.lang = this.translate.currentLang;
+  }
 
   async loadXlsx() {
     if (!this.XLSX) {
@@ -76,7 +82,9 @@ export class XlsxExportService {
       flatFlight[this.translate.instant('flight.number')] = flight.number;
       flatFlight[this.translate.instant('flight.date')] = moment(flight.date).format('DD.MM.YYYY');
       flatFlight[this.translate.instant('flight.start')] = flight.start?.name;
+      flatFlight[this.translate.instant('flight.startCountry')] = flight.start?.country ? this.countries.find(x => x.code === flight.start?.country).name[this.lang] : "";
       flatFlight[this.translate.instant('flight.landing')] = flight.landing?.name;
+      flatFlight[this.translate.instant('flight.landingCountry')] = flight.landing?.country ? this.countries.find(x => x.code === flight.landing?.country).name[this.lang] : "";
       flatFlight[this.translate.instant('flight.time')] = flight.time;
       flatFlight[this.translate.instant('flight.km')] = flight.km;
       flatFlight[this.translate.instant('flight.price')] = flight.price;
@@ -112,6 +120,8 @@ export class XlsxExportService {
       let flatPlace: any = [];
       flatPlace[this.translate.instant('place.name')] = place.name;
       flatPlace[this.translate.instant('place.altitude')] = place.altitude;
+      flatPlace[this.translate.instant('place.country')] = place.country ? this.countries.find(x => x.code === place.country).name[this.lang] : "";
+      flatPlace[this.translate.instant('place.notes')] = place.notes;
       list.push(flatPlace);
     })
 

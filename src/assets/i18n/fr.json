@@ -45,7 +45,9 @@
     "place": {
         "place": "Lieu",
         "name": "Nom",
-        "altitude": "Altitude"
+        "altitude": "Altitude",
+        "country": "Pays",
+        "notes": "Notes"
     },
     "glider": {
         "buydate": "Date d'achat",
@@ -63,7 +65,9 @@
         "glider": "Parapente",
         "date": "Date",
         "start": "Décollage",
+        "startCountry": "Décollage pays",
         "landing": "Atterissage",
+        "landingCountry": "Atterissage pays",
         "time": "Temps",
         "km": "Km",
         "description": "Description",
@@ -83,7 +87,8 @@
         "nbStartplaces": "Nb. décollages",
         "nbLandingplaces": "Nb. atterissages",
         "totalDistance": "Distance totale",
-        "bestDistance": "Meilleure distance"
+        "bestDistance": "Meilleure distance",
+        "unknownCountry": "Inconnu"
     },
     "emptylist": "Cette liste est vide",
     "months": {

@@ -1,6 +1,6 @@
 {
   "name": "flightbook",
-  "version": "2.3.2",
+  "version": "2.4.0",
   "author": "Yannick Lagger",
   "homepage": "https://flightbook.ch/",
   "scripts": {
@@ -54,7 +54,8 @@
     "tslib": "^1.10.0",
     "uuid": "^3.4.0",
     "xlsx": "^0.17.5",
-    "zone.js": "~0.11.4"
+    "zone.js": "~0.11.4",
+    "nxt-flags": "^13.0.1"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^13.2.1",

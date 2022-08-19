@@ -9,6 +9,7 @@ import { FileOpener } from '@ionic-native/file-opener/ngx';
 import { Place } from 'src/app/place/shared/place.model';
 import { XlsxExportService } from 'src/app/shared/services/xlsx-export.service';
 import { PlaceService } from '../shared/place.service';
+import { Countries, Country } from 'src/app/place/shared/place.countries';
 
 @Component({
   selector: 'app-place-list',
@@ -22,6 +23,8 @@ export class PlaceListPage implements OnInit, OnDestroy, AfterViewInit {
   unsubscribe$ = new Subject<void>();
   places$: Observable<Place[]>;
   limit = 50;
+  lang : string;
+  countries: Country[] = Countries;
 
   constructor(
     public navCtrl: NavController,
@@ -33,7 +36,7 @@ export class PlaceListPage implements OnInit, OnDestroy, AfterViewInit {
     private fileOpener: FileOpener
   ) {
     this.places$ = this.placeService.getState();
-
+    this.lang = this.translate.currentLang;
     this.initialDataLoad();
   }
 
@@ -80,6 +83,10 @@ export class PlaceListPage implements OnInit, OnDestroy, AfterViewInit {
         event.target.disabled = true;
       }
     });
+  }
+
+  getCountryNameByCode(code: string) {
+    return code ? this.countries.find(x => x.code === code).name[this.lang] : "";
   }
 
   async xlsxExport() {

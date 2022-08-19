@@ -37,6 +37,11 @@
                 "input": "src/assets/custom-ion-icons",
                 "output": "./svg"
               },
+              {
+                "glob": "**/*",
+                "input": "./node_modules/nxt-flags/assets/flags",
+                "output": "./assets/flags"
+              },
               "src/manifest.webmanifest"
             ],
             "styles": [

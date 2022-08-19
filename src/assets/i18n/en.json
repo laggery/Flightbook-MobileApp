@@ -45,7 +45,9 @@
     "place": {
         "place": "Place",
         "name": "Name",
-        "altitude": "Altitude"
+        "altitude": "Altitude",
+        "country": "Country",
+        "notes": "Notes"
     },
     "glider": {
         "buydate": "Buy date",
@@ -63,7 +65,9 @@
         "glider": "Glider",
         "date": "Date",
         "start": "Start",
+        "startCountry": "Start country",
         "landing": "Landing",
+        "landingCountry": "Landing country",
         "time": "Time",
         "km": "Km",
         "description": "Description",
@@ -83,7 +87,8 @@
         "nbStartplaces": "Nb. of starting places",
         "nbLandingplaces": "Nb. of landing places",
         "totalDistance": "Total distance",
-        "bestDistance": "Best distance"
+        "bestDistance": "Best distance",
+        "unknownCountry": "Unknown"
     },
     "emptylist": "This list is empty",
     "months": {

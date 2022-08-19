@@ -45,7 +45,9 @@
     "place": {
         "place": "Luogo",
         "name": "Nome",
-        "altitude": "Altitudine"
+        "altitude": "Altitudine",
+        "country": "Paese",
+        "notes": "Note"
     },
     "glider": {
         "buydate": "Data d’aquisto",
@@ -63,7 +65,9 @@
         "glider": "Vela",
         "date": "Data",
         "start": "Decollo",
+        "startCountry": "Decollo paese",
         "landing": "Atterraggio",
+        "landingCountry": "Atterraggio paese",
         "time": "Tempo",
         "km": "Km",
         "description": "Descrizione",
@@ -83,7 +87,8 @@
         "nbStartplaces": "No. decollo",
         "nbLandingplaces": "No. atterraggio",
         "totalDistance": "Distanza totale",
-        "bestDistance": "Miglior distanza"
+        "bestDistance": "Miglior distanza",
+        "unknownCountry": "Sconosciuto"
     },
     "emptylist": "Questo elenco è vuoto",
     "months": {

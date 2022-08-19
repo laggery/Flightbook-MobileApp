@@ -11,6 +11,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { FormModule } from 'src/app/form/form.module';
 import { FlightFilterComponent } from 'src/app/form/flight-filter/flight-filter.component';
 import { FileOpener } from '@ionic-native/file-opener/ngx';
+import { FlagsModule } from 'nxt-flags';
 
 @NgModule({
   imports: [
@@ -19,7 +20,8 @@ import { FileOpener } from '@ionic-native/file-opener/ngx';
     IonicModule,
     FlightListPageRoutingModule,
     TranslateModule.forChild(),
-    FormModule
+    FormModule,
+    FlagsModule
   ],
   providers: [
     FileOpener

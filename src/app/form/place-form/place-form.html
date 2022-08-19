@@ -7,5 +7,15 @@
     <ion-label color="primary" position="stacked">{{ 'place.altitude' | translate }}</ion-label>
     <ion-input clearInput [(ngModel)]="place.altitude" type="number" name="altitude"></ion-input>
   </ion-item>
+  <ion-item>
+    <ion-label color="primary" position="stacked">{{ 'place.country' | translate }}</ion-label>
+    <ion-select [(ngModel)]="place.country" name="country" okText="{{ 'buttons.done' | translate }}" cancelText="{{ 'buttons.clear' | translate }}" (ionCancel)="clearCountry()">
+      <ion-select-option *ngFor="let country of countries" value="{{ country.code }}">{{ country.name[this.lang] }}</ion-select-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-label color="primary" position="stacked">{{ 'place.notes' | translate }}</ion-label>
+    <ion-textarea rows="4" type="text" [(ngModel)]="place.notes" name="notes"></ion-textarea>
+  </ion-item>
   <ion-button expand="block" type="submit" >{{ 'buttons.save' | translate }}</ion-button>
 </form>
