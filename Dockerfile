@@ -1,5 +1,5 @@
 ### STAGE 1: Build ###
-FROM node:lts-alpine AS build
+FROM node:16.13 AS build
 WORKDIR /usr/src/app
 COPY package.json ./
 COPY package-lock.json ./

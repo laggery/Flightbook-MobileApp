@@ -39,4 +39,8 @@ export class PlaceFormComponent {
     }
   }
 
+  clearCountry() {
+    this.place.country = null;
+  }
+
 }
