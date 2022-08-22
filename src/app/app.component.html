@@ -41,6 +41,14 @@
               <fb-menu-item [icon]="'document'" [label]="'buttons.multipleIgc'"></fb-menu-item>
             </ion-item>
           </ion-menu-toggle>
+          <div class="fligth-school" *ngIf="schools?.length > 0">
+            <p class="divider-menu">{{ 'groupname.school' | translate }}</p>
+            <ion-menu-toggle auto-hide="false" *ngFor="let school of schools">
+              <ion-item routerDirection="root" [routerLink]="['/imports/igc']" lines="full" detail="false">
+                <fb-menu-item [icon]="'school'" [label]="school.name"></fb-menu-item>
+              </ion-item>
+            </ion-menu-toggle>
+          </div>
           <p class="divider-menu">{{ 'groupname.account' | translate }}</p>
           <ion-menu-toggle auto-hide="false">
             <ion-item routerDirection="root" [routerLink]="['/settings']" lines="full" detail="false">
@@ -60,6 +68,6 @@
         </ion-list>
       </ion-content>
     </ion-menu>
-    <ion-router-outlet id="main-content"></ion-router-outlet>
+    <ion-router-outlet (activate)="subscribeToEmmiter($event)" id="main-content"></ion-router-outlet>
   </ion-split-pane>
 </ion-app>

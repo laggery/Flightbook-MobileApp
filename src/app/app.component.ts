@@ -10,6 +10,9 @@ import { AccountService } from './account/shared/account.service';
 import { FlightService } from './flight/shared/flight.service';
 import { GliderService } from './glider/shared/glider.service';
 import { PlaceService } from './place/shared/place.service';
+import { SchoolService } from './school/shared/school.service';
+import { School } from './school/shared/school.model';
+import { LoginPage } from './account/login/login.page';
 
 @Component({
   selector: 'app-root',
@@ -18,6 +21,7 @@ import { PlaceService } from './place/shared/place.service';
 })
 export class AppComponent implements OnDestroy, OnInit {
   unsubscribe$ = new Subject<void>();
+  schools: School[] = [];
 
   constructor(
     private platform: Platform,
@@ -28,7 +32,8 @@ export class AppComponent implements OnDestroy, OnInit {
     private swUpdate: SwUpdate,
     private flighService: FlightService,
     private gliderService: GliderService,
-    private placeService: PlaceService
+    private placeService: PlaceService,
+    private schoolService:SchoolService
   ) {
     this.initializeApp();
     this.translate.setDefaultLang('en');
@@ -41,6 +46,10 @@ export class AppComponent implements OnDestroy, OnInit {
         this.swUpdate.activateUpdate().then(() => document.location.reload());
       });
     }
+
+    this.schoolService.getSchools().pipe(takeUntil(this.unsubscribe$)).subscribe((schools: School[]) => {
+      this.schools = schools;
+    })
   }
 
   initializeApp() {
@@ -58,6 +67,17 @@ export class AppComponent implements OnDestroy, OnInit {
       // TODO error handling
       localStorage.removeItem('access_token');
       localStorage.removeItem('refresh_token');
+    });
+    this.schools = [];
+  }
+
+  subscribeToEmmiter(componentRef: any) {
+    if (!(componentRef instanceof LoginPage)){
+      return;
+  }
+    const child : LoginPage = componentRef;
+    child.loggedInEvent.pipe(takeUntil(this.unsubscribe$)).subscribe(() => {
+      this.ngOnInit();
     });
   }
 

@@ -115,7 +115,8 @@
         "account": "Compte",
         "filtered": "filtré",
         "menu": "Menu",
-        "import": "Imports"
+        "import": "Imports",
+        "school": "Ecole"
     },
     "message": {
         "infotitle": "Information",

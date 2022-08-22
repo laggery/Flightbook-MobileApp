@@ -115,7 +115,8 @@
         "account": "Konto",
         "filtered": "gefiltert",
         "menu": "Menu",
-        "import": "Importieren"
+        "import": "Importieren",
+        "school": "Schule"
     },
     "message": {
         "infotitle": "Information",
