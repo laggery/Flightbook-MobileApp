@@ -183,5 +183,21 @@
         "noflights": "Pas de vols",
         "lastflight": "Dernier vol"
     },
+    "appointment": {
+        "dateTime": "Date et heure",
+        "meetingPoint": "Rendez-vous",
+        "maxPeople": "Max personnes",
+        "state": "Statut",
+        "instructor": "Instructeur",
+        "takeOffCoordinator": "Aide au décollage",
+        "description": "Description",
+        "stateValue": {
+            "ANNOUNCED": "Annoncé",
+            "CONFIRMED": "Confirmé",
+            "CANCELED": "Annulé"
+        },
+        "passed": "Rendez-vous passé",
+        "appointments": "Rendez-vous"
+    },
     "version": "Version"
 }

@@ -44,7 +44,7 @@
           <div class="fligth-school" *ngIf="schools?.length > 0">
             <p class="divider-menu">{{ 'groupname.school' | translate }}</p>
             <ion-menu-toggle auto-hide="false" *ngFor="let school of schools">
-              <ion-item routerDirection="root" [routerLink]="['/imports/igc']" lines="full" detail="false">
+              <ion-item routerDirection="root" [routerLink]="['/school/', school.id]" lines="full" detail="false">
                 <fb-menu-item [icon]="'school'" [label]="school.name"></fb-menu-item>
               </ion-item>
             </ion-menu-toggle>

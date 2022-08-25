@@ -183,5 +183,21 @@
         "noflights": "Keine Flüge",
         "lastflight": "Letzter Flug"
     },
+    "appointment": {
+        "dateTime": "Datum und Zeit",
+        "meetingPoint": "Treffpunkt",
+        "maxPeople": "Max Teilnehmer",
+        "state": "Status",
+        "instructor": "Fluglehrer",
+        "takeOffCoordinator": "Start Helfer",
+        "description": "Beschreibung",
+        "stateValue": {
+            "ANNOUNCED": "Angesagt",
+            "CONFIRMED": "Bestätigt",
+            "CANCELED": "Abgesagt"
+        },
+        "passed": "Vergangene Termine",
+        "appointments": "Termine"
+    },
     "version": "Version"
 }

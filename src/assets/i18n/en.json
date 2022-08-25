@@ -183,5 +183,21 @@
         "noflights": "No flights",
         "lastflight": "Last flight"
     },
+    "appointment": {
+        "dateTime": "Date and time",
+        "meetingPoint": "Meeting point",
+        "maxPeople": "Max people",
+        "state": "State",
+        "instructor": "Instructor",
+        "takeOffCoordinator": "Takeoff coordinator",
+        "description": "Description",
+        "stateValue": {
+            "ANNOUNCED": "Announced",
+            "CONFIRMED": "Confirmed",
+            "CANCELED": "Canceled"
+        },
+        "passed": "Passed appointments",
+        "appointments": "Appointments"
+    },
     "version": "Version"
 }

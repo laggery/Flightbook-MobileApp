@@ -183,5 +183,21 @@
         "noflights": "Niente voli",
         "lastflight": "Ultimo volo"
     },
+    "appointment": {
+        "dateTime": "Data e ora",
+        "meetingPoint": "Ci vediamo a",
+        "maxPeople": "Massimo di persone",
+        "state": "Stato",
+        "instructor": "Istruttore",
+        "takeOffCoordinator": "Aiuto al decollo",
+        "description": "Descrizione",
+        "stateValue": {
+            "ANNOUNCED": "Annunciato",
+            "CONFIRMED": "Confermato",
+            "CANCELED": "Annullato"
+        },
+        "passed": "Appuntamento fissato",
+        "appointments": "Date"
+    },
     "version": "Versione"
 }

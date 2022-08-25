@@ -90,6 +90,10 @@ const routes: Routes = [
     path: 'password',
     loadChildren: () => import('./account/password/password.module').then( m => m.PasswordPageModule),
     canActivate: [AuthGuardService]
+  },
+  {
+    path: 'school/:id',
+    loadChildren: () => import('./school/appointment-list/appointment-list.module').then( m => m.AppointmentListPageModule)
   }
 ];
 
