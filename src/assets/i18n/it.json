@@ -144,7 +144,8 @@
         "wrongIgcFileType": "Scegliere un file IGC",
         "emptyIgcFile": "Questo file IGC è vuoto",
         "igcUploadError": "Il file IGC non può essere caricato",
-        "igcCopyError": "Il file IGC non può essere copiato"
+        "igcCopyError": "Il file IGC non può essere copiato",
+        "downloadExcel": "Il file Excel è stato scaricato e si trova sotto \"Documenti\""
     },
     "loading": {
         "createaccount": "Iscrizione...",

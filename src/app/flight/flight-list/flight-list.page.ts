@@ -126,7 +126,7 @@ export class FlightListPage implements OnInit, OnDestroy, AfterViewInit {
       if (Capacitor.isNativePlatform()) {
         try {
           const data: any = await this.xlsxExportService.generateFlightsXlsxFile(res, { bookType: 'xlsx', type: 'base64' });
-          const path = `xlsx/flights_export_${Date.now()}.xlsx`;
+          const path = `xlsx/flights_export.xlsx`;
 
           const result = await Filesystem.writeFile({
             path,
@@ -135,7 +135,16 @@ export class FlightListPage implements OnInit, OnDestroy, AfterViewInit {
             recursive: true
           });
           await loading.dismiss();
-          await this.fileOpener.open(`${result.uri}`, 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+          if (Capacitor.getPlatform() == "android") {
+            const alert = await this.alertController.create({
+              header: this.translate.instant('message.infotitle'),
+              message: this.translate.instant('message.downloadExcel'),
+              buttons: [this.translate.instant('buttons.done')]
+            });
+            await alert.present();
+          } else {
+            await this.fileOpener.open(`${result.uri}`, 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+          }
         } catch (e) {
           await loading.dismiss();
           const alert = await this.alertController.create({
@@ -168,7 +177,7 @@ export class FlightListPage implements OnInit, OnDestroy, AfterViewInit {
       if (Capacitor.isNativePlatform()) {
         pdfObj.getBase64(async (data) => {
           try {
-            const path = `pdf/flightbook_${Date.now()}.pdf`;
+            const path = `pdf/flightbook.pdf`;
 
             const result = await Filesystem.writeFile({
               path,

@@ -6,6 +6,9 @@ import { takeUntil } from 'rxjs/operators';
 import { Capacitor } from '@capacitor/core';
 import { Filesystem, Directory } from '@capacitor/filesystem';
 import { SplashScreen } from '@capacitor/splash-screen';
+setTimeout(() => {
+  SplashScreen.hide();
+}, 700);
 import { FileOpener } from '@ionic-native/file-opener/ngx';
 import { Router } from '@angular/router';
 import { News } from './shared/news.model';
@@ -43,9 +46,7 @@ export class NewsPage implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    setTimeout(() => {
-      SplashScreen.hide();
-    }, 500);
+    
 
     this.newsData$ = this.newsService.getState();
     if (this.newsService.getValue().length === 0) {
@@ -96,7 +97,7 @@ export class NewsPage implements OnInit, OnDestroy {
             bookType: 'xlsx',
             type: 'base64'
           });
-          const path = `xlsx/flightbook_export_${Date.now()}.xlsx`;
+          const path = `xlsx/flightbook_export.xlsx`;
 
           const result = await Filesystem.writeFile({
             path,
@@ -105,7 +106,16 @@ export class NewsPage implements OnInit, OnDestroy {
             recursive: true
           });
           await loading.dismiss();
-          await this.fileOpener.open(`${result.uri}`, 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+          if (Capacitor.getPlatform() == "android") {
+            const alert = await this.alertController.create({
+              header: this.translate.instant('message.infotitle'),
+              message: this.translate.instant('message.downloadExcel'),
+              buttons: [this.translate.instant('buttons.done')]
+            });
+            await alert.present();
+          } else {
+            await this.fileOpener.open(`${result.uri}`, 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+          }
         } catch (e) {
           await loading.dismiss();
           const alert = await this.alertController.create({

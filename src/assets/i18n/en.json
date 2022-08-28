@@ -144,7 +144,8 @@
         "wrongIgcFileType": "Please choose an IGC file",
         "emptyIgcFile": "This IGC file is empty",
         "igcUploadError": "IGC File could not be uploaded",
-        "igcCopyError": "IGC File could not be copied"
+        "igcCopyError": "IGC File could not be copied",
+        "downloadExcel": "Excel file has been downloaded and is under \"Documents\""
     },
     "loading": {
         "createaccount": "Create account...",
