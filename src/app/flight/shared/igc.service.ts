@@ -13,7 +13,7 @@ export class IgcService {
   constructor(private gliderService: GliderService) { }
 
   async getIgcFileContentAndPrefillFlight(flight: Flight, igcFile: File, override = true): Promise<string> {
-    const igcData = await this.readFileAsync(igcFile);
+    const igcData = await igcFile.text();
 
     if (typeof igcData === 'string') {
       const igc = new Igc();
@@ -45,19 +45,5 @@ export class IgcService {
       return igcData;
     }
     return null;
-  }
-
-  private readFileAsync(file: any): Promise<string | ArrayBuffer> {
-    return new Promise((resolve, reject) => {
-      let reader = new FileReader();
-
-      reader.onload = () => {
-        resolve(reader.result);
-      };
-
-      reader.onerror = reject;
-
-      reader.readAsText(file);
-    })
   }
 }

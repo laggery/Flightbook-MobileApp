@@ -33,6 +33,7 @@
     "@capacitor/keyboard": "^4.0.0",
     "@capacitor/splash-screen": "^4.0.0",
     "@capacitor/status-bar": "^4.0.0",
+    "@capawesome/capacitor-file-picker": "^0.4.0",
     "@ionic-native/app-version": "^5.36.0",
     "@ionic-native/core": "^5.36.0",
     "@ionic-native/file-opener": "^5.36.0",
