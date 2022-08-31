@@ -9,5 +9,8 @@
 			"showSpinner": false,
 			"splashFullScreen": true
 		}
+	},
+	"ios": {
+		"scheme": "Flightbook"
 	}
 }
