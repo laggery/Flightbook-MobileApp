@@ -6,6 +6,9 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Capacitor } from '@capacitor/core';
 import { SplashScreen } from '@capacitor/splash-screen';
+setTimeout(() => {
+  SplashScreen.hide();
+}, 700);
 import HttpStatusCode from '../../shared/util/HttpStatusCode';
 import { environment } from 'src/environments/environment';
 import { AppVersion } from '@ionic-native/app-version/ngx';
@@ -42,9 +45,6 @@ export class LoginPage implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    setTimeout(() => {
-      SplashScreen.hide();
-    }, 500);
   }
 
   ngOnDestroy() {

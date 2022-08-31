@@ -145,7 +145,8 @@
         "wrongIgcFileType": "Bitte wählen Sie eine IGC-Datei",
         "emptyIgcFile": "Diese IGC-Datei ist leer",
         "igcUploadError": "IGC-Datei konnte nicht hochgeladen werden",
-        "igcCopyError": "IGC-Datei konnte nicht kopiert werden"
+        "igcCopyError": "IGC-Datei konnte nicht kopiert werden",
+        "downloadExcel": "Die Excel-Datei wurde heruntergeladen und befindet sich unter \"Dokumente\""
     },
     "loading": {
         "createaccount": "Registrieren...",

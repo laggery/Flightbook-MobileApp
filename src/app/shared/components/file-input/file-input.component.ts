@@ -1,7 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Capacitor } from '@capacitor/core';
 import { AlertController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { v4 as uuidv4 } from 'uuid';
+import { FilePicker } from '@capawesome/capacitor-file-picker';
 
 @Component({
   selector: 'fb-file-input',
@@ -18,6 +20,8 @@ export class FileInputComponent implements OnInit {
 
   progress = 0;
 
+  isIos = false;
+
   @Output()
   fileContent = new EventEmitter<string | ArrayBuffer>();
 
@@ -27,6 +31,9 @@ export class FileInputComponent implements OnInit {
   constructor(
     private alertController: AlertController,
     private translate: TranslateService) {
+      if (Capacitor.getPlatform() == "ios") {
+        this.isIos = true;
+      }
   }
 
   ngOnInit() {
@@ -57,6 +64,25 @@ export class FileInputComponent implements OnInit {
         newFiles.push(new File([file], fileName));
       }
     }
+
+    this.onFilesSelectEvent.emit(newFiles);
+  }
+
+  async onIosFilesSelect() {
+    const result = await FilePicker.pickFiles({
+      types: ['text/igc'],
+      multiple: this.multiple,
+    });
+
+    const newFiles: File[] = [];
+
+    result.files.forEach((file: any) => {
+      let fileName = `${uuidv4()}-${file.name}`;
+      const stringContent = atob(file.data);
+      newFiles.push(new File([new Blob([stringContent])], fileName, {
+        type: ""
+      }));
+    })
 
     this.onFilesSelectEvent.emit(newFiles);
   }

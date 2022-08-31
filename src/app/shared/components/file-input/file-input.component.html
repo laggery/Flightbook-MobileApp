@@ -1,6 +1,18 @@
 <div>
     <div class="menu-item-wrap">
-        <label class="custom-file-upload">
+        <label *ngIf="isIos" class="custom-file-upload">
+            <ion-button *ngIf="multiple; else notMultiple" color="primary" class="upload-btn" (click)="onIosFilesSelect()">
+                <ion-icon name="document"></ion-icon> IGC
+            </ion-button>
+
+            <ng-template #notMultiple>
+                <ion-button color="primary" class="upload-btn" (click)="onIosFilesSelect()">
+                    <ion-icon name="document"></ion-icon> IGC
+                </ion-button>
+            </ng-template>
+        </label>
+
+        <label *ngIf="!isIos" class="custom-file-upload">
             <ion-button *ngIf="multiple; else notMultiple" color="primary" class="upload-btn" (click)="fileUpload.click()">
                 <input multiple type="file" name="file" (change)="onFilesSelect($event)" #fileUpload />
                 <ion-icon name="document"></ion-icon> IGC

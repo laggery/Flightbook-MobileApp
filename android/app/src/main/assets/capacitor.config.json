@@ -5,7 +5,12 @@
 	"cordova": {},
 	"plugins": {
 		"SplashScreen": {
-			"launchAutoHide": false
+			"launchAutoHide": false,
+			"showSpinner": false,
+			"splashFullScreen": true
 		}
+	},
+	"ios": {
+		"scheme": "Flightbook"
 	}
 }
