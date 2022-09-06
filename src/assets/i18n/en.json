@@ -202,7 +202,8 @@
         "passed": "Passed appointments",
         "appointments": "Appointments",
         "subscriptions": "Registrations",
-        "waitingList": "Waiting list"
+        "waitingList": "Waiting list",
+        "noAppointment": "There are currently no dates for this flight school"
     },
     "version": "Version"
 }

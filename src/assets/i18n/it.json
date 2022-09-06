@@ -202,7 +202,8 @@
         "passed": "Appuntamento fissato",
         "appointments": "Date",
         "subscriptions": "Iscrizioni",
-        "waitingList": "Lista d'attesa"
+        "waitingList": "Lista d'attesa",
+        "noAppointment": "Al momento non ci sono date per questa scuola"
     },
     "version": "Versione"
 }

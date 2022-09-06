@@ -20,4 +20,11 @@
       <ion-icon item-end></ion-icon>
     </ion-item>
   </ion-list>
+
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="{{ 'loading.loading' | translate }}">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+  <p class="emptylist" *ngIf="!appointments || appointments?.length == 0">{{ 'appointment.noAppointment' | translate }}</p>
 </ion-content>

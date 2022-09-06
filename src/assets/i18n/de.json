@@ -202,7 +202,8 @@
         "passed": "Vergangene Termine",
         "appointments": "Termine",
         "subscriptions": "Anmeldungen",
-        "waitingList": "Warte liste"
+        "waitingList": "Warte liste",
+        "noAppointment": "Zurzeit gibt es keine Termine für diese Flugschule"
     },
     "version": "Version"
 }

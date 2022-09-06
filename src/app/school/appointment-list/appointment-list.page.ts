@@ -17,7 +17,7 @@ import { AppointmentDetailsComponent } from './components/appointment-details/ap
 })
 export class AppointmentListPage implements OnInit {
   unsubscribe$ = new Subject<void>();
-  limit = 50;
+  limit = 15;
   appointments: Appointment[];
   currentUser: User;
   private readonly schoolId: number;
@@ -117,6 +117,21 @@ export class AppointmentListPage implements OnInit {
     });
 
     alert.present();
+  }
+
+  loadData(event: any) {
+    this.schoolService.getAppointments({
+      limit: this.limit,
+      offset: this.appointments.length
+    }, this.schoolId)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((res: Appointment[]) => {
+        event.target.complete();
+        if (res.length < this.limit) {
+          event.target.disabled = true;
+        }
+        this.appointments.push(...res);
+      });
   }
 
   isUserSubscribed(appointment: Appointment) {
