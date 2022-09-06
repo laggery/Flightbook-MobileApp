@@ -8,6 +8,7 @@ import { AppointmentListPageRoutingModule } from './appointment-list-routing.mod
 
 import { AppointmentListPage } from './appointment-list.page';
 import { TranslateModule } from '@ngx-translate/core';
+import { AppointmentDetailsComponent } from './components/appointment-details/appointment-details.component';
 
 @NgModule({
   imports: [
@@ -15,8 +16,11 @@ import { TranslateModule } from '@ngx-translate/core';
     FormsModule,
     IonicModule,
     AppointmentListPageRoutingModule,
-    TranslateModule.forChild(),
+    TranslateModule.forChild()
   ],
-  declarations: [AppointmentListPage]
+  declarations: [
+    AppointmentListPage,
+    AppointmentDetailsComponent
+  ]
 })
 export class AppointmentListPageModule {}

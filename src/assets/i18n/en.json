@@ -146,7 +146,9 @@
         "emptyIgcFile": "This IGC file is empty",
         "igcUploadError": "IGC File could not be uploaded",
         "igcCopyError": "IGC File could not be copied",
-        "downloadExcel": "Excel file has been downloaded and is under \"Documents\""
+        "downloadExcel": "Excel file has been downloaded and is under \"Documents\"",
+        "removeSubscription": "Do you really want to unsubscribe? If you sign up again, you will be at the bottom of the waiting list.",
+        "watingList": "It's already full. You are on the waiting list."
     },
     "loading": {
         "createaccount": "Create account...",
@@ -198,7 +200,9 @@
             "CANCELED": "Canceled"
         },
         "passed": "Passed appointments",
-        "appointments": "Appointments"
+        "appointments": "Appointments",
+        "subscriptions": "Registrations",
+        "waitingList": "Waiting list"
     },
     "version": "Version"
 }

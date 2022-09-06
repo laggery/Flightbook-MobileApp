@@ -1,0 +1,21 @@
+ion-item {
+    --padding-start: 8px;
+  }
+  
+.item-value {
+    height: 13px;
+    margin-top: 8px;
+}
+
+.description {
+    white-space: pre-line;
+    height:auto;
+}
+
+.subscriptions {
+    height: auto;
+}
+
+.subscription-item {
+    display: block;
+}

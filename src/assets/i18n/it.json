@@ -146,7 +146,9 @@
         "emptyIgcFile": "Questo file IGC è vuoto",
         "igcUploadError": "Il file IGC non può essere caricato",
         "igcCopyError": "Il file IGC non può essere copiato",
-        "downloadExcel": "Il file Excel è stato scaricato e si trova sotto \"Documenti\""
+        "downloadExcel": "Il file Excel è stato scaricato e si trova sotto \"Documenti\"",
+        "removeSubscription": "Vuoi davvero annullare l'iscrizione? Se ci si iscrive nuovamente, si viene inseriti in fondo alla lista d'attesa.",
+        "watingList": "È già pieno. Siete in lista d'attesa."
     },
     "loading": {
         "createaccount": "Iscrizione...",
@@ -198,7 +200,9 @@
             "CANCELED": "Annullato"
         },
         "passed": "Appuntamento fissato",
-        "appointments": "Date"
+        "appointments": "Date",
+        "subscriptions": "Iscrizioni",
+        "waitingList": "Lista d'attesa"
     },
     "version": "Versione"
 }

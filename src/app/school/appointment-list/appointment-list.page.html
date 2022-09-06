@@ -7,11 +7,11 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
+<ion-content class="no-padding">
   <ion-list *ngIf="appointments?.length > 0" >
     <ion-item button detail *ngFor="let appointment of appointments" (click)="itemTapped($event, appointment)">
       <p class="appointmentRow">
-        <ion-toggle class="subscription" checked="{{ isUserSubscribed(appointment) }}" color="primary" (click)="subscriptionClick($event)" (ionChange)="subscriptionChange($event, appointment)"></ion-toggle>
+        <ion-toggle class="subscription" disabled="{{ isPassedAppointment(appointment) }}" checked="{{ isUserSubscribed(appointment) }}" color="primary" (click)="subscriptionClick($event)" (ionChange)="subscriptionChange($event, appointment)"></ion-toggle>
         <ion-label class="state">{{ 'appointment.stateValue.' + appointment.state| translate }}</ion-label>
         <ion-label class="scheduling">{{ appointment.scheduling | date:'dd.MM.yyyy hh:mm'}}</ion-label>
         <ion-label class="meetingPoint">{{ appointment.meetingPoint}}</ion-label>

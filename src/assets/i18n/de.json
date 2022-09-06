@@ -146,7 +146,9 @@
         "emptyIgcFile": "Diese IGC-Datei ist leer",
         "igcUploadError": "IGC-Datei konnte nicht hochgeladen werden",
         "igcCopyError": "IGC-Datei konnte nicht kopiert werden",
-        "downloadExcel": "Die Excel-Datei wurde heruntergeladen und befindet sich unter \"Dokumente\""
+        "downloadExcel": "Die Excel-Datei wurde heruntergeladen und befindet sich unter \"Dokumente\"",
+        "removeSubscription": "Möchtest du dich wirklich abmelden? Falls du dich erneut anmeldest, wirst du zuunterst von der Warteliste sein.",
+        "watingList": "Es ist bereits ausgebucht. Du stehst auf der Warteliste."
     },
     "loading": {
         "createaccount": "Registrieren...",
@@ -198,7 +200,9 @@
             "CANCELED": "Abgesagt"
         },
         "passed": "Vergangene Termine",
-        "appointments": "Termine"
+        "appointments": "Termine",
+        "subscriptions": "Anmeldungen",
+        "waitingList": "Warte liste"
     },
     "version": "Version"
 }

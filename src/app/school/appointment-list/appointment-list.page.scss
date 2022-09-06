@@ -18,3 +18,9 @@
 .appointmentRow .subscription {
     min-width: 38px;
 }
+
+ion-content {
+    ion-item {
+        pointer-events: auto;
+    }
+}

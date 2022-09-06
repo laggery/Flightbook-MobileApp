@@ -146,7 +146,9 @@
         "emptyIgcFile": "Ce fichier IGC est vide",
         "igcUploadError": "Le fichier IGC n'a pas pu être téléchargé",
         "igcCopyError": "Le fichier IGC n'a pas pu être copié",
-        "downloadExcel": "Le fichier Excel a été téléchargé et se trouve sous \"Documents\""
+        "downloadExcel": "Le fichier Excel a été téléchargé et se trouve sous \"Documents\"",
+        "removeSubscription": "Souhaites-tu vraiment te désinscrire ? Si tu te réinscris, tu seras en bas de la liste d'attente.",
+        "watingList": "C'est déjà complet. Tu es sur la liste d'attente."
     },
     "loading": {
         "createaccount": "Création compte...",
@@ -198,7 +200,9 @@
             "CANCELED": "Annulé"
         },
         "passed": "Rendez-vous passé",
-        "appointments": "Rendez-vous"
+        "appointments": "Rendez-vous",
+        "subscriptions": "Inscriptions",
+        "waitingList": "Liste d'attente"
     },
     "version": "Version"
 }
