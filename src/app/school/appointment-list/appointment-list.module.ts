@@ -8,7 +8,8 @@ import { AppointmentListPageRoutingModule } from './appointment-list-routing.mod
 
 import { AppointmentListPage } from './appointment-list.page';
 import { TranslateModule } from '@ngx-translate/core';
-import { AppointmentDetailsComponent } from './components/appointment-details/appointment-details.component';
+import { AppointmentDetailsComponent } from '../shared/components/appointment-details/appointment-details.component';
+import { AppointmentFilterComponent } from '../shared/components/appointment-filter/appointment-filter.component';
 
 @NgModule({
   imports: [
@@ -20,7 +21,8 @@ import { AppointmentDetailsComponent } from './components/appointment-details/ap
   ],
   declarations: [
     AppointmentListPage,
-    AppointmentDetailsComponent
+    AppointmentDetailsComponent,
+    AppointmentFilterComponent
   ]
 })
 export class AppointmentListPageModule {}

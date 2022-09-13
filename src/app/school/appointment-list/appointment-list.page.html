@@ -3,7 +3,13 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>{{ 'appointment.appointments' | translate }}</ion-title>
+    <ion-title>{{ 'appointment.appointments' | translate }} <span
+      *ngIf="filtered">({{ 'groupname.filtered' | translate }})</span></ion-title>
+    <ion-buttons slot="primary">
+      <ion-button (click)="openFilter()">
+        <ion-icon name="filter-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 

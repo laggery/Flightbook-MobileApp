@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AlertController, LoadingController, ModalController, NavController } from '@ionic/angular';
+import { AlertController, IonInfiniteScroll, LoadingController, ModalController, NavController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { firstValueFrom, Subject, takeUntil } from 'rxjs';
 import { AccountService } from 'src/app/account/shared/account.service';
@@ -8,18 +8,20 @@ import { User } from 'src/app/account/shared/user.model';
 import { Appointment } from '../shared/appointment.model';
 import { SchoolService } from '../shared/school.service';
 import { Subscription } from '../shared/subscription.model';
-import { AppointmentDetailsComponent } from './components/appointment-details/appointment-details.component';
+import { AppointmentDetailsComponent } from '../shared/components/appointment-details/appointment-details.component';
+import { AppointmentFilterComponent } from '../shared/components/appointment-filter/appointment-filter.component';
 
 @Component({
   selector: 'app-appointment-list',
   templateUrl: './appointment-list.page.html',
   styleUrls: ['./appointment-list.page.scss'],
 })
-export class AppointmentListPage implements OnInit {
+export class AppointmentListPage implements OnInit, OnDestroy {
+  @ViewChild(IonInfiniteScroll, { static: true }) infiniteScroll: IonInfiniteScroll;
   unsubscribe$ = new Subject<void>();
-  limit = 15;
   appointments: Appointment[];
   currentUser: User;
+  filtered: boolean;
   private readonly schoolId: number;
 
   constructor(
@@ -30,12 +32,23 @@ export class AppointmentListPage implements OnInit {
     private loadingCtrl: LoadingController,
     private accountService: AccountService,
     private modalCtrl: ModalController,
-    private alertController: AlertController) {
+    private alertController: AlertController
+  ) {
+    this.filtered = this.schoolService.filtered$.getValue();
+    this.schoolService.filtered$.pipe(takeUntil(this.unsubscribe$))
+      .subscribe((res: boolean) => {
+        this.filtered = res;
+      });
     this.schoolId = +this.activeRoute.snapshot.paramMap.get('id');
   }
 
   ngOnInit() {
     this.initialDataLoad();
+  }
+
+  ngOnDestroy() {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 
   private async initialDataLoad() {
@@ -46,7 +59,7 @@ export class AppointmentListPage implements OnInit {
 
     this.currentUser = await firstValueFrom(this.accountService.currentUser());
 
-    this.schoolService.getAppointments({ limit: this.limit }, this.schoolId)
+    this.schoolService.getAppointments({ limit: this.schoolService.defaultLimit }, this.schoolId)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(async (res: Appointment[]) => {
         this.appointments = res;
@@ -121,13 +134,13 @@ export class AppointmentListPage implements OnInit {
 
   loadData(event: any) {
     this.schoolService.getAppointments({
-      limit: this.limit,
+      limit: this.schoolService.defaultLimit,
       offset: this.appointments.length
     }, this.schoolId)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((res: Appointment[]) => {
         event.target.complete();
-        if (res.length < this.limit) {
+        if (res.length < this.schoolService.defaultLimit) {
           event.target.disabled = true;
         }
         this.appointments.push(...res);
@@ -151,6 +164,22 @@ export class AppointmentListPage implements OnInit {
       return true;
     }
     return false;
+  }
+
+  async openFilter() {
+    const modal = await this.modalCtrl.create({
+      component: AppointmentFilterComponent,
+      cssClass: 'appointment-filter-class',
+      componentProps: {
+        infiniteScroll: this.infiniteScroll
+      }
+    });
+
+    modal.present();
+    const { role } = await modal.onWillDismiss();
+    if (role == "filter" || role == "clear") {
+      this.initialDataLoad();
+    }
   }
 
 }

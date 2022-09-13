@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-toolbar color='primary'>
+    <ion-title>{{ 'buttons.filter' | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form (ngSubmit)="filterElement()">
+    <ion-item id="filterFrom">
+      <ion-label color="primary" position="stacked">{{ 'filter.from' | translate }}</ion-label>
+      <ion-input value="{{ filter.from | date:'dd.MM.yyyy' }}"></ion-input>
+    </ion-item>
+    <ion-item id="filterTo">
+      <ion-label color="primary" position="stacked">{{ 'filter.to' | translate }}</ion-label>
+      <ion-input value="{{ filter.to | date:'dd.MM.yyyy' }}"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label color="primary" position="stacked">{{ 'appointment.state' | translate }}</ion-label>
+      <ion-select [(ngModel)]="filter.state" name="type" okText="{{ 'buttons.done' | translate }}"
+        cancelText="{{ 'buttons.cancel' | translate }}">
+        <ion-select-option value="">{{ 'appointment.stateValue.ALL' | translate }}</ion-select-option>
+        <ion-select-option value="ANNOUNCED">{{ 'appointment.stateValue.ANNOUNCED' | translate }}</ion-select-option>
+        <ion-select-option value="CONFIRMED">{{ 'appointment.stateValue.CONFIRMED' | translate }}</ion-select-option>
+        <ion-select-option value="CANCELED">{{ 'appointment.stateValue.CANCELED' | translate }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-button type="button" (click)="clearFilter()">{{ 'buttons.clear' | translate }}</ion-button>
+    <ion-button type="submit">{{ 'buttons.filter' | translate }}</ion-button>
+  </form>
+</ion-content>
+
+<ion-modal class="filterDateModal dateModal" trigger='filterFrom'>
+  <ng-template>
+    <ion-content>
+      <ion-datetime size="cover" presentation="date" [ngModelOptions]="{standalone: true}" [(ngModel)]="filter.from"  locale="{{ language }}" [showDefaultButtons]="true"
+        doneText="{{ 'buttons.done' | translate }}" cancelText="{{ 'buttons.clear' | translate }}" (ionCancel)="clearDateButton('from')">
+      </ion-datetime>
+    </ion-content>
+  </ng-template>
+</ion-modal>
+
+<ion-modal class="filterDateModal dateModal" trigger='filterTo'>
+  <ng-template>
+    <ion-content>
+        <ion-datetime size="cover" presentation="date" [ngModelOptions]="{standalone: true}" [(ngModel)]="filter.to"  locale="{{ language }}" [showDefaultButtons]="true"
+          doneText="{{ 'buttons.done' | translate }}" cancelText="{{ 'buttons.clear' | translate }}" (ionCancel)="clearDateButton('to')">
+        </ion-datetime>
+    </ion-content>
+  </ng-template>
+</ion-modal>

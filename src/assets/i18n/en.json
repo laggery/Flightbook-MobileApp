@@ -197,7 +197,8 @@
         "stateValue": {
             "ANNOUNCED": "Announced",
             "CONFIRMED": "Confirmed",
-            "CANCELED": "Canceled"
+            "CANCELED": "Canceled",
+            "ALL": "All"
         },
         "passed": "Passed appointments",
         "appointments": "Appointments",

@@ -197,7 +197,8 @@
         "stateValue": {
             "ANNOUNCED": "Angesagt",
             "CONFIRMED": "Bestätigt",
-            "CANCELED": "Abgesagt"
+            "CANCELED": "Abgesagt",
+            "ALL": "Alle"
         },
         "passed": "Vergangene Termine",
         "appointments": "Termine",
