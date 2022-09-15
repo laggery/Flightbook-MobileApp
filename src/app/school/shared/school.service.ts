@@ -22,21 +22,21 @@ export class SchoolService {
   }
 
   getSchools(): Observable<School[]> {
-    return this.http.get<School[]>(`${environment.baseUrl}/students/schools`);
+    return this.http.get<School[]>(`${environment.baseUrl}/student/schools`);
   }
 
   getAppointments({ limit = null, offset = null}: { limit?: number, offset?: number} = {}, schoolId: number ): Observable<Appointment[]> {
     let params: HttpParams = this.createFilterParams(limit, offset);
 
-    return this.http.get<Appointment[]>(`${environment.baseUrl}/students/schools/${schoolId}/appointments`, { params });
+    return this.http.get<Appointment[]>(`${environment.baseUrl}/student/schools/${schoolId}/appointments`, { params });
   }
 
   subscribeToAppointment(schoolId: number, appointmentId: number): Observable<Appointment> {
-    return this.http.post<Appointment>(`${environment.baseUrl}/students/schools/${schoolId}/appointments/${appointmentId}/subscriptions`, {});
+    return this.http.post<Appointment>(`${environment.baseUrl}/student/schools/${schoolId}/appointments/${appointmentId}/subscriptions`, {});
   }
 
   deleteAppointmentSubscription(schoolId: number, appointmentId: number): Observable<Appointment> {
-    return this.http.delete<Appointment>(`${environment.baseUrl}/students/schools/${schoolId}/appointments/${appointmentId}/subscriptions`);
+    return this.http.delete<Appointment>(`${environment.baseUrl}/student/schools/${schoolId}/appointments/${appointmentId}/subscriptions`);
   }
 
   private setFilterState(nextState: boolean) {
