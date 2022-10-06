@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-toolbar color='primary'>
+    <ion-title>{{ 'appointment.appointments' | translate }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="close()"><ion-icon name="close"></ion-icon>Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <ion-item>
+    <ion-label position="stacked">{{ 'appointment.state' | translate }}</ion-label>
+    <p class="item-value">{{ 'appointment.stateValue.' + appointment.state| translate }}</p>
+  </ion-item>
+  <ion-item>
+    <ion-label position="stacked">{{ 'appointment.dateTime' | translate }}</ion-label>
+    <p class="item-value">{{ appointment.scheduling | date:'dd.MM.yyyy hh:mm' }}</p>
+  </ion-item>
+  <ion-item>
+    <ion-label position="stacked">{{ 'appointment.meetingPoint' | translate }}</ion-label>
+    <p class="item-value">{{ appointment.meetingPoint }}</p>
+  </ion-item>
+  <ion-item>
+    <ion-label position="stacked">{{ 'appointment.instructor' | translate }}</ion-label>
+    <p class="item-value">{{ appointment.instructor.firstname }} {{ appointment.instructor.lastname }}</p>
+  </ion-item>
+  <ion-item>
+    <ion-label position="stacked">{{ 'appointment.takeOffCoordinator' | translate }}</ion-label>
+    <p class="item-value">{{ appointment.takeOffCoordinator?.firstname }} {{ appointment.takeOffCoordinator?.lastname }}</p>
+  </ion-item>
+  <ion-item>
+    <ion-label position="stacked">{{ 'appointment.description' | translate }}</ion-label>
+    <p class="item-value description">{{ appointment.description }}</p>
+  </ion-item>
+  <ion-item>
+    <ion-label position="stacked"><span *ngIf="appointment.maxPeople">{{ subscribed.length }}/{{ appointment.maxPeople }} </span>{{ 'appointment.subscriptions' | translate }}</ion-label>
+    <p class="item-value subscriptions">
+      <span class="subscription-item" *ngFor="let subscription of subscribed">
+        {{ subscription.user.firstname }} {{ subscription.user.lastname }}
+      </span>
+    </p>
+  </ion-item>
+  <ion-item *ngIf="waitingList.length > 0">
+    <ion-label position="stacked">{{ 'appointment.waitingList' | translate }}</ion-label>
+    <p class="item-value subscriptions">
+      <span class="subscription-item" *ngFor="let subscription of waitingList">
+        {{ subscription.user.firstname }} {{ subscription.user.lastname }}
+      </span>
+    </p>
+  </ion-item>
+</ion-content>

@@ -59,7 +59,8 @@ export class HttpAuthInterceptor implements HttpInterceptor {
         return request.clone({
             setHeaders: {
                 'Content-Type': 'application/json',
-                Authorization: `Bearer ${localStorage.getItem('access_token')}`
+                Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+                'Accept-Language': localStorage.getItem('language') || navigator.language.split('-')[0]
             }
         });
     }

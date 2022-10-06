@@ -115,7 +115,8 @@
         "account": "Konto",
         "filtered": "gefiltert",
         "menu": "Menu",
-        "import": "Importieren"
+        "import": "Importieren",
+        "school": "Schule"
     },
     "message": {
         "infotitle": "Information",
@@ -145,7 +146,9 @@
         "emptyIgcFile": "Diese IGC-Datei ist leer",
         "igcUploadError": "IGC-Datei konnte nicht hochgeladen werden",
         "igcCopyError": "IGC-Datei konnte nicht kopiert werden",
-        "downloadExcel": "Die Excel-Datei wurde heruntergeladen und befindet sich unter \"Dokumente\""
+        "downloadExcel": "Die Excel-Datei wurde heruntergeladen und befindet sich unter \"Dokumente\"",
+        "removeSubscription": "Möchtest du dich wirklich abmelden? Falls du dich erneut anmeldest, wirst du zuunterst von der Warteliste sein.",
+        "watingList": "Es ist bereits ausgebucht. Du stehst auf der Warteliste."
     },
     "loading": {
         "createaccount": "Registrieren...",
@@ -182,6 +185,26 @@
         "amountofflights": "Anzahl Flüge",
         "noflights": "Keine Flüge",
         "lastflight": "Letzter Flug"
+    },
+    "appointment": {
+        "dateTime": "Datum und Zeit",
+        "meetingPoint": "Treffpunkt",
+        "maxPeople": "Max Teilnehmer",
+        "state": "Status",
+        "instructor": "Fluglehrer",
+        "takeOffCoordinator": "Start Helfer",
+        "description": "Beschreibung",
+        "stateValue": {
+            "ANNOUNCED": "Angesagt",
+            "CONFIRMED": "Bestätigt",
+            "CANCELED": "Abgesagt",
+            "ALL": "Alle"
+        },
+        "passed": "Vergangene Termine",
+        "appointments": "Termine",
+        "subscriptions": "Anmeldungen",
+        "waitingList": "Warte liste",
+        "noAppointment": "Zurzeit gibt es keine Termine für diese Flugschule"
     },
     "version": "Version"
 }

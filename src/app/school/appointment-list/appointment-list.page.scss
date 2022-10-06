@@ -1,0 +1,26 @@
+.appointmentRow {
+    display: inherit;
+}
+
+.appointmentRow .state {
+    min-width: 80px;
+}
+
+.appointmentRow .scheduling {
+    min-width: 135px;
+}
+
+.appointmentRow .meetingPoint {
+    margin-right: 5px;
+    min-width: 150px;
+}
+
+.appointmentRow .subscription {
+    min-width: 38px;
+}
+
+ion-content {
+    ion-item {
+        pointer-events: auto;
+    }
+}

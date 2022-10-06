@@ -115,7 +115,8 @@
         "account": "Account",
         "filtered": "filtered",
         "menu": "Menu",
-        "import": "Import"
+        "import": "Import",
+        "school": "School"
     },
     "message": {
         "infotitle": "Information",
@@ -145,7 +146,9 @@
         "emptyIgcFile": "This IGC file is empty",
         "igcUploadError": "IGC File could not be uploaded",
         "igcCopyError": "IGC File could not be copied",
-        "downloadExcel": "Excel file has been downloaded and is under \"Documents\""
+        "downloadExcel": "Excel file has been downloaded and is under \"Documents\"",
+        "removeSubscription": "Do you really want to unsubscribe? If you sign up again, you will be at the bottom of the waiting list.",
+        "watingList": "It's already full. You are on the waiting list."
     },
     "loading": {
         "createaccount": "Create account...",
@@ -182,6 +185,26 @@
         "amountofflights": "No. of flights",
         "noflights": "No flights",
         "lastflight": "Last flight"
+    },
+    "appointment": {
+        "dateTime": "Date and time",
+        "meetingPoint": "Meeting point",
+        "maxPeople": "Max people",
+        "state": "State",
+        "instructor": "Instructor",
+        "takeOffCoordinator": "Takeoff coordinator",
+        "description": "Description",
+        "stateValue": {
+            "ANNOUNCED": "Announced",
+            "CONFIRMED": "Confirmed",
+            "CANCELED": "Canceled",
+            "ALL": "All"
+        },
+        "passed": "Passed appointments",
+        "appointments": "Appointments",
+        "subscriptions": "Registrations",
+        "waitingList": "Waiting list",
+        "noAppointment": "There are currently no dates for this flight school"
     },
     "version": "Version"
 }

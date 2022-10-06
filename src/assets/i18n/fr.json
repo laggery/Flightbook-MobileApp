@@ -115,7 +115,8 @@
         "account": "Compte",
         "filtered": "filtré",
         "menu": "Menu",
-        "import": "Imports"
+        "import": "Imports",
+        "school": "Ecole"
     },
     "message": {
         "infotitle": "Information",
@@ -145,7 +146,9 @@
         "emptyIgcFile": "Ce fichier IGC est vide",
         "igcUploadError": "Le fichier IGC n'a pas pu être téléchargé",
         "igcCopyError": "Le fichier IGC n'a pas pu être copié",
-        "downloadExcel": "Le fichier Excel a été téléchargé et se trouve sous \"Documents\""
+        "downloadExcel": "Le fichier Excel a été téléchargé et se trouve sous \"Documents\"",
+        "removeSubscription": "Souhaites-tu vraiment te désinscrire ? Si tu te réinscris, tu seras en bas de la liste d'attente.",
+        "watingList": "C'est déjà complet. Tu es sur la liste d'attente."
     },
     "loading": {
         "createaccount": "Création compte...",
@@ -182,6 +185,26 @@
         "amountofflights": "Nombre de vols",
         "noflights": "Pas de vols",
         "lastflight": "Dernier vol"
+    },
+    "appointment": {
+        "dateTime": "Date et heure",
+        "meetingPoint": "Rendez-vous",
+        "maxPeople": "Max personnes",
+        "state": "Statut",
+        "instructor": "Instructeur",
+        "takeOffCoordinator": "Aide au décollage",
+        "description": "Description",
+        "stateValue": {
+            "ANNOUNCED": "Annoncé",
+            "CONFIRMED": "Confirmé",
+            "CANCELED": "Annulé",
+            "ALL": "Tous"
+        },
+        "passed": "Rendez-vous passé",
+        "appointments": "Rendez-vous",
+        "subscriptions": "Inscriptions",
+        "waitingList": "Liste d'attente",
+        "noAppointment": "Il n'y a actuellement aucune date pour cette école"
     },
     "version": "Version"
 }

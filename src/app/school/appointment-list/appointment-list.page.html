@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar color='primary'>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>{{ 'appointment.appointments' | translate }} <span
+      *ngIf="filtered">({{ 'groupname.filtered' | translate }})</span></ion-title>
+    <ion-buttons slot="primary">
+      <ion-button (click)="openFilter()">
+        <ion-icon name="filter-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="no-padding">
+  <ion-list *ngIf="appointments?.length > 0" >
+    <ion-item button detail *ngFor="let appointment of appointments" (click)="itemTapped($event, appointment)">
+      <p class="appointmentRow">
+        <ion-toggle class="subscription" disabled="{{ isPassedAppointment(appointment) }}" checked="{{ isUserSubscribed(appointment) }}" color="primary" (click)="subscriptionClick($event)" (ionChange)="subscriptionChange($event, appointment)"></ion-toggle>
+        <ion-label class="state">{{ 'appointment.stateValue.' + appointment.state| translate }}</ion-label>
+        <ion-label class="scheduling">{{ appointment.scheduling | date:'dd.MM.yyyy hh:mm'}}</ion-label>
+        <ion-label class="meetingPoint">{{ appointment.meetingPoint}}</ion-label>
+        <ion-label class="instructor">{{ appointment.instructor.firstname }} {{ appointment.instructor.lastname }}</ion-label>
+      </p>
+      <ion-icon item-end></ion-icon>
+    </ion-item>
+  </ion-list>
+
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="{{ 'loading.loading' | translate }}">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+  <p class="emptylist" *ngIf="!appointments || appointments?.length == 0">{{ 'appointment.noAppointment' | translate }}</p>
+</ion-content>
