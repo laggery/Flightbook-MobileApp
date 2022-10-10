@@ -19,7 +19,7 @@
       <p class="appointmentRow">
         <ion-toggle class="subscription" disabled="{{ isPassedAppointment(appointment) }}" checked="{{ isUserSubscribed(appointment) }}" color="primary" (click)="subscriptionClick($event)" (ionChange)="subscriptionChange($event, appointment)"></ion-toggle>
         <ion-label class="state">{{ 'appointment.stateValue.' + appointment.state| translate }}</ion-label>
-        <ion-label class="scheduling">{{ appointment.scheduling | date:'dd.MM.yyyy hh:mm'}}</ion-label>
+        <ion-label class="scheduling">{{ appointment.scheduling | date:'dd.MM.yyyy HH:mm':'UTC'}}</ion-label>
         <ion-label class="meetingPoint">{{ appointment.meetingPoint}}</ion-label>
         <ion-label class="instructor">{{ appointment.instructor.firstname }} {{ appointment.instructor.lastname }}</ion-label>
       </p>

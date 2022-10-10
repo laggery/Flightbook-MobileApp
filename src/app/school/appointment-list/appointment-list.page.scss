@@ -19,6 +19,10 @@
     min-width: 38px;
 }
 
+.ios .appointmentRow .subscription {
+    min-width: 50px;
+}
+
 ion-content {
     ion-item {
         pointer-events: auto;
