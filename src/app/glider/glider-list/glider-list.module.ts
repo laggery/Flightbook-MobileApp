@@ -9,7 +9,6 @@ import { GliderListPageRoutingModule } from './glider-list-routing.module';
 import { GliderListPage } from './glider-list.page';
 import { TranslateModule } from '@ngx-translate/core';
 import { GliderFilterComponent } from '../glider-filter/glider-filter.component';
-import { FileOpener } from '@ionic-native/file-opener/ngx';
 import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
@@ -21,9 +20,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
     TranslateModule.forChild(),
     SharedModule
   ],
-  providers: [
-    FileOpener
-  ],
+  providers: [],
   declarations: [GliderListPage, GliderFilterComponent],
   entryComponents: [GliderFilterComponent],
 })
