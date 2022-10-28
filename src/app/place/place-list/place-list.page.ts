@@ -5,7 +5,7 @@ import { Subject, Observable } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 import { Capacitor } from '@capacitor/core';
 import { Filesystem, Directory } from '@capacitor/filesystem';
-import { FileOpener } from '@ionic-native/file-opener/ngx';
+import { FileOpener } from '@capacitor-community/file-opener';
 import { Place } from 'src/app/place/shared/place.model';
 import { XlsxExportService } from 'src/app/shared/services/xlsx-export.service';
 import { PlaceService } from '../shared/place.service';
@@ -32,8 +32,7 @@ export class PlaceListPage implements OnInit, OnDestroy, AfterViewInit {
     private placeService: PlaceService,
     private translate: TranslateService,
     private loadingCtrl: LoadingController,
-    private xlsxExportService: XlsxExportService,
-    private fileOpener: FileOpener
+    private xlsxExportService: XlsxExportService
   ) {
     this.places$ = this.placeService.getState();
     this.lang = this.translate.currentLang;
@@ -115,7 +114,10 @@ export class PlaceListPage implements OnInit, OnDestroy, AfterViewInit {
             });
             await alert.present();
           } else {
-            await this.fileOpener.open(`${result.uri}`, 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+            await FileOpener.open({
+              filePath: result.uri,
+              contentType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+            });
           }
         } catch (e) {
           await loading.dismiss();

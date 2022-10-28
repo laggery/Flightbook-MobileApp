@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, EventEmitter } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { MenuController, NavController, AlertController, LoadingController } from '@ionic/angular';
 import { Router } from '@angular/router';
@@ -27,7 +27,6 @@ export class LoginPage implements OnInit, OnDestroy {
     password: ''
   };
   version = '';
-  loggedInEvent = new EventEmitter();
 
   constructor(
     private translate: TranslateService,
@@ -71,7 +70,6 @@ export class LoginPage implements OnInit, OnDestroy {
         await loading.dismiss();
         localStorage.setItem('access_token', resp.access_token);
         localStorage.setItem('refresh_token', resp.refresh_token);
-        this.loggedInEvent.emit();
         this.router.navigate(['news']).then(() => {
           this.menuCtrl.enable(true);
         });

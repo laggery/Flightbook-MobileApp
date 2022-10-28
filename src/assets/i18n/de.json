@@ -147,6 +147,7 @@
         "igcUploadError": "IGC-Datei konnte nicht hochgeladen werden",
         "igcCopyError": "IGC-Datei konnte nicht kopiert werden",
         "downloadExcel": "Die Excel-Datei wurde heruntergeladen und befindet sich unter \"Dokumente\"",
+        "subscription": "Möchtest du dich wirklich für diesen Termin anmelden?",
         "removeSubscription": "Möchtest du dich wirklich abmelden? Falls du dich erneut anmeldest, wirst du zuunterst von der Warteliste sein.",
         "watingList": "Es ist bereits ausgebucht. Du stehst auf der Warteliste."
     },
@@ -192,7 +193,7 @@
         "maxPeople": "Max Teilnehmer",
         "state": "Status",
         "instructor": "Fluglehrer",
-        "takeOffCoordinator": "Start Helfer",
+        "takeOffCoordinator": "Starthelfer",
         "description": "Beschreibung",
         "stateValue": {
             "ANNOUNCED": "Angesagt",

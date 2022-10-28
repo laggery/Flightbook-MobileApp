@@ -9,7 +9,7 @@ import { SplashScreen } from '@capacitor/splash-screen';
 setTimeout(() => {
   SplashScreen.hide();
 }, 700);
-import { FileOpener } from '@ionic-native/file-opener/ngx';
+import { FileOpener } from '@capacitor-community/file-opener'
 import { Router } from '@angular/router';
 import { News } from './shared/news.model';
 import { XlsxExportService } from '../shared/services/xlsx-export.service';
@@ -45,8 +45,7 @@ export class NewsPage implements OnInit, OnDestroy {
     private flightService: FlightService,
     private loadingCtrl: LoadingController,
     private router: Router,
-    private xlsxExportService: XlsxExportService,
-    private fileOpener: FileOpener
+    private xlsxExportService: XlsxExportService
   ) {
     this.menuCtrl.enable(true);
   }
@@ -119,7 +118,10 @@ export class NewsPage implements OnInit, OnDestroy {
             });
             await alert.present();
           } else {
-            await this.fileOpener.open(`${result.uri}`, 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+            await FileOpener.open({
+              filePath: result.uri,
+              contentType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+            });
           }
         } catch (e) {
           await loading.dismiss();

@@ -8,7 +8,6 @@ import { NewsPageRoutingModule } from './news-routing.module';
 
 import { NewsPage } from './news.page';
 import { TranslateModule } from '@ngx-translate/core';
-import { FileOpener } from '@ionic-native/file-opener/ngx';
 import { DashboardContainerModule } from '../dashboard/dashboard-container/dashboard-container.module';
 import { DashboardItemModule } from '../dashboard/dashboard-item/dashboard-item.module';
 
@@ -22,9 +21,7 @@ import { DashboardItemModule } from '../dashboard/dashboard-item/dashboard-item.
     DashboardContainerModule,
     DashboardItemModule
   ],
-  providers: [
-    FileOpener
-  ],
+  providers: [],
   declarations: [NewsPage]
 })
 export class NewsPageModule {}

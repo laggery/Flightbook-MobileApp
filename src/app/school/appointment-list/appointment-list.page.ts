@@ -86,11 +86,31 @@ export class AppointmentListPage implements OnInit, OnDestroy {
 
   async subscriptionChange(event: CustomEvent, appointment: Appointment) {
     if (event.detail.checked) {
-      firstValueFrom(this.schoolService.subscribeToAppointment(this.schoolId, appointment.id));
-      this.initialDataLoad();
-      if (appointment.maxPeople && appointment.subscriptions.length == appointment.maxPeople) {
-        this.informWaitingList();
-      }
+      const alert = await this.alertController.create({
+        header: this.translate.instant('message.infotitle'),
+        message: this.translate.instant('message.subscription'),
+        backdropDismiss: false,
+        buttons: [
+          {
+            text: this.translate.instant('buttons.yes'),
+            handler: () => {
+              firstValueFrom(this.schoolService.subscribeToAppointment(this.schoolId, appointment.id));
+              this.initialDataLoad();
+              if (appointment.maxPeople && appointment.subscriptions.length == appointment.maxPeople) {
+                this.informWaitingList();
+              }
+            }
+          },
+          {
+            text: this.translate.instant('buttons.no'),
+            handler: () => {
+              this.initialDataLoad();
+            }
+          }
+        ]
+      });
+
+      await alert.present();
     } else {
       if (appointment.maxPeople && appointment.subscriptions.length > appointment.maxPeople) {
         const alert = await this.alertController.create({

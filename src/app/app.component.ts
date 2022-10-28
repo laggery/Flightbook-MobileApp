@@ -22,6 +22,7 @@ import { LoginPage } from './account/login/login.page';
 export class AppComponent implements OnDestroy, OnInit {
   unsubscribe$ = new Subject<void>();
   schools: School[] = [];
+  schoolRequestFired = false;
 
   constructor(
     private platform: Platform,
@@ -33,7 +34,7 @@ export class AppComponent implements OnDestroy, OnInit {
     private flighService: FlightService,
     private gliderService: GliderService,
     private placeService: PlaceService,
-    private schoolService:SchoolService
+    private schoolService: SchoolService
   ) {
     this.initializeApp();
     this.translate.setDefaultLang('en');
@@ -46,10 +47,6 @@ export class AppComponent implements OnDestroy, OnInit {
         this.swUpdate.activateUpdate().then(() => document.location.reload());
       });
     }
-
-    this.schoolService.getSchools().pipe(takeUntil(this.unsubscribe$)).subscribe((schools: School[]) => {
-      this.schools = schools;
-    })
   }
 
   initializeApp() {
@@ -67,18 +64,20 @@ export class AppComponent implements OnDestroy, OnInit {
       // TODO error handling
       localStorage.removeItem('access_token');
       localStorage.removeItem('refresh_token');
+      this.schoolRequestFired = false;
     });
     this.schools = [];
   }
 
   subscribeToEmmiter(componentRef: any) {
-    if (!(componentRef instanceof LoginPage)){
+    if (componentRef instanceof LoginPage || this.schoolRequestFired) {
       return;
-  }
-    const child : LoginPage = componentRef;
-    child.loggedInEvent.pipe(takeUntil(this.unsubscribe$)).subscribe(() => {
-      this.ngOnInit();
-    });
+    }
+
+    this.schoolService.getSchools().pipe(takeUntil(this.unsubscribe$)).subscribe((schools: School[]) => {
+      this.schools = schools;
+    })
+    this.schoolRequestFired = true;
   }
 
   ngOnDestroy() {

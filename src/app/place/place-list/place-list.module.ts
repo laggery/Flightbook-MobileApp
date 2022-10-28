@@ -8,7 +8,6 @@ import { PlaceListPageRoutingModule } from './place-list-routing.module';
 
 import { PlaceListPage } from './place-list.page';
 import { TranslateModule } from '@ngx-translate/core';
-import { FileOpener } from '@ionic-native/file-opener/ngx';
 import { FlagsModule } from 'nxt-flags';
 
 @NgModule({
@@ -20,9 +19,7 @@ import { FlagsModule } from 'nxt-flags';
     TranslateModule.forChild(),
     FlagsModule
   ],
-  providers: [
-    FileOpener
-  ],
+  providers: [],
   declarations: [PlaceListPage]
 })
 export class PlaceListPageModule {}

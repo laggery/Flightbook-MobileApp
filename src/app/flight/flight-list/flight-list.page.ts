@@ -5,7 +5,7 @@ import { takeUntil } from 'rxjs/operators';
 import { FlightFilterComponent } from 'src/app/form/flight-filter/flight-filter.component';
 import { TranslateService } from '@ngx-translate/core';
 import { TCreatedPdf } from 'pdfmake/build/pdfmake';
-import { FileOpener } from '@ionic-native/file-opener/ngx';
+import { FileOpener } from '@capacitor-community/file-opener';
 
 import { Capacitor } from '@capacitor/core';
 import { Filesystem, Directory } from '@capacitor/filesystem';
@@ -36,8 +36,7 @@ export class FlightListPage implements OnInit, OnDestroy, AfterViewInit {
     private translate: TranslateService,
     private loadingCtrl: LoadingController,
     private xlsxExportService: XlsxExportService,
-    private pdfExportService: PdfExportService,
-    private fileOpener: FileOpener
+    private pdfExportService: PdfExportService
   ) {
     this.flights$ = this.flightService.getState();
     this.filtered = this.flightService.filtered$.getValue();
@@ -143,7 +142,10 @@ export class FlightListPage implements OnInit, OnDestroy, AfterViewInit {
             });
             await alert.present();
           } else {
-            await this.fileOpener.open(`${result.uri}`, 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+            await FileOpener.open({
+              filePath: result.uri,
+              contentType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+            });
           }
         } catch (e) {
           await loading.dismiss();
@@ -186,12 +188,15 @@ export class FlightListPage implements OnInit, OnDestroy, AfterViewInit {
               recursive: true
             });
             await loading.dismiss();
-            await this.fileOpener.open(`${result.uri}`, 'application/pdf');
+            await FileOpener.open({
+              filePath: result.uri,
+              contentType: 'application/pdf'
+            });
           } catch (e) {
             loading.dismiss();
             const alert = await this.alertController.create({
               header: this.translate.instant('message.infotitle'),
-              message: this.translate.instant('message.generationError'),
+              message: e,
               buttons: [this.translate.instant('buttons.done')]
             });
             await alert.present();
