@@ -147,6 +147,7 @@
         "igcUploadError": "Le fichier IGC n'a pas pu être téléchargé",
         "igcCopyError": "Le fichier IGC n'a pas pu être copié",
         "downloadExcel": "Le fichier Excel a été téléchargé et se trouve sous \"Documents\"",
+        "subscription": "Voulez-vous vraiment vous inscrire à ce rendez-vous?",
         "removeSubscription": "Souhaites-tu vraiment te désinscrire ? Si tu te réinscris, tu seras en bas de la liste d'attente.",
         "watingList": "C'est déjà complet. Tu es sur la liste d'attente."
     },
