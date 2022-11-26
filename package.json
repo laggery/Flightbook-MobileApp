@@ -1,6 +1,6 @@
 {
   "name": "flightbook",
-  "version": "2.4.3",
+  "version": "2.4.4",
   "author": "Yannick Lagger",
   "homepage": "https://flightbook.ch/",
   "scripts": {
@@ -32,6 +32,7 @@
     "@capacitor/haptics": "^4.0.0",
     "@capacitor/ios": "^4.0.0",
     "@capacitor/keyboard": "^4.0.0",
+    "@capacitor/push-notifications": "^4.1.0",
     "@capacitor/splash-screen": "^4.0.0",
     "@capacitor/status-bar": "^4.0.0",
     "@capawesome/capacitor-file-picker": "^0.4.0",

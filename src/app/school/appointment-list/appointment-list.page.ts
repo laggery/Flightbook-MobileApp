@@ -10,6 +10,7 @@ import { SchoolService } from '../shared/school.service';
 import { Subscription } from '../shared/subscription.model';
 import { AppointmentDetailsComponent } from '../shared/components/appointment-details/appointment-details.component';
 import { AppointmentFilterComponent } from '../shared/components/appointment-filter/appointment-filter.component';
+import { State } from '../shared/state';
 
 @Component({
   selector: 'app-appointment-list',
@@ -23,6 +24,7 @@ export class AppointmentListPage implements OnInit, OnDestroy {
   currentUser: User;
   filtered: boolean;
   private readonly schoolId: number;
+  private appointmentId: number;
 
   constructor(
     private activeRoute: ActivatedRoute,
@@ -40,6 +42,7 @@ export class AppointmentListPage implements OnInit, OnDestroy {
         this.filtered = res;
       });
     this.schoolId = +this.activeRoute.snapshot.paramMap.get('id');
+    this.appointmentId = +this.activeRoute.snapshot.queryParamMap.get('appointmentId');
   }
 
   ngOnInit() {
@@ -63,21 +66,31 @@ export class AppointmentListPage implements OnInit, OnDestroy {
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(async (res: Appointment[]) => {
         this.appointments = res;
+        const appointmentToOpen = this.appointments.find((appointment: Appointment) => appointment.id == this.appointmentId);
+        if (appointmentToOpen) {
+          this.appointmentId = undefined;
+          this.itemTapped(appointmentToOpen);
+        }
         await loading.dismiss();
       }, async (error: any) => {
         await loading.dismiss();
       });
   }
 
-  async itemTapped(event: MouseEvent, appointment: Appointment) {
+  async itemTapped(appointment: Appointment) {
     const modal = await this.modalCtrl.create({
       component: AppointmentDetailsComponent,
       componentProps: {
-        appointment
+        appointment,
+        currentUser: this.currentUser,
+        schoolId: this.schoolId
       }
     });
     modal.present();
-    await modal.onWillDismiss();
+    const resp = await modal.onWillDismiss();
+    if (resp.data.hasChange){
+      this.initialDataLoad();
+    }
   }
 
   subscriptionClick(event: MouseEvent) {
@@ -179,8 +192,8 @@ export class AppointmentListPage implements OnInit, OnDestroy {
     return false;
   }
 
-  isPassedAppointment(appointment: Appointment) {
-    if (new Date(appointment.scheduling).getTime() < new Date().getTime()) {
+  isDisabled(appointment: Appointment) {
+    if (new Date(appointment.scheduling).getTime() < new Date().getTime() || appointment.state == State.CANCELED) {
       return true;
     }
     return false;

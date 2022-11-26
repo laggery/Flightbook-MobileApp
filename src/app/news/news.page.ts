@@ -45,8 +45,6 @@ export class NewsPage implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    
-
     this.newsData$ = this.newsService.getState();
     if (this.newsService.getValue().length === 0) {
       this.initialDataLoad();

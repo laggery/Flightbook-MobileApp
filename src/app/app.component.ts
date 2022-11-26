@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 
-import { Platform, MenuController } from '@ionic/angular';
+import { Platform, MenuController, AlertController } from '@ionic/angular';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { TranslateService } from '@ngx-translate/core';
-import { Subject } from 'rxjs';
+import { firstValueFrom, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { SwUpdate } from '@angular/service-worker';
 import { AccountService } from './account/shared/account.service';
@@ -13,6 +13,14 @@ import { PlaceService } from './place/shared/place.service';
 import { SchoolService } from './school/shared/school.service';
 import { School } from './school/shared/school.model';
 import { LoginPage } from './account/login/login.page';
+import {
+  ActionPerformed,
+  PushNotificationSchema,
+  PushNotifications,
+  Token,
+} from '@capacitor/push-notifications';
+import { Capacitor } from '@capacitor/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -22,9 +30,10 @@ import { LoginPage } from './account/login/login.page';
 export class AppComponent implements OnDestroy, OnInit {
   unsubscribe$ = new Subject<void>();
   schools: School[] = [];
-  schoolRequestFired = false;
+  initialRequestsFired = false;
 
   constructor(
+    private router: Router,
     private platform: Platform,
     private statusBar: StatusBar,
     private translate: TranslateService,
@@ -34,7 +43,8 @@ export class AppComponent implements OnDestroy, OnInit {
     private flighService: FlightService,
     private gliderService: GliderService,
     private placeService: PlaceService,
-    private schoolService: SchoolService
+    private schoolService: SchoolService,
+    private alertController: AlertController
   ) {
     this.initializeApp();
     this.translate.setDefaultLang('en');
@@ -64,20 +74,104 @@ export class AppComponent implements OnDestroy, OnInit {
       // TODO error handling
       localStorage.removeItem('access_token');
       localStorage.removeItem('refresh_token');
-      this.schoolRequestFired = false;
+      this.initialRequestsFired = false;
     });
     this.schools = [];
   }
 
   subscribeToEmmiter(componentRef: any) {
-    if (componentRef instanceof LoginPage || this.schoolRequestFired) {
+    if (componentRef instanceof LoginPage || this.initialRequestsFired) {
       return;
     }
 
     this.schoolService.getSchools().pipe(takeUntil(this.unsubscribe$)).subscribe((schools: School[]) => {
       this.schools = schools;
     })
-    this.schoolRequestFired = true;
+
+    if (Capacitor.isNativePlatform()) {
+      this.initPushNotification();
+    }
+
+    this.initialRequestsFired = true;
+  }
+
+  private initPushNotification() {
+    PushNotifications.requestPermissions().then((result) => {
+      if (result.receive === 'granted') {
+        PushNotifications.register();
+      } else {
+        // Show some error
+      }
+    });
+
+    PushNotifications.addListener('registration', (token: Token) => {
+      // Push Notifications registered successfully.
+      // Send token details to API to keep in DB.
+      firstValueFrom(this.accountService.updateNotificationToken(token.value));
+    });
+
+    PushNotifications.addListener('registrationError', async(error: any) => {
+      // Handle push notification registration error here.
+      const alert = await this.alertController.create({
+        header: this.translate.instant('message.warning'),
+        message: this.translate.instant('message.notificationRegistrationFailed'),
+        backdropDismiss: false,
+        buttons: [
+          {
+            text: this.translate.instant('buttons.done')
+          }
+        ]
+      });
+      await alert.present();
+    });
+
+    PushNotifications.addListener(
+      'pushNotificationReceived',
+      async (notification: PushNotificationSchema) => {
+        // Show the notification payload if the app is open on the device.
+        const alert = await this.alertController.create({
+          header: notification.title,
+          message: notification.body.replace('\r\n', '<br/>'),
+          backdropDismiss: false,
+          buttons: [
+            {
+              text: this.translate.instant('buttons.done')
+            },
+            {
+              text: this.translate.instant('buttons.show'),
+              handler: () => {
+                const type = notification.data.type
+                if (type == "APPOINTMENT") {
+                  const schoolId = notification.data.schoolId
+                  const appointmentId = notification.data.appointmentId
+                  this.router.navigate(
+                    ['/school/', schoolId],
+                    { queryParams: { appointmentId: appointmentId } }
+                  );
+                }
+              }
+            }
+          ]
+        });
+        await alert.present();
+      }
+    );
+
+    PushNotifications.addListener(
+      'pushNotificationActionPerformed',
+      (notification: ActionPerformed) => {
+        // Action when user tap on a notification.
+        const type = notification.notification.data.type
+        if (type == "APPOINTMENT") {
+          const schoolId = notification.notification.data.schoolId
+          const appointmentId = notification.notification.data.appointmentId
+          this.router.navigate(
+            ['/school/', schoolId],
+            { queryParams: { appointmentId: appointmentId } }
+          );
+        }
+      }
+    );
   }
 
   ngOnDestroy() {
