@@ -46,7 +46,7 @@
     "b64-to-blob": "^1.2.19",
     "cordova-plugin-app-version": "^0.1.12",
     "core-js": "^2.5.4",
-    "d3": "^6.3.1",
+    "d3": "^7.6.1",
     "file-saver": "^2.0.2",
     "igc-parser": "^1.1.0",
     "igc-xc-score": "^1.6.0",
