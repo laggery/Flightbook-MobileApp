@@ -31,6 +31,10 @@ export class SchoolService {
     return this.http.get<Appointment[]>(`${environment.baseUrl}/student/schools/${schoolId}/appointments`, { params });
   }
 
+  getAppointment(schoolId: number, appointmentId: number ): Observable<Appointment> {
+    return this.http.get<Appointment>(`${environment.baseUrl}/student/schools/${schoolId}/appointments/${appointmentId}`);
+  }
+
   subscribeToAppointment(schoolId: number, appointmentId: number): Observable<Appointment> {
     return this.http.post<Appointment>(`${environment.baseUrl}/student/schools/${schoolId}/appointments/${appointmentId}/subscriptions`, {});
   }

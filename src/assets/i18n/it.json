@@ -149,7 +149,8 @@
         "downloadExcel": "Il file Excel è stato scaricato e si trova sotto \"Documenti\"",
         "subscription": "Volete davvero iscrivervi a questo appuntamento?",
         "removeSubscription": "Vuoi davvero annullare l'iscrizione? Se ci si iscrive nuovamente, si viene inseriti in fondo alla lista d'attesa.",
-        "watingList": "È già pieno. Siete in lista d'attesa."
+        "watingList": "È già pieno. Siete in lista d'attesa.",
+        "notificationRegistrationFailed": "L'app non è riuscita a registrarsi per le notifiche push. Provate a chiudere l'app e a riaprirla."
     },
     "loading": {
         "createaccount": "Iscrizione...",
@@ -204,6 +205,7 @@
         "passed": "Appuntamento fissato",
         "appointments": "Date",
         "subscriptions": "Iscrizioni",
+        "subscription": "Registrazione",
         "waitingList": "Lista d'attesa",
         "noAppointment": "Al momento non ci sono date per questa scuola"
     },

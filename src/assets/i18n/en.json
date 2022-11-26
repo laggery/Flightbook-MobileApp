@@ -149,7 +149,8 @@
         "downloadExcel": "Excel file has been downloaded and is under \"Documents\"",
         "subscription": "Do you really want to register for this appointment?",
         "removeSubscription": "Do you really want to unsubscribe? If you sign up again, you will be at the bottom of the waiting list.",
-        "watingList": "It's already full. You are on the waiting list."
+        "watingList": "It's already full. You are on the waiting list.",
+        "notificationRegistrationFailed": "The app could not register for push notifications. Try closing the app and opening it again."
     },
     "loading": {
         "createaccount": "Create account...",
@@ -204,6 +205,7 @@
         "passed": "Passed appointments",
         "appointments": "Appointments",
         "subscriptions": "Registrations",
+        "subscription": "Registration",
         "waitingList": "Waiting list",
         "noAppointment": "There are currently no dates for this flight school"
     },

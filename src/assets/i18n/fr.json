@@ -149,7 +149,8 @@
         "downloadExcel": "Le fichier Excel a été téléchargé et se trouve sous \"Documents\"",
         "subscription": "Voulez-vous vraiment vous inscrire à ce rendez-vous?",
         "removeSubscription": "Souhaites-tu vraiment te désinscrire ? Si tu te réinscris, tu seras en bas de la liste d'attente.",
-        "watingList": "C'est déjà complet. Tu es sur la liste d'attente."
+        "watingList": "C'est déjà complet. Tu es sur la liste d'attente.",
+        "notificationRegistrationFailed": "L'application n'a pas pu s'enregistrer pour les notifications push. Essayez de fermer l'application et de l'ouvrir à nouveau."
     },
     "loading": {
         "createaccount": "Création compte...",
@@ -204,6 +205,7 @@
         "passed": "Rendez-vous passé",
         "appointments": "Rendez-vous",
         "subscriptions": "Inscriptions",
+        "subscription": "Inscription",
         "waitingList": "Liste d'attente",
         "noAppointment": "Il n'y a actuellement aucune date pour cette école"
     },

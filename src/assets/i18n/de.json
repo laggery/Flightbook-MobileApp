@@ -149,7 +149,8 @@
         "downloadExcel": "Die Excel-Datei wurde heruntergeladen und befindet sich unter \"Dokumente\"",
         "subscription": "Möchtest du dich wirklich für diesen Termin anmelden?",
         "removeSubscription": "Möchtest du dich wirklich abmelden? Falls du dich erneut anmeldest, wirst du zuunterst von der Warteliste sein.",
-        "watingList": "Es ist bereits ausgebucht. Du stehst auf der Warteliste."
+        "watingList": "Es ist bereits ausgebucht. Du stehst auf der Warteliste.",
+        "notificationRegistrationFailed": "Die Applikation konnte sich nicht für die Push Notifikationen registrieren. Versuchen sie die Applikation zu schliessen und nochmals zu öffnen."
     },
     "loading": {
         "createaccount": "Registrieren...",
@@ -204,6 +205,7 @@
         "passed": "Vergangene Termine",
         "appointments": "Termine",
         "subscriptions": "Anmeldungen",
+        "subscription": "Anmeldung",
         "waitingList": "Warte liste",
         "noAppointment": "Zurzeit gibt es keine Termine für diese Flugschule"
     },

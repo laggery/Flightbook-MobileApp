@@ -18,12 +18,6 @@ import { NewsService } from './shared/news.service';
 import { GliderService } from '../glider/shared/glider.service';
 import { PlaceService } from '../place/shared/place.service';
 import { FlightService } from '../flight/shared/flight.service';
-import {
-  ActionPerformed,
-  PushNotificationSchema,
-  PushNotifications,
-  Token,
-} from '@capacitor/push-notifications';
 
 @Component({
   selector: 'app-news',
@@ -55,7 +49,6 @@ export class NewsPage implements OnInit, OnDestroy {
     if (this.newsService.getValue().length === 0) {
       this.initialDataLoad();
     }
-    this.initPushNotification();
   }
 
   ngOnDestroy() {
@@ -143,43 +136,6 @@ export class NewsPage implements OnInit, OnDestroy {
     }, async (error: any) => {
       await loading.dismiss();
     });
-  }
-
-  private initPushNotification () {
-    PushNotifications.requestPermissions().then((result) => {
-      if (result.receive === 'granted') {
-        PushNotifications.register();
-      } else {
-        // Show some error
-      }
-    });
-
-    PushNotifications.addListener('registration', (token: Token) => {
-      // Push Notifications registered successfully.
-      // Send token details to API to keep in DB.
-      alert('Push registration success, token: ' + token.value);
-    });
-
-    PushNotifications.addListener('registrationError', (error: any) => {
-      // Handle push notification registration error here.
-      alert('Error on registration: ' + JSON.stringify(error));
-    });
-
-    PushNotifications.addListener(
-      'pushNotificationReceived',
-      (notification: PushNotificationSchema) => {
-        // Show the notification payload if the app is open on the device.
-        alert('Push received: ' + JSON.stringify(notification));
-      }
-    );
-
-    PushNotifications.addListener(
-      'pushNotificationActionPerformed',
-      (notification: ActionPerformed) => {
-        // Implement the needed action to take when user tap on a notification.
-        alert('Push action performed: ' + JSON.stringify(notification));
-      }
-    );
   }
 
 }

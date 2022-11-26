@@ -39,6 +39,10 @@ export class AccountService {
     return this.http.put<User>(`${environment.baseUrl}/users`, user);
   }
 
+  updateNotificationToken(notificationToken: string): Observable<any> {
+    return this.http.put<any>(`${environment.baseUrl}/users/notification/token`, {token: notificationToken});
+  }
+
   updatePassword(pwd: any): Observable<User> {
     return this.http.put<any>(`${environment.baseUrl}/users/password/change`, pwd);
   }

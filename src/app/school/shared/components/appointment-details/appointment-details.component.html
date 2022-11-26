@@ -8,6 +8,10 @@
 </ion-header>
 <ion-content class="ion-padding">
   <ion-item>
+    <ion-label position="stacked">{{ 'appointment.subscription' | translate }}</ion-label>
+    <ion-toggle class="subscription" disabled="{{ isDisabled() }}" [(ngModel)]="isSubscribed" (click)="subscribe()" color="primary"></ion-toggle>
+  </ion-item>
+  <ion-item>
     <ion-label position="stacked">{{ 'appointment.state' | translate }}</ion-label>
     <p class="item-value">{{ 'appointment.stateValue.' + appointment.state| translate }}</p>
   </ion-item>
