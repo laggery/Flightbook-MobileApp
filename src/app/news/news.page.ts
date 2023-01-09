@@ -10,7 +10,6 @@ setTimeout(() => {
   SplashScreen.hide();
 }, 700);
 import { FileOpener } from '@capacitor-community/file-opener'
-import { Router } from '@angular/router';
 import { News } from './shared/news.model';
 import { XlsxExportService } from '../shared/services/xlsx-export.service';
 import { Flight } from '../flight/shared/flight.model';
@@ -18,6 +17,8 @@ import { NewsService } from './shared/news.service';
 import { GliderService } from '../glider/shared/glider.service';
 import { PlaceService } from '../place/shared/place.service';
 import { FlightService } from '../flight/shared/flight.service';
+import { PaymentService } from '../shared/services/payment.service';
+import { PaymentStatus } from '../account/shared/paymentStatus.model';
 
 @Component({
   selector: 'app-news',
@@ -28,6 +29,7 @@ export class NewsPage implements OnInit, OnDestroy {
   unsubscribe$ = new Subject<void>();
   newsData$: Observable<News[]>;
   flights$: Observable<Flight[]>;
+  paymentStatus: PaymentStatus;
 
   constructor(
     private menuCtrl: MenuController,
@@ -38,15 +40,19 @@ export class NewsPage implements OnInit, OnDestroy {
     private placeService: PlaceService,
     private flightService: FlightService,
     private loadingCtrl: LoadingController,
-    private router: Router,
-    private xlsxExportService: XlsxExportService
+    private xlsxExportService: XlsxExportService,
+    private paymentService: PaymentService
   ) {
     this.menuCtrl.enable(true);
+
+    this.paymentService.getPaymentStatus().pipe(takeUntil(this.unsubscribe$)).subscribe((paymentStatus: PaymentStatus) => {
+      this.paymentStatus = paymentStatus;
+    });
   }
 
   ngOnInit() {
     this.newsData$ = this.newsService.getState();
-    if (this.newsService.getValue().length === 0) {
+    if (this.newsService.getValue().length === 0 || this.newsService.getValue()[0].language != this.translate.currentLang) {
       this.initialDataLoad();
     }
   }

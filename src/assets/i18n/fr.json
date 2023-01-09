@@ -190,8 +190,8 @@
     },
     "appointment": {
         "dateTime": "Date et heure",
-        "meetingPoint": "Rendez-vous",
-        "maxPeople": "Max personnes",
+        "meetingPoint": "Point de rencontre",
+        "maxPeople": "Max participants",
         "state": "Statut",
         "instructor": "Instructeur",
         "takeOffCoordinator": "Aide au décollage",
@@ -208,6 +208,10 @@
         "subscription": "Inscription",
         "waitingList": "Liste d'attente",
         "noAppointment": "Il n'y a actuellement aucune date pour cette école"
+    },
+    "payment": {
+        "noSubscription": "Vous n'avez actuellement pas d'abonnement",
+        "information": "Votre abonnement sera automatiquement renouvelé le {{ date }}. Vous serez débité d'un montant de CHF 12.00/année"
     },
     "version": "Version"
 }

@@ -21,6 +21,8 @@ import {
 } from '@capacitor/push-notifications';
 import { Capacitor } from '@capacitor/core';
 import { Router } from '@angular/router';
+import { PaymentStatus } from './account/shared/paymentStatus.model';
+import { PaymentService } from './shared/services/payment.service';
 
 @Component({
   selector: 'app-root',
@@ -44,7 +46,8 @@ export class AppComponent implements OnDestroy, OnInit {
     private gliderService: GliderService,
     private placeService: PlaceService,
     private schoolService: SchoolService,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private paymentService: PaymentService
   ) {
     this.initializeApp();
     this.translate.setDefaultLang('en');
@@ -91,6 +94,10 @@ export class AppComponent implements OnDestroy, OnInit {
     if (Capacitor.isNativePlatform()) {
       this.initPushNotification();
     }
+
+    this.accountService.getPaymentStatus().pipe(takeUntil(this.unsubscribe$)).subscribe((paymentStatus: PaymentStatus) => {
+      this.paymentService.setPaymentStatus(paymentStatus);
+    })
 
     this.initialRequestsFired = true;
   }

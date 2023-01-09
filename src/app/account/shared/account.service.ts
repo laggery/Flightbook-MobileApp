@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { environment } from 'src/environments/environment';
 import { User } from './user.model';
+import { PaymentStatus } from './paymentStatus.model';
 
 @Injectable({
   providedIn: 'root'
@@ -53,6 +54,10 @@ export class AccountService {
 
   deleteUser(): Observable<any> {
     return this.http.delete(`${environment.baseUrl}/users`);
+  }
+
+  getPaymentStatus(): Observable<PaymentStatus> {
+    return this.http.get<PaymentStatus>(`${environment.baseUrl}/payments/status`);
   }
 
   async isAuth(): Promise<boolean> {

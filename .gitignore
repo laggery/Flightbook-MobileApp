@@ -1,6 +1,9 @@
 # Specifies intentionally untracked files to ignore when using Git
 # http://git-scm.com/docs/gitignore
 
+android/app/google-services.json
+ios/App/App/GoogleService-Info.plist
+
 *~
 *.sw[mnpcod]
 .tmp

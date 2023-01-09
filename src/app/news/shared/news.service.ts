@@ -18,7 +18,7 @@ export class NewsService extends Store<News[]> {
   getNews(language: string): Observable<any> {
     return this.http.get<News[]>(`${environment.baseUrl}/news/${language}`).pipe(
       map((response: News[]) => {
-        const newState = [...this.getValue(), ...response];
+        const newState = [...response];
         this.setState(newState);
         return response;
       })

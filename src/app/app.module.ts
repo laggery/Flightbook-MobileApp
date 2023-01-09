@@ -17,6 +17,7 @@ import { SharedModule } from './shared/shared.module';
 
 import { HttpAuthInterceptor } from './shared/interceptor/auth.interceptor';
 import { HttpErrorInterceptor } from './shared/interceptor/error.interceptor';
+import { PaymentService } from './shared/services/payment.service';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -49,7 +50,8 @@ export function tokenGetter() {
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: HTTP_INTERCEPTORS, useClass: HttpAuthInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
+    PaymentService
   ],
   bootstrap: [AppComponent]
 })
