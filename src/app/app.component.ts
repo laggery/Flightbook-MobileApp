@@ -21,6 +21,7 @@ import {
 } from '@capacitor/push-notifications';
 import { Capacitor } from '@capacitor/core';
 import { Router } from '@angular/router';
+import { RegisterPage } from './account/register/register.page';
 import { PaymentStatus } from './account/shared/paymentStatus.model';
 import { PaymentService } from './shared/services/payment.service';
 
@@ -83,7 +84,7 @@ export class AppComponent implements OnDestroy, OnInit {
   }
 
   subscribeToEmmiter(componentRef: any) {
-    if (componentRef instanceof LoginPage || this.initialRequestsFired) {
+    if (componentRef instanceof LoginPage || componentRef instanceof RegisterPage || this.initialRequestsFired) {
       return;
     }
 
