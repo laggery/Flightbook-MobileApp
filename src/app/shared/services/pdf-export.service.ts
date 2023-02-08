@@ -35,11 +35,11 @@ export class PdfExportService {
     let landingPlaces = new Set();
     flights.forEach((flight: Flight) => {
 
-      if (flight.start) {
+      if (flight.start && flight.start.name) {
         startPlaces.add(JSON.stringify(flight.start));
       }
 
-      if (flight.landing) {
+      if (flight.landing && flight.landing.name) {
         landingPlaces.add(JSON.stringify(flight.landing));
       }
 
