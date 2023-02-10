@@ -8,6 +8,8 @@ import { FlightService } from 'src/app/flight/shared/flight.service';
 import { GliderService } from 'src/app/glider/shared/glider.service';
 import { PlaceService } from 'src/app/place/shared/place.service';
 import { Subject, takeUntil } from 'rxjs';
+import { PaymentService } from 'src/app/shared/services/payment.service';
+import { PaymentStatus } from '../shared/paymentStatus.model';
 
 @Component({
   selector: 'app-settings',
@@ -17,6 +19,7 @@ import { Subject, takeUntil } from 'rxjs';
 export class SettingsPage implements OnInit, OnDestroy {
   unsubscribe$ = new Subject<void>();
   user: User;
+  paymentStatus: PaymentStatus;
 
   constructor(
     private translate: TranslateService,
@@ -27,11 +30,16 @@ export class SettingsPage implements OnInit, OnDestroy {
     private gliderService: GliderService,
     private placeService: PlaceService,
     private menuCtrl: MenuController,
-    public navCtrl: NavController
+    public navCtrl: NavController,
+    private paymentService: PaymentService
   ) {
     this.accountService.currentUser().pipe(takeUntil(this.unsubscribe$)).subscribe((resp: User) => {
       this.user = resp;
     })
+
+    this.paymentService.getPaymentStatus().pipe(takeUntil(this.unsubscribe$)).subscribe((paymentStatus: PaymentStatus) => {
+      this.paymentStatus = paymentStatus;
+    });
   }
 
   ngOnInit() {

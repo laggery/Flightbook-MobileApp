@@ -207,7 +207,12 @@
         "subscriptions": "Anmeldungen",
         "subscription": "Anmeldung",
         "waitingList": "Warte liste",
-        "noAppointment": "Zurzeit gibt es keine Termine für diese Flugschule"
+        "noAppointment": "Zurzeit gibt es keine Termine für diese Flugschule",
+        "type": "Terminart"
+    },
+    "payment": {
+        "noSubscription": "Sie haben zurzeit kein Abonnement",
+        "information": "Ihr Abonnement wird am {{ date }} automatisch verlängert. Sie werden mit einem Betrag von CHF 12.00/Jahr belastet."
     },
     "version": "Version"
 }

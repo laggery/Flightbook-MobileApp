@@ -207,7 +207,12 @@
         "subscriptions": "Iscrizioni",
         "subscription": "Registrazione",
         "waitingList": "Lista d'attesa",
-        "noAppointment": "Al momento non ci sono date per questa scuola"
+        "noAppointment": "Al momento non ci sono date per questa scuola",
+        "type": "Tipo"
+    },
+    "payment": {
+        "noSubscription": "Al momento non si dispone di un abbonamento",
+        "information": "L'abbonamento sarà rinnovato automaticamente alla {{ date }}. Verranno addebitati CHF 12.00/anno."
     },
     "version": "Versione"
 }

@@ -3,4 +3,5 @@ export class News {
     date: Date;
     name: string;
     text: string;
+    language: string
 }

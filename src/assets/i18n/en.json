@@ -207,7 +207,12 @@
         "subscriptions": "Registrations",
         "subscription": "Registration",
         "waitingList": "Waiting list",
-        "noAppointment": "There are currently no dates for this flight school"
+        "noAppointment": "There are currently no dates for this flight school",
+        "type": "Type"
+    },
+    "payment": {
+        "noSubscription": "You do not currently have a subscription",
+        "information": "Your subscription will be automatically renewed on {{ date }}. You will be charged CHF 12.00/year"
     },
     "version": "Version"
 }

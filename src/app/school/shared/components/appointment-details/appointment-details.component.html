@@ -19,7 +19,10 @@
     <ion-label position="stacked">{{ 'appointment.dateTime' | translate }}</ion-label>
     <p class="item-value">{{ appointment.scheduling | date:'dd.MM.yyyy HH:mm':'UTC' }}</p>
   </ion-item>
-  <ion-item>
+  <ion-item *ngIf="appointment.type">
+    <ion-label position="stacked">{{ 'appointment.type' | translate }}</ion-label>
+    <p class="item-value">{{ appointment.type?.name }}</p>
+  </ion-item><ion-item>
     <ion-label position="stacked">{{ 'appointment.meetingPoint' | translate }}</ion-label>
     <p class="item-value">{{ appointment.meetingPoint }}</p>
   </ion-item>

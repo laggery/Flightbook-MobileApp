@@ -24,6 +24,14 @@
     <ion-button expand="block" type="submit">{{ 'buttons.save' | translate }}</ion-button>
   </form>
 
+  <ion-card *ngIf="paymentStatus" class="validity">
+    <!-- <ion-card-content *ngIf="!paymentStatus.active">
+      {{ 'payment.noSubscription' | translate }}
+    </ion-card-content> -->
+    <ion-card-content *ngIf="paymentStatus.active">
+      {{ 'payment.information' | translate: { date: paymentStatus.expires_date | date:'dd.MM.yyyy HH:mm':'UTC'} }}
+    </ion-card-content>
+  </ion-card>
 
   <div class="language-list">
     <p>
