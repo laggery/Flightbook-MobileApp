@@ -207,7 +207,8 @@
         "subscriptions": "Anmeldungen",
         "subscription": "Anmeldung",
         "waitingList": "Warte liste",
-        "noAppointment": "Zurzeit gibt es keine Termine für diese Flugschule"
+        "noAppointment": "Zurzeit gibt es keine Termine für diese Flugschule",
+        "type": "Terminart"
     },
     "payment": {
         "noSubscription": "Sie haben zurzeit kein Abonnement",

@@ -207,7 +207,8 @@
         "subscriptions": "Registrations",
         "subscription": "Registration",
         "waitingList": "Waiting list",
-        "noAppointment": "There are currently no dates for this flight school"
+        "noAppointment": "There are currently no dates for this flight school",
+        "type": "Type"
     },
     "payment": {
         "noSubscription": "You do not currently have a subscription",

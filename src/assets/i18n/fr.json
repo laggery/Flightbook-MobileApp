@@ -207,7 +207,8 @@
         "subscriptions": "Inscriptions",
         "subscription": "Inscription",
         "waitingList": "Liste d'attente",
-        "noAppointment": "Il n'y a actuellement aucune date pour cette école"
+        "noAppointment": "Il n'y a actuellement aucune date pour cette école",
+        "type": "Type"
     },
     "payment": {
         "noSubscription": "Vous n'avez actuellement pas d'abonnement",
