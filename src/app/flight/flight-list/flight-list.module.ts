@@ -13,17 +13,16 @@ import { FlightFilterComponent } from 'src/app/form/flight-filter/flight-filter.
 import { FlagsModule } from 'nxt-flags';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    FlightListPageRoutingModule,
-    TranslateModule.forChild(),
-    FormModule,
-    FlagsModule
-  ],
-  providers: [],
-  declarations: [FlightListPage],
-  entryComponents: [FlightFilterComponent]
+    imports: [
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        FlightListPageRoutingModule,
+        TranslateModule.forChild(),
+        FormModule,
+        FlagsModule
+    ],
+    providers: [],
+    declarations: [FlightListPage]
 })
 export class FlightListPageModule {}

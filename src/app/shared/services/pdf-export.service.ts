@@ -30,6 +30,8 @@ export class PdfExportService {
       generateFrom = 'https://flightbook.ch';
     }
 
+    const generateFromTemp = generateFrom;
+
     let flightList: any = [];
     let startPlaces = new Set();
     let landingPlaces = new Set();
@@ -88,29 +90,32 @@ export class PdfExportService {
         }
         return [
           {
-            style: { color: signatureColor },
-            margin: [40, 20, 0, 15],
-            text: `${this.translate.instant('export.school')}: _______________________________`
-          },
-          {
-            style: { color: 'grey' },
+            columns: [
+              {
+                style: { color: signatureColor },
+                margin: [40, 20, 0, 15],
+                text: `${this.translate.instant('export.school')}: _______________________________`
+              }
+            ]
+          }, {
             columns: [
               {
                 margin: [40, 0, 0, 0],
-                style: { alignment: "left" },
-                text: generateFrom
+                alignment: 'left',
+                text: generateFromTemp
               },
               {
-                style: { alignment: "center" },
+                alignment: 'center',
                 text: `${currentPage.toString()}/${pageCount}`
               },
               {
                 margin: [0, 0, 40, 0],
-                style: { alignment: "right" },
-                text: this.datePipe.transform(new Date(), 'dd.MM.yyyy')
+                alignment: 'right',
+                text: this.datePipe.transform(new Date(), 'dd.MM.yyyy') || new Date().toISOString()
               }
             ]
-          }];
+          }
+        ];
       },
       header: (currentPage, pageCount, options) => {
         let header: any = {};

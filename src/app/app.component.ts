@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 
 import { Platform, MenuController, AlertController } from '@ionic/angular';
-import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { TranslateService } from '@ngx-translate/core';
 import { firstValueFrom, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -38,7 +37,6 @@ export class AppComponent implements OnDestroy, OnInit {
   constructor(
     private router: Router,
     private platform: Platform,
-    private statusBar: StatusBar,
     private translate: TranslateService,
     private accountService: AccountService,
     private menuCtrl: MenuController,
@@ -65,7 +63,6 @@ export class AppComponent implements OnDestroy, OnInit {
 
   initializeApp() {
     this.platform.ready().then(() => {
-      this.statusBar.styleDefault();
     });
   }
 

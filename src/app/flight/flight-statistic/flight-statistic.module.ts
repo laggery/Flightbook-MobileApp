@@ -14,17 +14,16 @@ import { ChartsModule } from 'src/app/charts/charts.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    FlightStatisticPageRoutingModule,
-    TranslateModule.forChild(),
-    FormModule,
-    ChartsModule,
-    SharedModule
-  ],
-  declarations: [FlightStatisticPage],
-  entryComponents: [FlightFilterComponent]
+    imports: [
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        FlightStatisticPageRoutingModule,
+        TranslateModule.forChild(),
+        FormModule,
+        ChartsModule,
+        SharedModule
+    ],
+    declarations: [FlightStatisticPage]
 })
 export class FlightStatisticPageModule {}
