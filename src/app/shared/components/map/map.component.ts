@@ -1,5 +1,4 @@
 import { AfterViewInit, Component, Input } from '@angular/core';
-import 'ol/ol.css';
 import Feature from 'ol/Feature';
 import IGC from 'ol/format/IGC';
 import Map from 'ol/Map';
