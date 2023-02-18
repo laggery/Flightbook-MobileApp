@@ -1,6 +1,7 @@
 *~
 *.sw[mnpcod]
 .tmp
+.npmrc
 *.tmp
 *.tmp.*
 *.sublime-project

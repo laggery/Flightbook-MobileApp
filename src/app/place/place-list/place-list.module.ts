@@ -8,7 +8,7 @@ import { PlaceListPageRoutingModule } from './place-list-routing.module';
 
 import { PlaceListPage } from './place-list.page';
 import { TranslateModule } from '@ngx-translate/core';
-import { FlagsModule } from 'nxt-flags';
+import { FlagsModule } from '@laggery/nxt-flags';
 
 @NgModule({
   imports: [
