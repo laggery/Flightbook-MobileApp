@@ -36,7 +36,6 @@ export class AppComponent implements OnDestroy, OnInit {
 
   constructor(
     private router: Router,
-    private platform: Platform,
     private translate: TranslateService,
     private accountService: AccountService,
     private menuCtrl: MenuController,
@@ -48,7 +47,6 @@ export class AppComponent implements OnDestroy, OnInit {
     private alertController: AlertController,
     private paymentService: PaymentService
   ) {
-    this.initializeApp();
     this.translate.setDefaultLang('en');
     this.translate.use(localStorage.getItem('language') || navigator.language.split('-')[0]);
   }
@@ -59,11 +57,6 @@ export class AppComponent implements OnDestroy, OnInit {
         this.swUpdate.activateUpdate().then(() => document.location.reload());
       });
     }
-  }
-
-  initializeApp() {
-    this.platform.ready().then(() => {
-    });
   }
 
   logout() {
