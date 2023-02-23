@@ -76,7 +76,8 @@
         "igcFile": "Fichier igc",
         "chooseIgc": "Choisir un fichier IGC",
         "copyIgc": "Voulez-vous également copier le fichier IGC?",
-        "override": "Voulez-vous écraser le parapente, la date, les kilomètres et la durée du vol avec les données du fichier IGC?"
+        "override": "Voulez-vous écraser le parapente, la date, les kilomètres et la durée du vol avec les données du fichier IGC?",
+        "diff": "Diff."
     },
     "statistics": {
         "nbflight": "Nombre de vols",

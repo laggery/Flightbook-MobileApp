@@ -76,7 +76,8 @@
         "igcFile": "File Igc",
         "chooseIgc": "Scegliere un file IGC",
         "copyIgc": "Vuoi anche copiare il file IGC?",
-        "override": "Vuole sovrascrivere la vela, la data, i chilometri e la durata del volo con i dati del file IGC?"
+        "override": "Vuole sovrascrivere la vela, la data, i chilometri e la durata del volo con i dati del file IGC?",
+        "diff": "Diff."
     },
     "statistics": {
         "nbflight": "Numero di voli",
