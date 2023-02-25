@@ -151,7 +151,8 @@
         "subscription": "Möchtest du dich wirklich für diesen Termin anmelden?",
         "removeSubscription": "Möchtest du dich wirklich abmelden? Falls du dich erneut anmeldest, wirst du zuunterst von der Warteliste sein.",
         "watingList": "Es ist bereits ausgebucht. Du stehst auf der Warteliste.",
-        "notificationRegistrationFailed": "Die Applikation konnte sich nicht für die Push Notifikationen registrieren. Versuchen sie die Applikation zu schliessen und nochmals zu öffnen."
+        "notificationRegistrationFailed": "Die Applikation konnte sich nicht für die Push Notifikationen registrieren. Versuchen sie die Applikation zu schliessen und nochmals zu öffnen.",
+        "newVersion": "Die neue Version der App wird geladen"
     },
     "loading": {
         "createaccount": "Registrieren...",

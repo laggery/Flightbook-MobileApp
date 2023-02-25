@@ -151,7 +151,8 @@
         "subscription": "Do you really want to register for this appointment?",
         "removeSubscription": "Do you really want to unsubscribe? If you sign up again, you will be at the bottom of the waiting list.",
         "watingList": "It's already full. You are on the waiting list.",
-        "notificationRegistrationFailed": "The app could not register for push notifications. Try closing the app and opening it again."
+        "notificationRegistrationFailed": "The app could not register for push notifications. Try closing the app and opening it again.",
+        "newVersion": "The new version of the app will be loaded"
     },
     "loading": {
         "createaccount": "Create account...",
