@@ -72,6 +72,7 @@ export class FileInputComponent implements OnInit {
     const result = await FilePicker.pickFiles({
       types: ['text/igc'],
       multiple: this.multiple,
+      readData: true
     });
 
     const newFiles: File[] = [];

@@ -1,11 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 
-import { Platform, MenuController, AlertController } from '@ionic/angular';
-import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { MenuController, AlertController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
-import { firstValueFrom, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-import { SwUpdate } from '@angular/service-worker';
+import { filter, takeUntil } from 'rxjs/operators';
+import { SwUpdate, VersionReadyEvent } from '@angular/service-worker';
 import { AccountService } from './account/shared/account.service';
 import { FlightService } from './flight/shared/flight.service';
 import { GliderService } from './glider/shared/glider.service';
@@ -24,6 +22,7 @@ import { Router } from '@angular/router';
 import { RegisterPage } from './account/register/register.page';
 import { PaymentStatus } from './account/shared/paymentStatus.model';
 import { PaymentService } from './shared/services/payment.service';
+import { firstValueFrom, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -37,8 +36,6 @@ export class AppComponent implements OnDestroy, OnInit {
 
   constructor(
     private router: Router,
-    private platform: Platform,
-    private statusBar: StatusBar,
     private translate: TranslateService,
     private accountService: AccountService,
     private menuCtrl: MenuController,
@@ -50,23 +47,31 @@ export class AppComponent implements OnDestroy, OnInit {
     private alertController: AlertController,
     private paymentService: PaymentService
   ) {
-    this.initializeApp();
     this.translate.setDefaultLang('en');
     this.translate.use(localStorage.getItem('language') || navigator.language.split('-')[0]);
   }
 
   ngOnInit(): void {
     if (this.swUpdate.isEnabled) {
-      this.swUpdate.available.subscribe(() => {
-        this.swUpdate.activateUpdate().then(() => document.location.reload());
-      });
+      this.swUpdate.versionUpdates
+        .pipe(filter((evt): evt is VersionReadyEvent => evt.type === 'VERSION_READY'))
+        .subscribe(async evt => {
+          const alert = await this.alertController.create({
+            header: this.translate.instant('message.infotitle'),
+            message: this.translate.instant('message.newVersion'),
+            backdropDismiss: false,
+            buttons: [
+              {
+                text: this.translate.instant('buttons.done'),
+                handler: () => {
+                  document.location.reload();
+                }
+              }
+            ]
+          });
+          await alert.present();
+        });
     }
-  }
-
-  initializeApp() {
-    this.platform.ready().then(() => {
-      this.statusBar.styleDefault();
-    });
   }
 
   logout() {

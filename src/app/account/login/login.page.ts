@@ -11,9 +11,9 @@ setTimeout(() => {
 }, 700);
 import HttpStatusCode from '../../shared/util/HttpStatusCode';
 import { environment } from 'src/environments/environment';
-import { AppVersion } from '@ionic-native/app-version/ngx';
 import { AccountService } from '../shared/account.service';
 import { NewsService } from 'src/app/news/shared/news.service';
+import { App } from '@capacitor/app';
 
 @Component({
   selector: 'app-login',
@@ -36,8 +36,7 @@ export class LoginPage implements OnInit, OnDestroy {
     private accountService: AccountService,
     private newsService: NewsService,
     private alertController: AlertController,
-    private loadingCtrl: LoadingController,
-    private appVersion: AppVersion
+    private loadingCtrl: LoadingController
   ) {
     this.menuCtrl.enable(false);
     this.defineVersion();
@@ -53,7 +52,7 @@ export class LoginPage implements OnInit, OnDestroy {
 
   async defineVersion() {
     if (Capacitor.isNativePlatform()) {
-      this.version = await this.appVersion.getVersionNumber();
+      this.version = (await App.getInfo()).version;
     } else {
       this.version = environment.appVersion;
     }

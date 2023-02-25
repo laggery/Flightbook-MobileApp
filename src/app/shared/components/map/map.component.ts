@@ -1,5 +1,4 @@
 import { AfterViewInit, Component, Input } from '@angular/core';
-import 'ol/ol.css';
 import Feature from 'ol/Feature';
 import IGC from 'ol/format/IGC';
 import Map from 'ol/Map';
@@ -28,8 +27,8 @@ export class MapComponent implements AfterViewInit {
   private vectorSource = new VectorSource();
   private vectorSourceOverlay = new VectorSource();
   private time: any;
-  private vectorLayer: VectorLayer;
-  private featureOverlay: VectorLayer;
+  private vectorLayer: VectorLayer<any>;
+  private featureOverlay: VectorLayer<any>;
   private map: Map;
   private geometry: LineString;
   private igcParserValue: any;

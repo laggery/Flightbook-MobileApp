@@ -76,7 +76,8 @@
         "igcFile": "File Igc",
         "chooseIgc": "Scegliere un file IGC",
         "copyIgc": "Vuoi anche copiare il file IGC?",
-        "override": "Vuole sovrascrivere la vela, la data, i chilometri e la durata del volo con i dati del file IGC?"
+        "override": "Vuole sovrascrivere la vela, la data, i chilometri e la durata del volo con i dati del file IGC?",
+        "diff": "Diff."
     },
     "statistics": {
         "nbflight": "Numero di voli",
@@ -150,7 +151,8 @@
         "subscription": "Volete davvero iscrivervi a questo appuntamento?",
         "removeSubscription": "Vuoi davvero annullare l'iscrizione? Se ci si iscrive nuovamente, si viene inseriti in fondo alla lista d'attesa.",
         "watingList": "È già pieno. Siete in lista d'attesa.",
-        "notificationRegistrationFailed": "L'app non è riuscita a registrarsi per le notifiche push. Provate a chiudere l'app e a riaprirla."
+        "notificationRegistrationFailed": "L'app non è riuscita a registrarsi per le notifiche push. Provate a chiudere l'app e a riaprirla.",
+        "newVersion": "La nuova versione dell'app verrà caricata"
     },
     "loading": {
         "createaccount": "Iscrizione...",

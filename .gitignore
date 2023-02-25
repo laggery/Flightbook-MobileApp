@@ -7,6 +7,7 @@ ios/App/App/GoogleService-Info.plist
 *~
 *.sw[mnpcod]
 .tmp
+.npmrc
 *.tmp
 *.tmp.*
 *.sublime-project

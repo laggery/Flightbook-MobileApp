@@ -12,16 +12,15 @@ import { GliderFilterComponent } from '../glider-filter/glider-filter.component'
 import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    GliderListPageRoutingModule,
-    TranslateModule.forChild(),
-    SharedModule
-  ],
-  providers: [],
-  declarations: [GliderListPage, GliderFilterComponent],
-  entryComponents: [GliderFilterComponent],
+    imports: [
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        GliderListPageRoutingModule,
+        TranslateModule.forChild(),
+        SharedModule
+    ],
+    providers: [],
+    declarations: [GliderListPage, GliderFilterComponent]
 })
 export class GliderListPageModule { }

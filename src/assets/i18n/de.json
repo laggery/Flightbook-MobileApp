@@ -76,7 +76,8 @@
         "igcFile": "IGC-Datei",
         "chooseIgc": "Wählen Sie eine IGC-Datei",
         "copyIgc": "Möchten sie die IGC Datei auch kopieren?",
-        "override": "Möchten sie der Gleitschirm, das Datum, die Kilometer und die Flugdauer überschreiben mit den Daten aus der IGC-Datei überschreiben?"
+        "override": "Möchten sie der Gleitschirm, das Datum, die Kilometer und die Flugdauer überschreiben mit den Daten aus der IGC-Datei überschreiben?",
+        "diff": "Diff."
     },
     "statistics": {
         "nbflight": "Anzahl Flüge",
@@ -150,7 +151,8 @@
         "subscription": "Möchtest du dich wirklich für diesen Termin anmelden?",
         "removeSubscription": "Möchtest du dich wirklich abmelden? Falls du dich erneut anmeldest, wirst du zuunterst von der Warteliste sein.",
         "watingList": "Es ist bereits ausgebucht. Du stehst auf der Warteliste.",
-        "notificationRegistrationFailed": "Die Applikation konnte sich nicht für die Push Notifikationen registrieren. Versuchen sie die Applikation zu schliessen und nochmals zu öffnen."
+        "notificationRegistrationFailed": "Die Applikation konnte sich nicht für die Push Notifikationen registrieren. Versuchen sie die Applikation zu schliessen und nochmals zu öffnen.",
+        "newVersion": "Die neue Version der App wird geladen"
     },
     "loading": {
         "createaccount": "Registrieren...",
