@@ -4,6 +4,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { TDocumentDefinitions } from 'pdfmake/interfaces';
 import { Flight } from 'src/app/flight/shared/flight.model';
 import { User } from '../../account/shared/user.model';
+import { FlightStatistic } from 'src/app/flight/shared/flightStatistic.model';
+import { HoursFormatPipe } from '../pipes/hours-format/hours-format.pipe';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +25,7 @@ export class PdfExportService {
     }
   }
 
-  async generatePdf(flights: Flight[], user: User, generateFrom?: string): Promise<any> {
+  async generatePdf(flights: Flight[], stat: FlightStatistic, user: User, generateFrom?: string): Promise<any> {
     await this.loadPdfMaker();
 
     if (!generateFrom) {
@@ -86,6 +88,8 @@ export class PdfExportService {
         { text: place.notes, style: 'tableRow' }
       ]);
     })
+
+    const time = (stat.time === 0) ? '00:00:00' : new HoursFormatPipe().transform(stat.time);
 
     let docDefinition: TDocumentDefinitions = {
       pageMargins: [40, 40, 40, 80],
@@ -165,6 +169,7 @@ export class PdfExportService {
         },
         { text: `${this.translate.instant('export.nbLandingplaces')}: ${landingPlaces.size}` },
         { text: `${this.translate.instant('export.nbflights')}: ${flightList.length}` },
+        { text: `${this.translate.instant('statistics.flighthour')}: ${time}` },
         {
           margin: [0, 10, 0, 0],
           columns: [

@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit } from '@angular/core';
 import { NavController, ModalController, IonInfiniteScroll, IonContent, LoadingController, AlertController } from '@ionic/angular';
-import { Subject, Observable } from 'rxjs';
+import { Subject, Observable, firstValueFrom } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { FlightFilterComponent } from 'src/app/form/flight-filter/flight-filter.component';
 import { TranslateService } from '@ngx-translate/core';
@@ -14,6 +14,7 @@ import { PdfExportService } from 'src/app/shared/services/pdf-export.service';
 import { Flight } from '../shared/flight.model';
 import { FlightService } from '../shared/flight.service';
 import { AccountService } from 'src/app/account/shared/account.service';
+import { FlightStatistic } from '../shared/flightStatistic.model';
 
 @Component({
   selector: 'app-flight-list',
@@ -171,11 +172,13 @@ export class FlightListPage implements OnInit, OnDestroy, AfterViewInit {
       message: this.translate.instant('loading.loading')
     });
     await loading.present();
+    const res = <FlightStatistic[]> await firstValueFrom(this.flightService.getStatistics(true));
+    const stat = res.find((stat: FlightStatistic) => (!stat.year));
     this.flightService.getFlights({ store: false }).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Flight[]) => {
       res = res.sort((a: Flight, b: Flight) => b.number - a.number);
       res.reverse();
       const user = await this.accountService.currentUser().pipe(takeUntil(this.unsubscribe$)).toPromise();
-      const pdfObj: TCreatedPdf = await this.pdfExportService.generatePdf(res, user, 'https://m.flightbook.ch');
+      const pdfObj: TCreatedPdf = await this.pdfExportService.generatePdf(res, stat, user, 'https://m.flightbook.ch');
       if (Capacitor.isNativePlatform()) {
         pdfObj.getBase64(async (data) => {
           try {
