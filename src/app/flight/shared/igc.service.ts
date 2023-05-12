@@ -33,7 +33,9 @@ export class IgcService {
         if (igcFile.site && igcFile.site != "") {
           flight.start.name = igcFile.site;
         }
-        const timeInMillisecond = (igcFile.ll[0].landing - igcFile.ll[0].launch) * 1000
+        const startFixe = result.opt.flight.fixes[igcFile.ll[0].launch];
+        const landingFixe = result.opt.flight.fixes[igcFile.ll[0].landing];
+        const timeInMillisecond = landingFixe.timestamp - startFixe.timestamp
         flight.time = new Date(timeInMillisecond).toISOString().substr(11, 8);
         if (igcFile.gliderType && igcFile.gliderType != '') {
           flight.glider = await this.gliderService.getGliderByName(igcFile.gliderType).toPromise();

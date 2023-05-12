@@ -29,7 +29,7 @@
       </ng-template>
     </ion-popover> -->
   </ion-item>
-  <ion-item *ngIf="flight.glider.tandem">
+  <ion-item *ngIf="flight.glider?.tandem">
     <ion-label color="primary" position="stacked">{{ 'flight.price' | translate }}</ion-label>
     <ion-input [(ngModel)]="flight.price" type="number" name="price"></ion-input>
   </ion-item>
