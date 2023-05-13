@@ -147,7 +147,7 @@
         "emptyIgcFile": "This IGC file is empty",
         "igcUploadError": "IGC File could not be uploaded",
         "igcCopyError": "IGC File could not be copied",
-        "downloadExcel": "Excel file has been downloaded and is under \"Documents\"",
+        "downloadExcel": "To be able to open an xlsx file, you need to download the app \"Microsoft Excel: Spreadsheets\"",
         "subscription": "Do you really want to register for this appointment?",
         "removeSubscription": "Do you really want to unsubscribe? If you sign up again, you will be at the bottom of the waiting list.",
         "watingList": "It's already full. You are on the waiting list.",

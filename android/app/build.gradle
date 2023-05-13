@@ -1,13 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
+    namespace "ch.flightbook"
     compileSdkVersion rootProject.ext.compileSdkVersion
     defaultConfig {
         applicationId "ch.flightbook.MobileFlight"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 10028
-        versionName "2.4.6"
+        versionName "2.5.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

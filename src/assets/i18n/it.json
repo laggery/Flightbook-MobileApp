@@ -147,7 +147,7 @@
         "emptyIgcFile": "Questo file IGC è vuoto",
         "igcUploadError": "Il file IGC non può essere caricato",
         "igcCopyError": "Il file IGC non può essere copiato",
-        "downloadExcel": "Il file Excel è stato scaricato e si trova sotto \"Documenti\"",
+        "downloadExcel": "Per poter aprire un file xlsx, è necessario scaricare l'applicazione \"Microsoft Excel: Spreadsheets\"",
         "subscription": "Volete davvero iscrivervi a questo appuntamento?",
         "removeSubscription": "Vuoi davvero annullare l'iscrizione? Se ci si iscrive nuovamente, si viene inseriti in fondo alla lista d'attesa.",
         "watingList": "È già pieno. Siete in lista d'attesa.",

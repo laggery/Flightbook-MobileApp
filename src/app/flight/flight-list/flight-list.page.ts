@@ -58,14 +58,14 @@ export class FlightListPage implements OnInit, OnDestroy, AfterViewInit {
     this.flightService.getFlights({ limit: this.flightService.defaultLimit, clearStore: true })
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(async (res: Flight[]) => {
-      // @hack for hide export item
-      setTimeout(async () => {
-        await this.content.scrollToPoint(0, 48);
+        // @hack for hide export item
+        setTimeout(async () => {
+          await this.content.scrollToPoint(0, 48);
+          await loading.dismiss();
+        }, 1);
+      }, async (error: any) => {
         await loading.dismiss();
-      }, 1);
-    }, async (error: any) => {
-      await loading.dismiss();
-    });
+      });
   }
 
   ngOnInit() {
@@ -131,24 +131,31 @@ export class FlightListPage implements OnInit, OnDestroy, AfterViewInit {
           const result = await Filesystem.writeFile({
             path,
             data,
-            directory: Directory.Documents,
+            directory: Directory.External,
             recursive: true
           });
+
           await loading.dismiss();
-          if (Capacitor.getPlatform() == "android") {
-            const alert = await this.alertController.create({
-              header: this.translate.instant('message.infotitle'),
-              message: this.translate.instant('message.downloadExcel'),
-              buttons: [this.translate.instant('buttons.done')]
-            });
-            await alert.present();
-          } else {
+
+          try {
             await FileOpener.open({
               filePath: result.uri,
               contentType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
             });
+          } catch (error) {
+            if (Capacitor.getPlatform() == "android") {
+              const alert = await this.alertController.create({
+                header: this.translate.instant('message.infotitle'),
+                message: this.translate.instant('message.downloadExcel'),
+                buttons: [this.translate.instant('buttons.done')]
+              });
+              await alert.present();
+            } else {
+              throw error;
+            }
           }
         } catch (e) {
+          console.log(e);
           await loading.dismiss();
           const alert = await this.alertController.create({
             header: this.translate.instant('message.infotitle'),
@@ -172,7 +179,7 @@ export class FlightListPage implements OnInit, OnDestroy, AfterViewInit {
       message: this.translate.instant('loading.loading')
     });
     await loading.present();
-    const res = <FlightStatistic[]> await firstValueFrom(this.flightService.getStatistics(true));
+    const res = <FlightStatistic[]>await firstValueFrom(this.flightService.getStatistics(true));
     const stat = res.find((stat: FlightStatistic) => (!stat.year));
     this.flightService.getFlights({ store: false }).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Flight[]) => {
       res = res.sort((a: Flight, b: Flight) => b.number - a.number);
@@ -187,7 +194,7 @@ export class FlightListPage implements OnInit, OnDestroy, AfterViewInit {
             const result = await Filesystem.writeFile({
               path,
               data,
-              directory: Directory.Documents,
+              directory: Directory.External,
               recursive: true
             });
             await loading.dismiss();

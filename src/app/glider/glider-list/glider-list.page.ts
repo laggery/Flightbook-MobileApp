@@ -131,7 +131,7 @@ export class GliderListPage implements OnInit, OnDestroy, AfterViewInit {
           const result = await Filesystem.writeFile({
             path,
             data,
-            directory: Directory.Documents,
+            directory: Directory.External,
             recursive: true
           });
           await loading.dismiss();

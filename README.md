@@ -20,6 +20,12 @@ To be able to install package, you need to create a .npmrc file for github packa
 //npm.pkg.github.com/:_authToken=$GITHUB_TOKEN
 ```
 
+## Docker
+Build docker image
+```
+docker build --build-arg NPM_TOKEN=xxxx -t mobile .
+```
+
 ## Security
 If you discover security related issues, please email yannick.lagger@flightbook.ch instead of using the issue tracker.
 
