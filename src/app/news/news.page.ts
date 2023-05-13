@@ -108,19 +108,25 @@ export class NewsPage implements OnInit, OnDestroy {
             directory: Directory.External,
             recursive: true
           });
+
           await loading.dismiss();
-          if (Capacitor.getPlatform() == "android") {
-            const alert = await this.alertController.create({
-              header: this.translate.instant('message.infotitle'),
-              message: this.translate.instant('message.downloadExcel'),
-              buttons: [this.translate.instant('buttons.done')]
-            });
-            await alert.present();
-          } else {
+
+          try {
             await FileOpener.open({
               filePath: result.uri,
               contentType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
             });
+          } catch (error) {
+            if (Capacitor.getPlatform() == "android") {
+              const alert = await this.alertController.create({
+                header: this.translate.instant('message.infotitle'),
+                message: this.translate.instant('message.downloadExcel'),
+                buttons: [this.translate.instant('buttons.done')]
+              });
+              await alert.present();
+            } else {
+              throw error;
+            }
           }
         } catch (e) {
           await loading.dismiss();
