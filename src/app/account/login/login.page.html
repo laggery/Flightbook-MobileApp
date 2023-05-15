@@ -1,10 +1,10 @@
 <ion-content class="ion-padding">
   <form id="loginForm" #form="ngForm" (ngSubmit)="login(form)">
     <ion-item>
-      <ion-input [(ngModel)]="loginData.email" required name="email" type="email" placeholder="{{ 'login.email' | translate }}"></ion-input>
+      <ion-input appAutofill autocomplete="email" [(ngModel)]="loginData.email" required name="email" type="email" placeholder="{{ 'login.email' | translate }}"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-input [(ngModel)]="loginData.password" required name="password" type="password" placeholder="{{ 'login.password' | translate }}"></ion-input>
+      <ion-input appAutofill autocomplete="current-password" [(ngModel)]="loginData.password" required name="password" type="password" placeholder="{{ 'login.password' | translate }}"></ion-input>
     </ion-item>
     <ion-button class="submit-button" expand="block" type="submit" >{{ 'buttons.login' | translate }}</ion-button>
   </form>

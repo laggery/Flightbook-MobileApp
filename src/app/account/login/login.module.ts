@@ -10,6 +10,7 @@ import { LoginPage } from './login.page';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { createTranslateLoader } from '../../app.module';
 import { HttpClient } from '@angular/common/http';
+import { AutofillDirective } from 'src/app/shared/directive/autofillDirective';
 
 @NgModule({
   imports: [
@@ -25,6 +26,6 @@ import { HttpClient } from '@angular/common/http';
       }
     })
   ],
-  declarations: [LoginPage],
+  declarations: [LoginPage, AutofillDirective],
 })
 export class LoginPageModule { }
