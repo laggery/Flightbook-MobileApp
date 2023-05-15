@@ -9,8 +9,7 @@ import { FlightListPageRoutingModule } from './flight-list-routing.module';
 import { FlightListPage } from './flight-list.page';
 import { TranslateModule } from '@ngx-translate/core';
 import { FormModule } from 'src/app/form/form.module';
-import { FlightFilterComponent } from 'src/app/form/flight-filter/flight-filter.component';
-import { FlagsModule } from '@laggery/nxt-flags';
+import { FlagsModule } from 'nxt-flags';
 
 @NgModule({
     imports: [
