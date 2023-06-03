@@ -8,38 +8,38 @@
 </ion-header>
 <ion-content class="ion-padding">
   <ion-item>
-    <ion-label position="stacked">{{ 'appointment.subscription' | translate }}</ion-label>
+    <ion-label color="primary" position="stacked">{{ 'appointment.subscription' | translate }}</ion-label>
     <ion-toggle class="subscription" disabled="{{ isDisabled() }}" [(ngModel)]="isSubscribed" (click)="subscribe()" color="primary"></ion-toggle>
   </ion-item>
   <ion-item>
-    <ion-label position="stacked">{{ 'appointment.state' | translate }}</ion-label>
+    <ion-label color="primary" position="stacked">{{ 'appointment.state' | translate }}</ion-label>
     <p class="item-value">{{ 'appointment.stateValue.' + appointment.state| translate }}</p>
   </ion-item>
   <ion-item>
-    <ion-label position="stacked">{{ 'appointment.dateTime' | translate }}</ion-label>
+    <ion-label color="primary" position="stacked">{{ 'appointment.dateTime' | translate }}</ion-label>
     <p class="item-value">{{ appointment.scheduling | date:'dd.MM.yyyy HH:mm':'UTC' }}</p>
   </ion-item>
   <ion-item *ngIf="appointment.type">
-    <ion-label position="stacked">{{ 'appointment.type' | translate }}</ion-label>
+    <ion-label color="primary" position="stacked">{{ 'appointment.type' | translate }}</ion-label>
     <p class="item-value">{{ appointment.type?.name }}</p>
   </ion-item><ion-item>
-    <ion-label position="stacked">{{ 'appointment.meetingPoint' | translate }}</ion-label>
+    <ion-label color="primary" position="stacked">{{ 'appointment.meetingPoint' | translate }}</ion-label>
     <p class="item-value">{{ appointment.meetingPoint }}</p>
   </ion-item>
   <ion-item>
-    <ion-label position="stacked">{{ 'appointment.instructor' | translate }}</ion-label>
+    <ion-label color="primary" position="stacked">{{ 'appointment.instructor' | translate }}</ion-label>
     <p class="item-value">{{ appointment.instructor.firstname }} {{ appointment.instructor.lastname }}</p>
   </ion-item>
   <ion-item>
-    <ion-label position="stacked">{{ 'appointment.takeOffCoordinator' | translate }}</ion-label>
+    <ion-label color="primary" position="stacked">{{ 'appointment.takeOffCoordinator' | translate }}</ion-label>
     <p class="item-value">{{ appointment.takeOffCoordinator?.firstname }} {{ appointment.takeOffCoordinator?.lastname }}</p>
   </ion-item>
   <ion-item>
-    <ion-label position="stacked">{{ 'appointment.description' | translate }}</ion-label>
+    <ion-label color="primary" position="stacked">{{ 'appointment.description' | translate }}</ion-label>
     <p class="item-value description">{{ appointment.description }}</p>
   </ion-item>
   <ion-item>
-    <ion-label position="stacked"><span *ngIf="appointment.maxPeople">{{ subscribed.length }}/{{ appointment.maxPeople }} </span>{{ 'appointment.subscriptions' | translate }}</ion-label>
+    <ion-label color="primary" position="stacked"><span *ngIf="appointment.maxPeople">{{ subscribed.length }}/{{ appointment.maxPeople }} </span>{{ 'appointment.subscriptions' | translate }}</ion-label>
     <p class="item-value subscriptions">
       <span class="subscription-item" *ngFor="let subscription of subscribed">
         {{ subscription.user.firstname }} {{ subscription.user.lastname }}
@@ -47,7 +47,7 @@
     </p>
   </ion-item>
   <ion-item *ngIf="waitingList.length > 0">
-    <ion-label position="stacked">{{ 'appointment.waitingList' | translate }}</ion-label>
+    <ion-label color="primary" position="stacked">{{ 'appointment.waitingList' | translate }}</ion-label>
     <p class="item-value subscriptions">
       <span class="subscription-item" *ngFor="let subscription of waitingList">
         {{ subscription.user.firstname }} {{ subscription.user.lastname }}

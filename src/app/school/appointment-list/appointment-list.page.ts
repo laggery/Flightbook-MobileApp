@@ -192,7 +192,7 @@ export class AppointmentListPage implements OnInit, OnDestroy {
     return false;
   }
 
-  isDisabled(appointment: Appointment) {
+  isDisabled(appointment: Appointment): boolean {
     if (new Date(appointment.scheduling).getTime() < new Date().getTime() || appointment.state == State.CANCELED) {
       return true;
     }

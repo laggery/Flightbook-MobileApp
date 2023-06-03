@@ -15,6 +15,12 @@ export class GliderSelectComponent implements OnInit {
   @Input()
   flight: Flight;
 
+  @Input()
+  label: string;
+
+  @Input()
+  labelPlacement: string;
+
   glider: string;
 
   constructor() { }

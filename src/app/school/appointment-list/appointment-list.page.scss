@@ -17,12 +17,18 @@
 
 .appointmentRow .subscription {
     min-width: 38px;
+    max-width: 49px;
 }
 
 .ios .appointmentRow .subscription {
     min-width: 50px;
 }
 
+.appointmentRow.disabled ion-label{
+    cursor: default;
+    opacity: 0.3;
+}
+    
 ion-content {
     ion-item {
         pointer-events: auto;

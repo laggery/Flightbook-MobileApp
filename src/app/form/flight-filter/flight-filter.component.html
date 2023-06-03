@@ -7,23 +7,19 @@
 <ion-content class="ion-padding">
   <form (ngSubmit)="filterElement()">
     <ion-item>
-      <ion-label color="primary" position="stacked">{{ 'groupname.glider' | translate }}</ion-label>
-      <ion-select [(ngModel)]="filter.glider.id" name="glider" okText="{{ 'buttons.done' | translate }}"
+      <ion-select label="{{ 'groupname.glider' | translate }}" labelPlacement="stacked" [(ngModel)]="filter.glider.id" name="glider" okText="{{ 'buttons.done' | translate }}"
         cancelText="{{ 'buttons.clear' | translate }}" (ionCancel)="clearGLiderButton()">
         <ion-select-option *ngFor="let glider of gliders" value="{{ glider.id }}">{{ glider.brand }} {{ glider.name }}</ion-select-option>
       </ion-select>
     </ion-item>
     <ion-item id="filterFrom">
-      <ion-label color="primary" position="stacked">{{ 'filter.from' | translate }}</ion-label>
-      <ion-input value="{{ filter.from | date:'dd.MM.yyyy' }}"></ion-input>
+      <ion-input label="{{ 'filter.from' | translate }}" labelPlacement="stacked" value="{{ filter.from | date:'dd.MM.yyyy' }}"></ion-input>
     </ion-item>
     <ion-item id="filterTo">
-      <ion-label color="primary" position="stacked">{{ 'filter.to' | translate }}</ion-label>
-      <ion-input value="{{ filter.to | date:'dd.MM.yyyy' }}"></ion-input>
+      <ion-input label="{{ 'filter.to' | translate }}" labelPlacement="stacked" value="{{ filter.to | date:'dd.MM.yyyy' }}"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label color="primary" position="stacked">{{ 'glider.type' | translate }}</ion-label>
-      <ion-select [(ngModel)]="filter.gliderType" name="gliderType" okText="{{ 'buttons.done' | translate }}"
+      <ion-select label="{{ 'glider.type' | translate }}" labelPlacement="stacked" [(ngModel)]="filter.gliderType" name="gliderType" okText="{{ 'buttons.done' | translate }}"
         cancelText="{{ 'buttons.cancel' | translate }}">
         <ion-select-option value="">{{ 'glider.all' | translate }}</ion-select-option>
         <ion-select-option value="0">{{ 'glider.solo' | translate }}</ion-select-option>
@@ -31,8 +27,7 @@
       </ion-select>
     </ion-item>
     <ion-item>
-      <ion-label color="primary" position="stacked">{{ 'flight.description' | translate }}</ion-label>
-      <ion-input type="text" [(ngModel)]="filter.description" name="description"></ion-input>
+      <ion-input label="{{ 'flight.description' | translate }}" labelPlacement="stacked" type="text" [(ngModel)]="filter.description" name="description"></ion-input>
     </ion-item>
     <ion-button type="button" (click)="clearFilter()">{{ 'buttons.clear' | translate }}</ion-button>
     <ion-button type="submit">{{ 'buttons.filter' | translate }}</ion-button>
@@ -42,8 +37,8 @@
 <ion-modal class="filterDateModal dateModal" trigger='filterFrom'>
   <ng-template>
     <ion-content>
-      <ion-datetime size="cover" presentation="date" [ngModelOptions]="{standalone: true}" [(ngModel)]="filter.from"  locale="{{ language }}" [showDefaultButtons]="true"
-        doneText="{{ 'buttons.done' | translate }}" cancelText="{{ 'buttons.clear' | translate }}" (ionCancel)="clearDateButton('from')">
+      <ion-datetime size="cover" presentation="date" [preferWheel]="true" locale="{{ language }}" [showDefaultButtons]="true"
+        doneText="{{ 'buttons.done' | translate }}" cancelText="{{ 'buttons.clear' | translate }}" (ionCancel)="clearDateButton('from')" (ionChange)="changeDate('from', $event)">
       </ion-datetime>
     </ion-content>
   </ng-template>
@@ -52,8 +47,8 @@
 <ion-modal class="filterDateModal dateModal" trigger='filterTo'>
   <ng-template>
     <ion-content>
-        <ion-datetime size="cover" presentation="date" [ngModelOptions]="{standalone: true}" [(ngModel)]="filter.to"  locale="{{ language }}" [showDefaultButtons]="true"
-          doneText="{{ 'buttons.done' | translate }}" cancelText="{{ 'buttons.clear' | translate }}" (ionCancel)="clearDateButton('to')">
+        <ion-datetime size="cover" presentation="date" [preferWheel]="true" locale="{{ language }}" [showDefaultButtons]="true"
+          doneText="{{ 'buttons.done' | translate }}" cancelText="{{ 'buttons.clear' | translate }}" (ionCancel)="clearDateButton('to')" (ionChange)="changeDate('to', $event)">
         </ion-datetime>
     </ion-content>
   </ng-template>

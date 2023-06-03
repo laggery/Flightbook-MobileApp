@@ -9,5 +9,6 @@ export class FlightFilter {
 
     constructor() {
         this.glider = new Glider();
+        this.gliderType = "";
     }
 }

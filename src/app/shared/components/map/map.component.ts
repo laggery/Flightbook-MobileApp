@@ -119,6 +119,7 @@ export class MapComponent implements AfterViewInit {
 
   onTimeSliderInput($event: any) {
     const value = $event.target.value / 100;
+    this.inputValue = value;
     const m = this.time.start + this.time.duration * value;
     this.sliderInfo = this.igcParserValue.fixes.find((val: any) => {return val.time == new Date(m * 1000).toISOString().substr(11, 8)})
 
