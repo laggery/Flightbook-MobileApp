@@ -55,7 +55,11 @@ export class FlightListPage implements OnInit, OnDestroy, AfterViewInit {
       message: this.translate.instant('loading.loading')
     });
     await loading.present();
-    this.flightService.getFlights({ limit: this.flightService.defaultLimit, clearStore: true })
+    let limit = this.flightService.defaultLimit;
+    if (window.innerHeight > 1024) {
+      limit += Math.ceil((window.innerHeight - 1024) / 47) + 2;
+    }
+    this.flightService.getFlights({ limit: limit, clearStore: true })
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(async (res: Flight[]) => {
         // @hack for hide export item
