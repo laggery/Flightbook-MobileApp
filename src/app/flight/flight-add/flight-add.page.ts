@@ -126,6 +126,10 @@ export class FlightAddPage implements OnInit, OnDestroy {
     await loading.present();
 
     this.igcFile = await this.igcService.getIgcFileContentAndPrefillFlight(this.flight, this.flight.igcFile);
+    const glider = this.gliders.find(glider => glider.id === this.flight.glider.id);
+    if (!glider) {
+      this.gliders.push(this.flight.glider);
+    }
 
     await loading.dismiss();
   }

@@ -170,4 +170,12 @@ export class LoginPage implements OnInit, OnDestroy {
     });
     return true;
   }
+
+  changeEmail(event:any) {
+    this.loginData.email = event.target.value;
+  }
+
+  changePassword(event:any) {
+    this.loginData.password = event.target.value;
+  }
 }
