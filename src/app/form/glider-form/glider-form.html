@@ -1,15 +1,12 @@
 <form #form="ngForm" (ngSubmit)="saveElement(form)">
   <ion-item id="buyDateInput">
-    <ion-label color="primary" position="stacked">{{ 'glider.buydate' | translate }}</ion-label>
-    <ion-input value="{{ glider.buyDate | date:'dd.MM.yyyy' }}"></ion-input>
+    <ion-input label="{{ 'glider.buydate' | translate }}" labelPlacement="stacked" value="{{ glider.buyDate | date:'dd.MM.yyyy' }}"></ion-input>
   </ion-item>
   <ion-item>
-    <ion-label color="primary" position="stacked">{{ 'glider.brand' | translate }}<span style="color:red"> *</span></ion-label>
-    <ion-input required clearInput [(ngModel)]="glider.brand" type="text" name="brand"></ion-input>
+    <ion-input label="{{ 'glider.brand' | translate }} *" labelPlacement="stacked" required clearInput [(ngModel)]="glider.brand" type="text" name="brand"></ion-input>
   </ion-item>
   <ion-item>
-    <ion-label color="primary" position="stacked">{{ 'glider.name' | translate }}<span style="color:red"> *</span></ion-label>
-    <ion-input required [(ngModel)]="glider.name" type="text" name="name"></ion-input>
+    <ion-input label="{{ 'glider.name' | translate }} *" labelPlacement="stacked" required [(ngModel)]="glider.name" type="text" name="name"></ion-input>
   </ion-item>
   <ion-item>
     <ion-label color="primary" position="stacked">{{ 'glider.tandem' | translate }}</ion-label>
@@ -25,8 +22,8 @@
 <ion-modal class="dateModal" trigger='buyDateInput'>
   <ng-template>
     <ion-content>
-        <ion-datetime size="cover" presentation="date" [ngModelOptions]="{standalone: true}" [(ngModel)]="glider.buyDate" locale="{{ language }}" [showDefaultButtons]="true"
-          doneText="{{ 'buttons.done' | translate }}" cancelText="{{ 'buttons.cancel' | translate }}">
+        <ion-datetime size="cover" presentation="date" [preferWheel]="true" locale="{{ language }}" [showDefaultButtons]="true"
+          doneText="{{ 'buttons.done' | translate }}" cancelText="{{ 'buttons.cancel' | translate }}" (ionChange)="changeBuyDate($event)">
         </ion-datetime>
     </ion-content>
   </ng-template>

@@ -38,7 +38,7 @@
               },
               {
                 "glob": "**/*",
-                "input": "./node_modules/@laggery/nxt-flags/assets/flags",
+                "input": "./node_modules/nxt-flags/assets/flags",
                 "output": "./assets/flags"
               },
               "src/manifest.webmanifest"

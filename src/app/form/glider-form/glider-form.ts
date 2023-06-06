@@ -41,6 +41,10 @@ export class GliderFormComponent implements OnInit {
     }
   }
 
+  changeBuyDate(event: CustomEvent) {
+      this.glider.buyDate = event.detail.value ? event.detail.value : new Date();
+  }
+
   cancelButton() {
     this.glider.buyDate = null;
   }

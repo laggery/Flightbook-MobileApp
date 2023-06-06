@@ -1,5 +1,5 @@
-<ion-select class="glider-select"required [value]="flight.glider.id?.toString()" (ionChange)="onSelectChange($event)" name="glider"
-  [selectedText]="glider" okText="{{ 'buttons.done' | translate }}" cancelText="{{ 'buttons.cancel' | translate }}">
+<ion-select label="{{ label }}" labelPlacement="{{ labelPlacement }}" class="glider-select"required [value]="flight.glider.id?.toString()" (ionChange)="onSelectChange($event)" name="glider"
+  okText="{{ 'buttons.done' | translate }}" cancelText="{{ 'buttons.cancel' | translate }}">
   <ion-select-option *ngFor="let glider of gliders" value="{{ glider.id }}">{{ glider.brand }} {{ glider.name }}
   </ion-select-option>
 </ion-select>

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Flight } from 'src/app/flight/shared/flight.model';
 import { Glider } from 'src/app/glider/shared/glider.model';
 
@@ -15,19 +15,18 @@ export class GliderSelectComponent implements OnInit {
   @Input()
   flight: Flight;
 
-  glider: string;
+  @Input()
+  label: string;
+
+  @Input()
+  labelPlacement: string;
 
   constructor() { }
 
-  ngOnInit() {
-    if (this.flight.glider.brand && this.flight.glider.name) {
-      this.glider = `${this.flight.glider.brand} ${this.flight.glider.name}`;
-    }
-  }
+  ngOnInit() {}
 
   onSelectChange(selectedValue: any) {
     this.flight.glider = this.gliders.find(glider => glider.id === +selectedValue.detail.value);
-    this.glider = `${this.flight.glider.brand} ${this.flight.glider.name}`;
     if (!this.flight.glider.tandem) {
       this.flight.price = null;
     }

@@ -73,6 +73,14 @@ export class FlightFilterComponent implements OnInit, OnDestroy {
     }
   }
 
+  changeDate(type: string, event: CustomEvent) {
+    if (type === 'from') {
+      this.filter.from = event.detail.value ? event.detail.value : new Date();
+    } else {
+      this.filter.to = event.detail.value ? event.detail.value : new Date();
+    }
+  }
+
   private async closeFilter() {
     const loading = await this.loadingCtrl.create({
       message: this.translate.instant('loading.loading')

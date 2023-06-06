@@ -15,5 +15,6 @@ export class Appointment {
     school: School;
     instructor: User;
     takeOffCoordinator: User;
+    takeOffCoordinatorText: string;
     subscriptions: Subscription[];
 }

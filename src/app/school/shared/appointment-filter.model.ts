@@ -3,7 +3,9 @@ import { State } from "./state";
 export class AppointmentFilter {
     from: Date;
     to: Date;
-    state: State;
+    state: string;
 
-    constructor() {}
+    constructor() {
+        this.state = "";
+    }
 }

@@ -7,16 +7,13 @@
 <ion-content class="ion-padding">
   <form (ngSubmit)="filterElement()">
     <ion-item>
-      <ion-label color="primary" position="stacked">{{ 'glider.brand' | translate }}</ion-label>
-      <ion-input type="text" [(ngModel)]="filter.brand" name="brand"></ion-input>
+      <ion-input label="{{ 'glider.brand' | translate }}" labelPlacement="stacked" type="text" [(ngModel)]="filter.brand" name="brand"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label color="primary" position="stacked">{{ 'glider.name' | translate }}</ion-label>
-      <ion-input type="text" [(ngModel)]="filter.name" name="name"></ion-input>
+      <ion-input label="{{ 'glider.name' | translate }}" labelPlacement="stacked" type="text" [(ngModel)]="filter.name" name="name"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label color="primary" position="stacked">{{ 'glider.type' | translate }}</ion-label>
-      <ion-select [(ngModel)]="filter.type" name="type" okText="{{ 'buttons.done' | translate }}"
+      <ion-select label="{{ 'glider.type' | translate }}" labelPlacement="stacked" [(ngModel)]="filter.type" name="type" okText="{{ 'buttons.done' | translate }}"
         cancelText="{{ 'buttons.cancel' | translate }}">
         <ion-select-option value="">{{ 'glider.all' | translate }}</ion-select-option>
         <ion-select-option value="0">{{ 'glider.solo' | translate }}</ion-select-option>
@@ -24,8 +21,7 @@
       </ion-select>
     </ion-item>
     <ion-item>
-      <ion-label color="primary" position="stacked">{{ 'glider.archived' | translate }}</ion-label>
-      <ion-select [(ngModel)]="filter.archived" name="type" okText="{{ 'buttons.done' | translate }}"
+      <ion-select label="{{ 'glider.archived' | translate }}" labelPlacement="stacked" [(ngModel)]="filter.archived" name="archived" okText="{{ 'buttons.done' | translate }}"
         cancelText="{{ 'buttons.cancel' | translate }}">
         <ion-select-option value="">{{ 'glider.all' | translate }}</ion-select-option>
         <ion-select-option value="1">{{ 'buttons.yes' | translate }}</ion-select-option>

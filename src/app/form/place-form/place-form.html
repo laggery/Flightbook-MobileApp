@@ -1,21 +1,17 @@
 <form #form="ngForm" (ngSubmit)="saveElement(form)">
   <ion-item>
-    <ion-label color="primary" position="stacked">{{ 'place.name' | translate }}<span style="color:red"> *</span></ion-label>
-    <ion-input required clearInput [(ngModel)]="place.name" type="text" name="name"></ion-input>
+    <ion-input label="{{ 'place.name' | translate }} *" labelPlacement="stacked" required clearInput [(ngModel)]="place.name" type="text" name="name"></ion-input>
   </ion-item>
   <ion-item>
-    <ion-label color="primary" position="stacked">{{ 'place.altitude' | translate }}</ion-label>
-    <ion-input clearInput [(ngModel)]="place.altitude" type="number" name="altitude"></ion-input>
+    <ion-input label="{{ 'place.altitude' | translate }}" labelPlacement="stacked" clearInput [(ngModel)]="place.altitude" type="number" name="altitude"></ion-input>
   </ion-item>
   <ion-item>
-    <ion-label color="primary" position="stacked">{{ 'place.country' | translate }}</ion-label>
-    <ion-select [(ngModel)]="place.country" name="country" okText="{{ 'buttons.done' | translate }}" cancelText="{{ 'buttons.clear' | translate }}" (ionCancel)="clearCountry()">
+    <ion-select label="{{ 'place.country' | translate }}" labelPlacement="stacked" [(ngModel)]="place.country" name="country" okText="{{ 'buttons.done' | translate }}" cancelText="{{ 'buttons.clear' | translate }}" (ionCancel)="clearCountry()">
       <ion-select-option *ngFor="let country of countries" value="{{ country.code }}">{{ country.name[this.lang] }}</ion-select-option>
     </ion-select>
   </ion-item>
   <ion-item>
-    <ion-label color="primary" position="stacked">{{ 'place.notes' | translate }}</ion-label>
-    <ion-textarea rows="4" type="text" [(ngModel)]="place.notes" name="notes"></ion-textarea>
+    <ion-textarea label="{{ 'place.notes' | translate }}" labelPlacement="stacked" rows="4" type="text" [(ngModel)]="place.notes" name="notes"></ion-textarea>
   </ion-item>
   <ion-button expand="block" type="submit" >{{ 'buttons.save' | translate }}</ion-button>
 </form>
