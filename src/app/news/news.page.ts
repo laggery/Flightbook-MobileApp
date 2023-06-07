@@ -72,12 +72,12 @@ export class NewsPage implements OnInit, OnDestroy {
     }, async (error: any) => {
       await loading.dismiss();
     });
-    this.flightService.getFlights({ limit: this.flightService.defaultLimit, clearStore: true })
+    let limit = this.flightService.defaultLimit;
+    if (window.innerHeight > 1024) {
+      limit += Math.ceil((window.innerHeight - 1024) / 47) + 2;
+    }
+    this.flightService.getFlights({ limit: limit, clearStore: true })
       .pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Flight[]) => {
-      // @hack for hide export item
-      setTimeout(async () => {
-        await loading.dismiss();
-      }, 1);
     }, async (error: any) => {
       await loading.dismiss();
     });
