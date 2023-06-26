@@ -13,5 +13,6 @@
   <ion-item>
     <ion-textarea label="{{ 'place.notes' | translate }}" labelPlacement="stacked" rows="4" type="text" [(ngModel)]="place.notes" name="notes"></ion-textarea>
   </ion-item>
+  <fb-place-map [place]="place" [placeName]="place?.name"></fb-place-map>
   <ion-button expand="block" type="submit" >{{ 'buttons.save' | translate }}</ion-button>
 </form>

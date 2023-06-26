@@ -47,7 +47,9 @@
         "name": "Nom",
         "altitude": "Altitude",
         "country": "Pays",
-        "notes": "Notes"
+        "notes": "Notes",
+        "coordinates": "Coordonnées",
+        "override": "Voulez-vous remplacer l'altitude et le pays par les données de la carte?"
     },
     "glider": {
         "buydate": "Date d'achat",

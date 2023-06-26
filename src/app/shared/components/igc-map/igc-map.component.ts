@@ -13,11 +13,11 @@ import { getVectorContext } from 'ol/render';
 import * as IGCParser from 'igc-parser';
 
 @Component({
-  selector: 'fb-map',
-  templateUrl: './map.component.html',
-  styleUrls: ['./map.component.scss'],
+  selector: 'fb-igc-map',
+  templateUrl: './igc-map.component.html',
+  styleUrls: ['./igc-map.component.scss'],
 })
-export class MapComponent implements AfterViewInit {
+export class IgcMapComponent implements AfterViewInit {
 
   igcFileValue: string;
   inputValue = 0;

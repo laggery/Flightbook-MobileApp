@@ -33,7 +33,7 @@
     <ion-textarea label="{{ 'flight.description' | translate }}" labelPlacement="stacked" [(ngModel)]="flight.description" name="description" autocomplete="on" autocorrect="on" auto-grow="true"></ion-textarea>
   </ion-item>
 
-  <fb-map *ngIf="igcFile" [igcFile]="igcFile"></fb-map>
+  <fb-igc-map *ngIf="igcFile" [igcFile]="igcFile"></fb-igc-map>
 
   <ion-button expand="block" type="submit">{{ 'buttons.save' | translate }}</ion-button>
 </form>

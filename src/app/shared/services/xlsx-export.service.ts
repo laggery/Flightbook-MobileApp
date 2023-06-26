@@ -7,6 +7,7 @@ import { HoursFormatPipe } from 'src/app/shared/pipes/hours-format/hours-format.
 import { Flight } from 'src/app/flight/shared/flight.model';
 import { Glider } from 'src/app/glider/shared/glider.model';
 import { Countries, Country } from 'src/app/place/shared/place.countries';
+import { MapUtil } from '../util/MapUtil';
 
 const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
 const EXCEL_EXTENSION = '.xlsx';
@@ -121,6 +122,8 @@ export class XlsxExportService {
       flatPlace[this.translate.instant('place.name')] = place.name;
       flatPlace[this.translate.instant('place.altitude')] = place.altitude;
       flatPlace[this.translate.instant('place.country')] = place.country ? this.countries.find(x => x.code === place.country).name[this.lang] : "";
+      let point: any = MapUtil.convertEPSG3857ToEPSG4326(place.coordinates)
+      flatPlace[this.translate.instant('place.coordinates')] = point ? `${point.flatCoordinates[1]}, ${point.flatCoordinates[0]}` : "";
       flatPlace[this.translate.instant('place.notes')] = place.notes;
       list.push(flatPlace);
     })

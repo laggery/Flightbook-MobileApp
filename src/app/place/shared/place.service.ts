@@ -6,6 +6,7 @@ import { environment } from 'src/environments/environment';
 import { Store } from 'src/app/shared/services/store.class';
 import { Place } from './place.model';
 import { Pager } from 'src/app/shared/domain/pager.model';
+import { FeatureCollection, Position } from 'geojson';
 
 @Injectable({
   providedIn: 'root'
@@ -84,6 +85,18 @@ export class PlaceService extends Store<Place[]> {
         return response;
       })
     );
+  }
+
+  searchOpenstreetmapPlace(name: string) {
+    return this.http.get<FeatureCollection>(`https://nominatim.openstreetmap.org/search/${encodeURI(name)}?format=geojson&limit=1`);
+  }
+
+  getPlaceMetadata(coordinates: Position) {
+    let params = new HttpParams()
+      .append('lat', coordinates[1])
+      .append('lng', coordinates[0]);
+  
+    return this.http.get<Place>(`${environment.baseUrl}/places/metadata`, {params});
   }
 
   private createFilterParams(limit: Number, offset: Number): HttpParams {
