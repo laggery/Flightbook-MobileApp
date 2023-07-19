@@ -29,6 +29,16 @@ docker build --build-arg NPM_TOKEN=xxxx -t mobile .
 ## Security
 If you discover security related issues, please email yannick.lagger@flightbook.ch instead of using the issue tracker.
 
+## Xlsx package
+Information under https://docs.sheetjs.com/
+
+Version -> https://git.sheetjs.com/sheetjs/sheetjs/tags
+
+Package installation
+```
+npm i --save https://cdn.sheetjs.com/xlsx-0.20.0/xlsx-0.20.0.tgz
+```
+
 ## Licence
 Copyright (C) 2013-2020 Yannick Lagger, Switzerland.
 Flightbook is released under the [GPL3 License](https://opensource.org/licenses/GPL-3.0)

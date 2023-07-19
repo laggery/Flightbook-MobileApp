@@ -54,7 +54,7 @@
     "rxjs": "~7.8.0",
     "tslib": "^2.5.0",
     "uuid": "^9.0.0",
-    "xlsx": "^0.18.5",
+    "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.0/xlsx-0.20.0.tgz",
     "zone.js": "~0.13.0"
   },
   "devDependencies": {
