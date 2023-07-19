@@ -2,6 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
 import { LineChartComponent } from './line-chart.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('LineChartComponent', () => {
   let component: LineChartComponent;
@@ -10,7 +11,7 @@ describe('LineChartComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ LineChartComponent ],
-      imports: [IonicModule.forRoot()]
+      imports: [IonicModule.forRoot(), TranslateModule.forRoot()]
     }).compileComponents();
 
     fixture = TestBed.createComponent(LineChartComponent);

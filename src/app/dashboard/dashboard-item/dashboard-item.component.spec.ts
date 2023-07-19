@@ -2,6 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
 import { DashboardItemComponent } from './dashboard-item.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('DashboardItemComponent', () => {
   let component: DashboardItemComponent;
@@ -10,7 +11,7 @@ describe('DashboardItemComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ DashboardItemComponent ],
-      imports: [IonicModule.forRoot()]
+      imports: [IonicModule.forRoot(), TranslateModule.forRoot()]
     }).compileComponents();
 
     fixture = TestBed.createComponent(DashboardItemComponent);

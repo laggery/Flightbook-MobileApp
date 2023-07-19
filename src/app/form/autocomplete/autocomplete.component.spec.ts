@@ -2,6 +2,8 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
 import { AutocompleteComponent } from './autocomplete.component';
+import { TranslateModule } from '@ngx-translate/core';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('AutocompleteComponent', () => {
   let component: AutocompleteComponent;
@@ -10,7 +12,7 @@ describe('AutocompleteComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ AutocompleteComponent ],
-      imports: [IonicModule.forRoot()]
+      imports: [HttpClientTestingModule, IonicModule.forRoot(), TranslateModule.forRoot()]
     }).compileComponents();
 
     fixture = TestBed.createComponent(AutocompleteComponent);

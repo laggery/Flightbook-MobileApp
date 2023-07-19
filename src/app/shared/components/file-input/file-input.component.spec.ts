@@ -2,6 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
 import { FileInputComponent } from './file-input.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('FileInputComponent', () => {
   let component: FileInputComponent;
@@ -10,7 +11,7 @@ describe('FileInputComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ FileInputComponent ],
-      imports: [IonicModule.forRoot()]
+      imports: [IonicModule.forRoot(), TranslateModule.forRoot()]
     }).compileComponents();
 
     fixture = TestBed.createComponent(FileInputComponent);

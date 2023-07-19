@@ -2,6 +2,7 @@ import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/te
 import { IonicModule } from '@ionic/angular';
 
 import { BarChartComponent } from './bar-chart.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('BarChartComponent', () => {
   let component: BarChartComponent;
@@ -10,7 +11,7 @@ describe('BarChartComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ BarChartComponent ],
-      imports: [IonicModule.forRoot()]
+      imports: [IonicModule.forRoot(), TranslateModule.forRoot()]
     }).compileComponents();
 
     fixture = TestBed.createComponent(BarChartComponent);

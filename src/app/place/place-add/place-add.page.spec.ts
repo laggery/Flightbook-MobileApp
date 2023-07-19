@@ -2,6 +2,8 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
 import { PlaceAddPage } from './place-add.page';
+import { TranslateModule } from '@ngx-translate/core';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('PlaceAddPage', () => {
   let component: PlaceAddPage;
@@ -10,7 +12,7 @@ describe('PlaceAddPage', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ PlaceAddPage ],
-      imports: [IonicModule.forRoot()]
+      imports: [HttpClientTestingModule, IonicModule.forRoot(), TranslateModule.forRoot()]
     }).compileComponents();
 
     fixture = TestBed.createComponent(PlaceAddPage);

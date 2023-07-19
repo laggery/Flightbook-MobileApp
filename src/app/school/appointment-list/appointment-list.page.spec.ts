@@ -2,6 +2,9 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
 import { AppointmentListPage } from './appointment-list.page';
+import { TranslateModule } from '@ngx-translate/core';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RouterTestingModule } from "@angular/router/testing";
 
 describe('AppointmentListPage', () => {
   let component: AppointmentListPage;
@@ -10,7 +13,7 @@ describe('AppointmentListPage', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ AppointmentListPage ],
-      imports: [IonicModule.forRoot()]
+      imports: [HttpClientTestingModule, RouterTestingModule, IonicModule.forRoot(), TranslateModule.forRoot()]
     }).compileComponents();
 
     fixture = TestBed.createComponent(AppointmentListPage);

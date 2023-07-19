@@ -2,6 +2,8 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
 import { FlightFilterComponent } from './flight-filter.component';
+import { TranslateModule } from '@ngx-translate/core';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('FlightFilterComponent', () => {
   let component: FlightFilterComponent;
@@ -10,7 +12,7 @@ describe('FlightFilterComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ FlightFilterComponent ],
-      imports: [IonicModule.forRoot()]
+      imports: [HttpClientTestingModule, IonicModule.forRoot(), TranslateModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(FlightFilterComponent);
