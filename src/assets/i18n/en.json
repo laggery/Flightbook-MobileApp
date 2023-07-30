@@ -27,7 +27,8 @@
         "close": "Close",
         "yes": "Yes",
         "no": "No",
-        "multipleIgc": "Multiple IGC"
+        "multipleIgc": "Multiple IGC",
+        "cancelSubscription": "Cancel subscription"
     },
     "login": {
         "email": "E-Mail",
@@ -154,7 +155,8 @@
         "removeSubscription": "Do you really want to unsubscribe? If you sign up again, you will be at the bottom of the waiting list.",
         "watingList": "It's already full. You are on the waiting list.",
         "notificationRegistrationFailed": "The app could not register for push notifications. Try closing the app and opening it again.",
-        "newVersion": "The new version of the app will be loaded"
+        "newVersion": "The new version of the app will be loaded",
+        "cancelPymentSubscription": "Are you sure you want to cancel your subscription?"
     },
     "loading": {
         "createaccount": "Create account...",
@@ -216,7 +218,8 @@
     },
     "payment": {
         "noSubscription": "You do not currently have a subscription",
-        "information": "Your subscription will be automatically renewed on {{ date }}. You will be charged CHF 12.00/year"
+        "information": "Your subscription will be automatically renewed on {{ date }}. You will be charged CHF 12.00/year",
+        "canceled": "Your subscription has been canceled. You still have access to all features until {{ date }}."
     },
     "version": "Version"
 }

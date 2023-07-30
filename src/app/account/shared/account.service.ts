@@ -60,6 +60,10 @@ export class AccountService {
     return this.http.get<PaymentStatus>(`${environment.baseUrl}/payments/status`);
   }
 
+  cancelPaymentSubscription(){
+    return this.http.post(`${environment.baseUrl}/payments/cancel`, {});
+  }
+
   async isAuth(): Promise<boolean> {
     let authenticated = true;
     const accessToken = localStorage.getItem('access_token');

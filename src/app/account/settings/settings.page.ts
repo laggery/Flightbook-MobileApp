@@ -69,6 +69,39 @@ export class SettingsPage implements OnInit, OnDestroy {
     })
   }
 
+  async cancelSubscription() {
+    const alert = await this.alertController.create({
+      header: this.translate.instant('message.warning'),
+      message: this.translate.instant('message.cancelPymentSubscription'),
+      buttons: [
+        {
+          text: this.translate.instant('buttons.yes'),
+          handler: async () => {
+            const loading = await this.loadingCtrl.create({
+              message: this.translate.instant('loading.login')
+            });
+            await loading.present();
+        
+            this.accountService.cancelPaymentSubscription().pipe(takeUntil(this.unsubscribe$)).subscribe({
+              next: (res: any) => {
+                this.paymentStatus.state = 'CANCELED';
+                loading.dismiss();
+              },
+              error: (res: any) => {
+                loading.dismiss();
+              }
+            });
+          }
+        },
+        {
+          text: this.translate.instant('buttons.no')
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
   setLanguage(lang: string) {
     localStorage.setItem('language', lang);
     this.translate.use(lang)

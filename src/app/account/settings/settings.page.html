@@ -25,9 +25,13 @@
     <!-- <ion-card-content *ngIf="!paymentStatus.active">
       {{ 'payment.noSubscription' | translate }}
     </ion-card-content> -->
-    <ion-card-content *ngIf="paymentStatus.active">
+    <ion-card-content *ngIf="paymentStatus.active && paymentStatus.state == 'ACTIVE'">
       {{ 'payment.information' | translate: { date: paymentStatus.expires_date | date:'dd.MM.yyyy HH:mm':'UTC'} }}
     </ion-card-content>
+    <ion-card-content *ngIf="paymentStatus.active && paymentStatus.state == 'CANCELED'">
+      {{ 'payment.canceled' | translate: { date: paymentStatus.expires_date | date:'dd.MM.yyyy HH:mm':'UTC'} }}
+    </ion-card-content>
+    <ion-button *ngIf="paymentStatus.active && paymentStatus.state == 'ACTIVE'" expand="block" color="danger" (click)="cancelSubscription()">{{ 'buttons.cancelSubscription' | translate }}</ion-button>
   </ion-card>
 
   <div class="language-list">

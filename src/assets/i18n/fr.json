@@ -27,7 +27,8 @@
         "close": "Fermer",
         "yes": "Oui",
         "no": "Non",
-        "multipleIgc": "Plusieurs IGC"
+        "multipleIgc": "Plusieurs IGC",
+        "cancelSubscription": "Résilier l'abonnement"
     },
     "login": {
         "email": "E-Mail",
@@ -151,10 +152,11 @@
         "igcCopyError": "Le fichier IGC n'a pas pu être copié",
         "downloadExcel": "Pour pouvoir ouvrir un fichier xlsx, vous devez télécharger l'application \"Microsoft Excel: Spreadsheets\"",
         "subscription": "Voulez-vous vraiment vous inscrire à ce rendez-vous?",
-        "removeSubscription": "Souhaites-tu vraiment te désinscrire ? Si tu te réinscris, tu seras en bas de la liste d'attente.",
+        "removeSubscription": "Souhaites-tu vraiment te désinscrire? Si tu te réinscris, tu seras en bas de la liste d'attente.",
         "watingList": "C'est déjà complet. Tu es sur la liste d'attente.",
         "notificationRegistrationFailed": "L'application n'a pas pu s'enregistrer pour les notifications push. Essayez de fermer l'application et de l'ouvrir à nouveau.",
-        "newVersion": "La nouvelle version de l'application sera chargée"
+        "newVersion": "La nouvelle version de l'application sera chargée",
+        "cancelPymentSubscription": "Etes-vous sûr de vouloir résilier votre abonnement?"
     },
     "loading": {
         "createaccount": "Création compte...",
@@ -216,7 +218,8 @@
     },
     "payment": {
         "noSubscription": "Vous n'avez actuellement pas d'abonnement",
-        "information": "Votre abonnement sera automatiquement renouvelé le {{ date }}. Vous serez débité d'un montant de CHF 12.00/année"
+        "information": "Votre abonnement sera automatiquement renouvelé le {{ date }}. Vous serez débité d'un montant de CHF 12.00/année",
+        "canceled": "Votre abonnement a été résilié. Vous disposez encore de l'ensemble des fonctionnalités jusqu'au {{ date }}."
     },
     "version": "Version"
 }

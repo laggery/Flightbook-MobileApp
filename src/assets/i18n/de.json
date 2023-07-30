@@ -27,7 +27,8 @@
         "close": "Schliessen",
         "yes": "Ja",
         "no": "Nein",
-        "multipleIgc": "Mehrere IGC"
+        "multipleIgc": "Mehrere IGC",
+        "cancelSubscription": "Abonnement kündigen"
     },
     "login": {
         "email": "E-Mail",
@@ -154,7 +155,8 @@
         "removeSubscription": "Möchtest du dich wirklich abmelden? Falls du dich erneut anmeldest, wirst du zuunterst von der Warteliste sein.",
         "watingList": "Es ist bereits ausgebucht. Du stehst auf der Warteliste.",
         "notificationRegistrationFailed": "Die Applikation konnte sich nicht für die Push Notifikationen registrieren. Versuchen sie die Applikation zu schliessen und nochmals zu öffnen.",
-        "newVersion": "Die neue Version der App wird geladen"
+        "newVersion": "Die neue Version der App wird geladen",
+        "cancelPymentSubscription": "Sind Sie sicher, dass Sie Ihr Abonnement kündigen möchten?"
     },
     "loading": {
         "createaccount": "Registrieren...",
@@ -216,7 +218,8 @@
     },
     "payment": {
         "noSubscription": "Sie haben zurzeit kein Abonnement",
-        "information": "Ihr Abonnement wird am {{ date }} automatisch verlängert. Sie werden mit einem Betrag von CHF 12.00/Jahr belastet."
+        "information": "Ihr Abonnement wird am {{ date }} automatisch verlängert. Sie werden mit einem Betrag von CHF 12.00/Jahr belastet.",
+        "canceled": "Ihr Abonnement wurde gekündigt. Sie verfügen noch über alle Funktionen bis zum {{ date }}."
     },
     "version": "Version"
 }
