@@ -88,7 +88,7 @@ export class PlaceService extends Store<Place[]> {
   }
 
   searchOpenstreetmapPlace(name: string) {
-    return this.http.get<FeatureCollection>(`https://nominatim.openstreetmap.org/search/${encodeURI(name)}?format=geojson&limit=1`);
+    return this.http.get<FeatureCollection>(`${environment.baseUrl}/places/openstreetmap/${name}`);
   }
 
   getPlaceMetadata(coordinates: Position) {

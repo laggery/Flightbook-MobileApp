@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { AfterViewInit, Component, Input, NgZone, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { Point as GeoPoint, Position } from 'geojson';
@@ -41,7 +41,8 @@ export class PlaceMapComponent  implements OnInit, AfterViewInit, OnChanges {
   constructor(
     private placeService: PlaceService,
     private alertController: AlertController,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private zone: NgZone
   ) {
     const style = new Style({
       image: new Icon({
@@ -126,7 +127,6 @@ export class PlaceMapComponent  implements OnInit, AfterViewInit, OnChanges {
   onDblclick = (async(evt: any) => {
     this.place.coordinates = evt.coordinate;
     this.marker.setGeometry(new Point(evt.coordinate));
-    console.log(this.map.getView().getProjection());
     const epsgGeometry: any = this.marker.getGeometry().clone().transform(this.map.getView().getProjection(), 'EPSG:4326')
     const res = await firstValueFrom(this.placeService.getPlaceMetadata(epsgGeometry.flatCoordinates));
 
@@ -143,7 +143,6 @@ export class PlaceMapComponent  implements OnInit, AfterViewInit, OnChanges {
             }
           },
           this.translate.instant('buttons.no')
-  
         ]
       });
   
@@ -151,8 +150,10 @@ export class PlaceMapComponent  implements OnInit, AfterViewInit, OnChanges {
       await alert.onDidDismiss();
       await alert.dismiss();
     } else {
-      this.place.altitude = res.altitude;
-      this.place.country = res.country;
+      this.zone.run(() => {
+        this.place.altitude = res.altitude;
+        this.place.country = res.country;
+      });
     }
   });
 }
