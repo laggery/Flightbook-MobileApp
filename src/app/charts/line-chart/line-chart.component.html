@@ -1,1 +1,9 @@
-<div class="lineChart"></div>
+<div class="chart">
+    <canvas baseChart 
+        [data]="data" 
+        [options]="lineChartOptions"
+        [plugins]="lineChartPlugins"
+        [legend]="lineChartLegend"
+        [type]="'line'">
+    </canvas>
+</div>

@@ -1,118 +1,95 @@
-import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 
-import * as d3 from 'd3-selection';
-import * as d3Scale from 'd3-scale';
-import * as d3Array from 'd3-array';
-import * as d3Axis from 'd3-axis';
-import { TranslateService } from '@ngx-translate/core';
-import { FlightStatistic } from 'src/app/flight/shared/flightStatistic.model';
+import DataLabelsPlugin, { Context } from 'chartjs-plugin-datalabels';
+import { ChartConfiguration, ChartData } from 'chart.js';
+import { BaseChartDirective } from 'ng2-charts';
 
 @Component({
   selector: 'bar-chart',
-  encapsulation: ViewEncapsulation.None,
   templateUrl: './bar-chart.component.html',
   styleUrls: ['./bar-chart.component.scss'],
 })
-export class BarChartComponent implements OnInit {
+export class BarChartComponent implements OnInit, OnChanges, AfterViewInit {
 
   @Input() chartType: 'nbFlights' | 'income';
+  @Input() data: ChartData<'bar'>;
+  @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
 
-  width: number;
-  height: number;
-  margin = { top: 20, right: 20, bottom: 30, left: 40 };
-  x: any;
-  y: any;
-  svg: any;
-  g: any;
-  div: any;
+  barChartLegend = true;
+  barChartPlugins: any = [DataLabelsPlugin];
 
-  constructor(private translate: TranslateService) {
-    this.width = 900 - this.margin.left - this.margin.right;
-    this.height = 500 - this.margin.top - this.margin.bottom;
-  }
-
-  private initSvg() {
-    this.div = d3.select('.barChart').append('div');
-    this.svg = this.div
-      .append('svg')
-      .attr('width', '100%')
-      .attr('height', '100%')
-      .attr('viewBox', '-30 0 900 500')
-      .style('margin-bottom', '5vw');
-    this.g = this.svg.append('g')
-      .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
-  }
-
-  private initAxis(statisticsList: FlightStatistic[]) {
-    this.x = d3Scale.scaleBand().rangeRound([0, this.width]).padding(0.1);
-    this.y = d3Scale.scaleLinear().rangeRound([this.height, 0]);
-    this.x.domain(statisticsList.map((d) => d.year));
-    this.y.domain([0, d3Array.max(statisticsList, (d: any) => d[this.chartType])]);
-  }
-
-  private drawAxis(yAxisTranslation: string) {
-    // x axis -> Years
-    this.g.append('g')
-      .style('font-size', '20px')
-      .style('font-weight', '700')
-      .attr('class', 'axis axis--x')
-      .attr('transform', 'translate(0,' + this.height + ')')
-      .call(d3Axis.axisBottom(this.x));
-
-    // y left axis -> nb flights
-    this.g.append('g')
-      .style('font-size', '20px')
-      .style('font-weight', '700')
-      .attr('class', 'axis axis--yLeft')
-      .call(d3Axis.axisLeft(this.y))
-      .append('text')
-      .attr('transform', 'rotate(-90)')
-      .attr('dy', '.75em')
-      .attr('y', 6)
-      .style('text-anchor', 'end')
-      .attr('fill', 'currentColor')
-      .text(yAxisTranslation);
-  }
-
-  private drawBars(statisticsList: FlightStatistic[]) {
-    const rectG = this.g.selectAll('.bar')
-      .data(statisticsList)
-      .enter().append('g');
-
-    rectG.append('rect')
-      .attr('class', 'bar-nbFlight')
-      .attr('x', (d: any) => this.x(d.year))
-      .attr('y', (d: any) => this.y(d[this.chartType]))
-      .attr('width', this.x.bandwidth())
-      .attr('height', (d: any) => this.height - this.y(d[this.chartType]))
-      .attr('fill', '#3880ff');
-
-    rectG
-      .append('text')
-      .attr('x', (d: any) => {
-        if (d[this.chartType]) {
-          return this.x(d.year) + (this.x.bandwidth() - ((this.x.bandwidth()  / 2) + d[this.chartType].toString().length * 4.6));
+  public barChartOptions: ChartConfiguration['options'] = {
+    backgroundColor: 'rgb(66,140,255)',
+    responsive: true,
+    maintainAspectRatio: false,
+    // We use these empty structures as placeholders for dynamic theming.
+    scales: {
+      x: { min: 0 , max: 15 },
+      y: {},
+    },
+    plugins: {
+      tooltip: {
+        callbacks: {
+          labelColor: (context) => {
+            return {
+              borderColor: 'rgb(66,140,255)',
+              backgroundColor: 'rgb(66,140,255)',
+            };
+          },
         }
-        return null;
-      })
-      .attr('y', (d: any) => this.y(d[this.chartType]) + 17)
-      .attr('fill', 'white')
-      .text((d: any) => {
-        return d[this.chartType];
-      });
-  }
+      },
+      legend: {
+        display: true,
+        align: 'start'
+      },
+      datalabels: {
+        rotation: -45,
+        labels: {
+          title: {
+            font: {
+              weight: 'bold',
+              
+            }
+          }
+        },
+        anchor: 'end',
+        offset: -6,
+        align: 'end',
+        display: (context: Context) => {
+          return context.dataIndex <= context.chart.scales.x.min - 1 ? false : true; 
+        }
+      },
+      zoom: {
+        pan: {
+          enabled: true,
+          mode: 'x'
+        }
+      }
+    }
+  };
 
-  public displayBarChart(statisticsList: FlightStatistic[]) {
-    this.div?.remove();
-    if (d3Array.max(statisticsList, (d: any) => d[this.chartType]) > 0) {
-      this.initSvg();
-      this.initAxis(statisticsList);
-      const yAxisTranslation = (this.chartType === 'nbFlights') ? this.translate.instant('statistics.nbflight') : this.translate.instant('statistics.price');
-      this.drawAxis(yAxisTranslation);
-      this.drawBars(statisticsList);
+  constructor() {
+    if (!this.data) {
+      this.data = {
+        labels: [],
+        datasets: [
+          { data: [] }
+        ]
+      };
     }
   }
 
   ngOnInit() { }
+
+  ngAfterViewInit() { 
+    this.chart.chart.canvas.style.touchAction = "pan-y";
+  }
+
+  ngOnChanges(event: SimpleChanges) {
+    if (event.data) {
+      this.barChartOptions.scales.x.min = this.data.datasets[0].data.length - 15;
+      this.barChartOptions.scales.x.max = this.data.datasets[0].data.length;
+    }
+  }
 
 }

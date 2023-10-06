@@ -8,7 +8,6 @@ import { FlightStatisticPageRoutingModule } from './flight-statistic-routing.mod
 
 import { FlightStatisticPage } from './flight-statistic.page';
 import { TranslateModule } from '@ngx-translate/core';
-import { FlightFilterComponent } from '../../form/flight-filter/flight-filter.component';
 import { FormModule } from 'src/app/form/form.module';
 import { ChartsModule } from 'src/app/charts/charts.module';
 import { SharedModule } from 'src/app/shared/shared.module';

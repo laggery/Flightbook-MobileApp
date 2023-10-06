@@ -1,1 +1,9 @@
-<div class="barChart"></div>
+<div class="chart">
+    <canvas baseChart 
+        [data]="data" 
+        [options]="barChartOptions"
+        [plugins]="barChartPlugins"
+        [legend]="barChartLegend"
+        [type]="'bar'">
+    </canvas>
+</div>

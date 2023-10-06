@@ -92,7 +92,12 @@
         "nbLandingplaces": "Nb. atterissages",
         "totalDistance": "Distance totale",
         "bestDistance": "Meilleure distance",
-        "unknownCountry": "Inconnu"
+        "unknownCountry": "Inconnu",
+        "type": {
+            "monthly": "Vue annuelle",
+            "yearly": "Vue mensuelle",
+            "weekly": "Vue hebdomadaire"
+        }
     },
     "emptylist": "Cette liste est vide",
     "months": {
