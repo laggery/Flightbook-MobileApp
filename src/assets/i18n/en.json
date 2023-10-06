@@ -92,7 +92,12 @@
         "nbLandingplaces": "Nb. of landing places",
         "totalDistance": "Total distance",
         "bestDistance": "Best distance",
-        "unknownCountry": "Unknown"
+        "unknownCountry": "Unknown",
+        "type": {
+            "monthly": "Monthly view",
+            "yearly": "Yearly view",
+            "weekly": "Weekly view"
+        }
     },
     "emptylist": "This list is empty",
     "months": {

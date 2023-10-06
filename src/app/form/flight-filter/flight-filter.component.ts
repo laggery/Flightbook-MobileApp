@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { IonInfiniteScroll, ModalController, LoadingController } from '@ionic/angular';
-import { Subject } from 'rxjs';
+import { Subject, firstValueFrom } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 import { takeUntil } from 'rxjs/operators';
 import { FlightFilter } from 'src/app/flight/shared/flight-filter.model';
@@ -18,6 +18,7 @@ import { FlightStatistic } from 'src/app/flight/shared/flightStatistic.model';
 export class FlightFilterComponent implements OnInit, OnDestroy {
   @Input() infiniteScroll: IonInfiniteScroll;
   @Input() type: string;
+  @Input() graphType: string;
   public gliders: Glider[];
   private unsubscribe$ = new Subject<void>();
   public filter: FlightFilter;
@@ -109,14 +110,19 @@ export class FlightFilterComponent implements OnInit, OnDestroy {
 
   private async closeStatisticFilter(loading: HTMLIonLoadingElement) {
     this.flightService.setState([]);
-    this.flightService.getStatistics(true).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: FlightStatistic) => {
+    try {
+      const promiseList = [];
+      promiseList.push(firstValueFrom(this.flightService.getStatistics('global')));
+      promiseList.push(firstValueFrom(this.flightService.getStatistics(this.graphType)));
+      const data = await Promise.all(promiseList);
       await loading.dismiss();
       this.modalCtrl.dismiss({
         dismissed: true,
-        statistic: res
+        statistics: (data[0] as FlightStatistic[])[0],
+        graphData: data[1] as FlightStatistic[]
       });
-    }, async (error: any) => {
+    } catch (exception: any) {
       await loading.dismiss();
-    });
+    }
   }
 }

@@ -37,8 +37,14 @@
         </ion-card>
     </div>
 
-    <bar-chart #flightChart chartType="nbFlights"></bar-chart>
-    <bar-chart #incomeChart chartType="income"></bar-chart>
+    <ion-select *ngIf="statisticsList?.length > 0" aria-label="graphType" interface="popover" value="yearly" (ionChange)="changeGraphType($event)">
+        <ion-select-option value="yearly">{{ 'statistics.type.yearly' | translate }}</ion-select-option>
+        <ion-select-option value="monthly">{{ 'statistics.type.monthly' | translate }}</ion-select-option>
+      </ion-select>
 
-    <line-chart></line-chart>
+
+    <bar-chart *ngIf="statisticsList?.length > 0" chartType="nbFlights" [data]="nbFlightBarChartData"></bar-chart>  
+    <bar-chart *ngIf="statistics.income > 0" chartType="income" [data]="incomeBarChartData"></bar-chart>  
+
+    <line-chart *ngIf="statisticsList?.length > 0" [data]="averageLineChartData"></line-chart>
 </ion-content>

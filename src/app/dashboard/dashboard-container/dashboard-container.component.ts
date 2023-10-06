@@ -23,7 +23,7 @@ export class DashboardContainerComponent implements OnInit {
 
   ngOnInit() {
     this.flights$ = this.flightService.getState();
-    this.flightStatistics$ = this.flightService.getStatistics(true).pipe(
+    this.flightStatistics$ = this.flightService.getStatistics("global").pipe(
       map(flightStatistic => flightStatistic));
   }
 

@@ -183,8 +183,8 @@ export class FlightListPage implements OnInit, OnDestroy, AfterViewInit {
       message: this.translate.instant('loading.loading')
     });
     await loading.present();
-    const res = <FlightStatistic[]>await firstValueFrom(this.flightService.getStatistics(true));
-    const stat = res.find((stat: FlightStatistic) => (!stat.year));
+    const res = <FlightStatistic[]>await firstValueFrom(this.flightService.getStatistics("global"));
+    const stat = res[0];
     this.flightService.getFlights({ store: false }).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Flight[]) => {
       res = res.sort((a: Flight, b: Flight) => b.number - a.number);
       res.reverse();
