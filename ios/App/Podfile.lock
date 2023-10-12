@@ -1,24 +1,24 @@
 PODS:
-  - Capacitor (5.0.3):
+  - Capacitor (5.4.2):
     - CapacitorCordova
-  - CapacitorApp (5.0.2):
+  - CapacitorApp (5.0.6):
     - Capacitor
   - CapacitorCommunityFileOpener (1.0.5):
     - Capacitor
-  - CapacitorCordova (5.0.3)
-  - CapacitorFilesystem (5.0.2):
+  - CapacitorCordova (5.4.2)
+  - CapacitorFilesystem (5.1.4):
     - Capacitor
-  - CapacitorHaptics (5.0.2):
+  - CapacitorHaptics (5.0.6):
     - Capacitor
-  - CapacitorKeyboard (5.0.2):
+  - CapacitorKeyboard (5.0.6):
     - Capacitor
-  - CapacitorPushNotifications (5.0.2):
+  - CapacitorPushNotifications (5.1.0):
     - Capacitor
-  - CapacitorSplashScreen (5.0.2):
+  - CapacitorSplashScreen (5.0.6):
     - Capacitor
-  - CapacitorStatusBar (5.0.2):
+  - CapacitorStatusBar (5.0.6):
     - Capacitor
-  - CapawesomeCapacitorFilePicker (5.0.0):
+  - CapawesomeCapacitorFilePicker (5.1.1):
     - Capacitor
   - Firebase/CoreOnly (10.2.0):
     - FirebaseCore (= 10.2.0)
@@ -124,17 +124,17 @@ EXTERNAL SOURCES:
     :path: "../../node_modules/@capawesome/capacitor-file-picker"
 
 SPEC CHECKSUMS:
-  Capacitor: 304a960e431f9e6f78556554ca71c41c1b2b9680
-  CapacitorApp: 28fef1fd75b2b3686e875216806fb8416d421097
+  Capacitor: 8a9db42d105f55843cd8ed2a3cb54e2b78e7f102
+  CapacitorApp: 024e1b1bea5f883d79f6330d309bc441c88ad04a
   CapacitorCommunityFileOpener: 8ae87db61961a6166cb929cc16e3cc719ea58da1
-  CapacitorCordova: def732a63679698df6fb392bbe6d269a0b61e937
-  CapacitorFilesystem: 3a7bb944feb5b7e9473adeb08662c73141510aa8
-  CapacitorHaptics: 864585542a435bd41eaabf7f30d9ff5ec03024d3
-  CapacitorKeyboard: e628d4e66d621c69e449945ebabded17c5b9c2e8
-  CapacitorPushNotifications: 0566429afa72fe083a4142a58321f0ad83837096
-  CapacitorSplashScreen: bd2a056394ba0b8807e7bb3e746424f67c426e03
-  CapacitorStatusBar: 48f2899f6846cc7d8431b251ebfc58e1c10e3d58
-  CapawesomeCapacitorFilePicker: ec211560d209c2efa0e47dad3308bf497e6ce388
+  CapacitorCordova: cfcc06b698481da655415985eeb2b8da363f8451
+  CapacitorFilesystem: af704badfbc69f6f8623d9ed313e5490e3723dcb
+  CapacitorHaptics: 1fffc1217c7e64a472d7845be50fb0c2f7d4204c
+  CapacitorKeyboard: b978154b024a5f65e044908e37d15b7de58b9d12
+  CapacitorPushNotifications: b31e326c6e4eb216a622041d6ca21a973f34943f
+  CapacitorSplashScreen: 5fa2ab5e46cf5cc530cf16a51c80c7a986579ccd
+  CapacitorStatusBar: 565c0a1ebd79bb40d797606a8992b4a105885309
+  CapawesomeCapacitorFilePicker: 4a27a464c569de315738fcb7bdd3ad544ef3c7c2
   Firebase: a3ea7eba4382afd83808376edb99acdaff078dcf
   FirebaseCore: 813838072b797b64f529f3c2ee35e696e5641dd1
   FirebaseCoreInternal: 091bde13e47bb1c5e9fe397634f3593dc390430f
@@ -147,4 +147,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: ebb96214bde1dfbbcfbe0352703834f5fa2e7e08
 
-COCOAPODS: 1.10.1
+COCOAPODS: 1.13.0

@@ -3,7 +3,7 @@ import { Capacitor } from '@capacitor/core';
 import { AlertController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { v4 as uuidv4 } from 'uuid';
-import { FilePicker } from '@capawesome/capacitor-file-picker';
+import { FilePicker, PickedFile } from '@capawesome/capacitor-file-picker';
 
 @Component({
   selector: 'fb-file-input',
@@ -70,19 +70,31 @@ export class FileInputComponent implements OnInit {
 
   async onIosFilesSelect() {
     const result = await FilePicker.pickFiles({
-      types: ['text/igc'],
+      // types: ['text/igc'], // No longer working with ios 16
       multiple: this.multiple,
       readData: true
     });
 
     const newFiles: File[] = [];
 
-    result.files.forEach((file: any) => {
-      let fileName = `${uuidv4()}-${file.name}`;
-      const stringContent = atob(file.data);
-      newFiles.push(new File([new Blob([stringContent])], fileName, {
-        type: ""
-      }));
+    if (!this.multiple && (result.files[0] as PickedFile).name.slice(-3).toLowerCase() != "igc") {
+      const alert = await this.alertController.create({
+        header: this.translate.instant('message.infotitle'),
+        message: this.translate.instant('message.wrongIgcFileType'),
+        buttons: [this.translate.instant('buttons.done')]
+      });
+      await alert.present();
+      return;
+    }
+
+    result.files.forEach((file: PickedFile) => {
+      if (file.size > 0 && file.name.slice(-3).toLowerCase() == "igc") {
+        let fileName = `${uuidv4()}-${file.name}`;
+        const stringContent = atob(file.data);
+        newFiles.push(new File([new Blob([stringContent])], fileName, {
+          type: ""
+        }));
+      }
     })
 
     this.onFilesSelectEvent.emit(newFiles);
