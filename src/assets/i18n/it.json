@@ -188,6 +188,8 @@
         "nbLandingplaces": "Numero luoghi di atterraggio",
         "nbflights": "Numero di voli",
         "flights": "Voli",
+        "flightsAlone": "Solo voli",
+        "nbflightsAlone": "Numero di voli da solo",
         "startplaces": "Luoghi di decollo",
         "landingplaces": "Luoghi di atterraggio",
         "firstlastname": "Nome",

@@ -188,6 +188,8 @@
         "nbLandingplaces": "Anzahl Landeplätze",
         "nbflights": "Anzahl Flüge",
         "flights": "Flüge",
+        "flightsAlone": "Alleinflüge",
+        "nbflightsAlone": "Anzahl Alleinflüge",
         "startplaces": "Startplätze",
         "landingplaces": "Landeplätze",
         "firstlastname": "Name",

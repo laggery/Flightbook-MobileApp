@@ -15,6 +15,7 @@ import { Flight } from '../shared/flight.model';
 import { FlightService } from '../shared/flight.service';
 import { AccountService } from 'src/app/account/shared/account.service';
 import { FlightStatistic } from '../shared/flightStatistic.model';
+import { SchoolService } from 'src/app/school/shared/school.service';
 
 @Component({
   selector: 'app-flight-list',
@@ -32,6 +33,7 @@ export class FlightListPage implements OnInit, OnDestroy, AfterViewInit {
     public navCtrl: NavController,
     private flightService: FlightService,
     private accountService: AccountService,
+    private schoolService: SchoolService,
     private modalCtrl: ModalController,
     private alertController: AlertController,
     private translate: TranslateService,
@@ -188,8 +190,9 @@ export class FlightListPage implements OnInit, OnDestroy, AfterViewInit {
     this.flightService.getFlights({ store: false }).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Flight[]) => {
       res = res.sort((a: Flight, b: Flight) => b.number - a.number);
       res.reverse();
-      const user = await this.accountService.currentUser().pipe(takeUntil(this.unsubscribe$)).toPromise();
-      const pdfObj: TCreatedPdf = await this.pdfExportService.generatePdf(res, stat, user, 'https://m.flightbook.ch');
+      const user = await firstValueFrom(this.accountService.currentUser());
+      const schools = await firstValueFrom(this.schoolService.getSchools());
+      const pdfObj: TCreatedPdf = await this.pdfExportService.generatePdf(res, stat, user, schools.length !== 0, 'https://m.flightbook.ch');
       if (Capacitor.isNativePlatform()) {
         pdfObj.getBase64(async (data) => {
           try {

@@ -123,7 +123,7 @@ export class AppComponent implements OnDestroy, OnInit {
       firstValueFrom(this.accountService.updateNotificationToken(token.value));
     });
 
-    PushNotifications.addListener('registrationError', async(error: any) => {
+    PushNotifications.addListener('registrationError', async (error: any) => {
       // Handle push notification registration error here.
       const alert = await this.alertController.create({
         header: this.translate.instant('message.warning'),

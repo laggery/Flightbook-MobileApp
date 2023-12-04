@@ -16,4 +16,5 @@ export class Flight {
     timestamp?: Date;
     igc?: Igc;
     igcFile?: File;
+    shvAlone?: boolean;
 }

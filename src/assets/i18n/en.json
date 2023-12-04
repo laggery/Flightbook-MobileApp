@@ -188,6 +188,8 @@
         "nbLandingplaces": "Number of landing places",
         "nbflights": "Number of flights",
         "flights": "Flights",
+        "flightsAlone": "Flights alone",
+        "nbflightsAlone": "Number of flights alone",
         "startplaces": "Starting places",
         "landingplaces": "Landing places",
         "firstlastname": "Name",
