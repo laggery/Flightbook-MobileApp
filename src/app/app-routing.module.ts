@@ -94,6 +94,10 @@ const routes: Routes = [
   {
     path: 'school/:id',
     loadChildren: () => import('./school/appointment-list/appointment-list.module').then( m => m.AppointmentListPageModule)
+  },
+  {
+    path: 'control-sheet',
+    loadChildren: () => import('./school/control-sheet/control-sheet.module').then( m => m.ControlSheetPageModule)
   }
 ];
 

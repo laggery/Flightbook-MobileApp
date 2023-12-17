@@ -6,6 +6,7 @@ import { environment } from 'src/environments/environment';
 import { AppointmentFilter } from './appointment-filter.model';
 import { Appointment } from './appointment.model';
 import { School } from './school.model';
+import { ControlSheet } from 'src/app/shared/domain/control-sheet';
 
 @Injectable({
   providedIn: 'root'
@@ -41,6 +42,10 @@ export class SchoolService {
 
   deleteAppointmentSubscription(schoolId: number, appointmentId: number): Observable<Appointment> {
     return this.http.delete<Appointment>(`${environment.baseUrl}/student/schools/${schoolId}/appointments/${appointmentId}/subscriptions`);
+  }
+
+  getControlSheet(): Observable<ControlSheet> {
+    return this.http.get<ControlSheet>(`${environment.baseUrl}/student/control-sheet`);
   }
 
   private setFilterState(nextState: boolean) {

@@ -161,7 +161,6 @@ export class FlightListPage implements OnInit, OnDestroy, AfterViewInit {
             }
           }
         } catch (e) {
-          console.log(e);
           await loading.dismiss();
           const alert = await this.alertController.create({
             header: this.translate.instant('message.infotitle'),

@@ -41,11 +41,16 @@
               <fb-menu-item [icon]="'document'" [label]="'buttons.multipleIgc'"></fb-menu-item>
             </ion-item>
           </ion-menu-toggle>
-          <div class="fligth-school" *ngIf="schools?.length > 0">
+          <div class="fligth-school" *ngIf="schools?.length > 0 || hasControlSheet">
             <p class="divider-menu">{{ 'groupname.school' | translate }}</p>
             <ion-menu-toggle auto-hide="false" *ngFor="let school of schools">
               <ion-item routerDirection="root" [routerLink]="['/school/', school.id]" lines="full" detail="false">
                 <fb-menu-item [icon]="'school'" [label]="school.name"></fb-menu-item>
+              </ion-item>
+            </ion-menu-toggle>
+            <ion-menu-toggle auto-hide="false">
+              <ion-item routerDirection="root" [routerLink]="['/control-sheet']" lines="full" detail="false">
+                <fb-menu-item [icon]="'document'" [label]="'buttons.controlSheet'"></fb-menu-item>
               </ion-item>
             </ion-menu-toggle>
           </div>

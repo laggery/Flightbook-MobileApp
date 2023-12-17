@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-toolbar color='primary'>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>{{ 'controlSheet.title' | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="no-padding">
+  <ion-accordion-group [multiple]="true" [value]="['theory', 'trainingHill', 'altitudeFlight']">
+    <ion-accordion value="theory">
+      <ion-item slot="header" color="light">
+        <ion-label>{{ 'controlSheet.theory.title' | translate }}</ion-label>
+      </ion-item>
+      <ion-list slot="content">
+        <ng-container *ngFor="let item of controlSheet?.theory | keyvalue">
+          <ion-item *ngIf="item.key != 'id'">
+            <fb-star-rating [edit]="false" [selectedRating]="item.value"></fb-star-rating>
+            <span class="definition">{{ ('controlSheet.theory.' + item.key) | translate }}</span>
+          </ion-item>
+        </ng-container>
+      </ion-list>
+    </ion-accordion>
+    <ion-accordion value="trainingHill">
+      <ion-item slot="header" color="light">
+        <ion-label>{{ 'controlSheet.trainingHill.title' | translate }}</ion-label>
+      </ion-item>
+      <ion-list slot="content">
+        <ng-container *ngFor="let item of controlSheet?.trainingHill | keyvalue">
+          <ion-item *ngIf="item.key != 'id'">
+            <fb-star-rating [edit]="false" [selectedRating]="item.value"></fb-star-rating>
+            <span class="definition">{{ ('controlSheet.trainingHill.' + item.key) | translate }}</span>
+          </ion-item>
+        </ng-container>
+      </ion-list>
+    </ion-accordion>
+    <ion-accordion value="altitudeFlight">
+      <ion-item slot="header" color="light">
+        <ion-label>{{ 'controlSheet.altitudeFlight.title' | translate }}</ion-label>
+      </ion-item>
+      <ion-list slot="content">
+        <ng-container *ngFor="let item of controlSheet?.altitudeFlight | keyvalue">
+          <ion-item *ngIf="item.key != 'id'">
+            <fb-star-rating [edit]="false" [selectedRating]="item.value"></fb-star-rating>
+            <span class="definition">{{ ('controlSheet.altitudeFlight.' + item.key) | translate }}</span>
+          </ion-item>
+        </ng-container>
+      </ion-list>
+    </ion-accordion>
+  </ion-accordion-group>
+</ion-content>

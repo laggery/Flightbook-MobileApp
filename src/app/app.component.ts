@@ -23,6 +23,7 @@ import { RegisterPage } from './account/register/register.page';
 import { PaymentStatus } from './account/shared/paymentStatus.model';
 import { PaymentService } from './shared/services/payment.service';
 import { firstValueFrom, Subject } from 'rxjs';
+import { ControlSheet } from './shared/domain/control-sheet';
 
 @Component({
   selector: 'app-root',
@@ -32,6 +33,7 @@ import { firstValueFrom, Subject } from 'rxjs';
 export class AppComponent implements OnDestroy, OnInit {
   unsubscribe$ = new Subject<void>();
   schools: School[] = [];
+  hasControlSheet = false;
   initialRequestsFired = false;
 
   constructor(
@@ -95,6 +97,10 @@ export class AppComponent implements OnDestroy, OnInit {
 
     this.schoolService.getSchools().pipe(takeUntil(this.unsubscribe$)).subscribe((schools: School[]) => {
       this.schools = schools;
+    })
+
+    this.schoolService.getControlSheet().pipe(takeUntil(this.unsubscribe$)).subscribe((controlSheet: ControlSheet) => {
+      this.hasControlSheet = controlSheet ? true : false;
     })
 
     if (Capacitor.isNativePlatform()) {

@@ -9,6 +9,7 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { HoursFormatPipe } from './pipes/hours-format/hours-format.pipe';
 import { GliderSelectComponent } from './components/glider-select/glider-select.component';
 import { PlaceMapComponent } from './components/place-map/place-map.component';
+import { StarRatingComponent } from './components/star-rating/star-rating.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { PlaceMapComponent } from './components/place-map/place-map.component';
     IgcMapComponent,
     PlaceMapComponent,
     GliderSelectComponent,
-    HoursFormatPipe
+    HoursFormatPipe,
+    StarRatingComponent
   ],
   exports: [
     MenuItemComponent,
@@ -25,7 +27,8 @@ import { PlaceMapComponent } from './components/place-map/place-map.component';
     IgcMapComponent,
     PlaceMapComponent,
     GliderSelectComponent,
-    HoursFormatPipe
+    HoursFormatPipe,
+    StarRatingComponent
   ],
   imports: [
     IonicModule,
