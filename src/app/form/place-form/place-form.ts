@@ -24,6 +24,10 @@ export class PlaceFormComponent {
   ) {
     this.lang = this.translate.currentLang;
     this.countries.sort((a,b) => a.name[this.lang].localeCompare(b.name[this.lang]));
+    this.moveCountryToTop('de');
+    this.moveCountryToTop('fr');
+    this.moveCountryToTop('at');
+    this.moveCountryToTop('ch');
   }
 
   async saveElement(loginForm: any) {
@@ -41,6 +45,14 @@ export class PlaceFormComponent {
 
   clearCountry() {
     this.place.country = null;
+  }
+
+  moveCountryToTop(countryCode: string) {
+    let index = this.countries.findIndex(country => country.code == countryCode);
+    if (index !== -1) {
+      let country = this.countries.splice(index, 1)[0];
+      this.countries.splice(0, 0, country);
+    }
   }
 
 }
