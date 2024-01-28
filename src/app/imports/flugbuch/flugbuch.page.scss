@@ -1,0 +1,29 @@
+.upload-btn {
+    margin-right: 10px;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.fileName {
+    vertical-align: -webkit-baseline-middle;
+}
+
+ion-card {
+    font-size: 1.1em;
+    margin-top: 12px;
+}
+ion-card label {
+    display: inline-block;
+    width: 180px;
+}
+ion-card .title {
+    font-weight: bold;
+    line-height: 0;
+    margin: 20px 0 20px 0;
+    font-size: 1.1em;
+}
+.card-content-md {
+    padding-top: 0;
+}

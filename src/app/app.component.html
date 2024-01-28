@@ -38,7 +38,12 @@
           <p class="divider-menu">{{ 'groupname.import' | translate }}</p>
           <ion-menu-toggle auto-hide="false">
             <ion-item routerDirection="root" [routerLink]="['/imports/igc']" lines="full" detail="false">
-              <fb-menu-item [icon]="'document'" [label]="'buttons.multipleIgc'"></fb-menu-item>
+              <fb-menu-item [icon]="'cloud-upload'" [label]="'buttons.multipleIgc'"></fb-menu-item>
+            </ion-item>
+          </ion-menu-toggle>
+          <ion-menu-toggle auto-hide="false">
+            <ion-item routerDirection="root" [routerLink]="['/imports/flugbuch']" lines="full" detail="false">
+              <fb-menu-item [icon]="'cloud-upload'" [label]="'Flugbuch.ch'"></fb-menu-item>
             </ion-item>
           </ion-menu-toggle>
           <div class="fligth-school" *ngIf="schools?.length > 0 || hasControlSheet">

@@ -4,7 +4,7 @@
         "fr": "Franz.",
         "de": "Deutsch",
         "en": "Englisch",
-		"it": "Italienisch"
+        "it": "Italienisch"
     },
     "buttons": {
         "createAccount": "Registrieren!",
@@ -87,7 +87,7 @@
         "nbflight": "Anzahl Flüge",
         "flighthour": "Flugstunden",
         "average": "Durchschnittszeit",
-        "price" : "Einkommen",
+        "price": "Einkommen",
         "longset": "Längster Flug",
         "nbStartplaces": "Anzahl Startplätze",
         "nbLandingplaces": "Anzahl Landeplätze",
@@ -99,6 +99,15 @@
             "yearly": "Jährliche Ansicht",
             "weekly": "Wöchentliche Ansicht"
         }
+    },
+    "import": {
+        "flights": "Flüge",
+        "places": "Orte",
+        "gliders": "Gleitschirme",
+        "result": "Ergebnis",
+        "inserted": "Hinzgefügt",
+        "updated": "Aktualisiert",
+        "existed": "Existierte bereits"
     },
     "emptylist": "Diese Liste ist leer",
     "months": {
@@ -156,13 +165,15 @@
         "emptyIgcFile": "Diese IGC-Datei ist leer",
         "igcUploadError": "IGC-Datei konnte nicht hochgeladen werden",
         "igcCopyError": "IGC-Datei konnte nicht kopiert werden",
+        "wrongCsvFileType": "Bitte wählen Sie eine CSV-Datei",
         "downloadExcel": "Um eine xlsx-Datei öffnen zu können, müssen Sie die App \"Microsoft Excel: Spreadsheets\" herunterladen",
         "subscription": "Möchtest du dich wirklich für diesen Termin anmelden?",
         "removeSubscription": "Möchtest du dich wirklich abmelden? Falls du dich erneut anmeldest, wirst du zuunterst von der Warteliste sein.",
         "watingList": "Es ist bereits ausgebucht. Du stehst auf der Warteliste.",
         "notificationRegistrationFailed": "Die Applikation konnte sich nicht für die Push Notifikationen registrieren. Versuchen sie die Applikation zu schliessen und nochmals zu öffnen.",
         "newVersion": "Die neue Version der App wird geladen",
-        "cancelPymentSubscription": "Sind Sie sicher, dass Sie Ihr Abonnement kündigen möchten?"
+        "cancelPymentSubscription": "Sind Sie sicher, dass Sie Ihr Abonnement kündigen möchten?",
+        "uploadError": "Beim Import ist ein Fehler aufgetreten. Das Flightbook Team wurde informiert und wird sich so schnell wie möglich bei ihnen per E-Mail melden."
     },
     "loading": {
         "createaccount": "Registrieren...",

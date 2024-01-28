@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { ImportType } from 'src/app/imports/shared/import-type';
+import { ImportResult } from 'src/app/imports/shared/import-result.model';
 
 @Injectable({
   providedIn: 'root'
@@ -44,5 +46,12 @@ export class FileUploadService {
     return this.httpClient.get(`${environment.baseUrl}/file/${filename}`, {
       responseType: 'blob'
     });
+  }
+
+  uploadImportData(formData: FormData, importType: ImportType): Observable<ImportResult> {
+    return this.httpClient
+      .post<ImportResult>(`${environment.baseUrl}/file/import?type=${importType}`, formData, {
+        reportProgress: true
+      })
   }
 }

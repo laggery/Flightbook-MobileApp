@@ -43,7 +43,7 @@ export class HttpAuthInterceptor implements HttpInterceptor {
         if (validityCheck) {
             const authenticated = await this.accoutService.isAuth();
             if (authenticated) {
-                if (req.url.includes('file/upload')){
+                if (req.url.includes('file/upload') || req.url.includes('file/import')){
                   return next.handle(this.setFormDataHeaders(req)).toPromise();
                 }
                 return next.handle(this.setHeaders(req)).toPromise();

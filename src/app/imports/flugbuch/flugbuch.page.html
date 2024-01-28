@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-toolbar color='primary'>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>{{ 'groupname.import' | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-button *ngIf="isIos" color="primary" class="upload-btn" (click)="onIosFilesSelect()">
+    <ion-icon name="document"></ion-icon> CSV
+  </ion-button>
+
+  <ion-button *ngIf="!isIos" color="primary" class="upload-btn" (click)="fileUpload.click()">
+    <input type="file" name="file" (change)="onFilesSelect($event)" #fileUpload />
+    <ion-icon name="document"></ion-icon> CSV
+  </ion-button>
+
+  <span class="fileName" *ngIf="file">{{ file.name }}</span>
+
+  <ion-button *ngIf="showButton" expand="block" (click)="save()">{{ 'buttons.save' | translate }}</ion-button>
+
+  <div *ngIf="result">
+    <!-- Glider result -->
+    <ion-card>
+      <ion-card-content>
+        <p class="title">{{ 'import.gliders' | translate }}</p>
+        <div><label>{{ 'import.inserted' | translate }}:</label><span>{{ result.glider.inserted }}</span></div>
+        <div><label>{{ 'import.existed' | translate }}:</label><span>{{ result.glider.existed }}</span></div>
+      </ion-card-content>
+    </ion-card>
+    <!-- Place result -->
+    <ion-card>
+      <ion-card-content>
+        <p class="title">{{ 'import.places' | translate }}</p>
+        <div><label>{{ 'import.inserted' | translate }}:</label><span>{{ result.place.inserted }}</span></div>
+        <div><label>{{ 'import.updated' | translate }}:</label><span>{{ result.place.updated }}</span></div>
+        <div><label>{{ 'import.existed' | translate }}:</label><span>{{ result.place.existed }}</span></div>
+      </ion-card-content>
+    </ion-card>
+    <!-- Flight result -->
+    <ion-card>
+      <ion-card-content>
+        <p class="title">{{ 'import.flights' | translate }}</p>
+        <div><label>{{ 'import.inserted' | translate }}:</label><span>{{ result.flight.inserted }}</span></div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

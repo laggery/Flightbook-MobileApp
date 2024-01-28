@@ -30,9 +30,9 @@
                 <div><label>{{ 'statistics.nbLandingplaces' | translate }}:</label><span
                         id="nbLandingplaces">{{ statistics.nbLandingplaces || "0" }}</span></div>
                 <div><label>{{ 'statistics.totalDistance' | translate }}:</label><span
-                        id="totalDistance">{{ statistics.totalDistance || "0" }} km</span></div>
+                        id="totalDistance">{{ (statistics.totalDistance | number : '1.2-2')?.replace(',', "'") || "0" }} km</span></div>
                 <div><label>{{ 'statistics.bestDistance' | translate }}:</label><span
-                        id="bestDistance">{{ statistics.bestDistance | number: '1.0-0' || "0" }} km</span></div>
+                        id="bestDistance">{{ statistics.bestDistance | number: '1.2-2' || "0" }} km</span></div>
             </ion-card-content>
         </ion-card>
     </div>

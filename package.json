@@ -11,6 +11,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
+    "build:native-dev": "ng build --configuration development && npx cap copy",
     "build:native": "ng build --configuration production && npx cap copy",
     "build:android": "ng build --configuration production && npx cap copy android",
     "build:ios": "ng build --configuration production && npx cap copy ios"

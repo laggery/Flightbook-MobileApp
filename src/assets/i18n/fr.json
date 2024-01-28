@@ -100,6 +100,15 @@
             "weekly": "Vue hebdomadaire"
         }
     },
+    "import": {
+        "flights": "Vols",
+        "places": "Lieux",
+        "gliders": "Parapentes",
+        "result": "Résultat",
+        "inserted": "Inséré",
+        "updated": "Mis à jour",
+        "existed": "Existant"
+    },
     "emptylist": "Cette liste est vide",
     "months": {
         "1": "Janvier",
@@ -156,13 +165,15 @@
         "emptyIgcFile": "Ce fichier IGC est vide",
         "igcUploadError": "Le fichier IGC n'a pas pu être téléchargé",
         "igcCopyError": "Le fichier IGC n'a pas pu être copié",
+        "wrongCsvFileType": "Veuillez choisir un fichier CSV",
         "downloadExcel": "Pour pouvoir ouvrir un fichier xlsx, vous devez télécharger l'application \"Microsoft Excel: Spreadsheets\"",
         "subscription": "Voulez-vous vraiment vous inscrire à ce rendez-vous?",
         "removeSubscription": "Souhaites-tu vraiment te désinscrire? Si tu te réinscris, tu seras en bas de la liste d'attente.",
         "watingList": "C'est déjà complet. Tu es sur la liste d'attente.",
         "notificationRegistrationFailed": "L'application n'a pas pu s'enregistrer pour les notifications push. Essayez de fermer l'application et de l'ouvrir à nouveau.",
         "newVersion": "La nouvelle version de l'application sera chargée",
-        "cancelPymentSubscription": "Etes-vous sûr de vouloir résilier votre abonnement?"
+        "cancelPymentSubscription": "Etes-vous sûr de vouloir résilier votre abonnement?",
+        "uploadError": "Une erreur s'est produite lors de l'importation. L'équipe de Flightbook a été informée et vous contactera par e-mail dès que possible."
     },
     "loading": {
         "createaccount": "Création compte...",
