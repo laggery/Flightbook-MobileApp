@@ -5,6 +5,7 @@ export class Glider {
     name: string;
     tandem: boolean;
     archived: boolean;
+    note?: string;
     time: number;
     nbFlights: number;
 }

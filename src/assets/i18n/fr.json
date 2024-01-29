@@ -62,7 +62,8 @@
         "all": "Tous",
         "solo": "Solo",
         "archived": "Archivé",
-        "archive": "Archiver ?"
+        "archive": "Archiver ?",
+        "note": "Notes"
     },
     "flight": {
         "number": "No",

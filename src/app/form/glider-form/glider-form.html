@@ -16,6 +16,9 @@
     <ion-label color="primary" position="stacked">{{ 'glider.archive' | translate }}</ion-label>
     <ion-toggle [(ngModel)]="glider.archived" name="archived"></ion-toggle>
   </ion-item>
+  <ion-item>
+    <ion-textarea label="{{ 'glider.note' | translate }}" labelPlacement="stacked" [(ngModel)]="glider.note" name="note" autocomplete="on" autocorrect="on" auto-grow="true"></ion-textarea>
+  </ion-item>
   <ion-button expand="block" type="submit">{{ 'buttons.save' | translate }}</ion-button>
 </form>
 
