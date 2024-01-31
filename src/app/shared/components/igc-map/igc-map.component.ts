@@ -11,6 +11,8 @@ import { LineString, Point } from 'ol/geom';
 import { Tile as TileLayer, Vector as VectorLayer } from 'ol/layer';
 import { getVectorContext } from 'ol/render';
 import * as IGCParser from 'igc-parser';
+import { ConfigurationService } from '../../services/configuration.service';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'fb-igc-map',
@@ -32,8 +34,6 @@ export class IgcMapComponent implements AfterViewInit {
   private map: Map;
   private geometry: LineString;
   private igcParserValue: any;
-  
-  private attribution = `map data: © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> | map style: © <a href="https://opentopomap.org/">OpenTopoMap</a> <a href="https://creativecommons.org/licenses/by-sa/3.0/">(CC-BY-SA)</a>`;
 
   @Input()
   set igcFile(val: string) {
@@ -69,7 +69,9 @@ export class IgcMapComponent implements AfterViewInit {
     }
   }
 
-  constructor() {
+  constructor(
+    private configurationService: ConfigurationService
+  ) {
     this.vectorSource.on('addfeature', this.onAddfeature);
 
     this.vectorLayer = new VectorLayer({
@@ -158,7 +160,8 @@ export class IgcMapComponent implements AfterViewInit {
     return style;
   };
 
-  private initMap() {
+  private async initMap() {
+    const config = await firstValueFrom(this.configurationService.getMapConfiguration());
     const attributionControl = new Attribution({
       collapsible: true,
       collapsed: true
@@ -167,9 +170,10 @@ export class IgcMapComponent implements AfterViewInit {
       layers: [
         new TileLayer({
           source: new OSM({
-            url: 'https://{a-c}.tile.opentopomap.org/{z}/{x}/{y}.png',
-            attributions: this.attribution,
-          }),
+            url: config.url,
+            attributions: config.attributions,
+            crossOrigin: config.crossOrigin
+          })
         }),
         this.vectorLayer
       ],

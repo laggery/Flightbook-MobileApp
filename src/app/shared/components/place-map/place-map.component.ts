@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input, NgZone, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { AfterViewInit, Component, Input, NgZone, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { Point as GeoPoint, Position } from 'geojson';
@@ -15,6 +15,7 @@ import { Icon, Style } from 'ol/style';
 import { firstValueFrom } from 'rxjs';
 import { Place } from 'src/app/place/shared/place.model';
 import { PlaceService } from 'src/app/place/shared/place.service';
+import { ConfigurationService } from '../../services/configuration.service';
 
 @Component({
   selector: 'fb-place-map',
@@ -26,7 +27,6 @@ export class PlaceMapComponent  implements OnInit, AfterViewInit, OnChanges {
   private map: Map;
   private vectorSource = new VectorSource();
   private vectorLayer: VectorLayer<any>;
-  private attribution = `map data: © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> | map style: © <a href="https://opentopomap.org/">OpenTopoMap</a> <a href="https://creativecommons.org/licenses/by-sa/3.0/">(CC-BY-SA)</a>`;
 
   private marker = new Feature();
 
@@ -42,6 +42,7 @@ export class PlaceMapComponent  implements OnInit, AfterViewInit, OnChanges {
     private placeService: PlaceService,
     private alertController: AlertController,
     private translate: TranslateService,
+    private configurationService: ConfigurationService,
     private zone: NgZone
   ) {
     const style = new Style({
@@ -85,10 +86,12 @@ export class PlaceMapComponent  implements OnInit, AfterViewInit, OnChanges {
       return;
     }
     const geometry = res.features[0]?.geometry as GeoPoint
-    this.map.getView().animate({center: fromLonLat(geometry.coordinates), duration: 200}, {zoom: 14});
+    this.map.getView().setCenter(fromLonLat(geometry.coordinates));
+    this.map.getView().setZoom(14);
   }
 
-  private initMap(position?: Position) {
+  private async initMap(position?: Position) {
+    const config = await firstValueFrom(this.configurationService.getMapConfiguration());
     const attributionControl = new Attribution({
       collapsible: true,
       collapsed: true
@@ -107,9 +110,10 @@ export class PlaceMapComponent  implements OnInit, AfterViewInit, OnChanges {
       layers: [
         new TileLayer({
           source: new OSM({
-            url: 'https://{a-c}.tile.opentopomap.org/{z}/{x}/{y}.png',
-            attributions: this.attribution,
-          }),
+            url: config.url,
+            attributions: config.attributions,
+            crossOrigin: config.crossOrigin
+          })
         }),
         this.vectorLayer
       ],
