@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
-import { takeUntil } from 'rxjs/operators';
+import { concatMap, takeUntil } from 'rxjs/operators';
 import * as _ from 'lodash';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
@@ -47,9 +47,9 @@ export class FlightEditPage implements OnInit, OnDestroy {
       this.getFlightFromDashboardNavigation();
     }
     this.flight.date = moment(this.flight.date).format('YYYY-MM-DD');
-    
+
     if (this.flight.time) {
-      this.flight.time = this.flight.time.substring(0,5);
+      this.flight.time = this.flight.time.substring(0, 5);
     }
 
     const archivedValue = this.gliderService.filter.archived;
@@ -113,14 +113,17 @@ export class FlightEditPage implements OnInit, OnDestroy {
     });
     await loading.present();
 
-    this.flightService.deleteFlight(this.flight).subscribe(async (res: any) => {
-      await loading.dismiss();
-      this.router.navigate(['/flights'], { replaceUrl: true });
-    },
-      (async (resp: any) => {
+    this.flightService.deleteFlight(this.flight).pipe(
+      concatMap(() => this.flightService.getFlights({ limit: this.flightService.defaultLimit, clearStore: true }))
+    ).pipe(takeUntil(this.unsubscribe$)).subscribe({
+      next: async (res: Flight[]) => {
+        await loading.dismiss();
+        await this.router.navigate(['/flights'], { replaceUrl: true });
+      },
+      error: (async (resp: any) => {
         await loading.dismiss();
       })
-    );
+    });
   }
 
   async copy() {

@@ -108,14 +108,7 @@ export class FlightService extends Store<Flight[]> {
   }
 
   deleteFlight(flight: Flight): Observable<Flight> {
-    return this.http.delete<Flight>(`${environment.baseUrl}/flights/${flight.id}`).pipe(
-      map((response: any) => {
-        const list = this.getValue();
-        const index = list.findIndex((listFlight: Flight) => listFlight.id === flight.id);
-        list.splice(index, 1);
-        return response;
-      })
-    );
+    return this.http.delete<Flight>(`${environment.baseUrl}/flights/${flight.id}`);
   }
 
   private setFilterState(nextState: boolean) {

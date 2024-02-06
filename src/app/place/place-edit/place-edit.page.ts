@@ -59,6 +59,7 @@ export class PlaceEditPage implements OnInit, OnDestroy {
     await loading.present();
 
     this.placeService.putPlace(place).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Place) => {
+      this.flightService.setState([]);
       await loading.dismiss();
       this.router.navigate(['/places'], { replaceUrl: true });
     },
