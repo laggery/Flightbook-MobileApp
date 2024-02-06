@@ -6,10 +6,11 @@ import { FileInputComponent } from './components/file-input/file-input.component
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IgcMapComponent } from './components/igc-map/igc-map.component';
 import { CommonModule, DatePipe } from '@angular/common';
-import { HoursFormatPipe } from './pipes/hours-format/hours-format.pipe';
+import { HoursFormatPipe } from './pipes/hours-format.pipe';
 import { GliderSelectComponent } from './components/glider-select/glider-select.component';
 import { PlaceMapComponent } from './components/place-map/place-map.component';
 import { StarRatingComponent } from './components/star-rating/star-rating.component';
+import { NxgTransalteSortPipe } from './pipes/nxg-transalte-sort.pipe';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { StarRatingComponent } from './components/star-rating/star-rating.compon
     PlaceMapComponent,
     GliderSelectComponent,
     HoursFormatPipe,
-    StarRatingComponent
+    StarRatingComponent,
+    NxgTransalteSortPipe
   ],
   exports: [
     MenuItemComponent,
@@ -28,7 +30,8 @@ import { StarRatingComponent } from './components/star-rating/star-rating.compon
     PlaceMapComponent,
     GliderSelectComponent,
     HoursFormatPipe,
-    StarRatingComponent
+    StarRatingComponent,
+    NxgTransalteSortPipe
   ],
   imports: [
     IonicModule,

@@ -2,8 +2,9 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ControlSheet } from 'src/app/shared/domain/control-sheet';
 import { SchoolService } from '../shared/school.service';
 import { Subject, takeUntil } from 'rxjs';
-import { LoadingController } from '@ionic/angular';
+import { LoadingController, ModalController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
+import { ControlSheetDetailsComponent } from '../shared/components/control-sheet-details/control-sheet-details.component';
 
 @Component({
   selector: 'app-control-sheet',
@@ -17,6 +18,7 @@ export class ControlSheetPage implements OnInit, OnDestroy {
   constructor(
     private schoolService: SchoolService,
     private loadingCtrl: LoadingController,
+    private modalCtrl: ModalController,
     private translate: TranslateService
     ) {}
   
@@ -38,6 +40,19 @@ export class ControlSheetPage implements OnInit, OnDestroy {
         await loading.dismiss();
       }
     });
+  }
+
+  async openDetail(type: string, key: string) {
+    const modal = await this.modalCtrl.create({
+      component: ControlSheetDetailsComponent,
+      cssClass: 'control-sheet-detail-class',
+      componentProps: {
+        type: type,
+        key: key
+      }
+    });
+
+    return await modal.present();
   }
 
   ngOnDestroy() {

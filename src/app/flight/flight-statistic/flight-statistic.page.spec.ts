@@ -4,7 +4,7 @@ import { IonicModule } from '@ionic/angular';
 import { FlightStatisticPage } from './flight-statistic.page';
 import { TranslateModule } from '@ngx-translate/core';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { HoursFormatPipe } from 'src/app/shared/pipes/hours-format/hours-format.pipe';
+import { HoursFormatPipe } from 'src/app/shared/pipes/hours-format.pipe';
 
 describe('FlightStatisticPage', () => {
   let component: FlightStatisticPage;

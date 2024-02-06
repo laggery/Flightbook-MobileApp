@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 
-import { HoursFormatPipe } from 'src/app/shared/pipes/hours-format/hours-format.pipe';
+import { HoursFormatPipe } from 'src/app/shared/pipes/hours-format.pipe';
 import DataLabelsPlugin from 'chartjs-plugin-datalabels';
 import { ChartConfiguration, ChartData } from 'chart.js';
 import 'chartjs-adapter-moment';

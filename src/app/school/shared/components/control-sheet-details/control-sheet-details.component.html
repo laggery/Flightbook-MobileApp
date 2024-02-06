@@ -1,0 +1,14 @@
+<ion-header>
+    <ion-toolbar color='primary'>
+        <ion-title>{{ ('controlSheet.' + type + '.' + key + '.title') | translate }}</ion-title>
+        <ion-buttons slot="end">
+            <ion-button (click)="close()"><ion-icon name="close"></ion-icon></ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+    <div class="video-container" *ngIf="(('controlSheet.' + type + '.' + key + '.video') | translate) != 'controlSheet.' + type + '.' + key + '.video'" >
+        <iframe [src]="getSafeUrl(('controlSheet.' + type + '.' + key + '.video') | translate)" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    </div>
+    <div class="content" [innerHTML]="('controlSheet.' + type + '.' + key + '.content') | translate"></div>
+</ion-content>

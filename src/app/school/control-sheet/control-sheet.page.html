@@ -27,10 +27,10 @@
         <ion-label>{{ 'controlSheet.trainingHill.title' | translate }}</ion-label>
       </ion-item>
       <ion-list slot="content">
-        <ng-container *ngFor="let item of controlSheet?.trainingHill | keyvalue">
-          <ion-item *ngIf="item.key != 'id'">
+        <ng-container *ngFor="let item of controlSheet?.trainingHill | keyvalue | nxgTransalteSort:'trainingHill'">
+          <ion-item button *ngIf="item.key != 'id'" (click)="openDetail('trainingHill',item.key)">
             <fb-star-rating [edit]="false" [selectedRating]="item.value"></fb-star-rating>
-            <span class="definition">{{ ('controlSheet.trainingHill.' + item.key) | translate }}</span>
+            <span class="definition">{{ ('controlSheet.trainingHill.' + item.key + '.title') | translate }}</span>
           </ion-item>
         </ng-container>
       </ion-list>
@@ -40,10 +40,10 @@
         <ion-label>{{ 'controlSheet.altitudeFlight.title' | translate }}</ion-label>
       </ion-item>
       <ion-list slot="content">
-        <ng-container *ngFor="let item of controlSheet?.altitudeFlight | keyvalue">
-          <ion-item *ngIf="item.key != 'id'">
+        <ng-container *ngFor="let item of controlSheet?.altitudeFlight | keyvalue | nxgTransalteSort:'altitudeFlight'">
+          <ion-item button *ngIf="item.key != 'id'" (click)="openDetail('altitudeFlight',item.key)">
             <fb-star-rating [edit]="false" [selectedRating]="item.value"></fb-star-rating>
-            <span class="definition">{{ ('controlSheet.altitudeFlight.' + item.key) | translate }}</span>
+            <span class="definition">{{ ('controlSheet.altitudeFlight.' + item.key + '.title') | translate }}</span>
           </ion-item>
         </ng-container>
       </ion-list>

@@ -9,6 +9,7 @@ import { ControlSheetPageRoutingModule } from './control-sheet-routing.module';
 import { ControlSheetPage } from './control-sheet.page';
 import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { ControlSheetDetailsComponent } from '../shared/components/control-sheet-details/control-sheet-details.component';
 
 @NgModule({
   imports: [
@@ -19,6 +20,6 @@ import { SharedModule } from 'src/app/shared/shared.module';
     TranslateModule.forChild(),
     SharedModule
   ],
-  declarations: [ControlSheetPage]
+  declarations: [ControlSheetPage, ControlSheetDetailsComponent]
 })
 export class ControlSheetPageModule {}

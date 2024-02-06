@@ -3,7 +3,7 @@ import * as fileSaver from 'file-saver';
 import * as moment from 'moment';
 import { TranslateService } from '@ngx-translate/core';
 import { Place } from '../../place/shared/place.model';
-import { HoursFormatPipe } from 'src/app/shared/pipes/hours-format/hours-format.pipe';
+import { HoursFormatPipe } from 'src/app/shared/pipes/hours-format.pipe';
 import { Flight } from 'src/app/flight/shared/flight.model';
 import { Glider } from 'src/app/glider/shared/glider.model';
 import { Countries, Country } from 'src/app/place/shared/place.countries';
@@ -109,6 +109,7 @@ export class XlsxExportService {
       flatGlider[this.translate.instant('glider.tandem')] = (glider.tandem) ? this.translate.instant('buttons.yes') : this.translate.instant('buttons.no');
       flatGlider[this.translate.instant('statistics.nbflight')] = glider.nbFlights;
       flatGlider[this.translate.instant('statistics.flighthour')] = new HoursFormatPipe().transform(glider.time);
+      flatGlider[this.translate.instant('glider.note')] = glider.note
       list.push(flatGlider);
     })
 

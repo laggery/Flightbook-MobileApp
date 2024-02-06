@@ -1,5 +1,4 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { isNull } from 'lodash';
 
 @Pipe({
   name: 'hoursFormat'

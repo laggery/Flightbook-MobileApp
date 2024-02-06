@@ -5,7 +5,7 @@ import { TDocumentDefinitions } from 'pdfmake/interfaces';
 import { Flight } from 'src/app/flight/shared/flight.model';
 import { User } from '../../account/shared/user.model';
 import { FlightStatistic } from 'src/app/flight/shared/flightStatistic.model';
-import { HoursFormatPipe } from '../pipes/hours-format/hours-format.pipe';
+import { HoursFormatPipe } from '../pipes/hours-format.pipe';
 
 @Injectable({
   providedIn: 'root'
