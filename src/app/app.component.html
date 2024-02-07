@@ -53,7 +53,7 @@
                 <fb-menu-item [icon]="'school'" [label]="school.name"></fb-menu-item>
               </ion-item>
             </ion-menu-toggle>
-            <ion-menu-toggle auto-hide="false">
+            <ion-menu-toggle auto-hide="false" *ngIf="hasControlSheet">
               <ion-item routerDirection="root" [routerLink]="['/control-sheet']" lines="full" detail="false">
                 <fb-menu-item [icon]="'document'" [label]="'buttons.controlSheet'"></fb-menu-item>
               </ion-item>
