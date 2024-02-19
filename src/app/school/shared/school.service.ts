@@ -48,6 +48,10 @@ export class SchoolService {
     return this.http.get<ControlSheet>(`${environment.baseUrl}/student/control-sheet`);
   }
 
+  postControlSheet(controlSheet: ControlSheet): Observable<ControlSheet> {
+    return this.http.post<ControlSheet>(`${environment.baseUrl}/student/control-sheet`, controlSheet);
+  }
+
   private setFilterState(nextState: boolean) {
     this.filtered$.next(nextState);
   }

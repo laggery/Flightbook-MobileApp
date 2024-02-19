@@ -8,8 +8,33 @@ fb-star-rating {
     font-size: 20px;
     margin-top: 2px;
     width: 67px;
+    text-align: left;
 }
 
 ion-list {
     padding: 0px;
+}
+
+// Star Rating modal
+.startRatingModal h2 {
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 20px;
+    margin-bottom: 2px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.startRatingModal fb-star-rating {
+    margin-top: 10px;
+    width: 100%;
+    text-align: center;
+    font-size: 33px;
+}
+
+.star-button {
+    margin: 0;
+    --padding-start: 0; /* Change this to the padding you want */
+    --padding-end: 0; /* Change this to the padding you want */
 }

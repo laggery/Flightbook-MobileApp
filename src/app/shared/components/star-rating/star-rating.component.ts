@@ -12,7 +12,7 @@ export class StarRatingComponent {
   @Input()
   edit: boolean = true;
 
-  @Output() click = new EventEmitter<number>();
+  @Output() selectEvent = new EventEmitter<number>();
 
   stars: any[];
 
@@ -44,9 +44,9 @@ export class StarRatingComponent {
   displayStars(value: number): void {
     this.stars.filter((star) => {
       if (star.id <= value) {
-        star.class = `star-gold star ${this.edit ? "star-hover" : ""}`;
+        star.class = `star-gold star`;
       } else {
-        star.class = `star-gray star ${this.edit ? "star-hover" : ""}`;
+        star.class = `star-gray star`;
       }
       return star;
     });
@@ -64,7 +64,7 @@ export class StarRatingComponent {
     this.displayStars(value);
 
     this.selectedRating = value;
-    this.click.emit(this.selectedRating);
+    this.selectEvent.emit(this.selectedRating);
   }
 
 }

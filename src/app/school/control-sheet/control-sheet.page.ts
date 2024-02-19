@@ -1,10 +1,17 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ControlSheet } from 'src/app/shared/domain/control-sheet';
 import { SchoolService } from '../shared/school.service';
-import { Subject, takeUntil } from 'rxjs';
-import { LoadingController, ModalController } from '@ionic/angular';
+import { Subject, concatMap, takeUntil } from 'rxjs';
+import { IonModal, LoadingController, ModalController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { ControlSheetDetailsComponent } from '../shared/components/control-sheet-details/control-sheet-details.component';
+
+type StarRating = {
+  currentValue: number,
+  translationKey: string,
+  type: any,
+  key: string
+}
 
 @Component({
   selector: 'app-control-sheet',
@@ -14,6 +21,10 @@ import { ControlSheetDetailsComponent } from '../shared/components/control-sheet
 export class ControlSheetPage implements OnInit, OnDestroy {
   unsubscribe$ = new Subject<void>();
   controlSheet: ControlSheet | undefined;
+  @ViewChild('starModal') starModal: IonModal;
+
+  // Star rating
+  starRating: StarRating;
 
   constructor(
     private schoolService: SchoolService,
@@ -60,4 +71,33 @@ export class ControlSheetPage implements OnInit, OnDestroy {
     this.unsubscribe$.complete();
   }
 
+  async openRateAlert(event: MouseEvent, currentRating: number, translationKey: string, type: any, key: string) {
+    event.stopPropagation();
+    this.starRating = {
+      currentValue: currentRating,
+      translationKey: translationKey,
+      type: type,
+      key: key
+    }
+    this.starModal.present();
+  }
+
+  async saveRating(value: number) {
+    this.starRating.type[this.starRating.key] = value;
+
+    const loading = await this.loadingCtrl.create({
+      message: this.translate.instant('loading.loading')
+    });
+    await loading.present();
+    this.schoolService.postControlSheet(this.controlSheet).pipe(
+      concatMap(() => this.schoolService.getControlSheet())
+    ).pipe(takeUntil(this.unsubscribe$)).subscribe({
+      next: async (res: ControlSheet) => {
+        await loading.dismiss();
+      },
+      error: (async (resp: any) => {
+        await loading.dismiss();
+      })
+    });
+  }
 }
