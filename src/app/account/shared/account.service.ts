@@ -87,4 +87,8 @@ export class AccountService {
     }
     return authenticated;
   }
+
+  getStripeSession(): Observable<any> {
+    return this.http.get<any>(`${environment.baseUrl}/payments/stripe/session`);
+  }
 }

@@ -29,7 +29,8 @@
         "no": "Nein",
         "multipleIgc": "Mehrere IGC",
         "cancelSubscription": "Abonnement kündigen",
-        "controlSheet": "Kontrollblatt"
+        "controlSheet": "Kontrollblatt",
+        "subscribe": "Abonnieren"
     },
     "login": {
         "email": "E-Mail",
@@ -542,7 +543,8 @@
         }
     },
     "payment": {
-        "noSubscription": "Sie haben zurzeit kein Abonnement",
+        "noSubscription": "<p>Du nutzt zurzeit Flightbook Free.</p><p>Für 12CHF im Jahr kannst du auf Flightbook Premium wechseln!</p><ul><li>Keine Werbung</li><li>Unterstützt das Projekt</li></ul>",
+        "thanks": "Vielen Dank für deine Unterstützung!",
         "information": "Ihr Abonnement wird am {{ date }} automatisch verlängert. Sie werden mit einem Betrag von CHF 12.00/Jahr belastet.",
         "canceled": "Ihr Abonnement wurde gekündigt. Sie verfügen noch über alle Funktionen bis zum {{ date }}."
     },

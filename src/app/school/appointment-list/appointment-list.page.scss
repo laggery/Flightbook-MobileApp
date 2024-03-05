@@ -7,7 +7,7 @@
 }
 
 .appointmentRow .scheduling {
-    min-width: 135px;
+    min-width: 170px;
 }
 
 .appointmentRow .meetingPoint {
@@ -27,6 +27,18 @@
 .appointmentRow.disabled ion-label{
     cursor: default;
     opacity: 0.3;
+}
+
+.language-it {
+    .appointmentRow .state {
+        min-width: 90px;
+    }
+}
+
+.language-en {
+    .appointmentRow .state {
+        min-width: 90px;
+    }
 }
     
 ion-content {

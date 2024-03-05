@@ -249,7 +249,8 @@
       "@cypress/schematic",
       "@ionic/angular-toolkit",
       "@schematics/angular"
-    ]
+    ],
+    "analytics": false
   },
   "schematics": {
     "@ionic/angular-toolkit:component": {

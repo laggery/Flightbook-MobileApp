@@ -7,6 +7,10 @@ const routes: Routes = [
   {
     path: '',
     component: SettingsPage
+  },
+  {
+    path: ':payment',
+    component: SettingsPage
   }
 ];
 

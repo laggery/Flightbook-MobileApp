@@ -22,6 +22,7 @@ export class AppointmentListPage implements OnInit, OnDestroy {
   unsubscribe$ = new Subject<void>();
   appointments: Appointment[];
   currentUser: User;
+  currentLang: string;
   filtered: boolean;
   private readonly schoolId: number;
   private appointmentId: number;
@@ -36,6 +37,7 @@ export class AppointmentListPage implements OnInit, OnDestroy {
     private modalCtrl: ModalController,
     private alertController: AlertController
   ) {
+    this.currentLang = this.translate.currentLang;
     this.filtered = this.schoolService.filtered$.getValue();
     this.schoolService.filtered$.pipe(takeUntil(this.unsubscribe$))
       .subscribe((res: boolean) => {

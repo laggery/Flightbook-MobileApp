@@ -16,6 +16,11 @@ import { SharedModule } from './shared/shared.module';
 import { HttpAuthInterceptor } from './shared/interceptor/auth.interceptor';
 import { HttpErrorInterceptor } from './shared/interceptor/error.interceptor';
 import { PaymentService } from './shared/services/payment.service';
+import { registerLocaleData } from '@angular/common';
+import germanLocale from '@angular/common/locales/de';
+import italianLocale from '@angular/common/locales/it';
+import frenchLocale from '@angular/common/locales/fr';
+import { NavigationService } from './shared/services/navigation.service';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -24,6 +29,10 @@ export function createTranslateLoader(http: HttpClient) {
 export function tokenGetter() {
   return localStorage.getItem('access_token');
 }
+
+registerLocaleData(germanLocale);
+registerLocaleData(italianLocale);
+registerLocaleData(frenchLocale);
 
 @NgModule({
     declarations: [AppComponent],
@@ -46,9 +55,11 @@ export function tokenGetter() {
         { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
         { provide: HTTP_INTERCEPTORS, useClass: HttpAuthInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
-        PaymentService
+        PaymentService,
+        NavigationService
     ],
     bootstrap: [AppComponent]
 })
 export class AppModule {
+    constructor(private navigationService: NavigationService) {}
 }

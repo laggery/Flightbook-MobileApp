@@ -14,6 +14,7 @@ import { environment } from 'src/environments/environment';
 import { AccountService } from '../shared/account.service';
 import { NewsService } from 'src/app/news/shared/news.service';
 import { App } from '@capacitor/app';
+import { NavigationService } from 'src/app/shared/services/navigation.service';
 
 @Component({
   selector: 'app-login',
@@ -32,11 +33,11 @@ export class LoginPage implements OnInit, OnDestroy {
     private translate: TranslateService,
     private menuCtrl: MenuController,
     private navCtrl: NavController,
-    private router: Router,
     private accountService: AccountService,
     private newsService: NewsService,
     private alertController: AlertController,
-    private loadingCtrl: LoadingController
+    private loadingCtrl: LoadingController,
+    private navigationService: NavigationService,
   ) {
     this.menuCtrl.enable(false);
     this.defineVersion();
@@ -69,9 +70,8 @@ export class LoginPage implements OnInit, OnDestroy {
         await loading.dismiss();
         localStorage.setItem('access_token', resp.access_token);
         localStorage.setItem('refresh_token', resp.refresh_token);
-        this.router.navigate(['news']).then(() => {
-          this.menuCtrl.enable(true);
-        });
+        this.navigationService.back();
+        this.menuCtrl.enable(true);
         this.loginData.email = null;
         this.loginData.password = null;
       },

@@ -7,9 +7,12 @@ import { AccountService } from '../shared/account.service';
 import { FlightService } from 'src/app/flight/shared/flight.service';
 import { GliderService } from 'src/app/glider/shared/glider.service';
 import { PlaceService } from 'src/app/place/shared/place.service';
-import { Subject, takeUntil } from 'rxjs';
+import { firstValueFrom, Subject, takeUntil } from 'rxjs';
 import { PaymentService } from 'src/app/shared/services/payment.service';
 import { PaymentStatus } from '../shared/paymentStatus.model';
+import { Capacitor } from '@capacitor/core';
+import { ActivatedRoute } from '@angular/router';
+import moment from 'moment';
 
 @Component({
   selector: 'app-settings',
@@ -20,6 +23,7 @@ export class SettingsPage implements OnInit, OnDestroy {
   unsubscribe$ = new Subject<void>();
   user: User;
   paymentStatus: PaymentStatus;
+  isNative: boolean;
 
   constructor(
     private translate: TranslateService,
@@ -31,8 +35,10 @@ export class SettingsPage implements OnInit, OnDestroy {
     private placeService: PlaceService,
     private menuCtrl: MenuController,
     public navCtrl: NavController,
-    private paymentService: PaymentService
+    private paymentService: PaymentService,
+    private route: ActivatedRoute
   ) {
+    this.isNative = Capacitor.isNativePlatform();
     this.accountService.currentUser().pipe(takeUntil(this.unsubscribe$)).subscribe((resp: User) => {
       this.user = resp;
     })
@@ -40,9 +46,28 @@ export class SettingsPage implements OnInit, OnDestroy {
     this.paymentService.getPaymentStatus().pipe(takeUntil(this.unsubscribe$)).subscribe((paymentStatus: PaymentStatus) => {
       this.paymentStatus = paymentStatus;
     });
+
+    const paymentStatus = this.route.snapshot.paramMap.get('payment');
+    if (paymentStatus == "success") {
+      this.paymentSuccess();
+    }
   }
 
   ngOnInit() {
+  }
+
+  async paymentSuccess(){
+    const alert = await this.alertController.create({
+      header: this.translate.instant('message.infotitle'),
+      message: this.translate.instant('payment.thanks'),
+      buttons: [{
+        text: this.translate.instant('buttons.done'),
+        handler: () => {
+          this.paymentService.setPaymentStatus({ active: true, state: 'ACTIVE', expires_date: moment().add(1, 'year').toDate()});
+        }
+      }]
+    });
+    await alert.present();
   }
 
   async saveSettings() {
@@ -67,6 +92,16 @@ export class SettingsPage implements OnInit, OnDestroy {
         }
       }
     })
+  }
+
+  async getStripeSession() {
+    let loading = await this.loadingCtrl.create({
+      message: this.translate.instant('loading.loading')
+    });
+    await loading.present();
+
+    const session = await firstValueFrom(this.accountService.getStripeSession());
+    window.open(session.url, '_self');
   }
 
   async cancelSubscription() {

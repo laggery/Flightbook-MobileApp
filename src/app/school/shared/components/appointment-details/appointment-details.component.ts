@@ -17,6 +17,7 @@ export class AppointmentDetailsComponent implements OnInit {
 
   appointment: Appointment;
   currentUser: User;
+  currentLang: string;
   schoolId: number;
   isSubscribed = false;
   subscribed: Subscription[] = [];
@@ -28,7 +29,9 @@ export class AppointmentDetailsComponent implements OnInit {
     private alertController: AlertController,
     private translate: TranslateService,
     private schoolService: SchoolService
-  ) {}
+  ) {
+    this.currentLang = this.translate.currentLang;
+  }
 
   ngOnInit() {
     this.subscribed = [];

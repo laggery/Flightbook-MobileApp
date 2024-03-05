@@ -5,8 +5,7 @@ Why is-it not connected to GPS?
 There exist a lot of application that are connected to the GPS but often you don’t want to register the track but you just like to have a trace of the flight. For example: Tandem pilots
 
 How is construct this project?
-The entire project is construct in three parts.
-- A symphony application – https://github.com/laggery/Flightbook-Symfony 
+The entire project is construct in two parts.
 - An API for the mobile applications https://github.com/laggery/Flightbook-API
 - A Mobile application – Current repository
 
