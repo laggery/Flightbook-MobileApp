@@ -28,7 +28,7 @@
   </ion-item>
   <ion-item>
     <ion-label color="primary" position="stacked">{{ 'appointment.instructor' | translate }}</ion-label>
-    <p class="item-value">{{ appointment.instructor.firstname }} {{ appointment.instructor.lastname }}</p>
+    <p class="item-value">{{ appointment.instructor?.firstname }} {{ appointment.instructor?.lastname }}</p>
   </ion-item>
   <ion-item *ngIf="appointment.takeOffCoordinator">
     <ion-label color="primary" position="stacked">{{ 'appointment.takeOffCoordinator' | translate }}</ion-label>
