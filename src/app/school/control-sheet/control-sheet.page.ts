@@ -73,6 +73,10 @@ export class ControlSheetPage implements OnInit, OnDestroy {
 
   async openRateAlert(event: MouseEvent, currentRating: number, translationKey: string, type: any, key: string) {
     event.stopPropagation();
+    if (!this.controlSheet.userCanEdit) {
+      return
+    }
+    
     this.starRating = {
       currentValue: currentRating,
       translationKey: translationKey,
@@ -97,6 +101,8 @@ export class ControlSheetPage implements OnInit, OnDestroy {
       },
       error: (async (resp: any) => {
         await loading.dismiss();
+        this.initialDataLoad();
+        this.starModal.dismiss();
       })
     });
   }

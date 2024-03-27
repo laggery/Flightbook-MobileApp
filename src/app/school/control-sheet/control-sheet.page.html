@@ -16,7 +16,8 @@
       <ion-list slot="content">
         <ng-container *ngFor="let item of controlSheet?.theory | keyvalue">
           <ion-item *ngIf="item.key != 'id'">
-            <ion-button class="star-button" fill="clear" (click)="openRateAlert($event, item.value, 'controlSheet.theory.' + item.key, controlSheet.theory, item.key)"><fb-star-rating [edit]="false" [selectedRating]="item.value"></fb-star-rating></ion-button>
+            <ion-button *ngIf="controlSheet.userCanEdit" class="star-button" fill="clear" (click)="openRateAlert($event, item.value, 'controlSheet.theory.' + item.key, controlSheet.theory, item.key)"><fb-star-rating [edit]="false" [selectedRating]="item.value"></fb-star-rating></ion-button>
+            <fb-star-rating *ngIf="!controlSheet.userCanEdit" [edit]="false" [selectedRating]="item.value"></fb-star-rating>
             <span class="definition">{{ ('controlSheet.theory.' + item.key) | translate }}</span>
           </ion-item>
         </ng-container>
@@ -29,7 +30,8 @@
       <ion-list slot="content">
         <ng-container *ngFor="let item of controlSheet?.trainingHill | keyvalue | nxgTransalteSort:'trainingHill'">
           <ion-item button *ngIf="item.key != 'id'" (click)="openDetail('trainingHill',item.key)">
-            <ion-button class="star-button" fill="clear" (click)="openRateAlert($event, item.value, 'controlSheet.trainingHill.' + item.key + '.title', controlSheet.trainingHill, item.key)"><fb-star-rating [edit]="false" [selectedRating]="item.value"></fb-star-rating></ion-button>
+            <ion-button *ngIf="controlSheet.userCanEdit" class="star-button" fill="clear" (click)="openRateAlert($event, item.value, 'controlSheet.trainingHill.' + item.key + '.title', controlSheet.trainingHill, item.key)"><fb-star-rating [edit]="false" [selectedRating]="item.value"></fb-star-rating></ion-button>
+            <fb-star-rating *ngIf="!controlSheet.userCanEdit" [edit]="false" [selectedRating]="item.value"></fb-star-rating>
             <span class="definition">{{ ('controlSheet.trainingHill.' + item.key + '.title') | translate }}</span>
           </ion-item>
         </ng-container>
@@ -42,7 +44,8 @@
       <ion-list slot="content">
         <ng-container *ngFor="let item of controlSheet?.altitudeFlight | keyvalue | nxgTransalteSort:'altitudeFlight'">
           <ion-item button *ngIf="item.key != 'id'" (click)="openDetail('altitudeFlight',item.key)">
-            <ion-button class="star-button" fill="clear" (click)="openRateAlert($event, item.value, 'controlSheet.altitudeFlight.' + item.key + '.title', controlSheet.altitudeFlight, item.key)"><fb-star-rating [edit]="false" [selectedRating]="item.value" ></fb-star-rating></ion-button>
+            <ion-button *ngIf="controlSheet.userCanEdit" class="star-button" fill="clear" (click)="openRateAlert($event, item.value, 'controlSheet.altitudeFlight.' + item.key + '.title', controlSheet.altitudeFlight, item.key)"><fb-star-rating [edit]="false" [selectedRating]="item.value" ></fb-star-rating></ion-button>
+            <fb-star-rating *ngIf="!controlSheet.userCanEdit" [edit]="false" [selectedRating]="item.value"></fb-star-rating>
             <span class="definition">{{ ('controlSheet.altitudeFlight.' + item.key + '.title') | translate }}</span>
           </ion-item>
         </ng-container>
