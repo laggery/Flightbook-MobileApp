@@ -30,7 +30,10 @@
         "multipleIgc": "Multiple IGC",
         "cancelSubscription": "Cancel subscription",
         "controlSheet": "Control sheet",
-        "subscribe": "Subscribe"
+        "subscribe": "Subscribe",
+        "shvWeather": "SHV Weather (Login)",
+        "dabsToday": "DABS Swiss today",
+        "dabsTomorrow": "DABS Swiss tomorrow"
     },
     "login": {
         "email": "E-Mail",
@@ -137,7 +140,8 @@
         "filtered": "filtered",
         "menu": "Menu",
         "import": "Import",
-        "school": "School"
+        "school": "School",
+        "preparation": "Flight preparation"
     },
     "message": {
         "infotitle": "Information",

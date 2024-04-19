@@ -30,7 +30,10 @@
         "multipleIgc": "Plusieurs IGC",
         "cancelSubscription": "Résilier l'abonnement",
         "controlSheet": "Fiche de contrôle",
-        "subscribe": "S'abonner"
+        "subscribe": "S'abonner",
+        "shvWeather": "FSVL Météo (Login)",
+        "dabsToday": "DABS Suisse aujourd'hui",
+        "dabsTomorrow": "DABS Suisse demain"
     },
     "login": {
         "email": "E-Mail",
@@ -137,7 +140,8 @@
         "filtered": "filtré",
         "menu": "Menu",
         "import": "Imports",
-        "school": "Ecole"
+        "school": "Ecole",
+        "preparation": "Préparation du vol"
     },
     "message": {
         "infotitle": "Information",
