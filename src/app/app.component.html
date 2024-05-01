@@ -42,8 +42,8 @@
             </ion-item>
           </ion-menu-toggle>
           <ion-menu-toggle auto-hide="false">
-            <ion-item routerDirection="root" [routerLink]="['/imports/flugbuch']" lines="full" detail="false">
-              <fb-menu-item [icon]="'cloud-upload'" [label]="'Flugbuch.ch'"></fb-menu-item>
+            <ion-item routerDirection="root" [routerLink]="['/imports/data']" lines="full" detail="false">
+              <fb-menu-item [icon]="'cloud-upload'" [label]="'buttons.data'"></fb-menu-item>
             </ion-item>
           </ion-menu-toggle>
           <div class="fligth-school" *ngIf="schools?.length > 0 || hasControlSheet">
@@ -59,6 +59,22 @@
               </ion-item>
             </ion-menu-toggle>
           </div>
+          <p class="divider-menu">{{ 'groupname.preparation' | translate }}</p>
+          <ion-menu-toggle auto-hide="false">
+            <ion-item (click)="openBrowser('shvWeather')" lines="full" detail="false">
+              <fb-menu-item [icon]="'link-outline'" [label]="'buttons.shvWeather'"></fb-menu-item>
+            </ion-item>
+          </ion-menu-toggle>
+          <ion-menu-toggle auto-hide="false">
+            <ion-item (click)="openBrowser('dabsToday')" lines="full" detail="false">
+              <fb-menu-item [icon]="'link-outline'" [label]="'buttons.dabsToday'"></fb-menu-item>
+            </ion-item>
+          </ion-menu-toggle>
+          <ion-menu-toggle auto-hide="false">
+            <ion-item (click)="openBrowser('dabsTomorrow')" lines="full" detail="false">
+              <fb-menu-item [icon]="'link-outline'" [label]="'buttons.dabsTomorrow'"></fb-menu-item>
+            </ion-item>
+          </ion-menu-toggle>
           <p class="divider-menu">{{ 'groupname.account' | translate }}</p>
           <ion-menu-toggle auto-hide="false">
             <ion-item routerDirection="root" [routerLink]="['/settings']" lines="full" detail="false">

@@ -28,9 +28,13 @@
         "yes": "Ja",
         "no": "Nein",
         "multipleIgc": "Mehrere IGC",
+        "data": "Daten",
         "cancelSubscription": "Abonnement kündigen",
         "controlSheet": "Kontrollblatt",
-        "subscribe": "Abonnieren"
+        "subscribe": "Abonnieren",
+        "shvWeather": "SHV Wetter (Login)",
+        "dabsToday": "DABS Schweiz heute",
+        "dabsTomorrow": "DABS Schweiz morgen"
     },
     "login": {
         "email": "E-Mail",
@@ -137,7 +141,8 @@
         "filtered": "gefiltert",
         "menu": "Menu",
         "import": "Importieren",
-        "school": "Schule"
+        "school": "Schule",
+        "preparation": "Flugvorbereitung"
     },
     "message": {
         "infotitle": "Information",

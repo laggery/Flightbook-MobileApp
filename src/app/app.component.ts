@@ -24,6 +24,7 @@ import { PaymentStatus } from './account/shared/paymentStatus.model';
 import { PaymentService } from './shared/services/payment.service';
 import { firstValueFrom, Subject } from 'rxjs';
 import { ControlSheet } from './shared/domain/control-sheet';
+import { Browser } from '@capacitor/browser';
 
 @Component({
   selector: 'app-root',
@@ -191,6 +192,34 @@ export class AppComponent implements OnDestroy, OnInit {
         }
       }
     );
+  }
+
+  async openBrowser(type: string) {
+    let url
+
+    switch (type) {
+      case "shvWeather":
+        if (this.translate.currentLang === 'fr') {
+          url = "https://www.meteo-fsvl.ch"; 
+        } else {
+          url = "https://www.meteo-shv.ch"; 
+        }
+        
+        break;
+      case "dabsToday":
+        url = "https://www.skybriefing.com/o/dabs?today";
+        break;
+      case "dabsTomorrow":
+        url = "https://www.skybriefing.com/o/dabs?tomorrow";
+        break;  
+      default:
+        return;
+    }
+
+    const browserOption = {
+      url: url
+    }
+    Browser.open(browserOption);
   }
 
   ngOnDestroy() {

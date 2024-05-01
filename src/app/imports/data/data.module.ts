@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { FlugbuchPageRoutingModule } from './flugbuch-routing.module';
+import { DataPageRoutingModule } from './data-routing.module';
 
-import { FlugbuchPage } from './flugbuch.page';
+import { DataPage } from './data.page';
 import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
@@ -14,9 +14,9 @@ import { TranslateModule } from '@ngx-translate/core';
     CommonModule,
     FormsModule,
     IonicModule,
-    FlugbuchPageRoutingModule,
+    DataPageRoutingModule,
     TranslateModule.forChild()
   ],
-  declarations: [FlugbuchPage]
+  declarations: [DataPage]
 })
-export class FlugbuchPageModule {}
+export class DataPageModule {}

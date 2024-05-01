@@ -8,6 +8,12 @@
 </ion-header>
 
 <ion-content class="ion-padding">
+  <ion-select interface="popover" value="{{ importTypes[0]?.type }}" (ionChange)="changeImportType($event)">
+    <ion-select-option *ngFor="let type of importTypes" value="{{ type.type }}">{{ type.name }}</ion-select-option>
+  </ion-select>
+
+  <div class="content"><p>{{ currentType?.description }}</p></div>
+
   <ion-button *ngIf="isIos" color="primary" class="upload-btn" (click)="onIosFilesSelect()">
     <ion-icon name="document"></ion-icon> CSV
   </ion-button>
@@ -24,7 +30,7 @@
   <div *ngIf="result">
     <!-- Glider result -->
     <ion-card>
-      <ion-card-content>
+      <ion-card-content *ngIf="result.glider">
         <p class="title">{{ 'import.gliders' | translate }}</p>
         <div><label>{{ 'import.inserted' | translate }}:</label><span>{{ result.glider.inserted }}</span></div>
         <div><label>{{ 'import.existed' | translate }}:</label><span>{{ result.glider.existed }}</span></div>
@@ -32,7 +38,7 @@
     </ion-card>
     <!-- Place result -->
     <ion-card>
-      <ion-card-content>
+      <ion-card-content *ngIf="result.place">
         <p class="title">{{ 'import.places' | translate }}</p>
         <div><label>{{ 'import.inserted' | translate }}:</label><span>{{ result.place.inserted }}</span></div>
         <div><label>{{ 'import.updated' | translate }}:</label><span>{{ result.place.updated }}</span></div>
@@ -41,7 +47,7 @@
     </ion-card>
     <!-- Flight result -->
     <ion-card>
-      <ion-card-content>
+      <ion-card-content *ngIf="result.flight">
         <p class="title">{{ 'import.flights' | translate }}</p>
         <div><label>{{ 'import.inserted' | translate }}:</label><span>{{ result.flight.inserted }}</span></div>
       </ion-card-content>

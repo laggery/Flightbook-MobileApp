@@ -43,7 +43,7 @@ export class HttpAuthInterceptor implements HttpInterceptor {
         if (validityCheck) {
             const authenticated = await this.accoutService.isAuth();
             if (authenticated) {
-                if (req.url.includes('file/upload') || req.url.includes('file/import')){
+                if (req.url.includes('file/upload') || req.url.includes('import')){
                   return next.handle(this.setFormDataHeaders(req)).toPromise();
                 }
                 return next.handle(this.setHeaders(req)).toPromise();
@@ -67,7 +67,8 @@ export class HttpAuthInterceptor implements HttpInterceptor {
   private setFormDataHeaders(request: HttpRequest<any>): HttpRequest<any> {
     return request.clone({
       setHeaders: {
-        Authorization: `Bearer ${localStorage.getItem('access_token')}`
+        Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+        'Accept-Language': localStorage.getItem('language') || navigator.language.split('-')[0]
       }
     });
   }

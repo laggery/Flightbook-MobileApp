@@ -4,12 +4,15 @@ import { takeUntil } from 'rxjs/operators';
 import { Subject, Observable } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 import { Capacitor } from '@capacitor/core';
-import { Filesystem, Directory } from '@capacitor/filesystem';
+import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
 import { FileOpener } from '@capacitor-community/file-opener';
 import { Place } from 'src/app/place/shared/place.model';
 import { XlsxExportService } from 'src/app/shared/services/xlsx-export.service';
 import { PlaceService } from '../shared/place.service';
 import { Countries, Country } from 'src/app/place/shared/place.countries';
+import { json2csv } from 'json-2-csv';
+import * as fileSaver from 'file-saver';
+import { MapUtil } from 'src/app/shared/util/MapUtil';
 
 @Component({
   selector: 'app-place-list',
@@ -88,6 +91,60 @@ export class PlaceListPage implements OnInit, OnDestroy, AfterViewInit {
     return code ? this.countries.find(x => x.code === code).name[this.lang] : "";
   }
 
+  async csvExport() {
+    const loading = await this.loadingCtrl.create({
+      message: this.translate.instant('loading.loading')
+    });
+    await loading.present();
+    this.placeService.getPlaces({ store: false }).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Place[]) => {
+      res.forEach((val: Place) => {
+        delete val['id'];
+        val.coordinates = MapUtil.convertEPSG3857ToEPSG4326(val.coordinates)?.flatCoordinates;
+      })
+      
+      if (Capacitor.isNativePlatform()) {
+        try {
+          const data: any = json2csv(res, {emptyFieldValue: ''});
+          const path = `csv/places_export.csv`;
+
+          await loading.dismiss();
+          
+          const result = await Filesystem.writeFile({
+            path,
+            data,
+            directory: Directory.External,
+            recursive: true,
+            encoding: Encoding.UTF8
+          });
+
+          await FileOpener.open({
+            filePath: result.uri,
+            contentType: 'text/plain',
+            openWithDefault: true
+          });
+
+        } catch (e) {
+          await loading.dismiss();
+          const alert = await this.alertController.create({
+            header: this.translate.instant('message.infotitle'),
+            message: this.translate.instant('message.generationError'),
+            buttons: [this.translate.instant('buttons.done')]
+          });
+          await alert.present();
+        }
+      } else {
+        const data: any = json2csv(res, {emptyFieldValue: ''});
+        await loading.dismiss();
+        var blob = new Blob([data], {
+          type: "text/csv;charset=utf-8"
+        });
+        fileSaver.saveAs(blob, `places_export_${Date.now()}.csv`);
+      }
+    }, async (error: any) => {
+      await loading.dismiss();
+    });
+  }
+
   async xlsxExport() {
     const loading = await this.loadingCtrl.create({
       message: this.translate.instant('loading.loading')
@@ -137,7 +194,7 @@ export class PlaceListPage implements OnInit, OnDestroy, AfterViewInit {
       } else {
         const data: any = await this.xlsxExportService.generatePlacesXlsxFile(res, { bookType: 'xlsx', type: 'array' });
         await loading.dismiss();
-        this.xlsxExportService.saveExcelFile(data, `places_export_${Date.now()}.xlsx`);
+        this.xlsxExportService.saveExcelFile(data, `places`);
       }
     }, async (error: any) => {
       await loading.dismiss();

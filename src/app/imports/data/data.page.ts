@@ -1,33 +1,37 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Capacitor } from '@capacitor/core';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
-import { firstValueFrom } from 'rxjs';
-import { FileUploadService } from 'src/app/flight/shared/fileupload.service';
-import { ImportType } from '../shared/import-type';
+import { Subject, firstValueFrom, takeUntil } from 'rxjs';
 import { FilePicker, PickedFile } from '@capawesome/capacitor-file-picker';
 import { Encoding, Filesystem } from '@capacitor/filesystem';
 import { FlightService } from 'src/app/flight/shared/flight.service';
 import { GliderService } from 'src/app/glider/shared/glider.service';
 import { PlaceService } from 'src/app/place/shared/place.service';
+import { ImportService } from '../shared/import.service';
+import { ImportType } from '../shared/import-type.model';
 
 @Component({
-  selector: 'app-flugbuch',
-  templateUrl: './flugbuch.page.html',
-  styleUrls: ['./flugbuch.page.scss'],
+  selector: 'app-data',
+  templateUrl: './data.page.html',
+  styleUrls: ['./data.page.scss'],
 })
-export class FlugbuchPage implements OnInit {
+export class DataPage implements OnInit, OnDestroy {
+  unsubscribe$ = new Subject<void>();
 
   isIos = false;
   file: File | undefined;
   result: any | undefined;
   showButton = true;
 
+  importTypes: ImportType[] = [];
+  currentType: ImportType;
+
   constructor(
     private loadingCtrl: LoadingController,
     private alertController: AlertController,
     private translate: TranslateService,
-    private fileUploadService: FileUploadService,
+    private importService: ImportService,
     private flightService: FlightService,
     private gliderService: GliderService,
     private placeService: PlaceService
@@ -35,9 +39,31 @@ export class FlugbuchPage implements OnInit {
     if (Capacitor.getPlatform() == "ios") {
       this.isIos = true;
     }
+    this.initialDataLoad();
   }
 
   ngOnInit() {
+  }
+
+  private async initialDataLoad() {
+    const loading = await this.loadingCtrl.create({
+      message: this.translate.instant('loading.loading')
+    });
+    await loading.present();
+    this.importService.getImportTypes().pipe(takeUntil(this.unsubscribe$)).subscribe({
+      next: (res: ImportType[]) => {
+        this.importTypes = res;
+        this.currentType = this.importTypes[0];
+      },
+      async complete() {
+        loading.dismiss();
+      }
+    });
+  }
+
+  changeImportType(event: CustomEvent) {
+    this.currentType = this.importTypes.find(element => element.type === event.detail.value);
+  
   }
 
   async onFilesSelect(event: any) {
@@ -90,7 +116,7 @@ export class FlugbuchPage implements OnInit {
 
     this.showButton = false;
     try {
-      const result = await firstValueFrom(this.fileUploadService.uploadImportData(formData, ImportType.FLUGBUCH));
+      const result = await firstValueFrom(this.importService.importData(formData, this.currentType.type));
       this.result = result;
       this.flightService.setState([]);
       this.gliderService.setState([]);
@@ -109,6 +135,11 @@ export class FlugbuchPage implements OnInit {
       await alert.present();
     }
     await loading.dismiss();
+  }
+
+  ngOnDestroy() {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 
 }
