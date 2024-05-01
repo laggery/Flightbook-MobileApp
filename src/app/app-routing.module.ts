@@ -69,8 +69,8 @@ const routes: Routes = [
     canActivate: [AuthGuardService]
   },
   {
-    path: 'imports/flugbuch',
-    loadChildren: () => import('./imports/flugbuch/flugbuch.module').then( m => m.FlugbuchPageModule)
+    path: 'imports/data',
+    loadChildren: () => import('./imports/data/data.module').then( m => m.DataPageModule)
   },
   {
     path: 'login',

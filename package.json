@@ -1,6 +1,6 @@
 {
   "name": "flightbook",
-  "version": "2.9.2",
+  "version": "2.9.3",
   "author": "Yannick Lagger",
   "homepage": "https://flightbook.ch/",
   "scripts": {
@@ -52,6 +52,7 @@
     "file-saver": "^2.0.5",
     "igc-parser": "^1.1.0",
     "igc-xc-score": "^1.7.0",
+    "json-2-csv": "^5.5.1",
     "moment": "^2.29.4",
     "ng2-charts": "^3.0.0",
     "nxt-flags": "^16.0.0",

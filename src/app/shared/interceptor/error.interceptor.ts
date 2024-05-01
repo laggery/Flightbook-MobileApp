@@ -2,7 +2,8 @@ import {
     HttpInterceptor,
     HttpRequest,
     HttpHandler,
-    HttpEvent
+    HttpEvent,
+    HttpContextToken
 } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { Router } from '@angular/router';
@@ -11,6 +12,8 @@ import { Injectable } from '@angular/core';
 import { catchError } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 import HttpStatusCode from '../util/HttpStatusCode';
+
+export const IGNORE_ERROR = new HttpContextToken(() => false);
 
 @Injectable()
 export class HttpErrorInterceptor implements HttpInterceptor {
@@ -27,6 +30,10 @@ export class HttpErrorInterceptor implements HttpInterceptor {
             if (err.status === HttpStatusCode.UNAUTHORIZED) {
                 this.menuCtrl.enable(false);
                 this.router.navigate(['login']);
+            }
+
+            if (request.context.get(IGNORE_ERROR) === true) {
+                return throwError(err);
             }
 
             if (err.status >= 500 || err.status === 0) {

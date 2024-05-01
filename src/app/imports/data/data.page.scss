@@ -27,3 +27,15 @@ ion-card .title {
 .card-content-md {
     padding-top: 0;
 }
+
+.content p {
+    color: var(--ion-color-step-600, #666666) !important;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 14px;
+    line-height: 20px;
+    text-overflow: inherit;
+    overflow: inherit;
+}
