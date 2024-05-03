@@ -104,7 +104,7 @@ export class PlaceListPage implements OnInit, OnDestroy, AfterViewInit {
       
       if (Capacitor.isNativePlatform()) {
         try {
-          const data: any = json2csv(res, {emptyFieldValue: ''});
+          const data: any = json2csv(res, {emptyFieldValue: '', sortHeader: true});
           const path = `csv/places_export.csv`;
 
           await loading.dismiss();
@@ -133,7 +133,7 @@ export class PlaceListPage implements OnInit, OnDestroy, AfterViewInit {
           await alert.present();
         }
       } else {
-        const data: any = json2csv(res, {emptyFieldValue: ''});
+        const data: any = json2csv(res, {emptyFieldValue: '', sortHeader: true});
         await loading.dismiss();
         var blob = new Blob([data], {
           type: "text/csv;charset=utf-8"
