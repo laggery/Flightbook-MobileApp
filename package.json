@@ -1,6 +1,6 @@
 {
   "name": "flightbook",
-  "version": "2.9.3",
+  "version": "2.9.4",
   "author": "Yannick Lagger",
   "homepage": "https://flightbook.ch/",
   "scripts": {
@@ -39,7 +39,7 @@
     "@capacitor/splash-screen": "^5.0.6",
     "@capacitor/status-bar": "^5.0.6",
     "@capawesome/capacitor-file-picker": "5.1.1",
-    "@ionic/angular": "^7.0.10",
+    "@ionic/angular": "^8.2.1",
     "@ngx-translate/core": "^14.0.0",
     "@ngx-translate/http-loader": "^7.0.0",
     "@types/geojson": "^7946.0.10",
@@ -73,7 +73,7 @@
     "@babel/compat-data": "~7.20.14",
     "@capacitor/cli": "^5.4.2",
     "@cypress/schematic": "^2.5.1",
-    "@ionic/angular-toolkit": "^9.0.0",
+    "@ionic/angular-toolkit": "^10.1.1",
     "@types/chart.js": "^2.9.38",
     "@types/file-saver": "^2.0.5",
     "@types/jasmine": "~4.3.1",

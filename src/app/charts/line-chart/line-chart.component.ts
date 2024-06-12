@@ -21,7 +21,7 @@ export class LineChartComponent implements OnInit, OnChanges, AfterViewInit {
 
   public lineChartOptions: ChartConfiguration['options'] = {
     backgroundColor(context,  options) {
-      return (context.dataset.yAxisID === 'y1') ? 'rgb(143,187,255)' : 'rgb(66,140,255)'; 
+      return (context.dataset.yAxisID === 'y1') ? 'rgb(143,187,255)' : 'rgb(0, 84, 233)'; 
     },
     responsive: true,
     maintainAspectRatio: false,
@@ -60,8 +60,8 @@ export class LineChartComponent implements OnInit, OnChanges, AfterViewInit {
           label: (tooltipItem) => (tooltipItem.raw === 0) ? '00:00:00' : new HoursFormatPipe().transform(tooltipItem.raw),
           labelColor: (context) => {
             return {
-              borderColor: (context.dataset.yAxisID === 'y1') ? 'rgb(143,187,255)' : 'rgb(66,140,255)',
-              backgroundColor: (context.dataset.yAxisID === 'y1') ? 'rgb(143,187,255)' : 'rgb(66,140,255)'
+              borderColor: (context.dataset.yAxisID === 'y1') ? 'rgb(143,187,255)' : 'rgb(0, 84, 233)',
+              backgroundColor: (context.dataset.yAxisID === 'y1') ? 'rgb(143,187,255)' : 'rgb(0, 84, 233)'
             };
           }
         }
