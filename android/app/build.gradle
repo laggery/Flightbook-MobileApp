@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     namespace "ch.flightbook"
-    compileSdkVersion rootProject.ext.compileSdkVersion
+    compileSdk rootProject.ext.compileSdkVersion
     defaultConfig {
         applicationId "ch.flightbook.MobileFlight"
         minSdkVersion rootProject.ext.minSdkVersion
