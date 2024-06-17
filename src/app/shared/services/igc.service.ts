@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import * as IGCParser from 'igc-parser';
-import { scoringRules as scoring, solver } from 'igc-xc-score';
+// import { scoringRules as scoring, solver } from 'igc-xc-score';
 import { GliderService } from 'src/app/glider/shared/glider.service';
-import { Flight } from './flight.model';
-import { Igc } from './igc.model';
+import { Flight } from 'src/app/flight/shared/flight.model';
+import { Igc } from '../domain/igc.model';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +18,9 @@ export class IgcService {
     if (typeof igcData === 'string') {
       const igc = new Igc();
       const igcFile: any = IGCParser.parse(igcData, { lenient: true });
-      const result = solver(igcFile, scoring.XCScoring, {}).next().value;
+      // @TODO: fix this
+      const test = await import('igc-xc-score');
+      const result = test.solver(igcFile, test.scoringRules.XCScoring, {}).next().value;
       if (result.optimal) {
         if (override) {
           flight.km = result.scoreInfo.distance;
