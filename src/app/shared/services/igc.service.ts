@@ -16,37 +16,45 @@ export class IgcService {
     const igcData = await igcFile.text();
 
     if (typeof igcData === 'string') {
-      const igc = new Igc();
+      return new Promise((resolve, reject) => {
+        const igc = new Igc();
       const igcFile: any = IGCParser.parse(igcData, { lenient: true });
-      // @TODO: fix this
-      const test = await import('igc-xc-score');
-      const result = test.solver(igcFile, test.scoringRules.XCScoring, {}).next().value;
-      if (result.optimal) {
+      // @Hack: Isolate use of xc-score library in worker to isolate the side effects
+      const worker = new Worker(new URL('../workers/xc-score.worker.ts', import.meta.url))
+
+      worker.addEventListener('message', async({ data }) => {
+        const result = data;
+        if (result.optimal) {
+          if (override) {
+            flight.km = result.scoreInfo.distance;
+          }
+          igc.start = result.scoreInfo.ep?.start;
+          igc.landing = result.scoreInfo.ep?.finish;
+          igc.tp = result.scoreInfo.tp;
+        }
+  
         if (override) {
-          flight.km = result.scoreInfo.distance;
-        }
-        igc.start = result.scoreInfo.ep?.start;
-        igc.landing = result.scoreInfo.ep?.finish;
-        igc.tp = result.scoreInfo.tp;
-      }
+          flight.date = igcFile.date;
+          if (igcFile.site && igcFile.site != "") {
+            flight.start.name = igcFile.site;
+          }
 
-      if (override) {
-        flight.date = igcFile.date;
-        if (igcFile.site && igcFile.site != "") {
-          flight.start.name = igcFile.site;
+          const startFixe = result.opt.flight.fixes[result.opt.flight.ll[0].launch];
+          const landingFixe = result.opt.flight.fixes[result.opt.flight.ll[0].landing];
+          const timeInMillisecond = landingFixe.timestamp - startFixe.timestamp
+          flight.time = new Date(timeInMillisecond).toISOString().substr(11, 8);
+          
+          if (igcFile.gliderType && igcFile.gliderType != '') {
+            flight.glider = await this.gliderService.getGliderByName(igcFile.gliderType).toPromise();
+          }
         }
-        const startFixe = result.opt.flight.fixes[igcFile.ll[0].launch];
-        const landingFixe = result.opt.flight.fixes[igcFile.ll[0].landing];
-        const timeInMillisecond = landingFixe.timestamp - startFixe.timestamp
-        flight.time = new Date(timeInMillisecond).toISOString().substr(11, 8);
-        if (igcFile.gliderType && igcFile.gliderType != '') {
-          flight.glider = await this.gliderService.getGliderByName(igcFile.gliderType).toPromise();
-        }
-      }
+  
+        flight.igc = igc;
+        resolve(igcData);
+      })
 
-      flight.igc = igc;
-
-      return igcData;
+      worker.postMessage(igcFile);
+      });
     }
     return null;
   }

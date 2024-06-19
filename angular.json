@@ -54,7 +54,8 @@
                 "input": "node_modules/ol/ol.css"
               }
             ],
-            "scripts": []
+            "scripts": [],
+            "webWorkerTsConfig": "tsconfig.worker.json"
           },
           "configurations": {
             "development": {
@@ -174,7 +175,8 @@
                 "output": "/assets"
               },
               "src/manifest.webmanifest"
-            ]
+            ],
+            "webWorkerTsConfig": "tsconfig.worker.json"
           },
           "configurations": {
             "ci": {
