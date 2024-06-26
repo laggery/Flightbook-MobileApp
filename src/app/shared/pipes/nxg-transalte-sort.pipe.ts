@@ -11,7 +11,7 @@ export class NxgTransalteSortPipe implements PipeTransform {
     private translate: TranslateService
   ) {}
 
-  transform(value: Array<KeyValue<unknown, unknown>>, ...args: unknown[]): unknown {
+  transform(value: any[], ...args: unknown[]): any[] {
     if (value === null || value === undefined) {
       return value;
     }

@@ -1,15 +1,16 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ControlSheet } from 'src/app/shared/domain/control-sheet';
 import { SchoolService } from '../shared/school.service';
-import { Subject, concatMap, takeUntil } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 import { IonModal, LoadingController, ModalController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { ControlSheetDetailsComponent } from '../shared/components/control-sheet-details/control-sheet-details.component';
+import { NxgTransalteSortPipe } from 'src/app/shared/pipes/nxg-transalte-sort.pipe';
 
 type StarRating = {
   currentValue: number,
   translationKey: string,
-  type: any,
+  type: string,
   key: string
 }
 
@@ -26,11 +27,16 @@ export class ControlSheetPage implements OnInit, OnDestroy {
   // Star rating
   starRating: StarRating;
 
+  orderedAltitudeFlight: any[] = [];
+  orderedTheory: any[] = [];
+  orderedTrainingHill: any[] = [];
+
   constructor(
     private schoolService: SchoolService,
     private loadingCtrl: LoadingController,
     private modalCtrl: ModalController,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private nxgTransalteSortPipe: NxgTransalteSortPipe
     ) {}
   
   ngOnInit() {
@@ -45,12 +51,38 @@ export class ControlSheetPage implements OnInit, OnDestroy {
     this.schoolService.getControlSheet().pipe(takeUntil(this.unsubscribe$)).subscribe({
       next: async (controlSheet: ControlSheet) => {
         this.controlSheet = controlSheet;
+        this.orderControlSheet(controlSheet);
         await loading.dismiss();
       },
       error: async (error: any) => {
         await loading.dismiss();
       }
     });
+  }
+
+  private orderControlSheet(controlSheet: ControlSheet) {
+    this.orderedAltitudeFlight = Object.keys(controlSheet.altitudeFlight).map(key => {
+      return {
+        key: key,
+        value: controlSheet.altitudeFlight[key]
+      }
+    });
+    this.nxgTransalteSortPipe.transform(this.orderedAltitudeFlight, 'altitudeFlight');
+
+    this.orderedTheory = Object.keys(controlSheet.theory).map(key => {
+      return {
+        key: key,
+        value: controlSheet.theory[key]
+      }
+    });
+
+    this.orderedTrainingHill = Object.keys(controlSheet.trainingHill).map(key => {
+      return {
+        key: key,
+        value: controlSheet.trainingHill[key]
+      }
+    });
+    this.nxgTransalteSortPipe.transform(this.orderedTrainingHill, 'trainingHill');
   }
 
   async openDetail(type: string, key: string) {
@@ -87,15 +119,40 @@ export class ControlSheetPage implements OnInit, OnDestroy {
   }
 
   async saveRating(value: number) {
-    this.starRating.type[this.starRating.key] = value;
+    let index;
+    switch (this.starRating.type) {
+      case 'trainingHill':
+        this.controlSheet.trainingHill[this.starRating.key] = value;
+        index = this.orderedTrainingHill.findIndex((item: any) => item.key === this.starRating.key)
+        this.orderedTrainingHill[index] = {
+          key: this.starRating.key,
+          value: value
+        };
+        break;
+      case 'theory':
+        this.controlSheet.theory[this.starRating.key] = value;
+        index = this.orderedTheory.findIndex((item: any) => item.key === this.starRating.key)
+        this.orderedTheory[index] = {
+          key: this.starRating.key,
+          value: value
+        };
+        break;
+      case 'altitudeFlight':
+        this.controlSheet.altitudeFlight[this.starRating.key] = value;
+        index = this.orderedAltitudeFlight.findIndex((item: any) => item.key === this.starRating.key)
+        this.orderedAltitudeFlight[index] = {
+          key: this.starRating.key,
+          value: value
+        };
+        break;
+    }
 
     const loading = await this.loadingCtrl.create({
       message: this.translate.instant('loading.loading')
     });
     await loading.present();
-    this.schoolService.postControlSheet(this.controlSheet).pipe(
-      concatMap(() => this.schoolService.getControlSheet())
-    ).pipe(takeUntil(this.unsubscribe$)).subscribe({
+    this.schoolService.postControlSheet(this.controlSheet).pipe(takeUntil(this.unsubscribe$))
+    .subscribe({
       next: async (res: ControlSheet) => {
         await loading.dismiss();
       },
