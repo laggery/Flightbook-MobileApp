@@ -7,7 +7,7 @@ import { Place } from 'src/app/place/shared/place.model';
 import { FileUploadService } from 'src/app/flight/shared/fileupload.service';
 import { Glider } from 'src/app/glider/shared/glider.model';
 import { GliderService } from 'src/app/glider/shared/glider.service';
-import { IgcService } from 'src/app/flight/shared/igc.service';
+import { IgcService } from 'src/app/shared/services/igc.service';
 import { FlightService } from 'src/app/flight/shared/flight.service';
 import { Flight } from 'src/app/flight/shared/flight.model';
 

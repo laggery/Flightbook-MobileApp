@@ -12,5 +12,17 @@
 	},
 	"ios": {
 		"scheme": "Flightbook"
-	}
+	},
+	"packageClassList": [
+		"FileOpenerPlugin",
+		"AppPlugin",
+		"CAPBrowserPlugin",
+		"FilesystemPlugin",
+		"HapticsPlugin",
+		"KeyboardPlugin",
+		"PushNotificationsPlugin",
+		"SplashScreenPlugin",
+		"StatusBarPlugin",
+		"FilePickerPlugin"
+	]
 }

@@ -10,6 +10,7 @@ import { ControlSheetPage } from './control-sheet.page';
 import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { ControlSheetDetailsComponent } from '../shared/components/control-sheet-details/control-sheet-details.component';
+import { NxgTransalteSortPipe } from 'src/app/shared/pipes/nxg-transalte-sort.pipe';
 
 @NgModule({
   imports: [
@@ -19,6 +20,9 @@ import { ControlSheetDetailsComponent } from '../shared/components/control-sheet
     ControlSheetPageRoutingModule,
     TranslateModule.forChild(),
     SharedModule
+  ],
+  providers: [
+    NxgTransalteSortPipe
   ],
   declarations: [ControlSheetPage, ControlSheetDetailsComponent]
 })

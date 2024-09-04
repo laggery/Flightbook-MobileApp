@@ -11,7 +11,7 @@ import { Flight } from '../shared/flight.model';
 import { Glider } from 'src/app/glider/shared/glider.model';
 import { FlightService } from '../shared/flight.service';
 import { GliderService } from 'src/app/glider/shared/glider.service';
-import { IgcService } from '../shared/igc.service';
+import { IgcService } from 'src/app/shared/services/igc.service';
 import * as moment from 'moment';
 
 @Component({

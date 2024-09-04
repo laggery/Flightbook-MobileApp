@@ -20,7 +20,9 @@
       <ion-input  [(ngModel)]="registerData.email" required name="email" type="email" placeholder="{{ 'login.email' | translate }}"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-input [(ngModel)]="registerData.password" required name="password" type="password" placeholder="{{ 'login.password' | translate }}"></ion-input>
+      <ion-input [(ngModel)]="registerData.password" required name="password" type="password" placeholder="{{ 'login.password' | translate }}">
+        <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+      </ion-input>
     </ion-item>
     <ion-button expand="block" type="submit" >{{ 'buttons.save' | translate }}</ion-button>
   </form>

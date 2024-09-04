@@ -71,7 +71,7 @@ export class FileInputComponent implements OnInit {
   async onIosFilesSelect() {
     const result = await FilePicker.pickFiles({
       // types: ['text/igc'], // No longer working with ios 16
-      multiple: this.multiple,
+      limit: this.multiple ? 0 : 1,
       readData: true
     });
 

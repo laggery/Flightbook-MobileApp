@@ -15,15 +15,13 @@
 
 <ion-content class="no-padding language-{{currentLang}}">
   <ion-list *ngIf="appointments?.length > 0" >
-    <ion-item button detail *ngFor="let appointment of appointments" (click)="itemTapped(appointment)" >
-      <p class="appointmentRow" [ngClass]="{'disabled' : isDisabled(appointment)}">
+    <ion-item button detail *ngFor="let appointment of appointments" (click)="itemTapped(appointment)" class="appointmentRow" [ngClass]="{'disabled' : isDisabled(appointment)}" >
         <ion-toggle class="subscription" disabled="{{ isDisabled(appointment) }}" checked="{{ isUserSubscribed(appointment) }}" color="primary" (click)="subscriptionClick($event)" (ionChange)="subscriptionChange($event, appointment)"></ion-toggle>
         <ion-label class="state">{{ 'appointment.stateValue.' + appointment.state| translate }}</ion-label>
         <ion-label class="scheduling">{{ appointment.scheduling | date:'EE dd.MM.yyyy HH:mm':'UTC':currentLang}}</ion-label>
         <ion-label class="meetingPoint">{{ appointment.meetingPoint || "-" }}</ion-label>
         <ion-label *ngIf="appointment.instructor" class="instructor">{{ appointment.instructor.firstname }} {{ appointment.instructor.lastname }}</ion-label>
         <ion-label *ngIf="!appointment.instructor" class="instructor">-</ion-label>
-      </p>
       <ion-icon item-end></ion-icon>
     </ion-item>
   </ion-list>

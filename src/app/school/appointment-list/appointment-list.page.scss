@@ -1,7 +1,3 @@
-.appointmentRow {
-    display: inherit;
-}
-
 .appointmentRow .state {
     min-width: 80px;
 }
@@ -31,13 +27,26 @@
 
 .language-it {
     .appointmentRow .state {
-        min-width: 90px;
+        min-width: 91px;
+    }
+    .appointmentRow .scheduling {
+        min-width: 178px;
     }
 }
 
 .language-en {
     .appointmentRow .state {
         min-width: 90px;
+    }
+
+    .appointmentRow .scheduling {
+        min-width: 174px;
+    }
+}
+
+.language-fr {
+    .appointmentRow .scheduling {
+        min-width: 177px;
     }
 }
     

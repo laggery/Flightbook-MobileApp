@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, take } from 'rxjs/operators';
-import { NavController } from '@ionic/angular';
 import { FlightStatistic } from 'src/app/flight/shared/flightStatistic.model';
 import { Flight } from 'src/app/flight/shared/flight.model';
 import { FlightService } from 'src/app/flight/shared/flight.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'fb-dashboard-container',
@@ -16,8 +16,9 @@ export class DashboardContainerComponent implements OnInit {
   flightStatistics$: Observable<FlightStatistic | FlightStatistic[]>;
   flights$: Observable<Flight[]>;
 
-  constructor(private flightService: FlightService,
-              public navCtrl: NavController
+  constructor(
+    private flightService: FlightService,
+    private router: Router
   ) {
   }
 
@@ -32,16 +33,16 @@ export class DashboardContainerComponent implements OnInit {
       .pipe(take(1))
       .subscribe((flightArray: Flight[]) => {
         if (flightArray.length > 0) {
-          this.navCtrl.navigateForward(`flights/${flightArray[0].id}`);
+          this.router.navigate([`flights/${flightArray[0].id}`], { replaceUrl: true });
         }
       });
   }
 
   async openAddFlight() {
-    this.navCtrl.navigateRoot('flights/add');
+    this.router.navigate([`flights/add`], { replaceUrl: true });
   }
 
   async openStatistics() {
-    this.navCtrl.navigateForward('flights/statistic');
+    this.router.navigate([`flights/statistic`], { replaceUrl: true });
   }
 }

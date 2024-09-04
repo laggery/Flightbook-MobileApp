@@ -105,7 +105,7 @@ export class FlightStatisticPage implements OnInit, OnDestroy {
     this.nbFlightBarChartData = {
       labels: labels,
       datasets: [
-        { data: data, label: this.translate.instant('statistics.nbflight'), borderColor: "rgb(66,140,255)", borderWidth: 3, borderSkipped: true, hoverBackgroundColor: "rgb(66,140,255)", barPercentage: 1, categoryPercentage: 0.95 }
+        { data: data, label: this.translate.instant('statistics.nbflight'), borderColor: "rgb(0, 84, 233)", borderWidth: 3, borderSkipped: true, hoverBackgroundColor: "rgb(0, 84, 233)", barPercentage: 1, categoryPercentage: 0.95 }
       ]
     };
 
@@ -120,7 +120,7 @@ export class FlightStatisticPage implements OnInit, OnDestroy {
     this.incomeBarChartData = {
       labels: incomeLabels,
       datasets: [
-        { data: incomeData, label: this.translate.instant('statistics.price'), borderColor: "rgb(66,140,255)", borderWidth: 3, borderSkipped: true, hoverBackgroundColor: "rgb(66,140,255)", barPercentage: 1, categoryPercentage: 0.95 }
+        { data: incomeData, label: this.translate.instant('statistics.price'), borderColor: "rgb(0, 84, 233)", borderWidth: 3, borderSkipped: true, hoverBackgroundColor: "rgb(0, 84, 233)", barPercentage: 1, categoryPercentage: 0.95 }
       ]
     };
 
@@ -137,7 +137,7 @@ export class FlightStatisticPage implements OnInit, OnDestroy {
     this.averageLineChartData = {
       labels: lineLabels,
       datasets: [
-        { data: timeData, label: this.translate.instant('statistics.flighthour'), borderColor: "rgb(66,140,255)", pointBackgroundColor: "rgb(66,140,255)", pointHoverBorderColor: "rgb(66,140,255)"},
+        { data: timeData, label: this.translate.instant('statistics.flighthour'), borderColor: "rgb(0, 84, 233)", pointBackgroundColor: "rgb(0, 84, 233)", pointHoverBorderColor: "rgb(0, 84, 233)"},
         { yAxisID: 'y1', data: averageData, label: this.translate.instant('statistics.average'), borderColor: "rgb(143,187,255)", pointBackgroundColor: "rgb(143,187,255)", pointHoverBorderColor: "rgb(143,187,255)" }
       ]
     };

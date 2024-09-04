@@ -4,7 +4,9 @@
       <ion-input autocomplete="email" required name="email" type="email" placeholder="{{ 'login.email' | translate }}" (change)="changeEmail($event)" [value]="loginData.email"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-input autocomplete="current-password" required name="password" type="password" placeholder="{{ 'login.password' | translate }}" (change)="changePassword($event)" [value]="loginData.password"></ion-input>
+      <ion-input autocomplete="current-password" required name="password" type="password" placeholder="{{ 'login.password' | translate }}" (change)="changePassword($event)" [value]="loginData.password">
+        <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+      </ion-input>
     </ion-item>
     <ion-button class="submit-button" expand="block" type="submit" >{{ 'buttons.login' | translate }}</ion-button>
   </form>

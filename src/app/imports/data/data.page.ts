@@ -83,7 +83,7 @@ export class DataPage implements OnInit, OnDestroy {
 
   async onIosFilesSelect() {
     const result = await FilePicker.pickFiles({
-      multiple: false,
+      limit: 1,
       readData: true
     });
 

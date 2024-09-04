@@ -1,4 +1,4 @@
-import { Point } from "./point.model";
+import { Point } from "../../flight/shared/point.model";
 
 export class Igc {
     filepath: string;
