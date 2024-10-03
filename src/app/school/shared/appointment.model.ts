@@ -17,4 +17,5 @@ export class Appointment {
     takeOffCoordinator: User;
     takeOffCoordinatorText: string;
     subscriptions: Subscription[];
+    countSubscription: number;
 }

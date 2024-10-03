@@ -43,10 +43,10 @@
     <p class="item-value description">{{ appointment.description }}</p>
   </ion-item>
   <ion-item>
-    <ion-label color="primary" position="stacked"><span *ngIf="appointment.maxPeople">{{ subscribed.length }}/{{ appointment.maxPeople }} </span>{{ 'appointment.subscriptions' | translate }}</ion-label>
+    <ion-label color="primary" position="stacked"><span *ngIf="appointment.maxPeople">{{ appointment.countSubscription }}/{{ appointment.maxPeople }} </span>{{ 'appointment.subscriptions' | translate }}</ion-label>
     <p class="item-value subscriptions">
       <span class="subscription-item" *ngFor="let subscription of subscribed">
-        {{ subscription.user.firstname }} {{ subscription.user.lastname }}
+        {{ subscription.user.firstname }} {{ subscription.user.lastname }} <ion-icon *ngIf="subscription?.student?.isTandem" name="people-outline"></ion-icon>
       </span>
     </p>
   </ion-item>
@@ -54,7 +54,7 @@
     <ion-label color="primary" position="stacked">{{ 'appointment.waitingList' | translate }}</ion-label>
     <p class="item-value subscriptions">
       <span class="subscription-item" *ngFor="let subscription of waitingList">
-        {{ subscription.user.firstname }} {{ subscription.user.lastname }}
+        {{ subscription.user.firstname }} {{ subscription.user.lastname }}  <ion-icon *ngIf="subscription?.student?.isTandem" name="people-outline"></ion-icon>
       </span>
     </p>
   </ion-item>

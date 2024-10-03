@@ -17,5 +17,10 @@ ion-item {
 }
 
 .subscription-item {
-    display: block;
+    display: flex;
+    align-items: center;
+}
+
+.subscription-item ion-icon {
+    margin-left: 5px;
 }
