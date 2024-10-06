@@ -18,4 +18,5 @@ export class Appointment {
     takeOffCoordinatorText: string;
     subscriptions: Subscription[];
     countSubscription: number;
+    countWaitingList: number;
 }

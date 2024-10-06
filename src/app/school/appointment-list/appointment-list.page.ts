@@ -108,10 +108,12 @@ export class AppointmentListPage implements OnInit, OnDestroy {
         buttons: [
           {
             text: this.translate.instant('buttons.yes'),
-            handler: () => {
-              firstValueFrom(this.schoolService.subscribeToAppointment(this.schoolId, appointment.id));
-              this.initialDataLoad();
-              if (appointment.maxPeople && appointment.subscriptions.length == appointment.maxPeople) {
+            handler: async () => {
+              const currentAppointment = await firstValueFrom(this.schoolService.subscribeToAppointment(this.schoolId, appointment.id));
+              await this.initialDataLoad();
+
+              const subscription = currentAppointment.subscriptions.find((subscription: Subscription) => subscription.user.email === this.currentUser.email);
+              if (subscription.waitingList) {
                 this.informWaitingList();
               }
             }
@@ -127,7 +129,7 @@ export class AppointmentListPage implements OnInit, OnDestroy {
 
       await alert.present();
     } else {
-      if (appointment.maxPeople && appointment.subscriptions.length > appointment.maxPeople) {
+      if (appointment.maxPeople && appointment.countWaitingList >= 0) {
         const alert = await this.alertController.create({
           header: this.translate.instant('message.warning'),
           message: this.translate.instant('message.removeSubscription'),
@@ -183,15 +185,9 @@ export class AppointmentListPage implements OnInit, OnDestroy {
   }
 
   isUserSubscribed(appointment: Appointment) {
-    const subscribed = appointment.subscriptions?.find((subscription: Subscription) => {
-      if (subscription.user.email == this.currentUser.email) {
-        return true;
-      }
-    })
-    if (subscribed) {
-      return true;
-    }
-    return false;
+    return appointment.subscriptions?.some((subscription: Subscription) => 
+      subscription.user.email === this.currentUser.email
+    );
   }
 
   isDisabled(appointment: Appointment): boolean {

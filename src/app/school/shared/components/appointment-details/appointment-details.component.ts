@@ -64,7 +64,8 @@ export class AppointmentDetailsComponent implements OnInit {
               this.appointment = await firstValueFrom(this.schoolService.getAppointment(this.schoolId, this.appointment.id));
               this.hasChanges = true;
               this.ngOnInit();
-              if (this.appointment.maxPeople && this.appointment.subscriptions.length >= this.appointment.maxPeople) {
+              const subscription = this.appointment.subscriptions.find((subscription: Subscription) => subscription.user.email === this.currentUser.email);
+              if (subscription.waitingList) {
                 this.informWaitingList();
               }
               this.isSubscribed = true;
@@ -81,7 +82,7 @@ export class AppointmentDetailsComponent implements OnInit {
 
       await alert.present();
     } else {
-      if (this.appointment.maxPeople && this.appointment.subscriptions.length > this.appointment.maxPeople) {
+      if (this.appointment.maxPeople && this.appointment.countWaitingList >= 0) {
         const alert = await this.alertController.create({
           header: this.translate.instant('message.warning'),
           message: this.translate.instant('message.removeSubscription'),
@@ -128,16 +129,9 @@ export class AppointmentDetailsComponent implements OnInit {
   }
 
   isUserSubscribed() {
-    const subscribed = this.appointment.subscriptions?.find((subscription: Subscription) => {
-      if (subscription.user.email == this.currentUser.email) {
-        return true;
-      }
-    })
-    if (subscribed) {
-      this.isSubscribed = true;
-    } else {
-      this.isSubscribed = false;
-    }
+    this.isSubscribed = this.appointment.subscriptions?.some((subscription: Subscription) => 
+      subscription.user.email === this.currentUser.email
+    );
   }
 
   isDisabled() {
