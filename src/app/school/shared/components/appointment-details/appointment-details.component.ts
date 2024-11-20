@@ -82,39 +82,38 @@ export class AppointmentDetailsComponent implements OnInit {
 
       await alert.present();
     } else {
+      let message: string;
       if (this.appointment.maxPeople && this.appointment.countWaitingList >= 0) {
-        const alert = await this.alertController.create({
-          header: this.translate.instant('message.warning'),
-          message: this.translate.instant('message.removeSubscription'),
-          backdropDismiss: false,
-          buttons: [
-            {
-              text: this.translate.instant('buttons.yes'),
-              handler: async() => {
-                await firstValueFrom(this.schoolService.deleteAppointmentSubscription(this.schoolId, this.appointment.id));
-                this.appointment = await firstValueFrom(this.schoolService.getAppointment(this.schoolId, this.appointment.id));
-                this.ngOnInit();
-                this.isSubscribed = false;
-                this.hasChanges = true;
-              }
-            },
-            {
-              text: this.translate.instant('buttons.no'),
-              handler: () => {
-                this.isSubscribed = true;
-              }
-            }
-          ]
-        });
-
-        await alert.present();
+        message = this.translate.instant('message.removeSubscriptionWaitingList');
       } else {
-        await firstValueFrom(this.schoolService.deleteAppointmentSubscription(this.schoolId, this.appointment.id));
-        this.appointment = await firstValueFrom(this.schoolService.getAppointment(this.schoolId, this.appointment.id));
-        this.ngOnInit();
-        this.isSubscribed = false;
-        this.hasChanges = true;
+        message = this.translate.instant('message.removeSubscription');
       }
+
+      const alert = await this.alertController.create({
+        header: this.translate.instant('message.warning'),
+        message: message,
+        backdropDismiss: false,
+        buttons: [
+          {
+            text: this.translate.instant('buttons.yes'),
+            handler: async () => {
+              await firstValueFrom(this.schoolService.deleteAppointmentSubscription(this.schoolId, this.appointment.id));
+              this.appointment = await firstValueFrom(this.schoolService.getAppointment(this.schoolId, this.appointment.id));
+              this.ngOnInit();
+              this.isSubscribed = false;
+              this.hasChanges = true;
+            }
+          },
+          {
+            text: this.translate.instant('buttons.no'),
+            handler: () => {
+              this.isSubscribed = true;
+            }
+          }
+        ]
+      });
+
+      await alert.present();
     }
   }
 
@@ -129,7 +128,7 @@ export class AppointmentDetailsComponent implements OnInit {
   }
 
   isUserSubscribed() {
-    this.isSubscribed = this.appointment.subscriptions?.some((subscription: Subscription) => 
+    this.isSubscribed = this.appointment.subscriptions?.some((subscription: Subscription) =>
       subscription.user.email === this.currentUser.email
     );
   }
@@ -142,7 +141,7 @@ export class AppointmentDetailsComponent implements OnInit {
   }
 
   close() {
-    return this.modalCtrl.dismiss({hasChange: this.hasChanges});
+    return this.modalCtrl.dismiss({ hasChange: this.hasChanges });
   }
 
 }

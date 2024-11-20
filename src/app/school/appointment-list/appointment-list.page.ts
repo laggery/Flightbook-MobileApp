@@ -129,33 +129,35 @@ export class AppointmentListPage implements OnInit, OnDestroy {
 
       await alert.present();
     } else {
+      let message: string;
       if (appointment.maxPeople && appointment.countWaitingList >= 0) {
-        const alert = await this.alertController.create({
-          header: this.translate.instant('message.warning'),
-          message: this.translate.instant('message.removeSubscription'),
-          backdropDismiss: false,
-          buttons: [
-            {
-              text: this.translate.instant('buttons.yes'),
-              handler: () => {
-                firstValueFrom(this.schoolService.deleteAppointmentSubscription(this.schoolId, appointment.id));
-                this.initialDataLoad();
-              }
-            },
-            {
-              text: this.translate.instant('buttons.no'),
-              handler: () => {
-                this.initialDataLoad();
-              }
-            }
-          ]
-        });
-
-        await alert.present();
+        message = this.translate.instant('message.removeSubscriptionWaitingList');
       } else {
-        firstValueFrom(this.schoolService.deleteAppointmentSubscription(this.schoolId, appointment.id));
-        this.initialDataLoad();
+        message = this.translate.instant('message.removeSubscription');
       }
+
+      const alert = await this.alertController.create({
+        header: this.translate.instant('message.warning'),
+        message: message,
+        backdropDismiss: false,
+        buttons: [
+          {
+            text: this.translate.instant('buttons.yes'),
+            handler: () => {
+              firstValueFrom(this.schoolService.deleteAppointmentSubscription(this.schoolId, appointment.id));
+              this.initialDataLoad();
+            }
+          },
+          {
+            text: this.translate.instant('buttons.no'),
+            handler: () => {
+              this.initialDataLoad();
+            }
+          }
+        ]
+      });
+
+      await alert.present();
     }
   }
 
