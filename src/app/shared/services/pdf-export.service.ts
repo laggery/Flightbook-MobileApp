@@ -6,6 +6,8 @@ import { Flight } from 'src/app/flight/shared/flight.model';
 import { User } from '../../account/shared/user.model';
 import { FlightStatistic } from 'src/app/flight/shared/flightStatistic.model';
 import { HoursFormatPipe } from '../pipes/hours-format.pipe';
+import * as pdfMake from "pdfmake/build/pdfmake.min";
+import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 
 @Injectable({
   providedIn: 'root'
@@ -14,19 +16,11 @@ export class PdfExportService {
 
   pdfMake: any;
 
-  constructor(private datePipe: DatePipe, private translate: TranslateService) { }
-
-  async loadPdfMaker() {
-    if (!this.pdfMake) {
-      const pdfMakeModule = await import('pdfmake/build/pdfmake');
-      const pdfFontsModule = await import('pdfmake/build/vfs_fonts');
-      this.pdfMake = pdfMakeModule;
-      this.pdfMake.vfs = pdfFontsModule.pdfMake.vfs;
-    }
+  constructor(private datePipe: DatePipe, private translate: TranslateService) {
+    (<any>pdfMake).addVirtualFileSystem(pdfFonts);
   }
 
   async generatePdf(flights: Flight[], stat: FlightStatistic, user: User, isStudent: boolean, generateFrom?: string): Promise<any> {
-    await this.loadPdfMaker();
 
     if (!generateFrom) {
       generateFrom = 'https://flightbook.ch';
@@ -313,6 +307,6 @@ export class PdfExportService {
       }
     };
 
-    return this.pdfMake.createPdf(docDefinition, null, null, this.pdfMake.vfs);
+    return pdfMake.createPdf(docDefinition);
   }
 }
