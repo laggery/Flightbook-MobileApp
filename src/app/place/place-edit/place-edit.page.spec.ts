@@ -3,8 +3,9 @@ import { IonicModule } from '@ionic/angular';
 
 import { PlaceEditPage } from './place-edit.page';
 import { TranslateModule } from '@ngx-translate/core';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ActivatedRoute, Router, RouterModule, convertToParamMap } from '@angular/router';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('PlaceEditPage', () => {
   let component: PlaceEditPage;
@@ -21,12 +22,17 @@ describe('PlaceEditPage', () => {
     };
 
     TestBed.configureTestingModule({
-      declarations: [ PlaceEditPage ],
-      imports: [HttpClientTestingModule, RouterModule.forRoot([]), IonicModule.forRoot(), TranslateModule.forRoot()],
-      providers: [
-        { provide: Router, useClass: class { navigate = jasmine.createSpy("navigate"); }},
-        { provide: ActivatedRoute, useValue: mockActivatedRoute }]
-    }).compileComponents();
+    declarations: [PlaceEditPage],
+    imports: [RouterModule.forRoot([]), IonicModule.forRoot(), TranslateModule.forRoot()],
+    providers: [
+        { provide: Router, useClass: class {
+                navigate = jasmine.createSpy("navigate");
+            } },
+        { provide: ActivatedRoute, useValue: mockActivatedRoute },
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting()
+    ]
+}).compileComponents();
 
     fixture = TestBed.createComponent(PlaceEditPage);
     component = fixture.componentInstance;

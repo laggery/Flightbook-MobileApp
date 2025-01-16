@@ -3,7 +3,8 @@ import { IonicModule } from '@ionic/angular';
 
 import { GliderFilterComponent } from './glider-filter.component';
 import { TranslateModule } from '@ngx-translate/core';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('GliderFilterComponent', () => {
   let component: GliderFilterComponent;
@@ -11,9 +12,10 @@ describe('GliderFilterComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [GliderFilterComponent],
-      imports: [HttpClientTestingModule, IonicModule.forRoot(), TranslateModule.forRoot()]
-    }).compileComponents();
+    declarations: [GliderFilterComponent],
+    imports: [IonicModule.forRoot(), TranslateModule.forRoot()],
+    providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+}).compileComponents();
 
     fixture = TestBed.createComponent(GliderFilterComponent);
     component = fixture.componentInstance;

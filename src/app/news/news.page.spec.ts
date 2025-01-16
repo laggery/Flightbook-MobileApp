@@ -3,7 +3,8 @@ import { IonicModule } from '@ionic/angular';
 
 import { NewsPage } from './news.page';
 import { TranslateModule } from '@ngx-translate/core';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('NewsPage', () => {
   let component: NewsPage;
@@ -11,9 +12,10 @@ describe('NewsPage', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ NewsPage ],
-      imports: [HttpClientTestingModule, IonicModule.forRoot(), TranslateModule.forRoot()]
-    }).compileComponents();
+    declarations: [NewsPage],
+    imports: [IonicModule.forRoot(), TranslateModule.forRoot()],
+    providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+}).compileComponents();
 
     fixture = TestBed.createComponent(NewsPage);
     component = fixture.componentInstance;

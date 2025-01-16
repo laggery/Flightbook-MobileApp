@@ -3,7 +3,8 @@ import { IonicModule } from '@ionic/angular';
 
 import { PlaceAddPage } from './place-add.page';
 import { TranslateModule } from '@ngx-translate/core';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('PlaceAddPage', () => {
   let component: PlaceAddPage;
@@ -11,9 +12,10 @@ describe('PlaceAddPage', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ PlaceAddPage ],
-      imports: [HttpClientTestingModule, IonicModule.forRoot(), TranslateModule.forRoot()]
-    }).compileComponents();
+    declarations: [PlaceAddPage],
+    imports: [IonicModule.forRoot(), TranslateModule.forRoot()],
+    providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+}).compileComponents();
 
     fixture = TestBed.createComponent(PlaceAddPage);
     component = fixture.componentInstance;

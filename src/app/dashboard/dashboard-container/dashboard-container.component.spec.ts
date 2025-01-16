@@ -3,7 +3,8 @@ import { IonicModule } from '@ionic/angular';
 
 import { DashboardContainerComponent } from './dashboard-container.component';
 import { TranslateModule } from '@ngx-translate/core';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('DashboardContainerComponent', () => {
   let component: DashboardContainerComponent;
@@ -11,9 +12,10 @@ describe('DashboardContainerComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DashboardContainerComponent ],
-      imports: [HttpClientTestingModule, IonicModule.forRoot(), TranslateModule.forRoot()]
-    }).compileComponents();
+    declarations: [DashboardContainerComponent],
+    imports: [IonicModule.forRoot(), TranslateModule.forRoot()],
+    providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+}).compileComponents();
 
     fixture = TestBed.createComponent(DashboardContainerComponent);
     component = fixture.componentInstance;

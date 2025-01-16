@@ -3,7 +3,8 @@ import { IonicModule } from '@ionic/angular';
 
 import { AppointmentDetailsComponent } from './appointment-details.component';
 import { TranslateModule } from '@ngx-translate/core';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('AppointmentDetailsComponent', () => {
   let component: AppointmentDetailsComponent;
@@ -11,9 +12,10 @@ describe('AppointmentDetailsComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ AppointmentDetailsComponent ],
-      imports: [HttpClientTestingModule, IonicModule.forRoot(), TranslateModule.forRoot()]
-    }).compileComponents();
+    declarations: [AppointmentDetailsComponent],
+    imports: [IonicModule.forRoot(), TranslateModule.forRoot()],
+    providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+}).compileComponents();
 
     fixture = TestBed.createComponent(AppointmentDetailsComponent);
     component = fixture.componentInstance;

@@ -3,8 +3,9 @@ import { IonicModule } from '@ionic/angular';
 
 import { LoginPage } from './login.page';
 import { TranslateModule } from '@ngx-translate/core';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { FormsModule } from '@angular/forms';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('LoginPage', () => {
   let component: LoginPage;
@@ -12,13 +13,12 @@ describe('LoginPage', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ LoginPage ],
-      imports: [HttpClientTestingModule,
-        IonicModule.forRoot(),
+    declarations: [LoginPage],
+    imports: [IonicModule.forRoot(),
         TranslateModule.forRoot(),
-        FormsModule
-      ]
-    }).compileComponents();
+        FormsModule],
+    providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+}).compileComponents();
 
     fixture = TestBed.createComponent(LoginPage);
     component = fixture.componentInstance;

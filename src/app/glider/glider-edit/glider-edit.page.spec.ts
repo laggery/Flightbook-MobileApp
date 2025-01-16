@@ -4,8 +4,9 @@ import { IonicModule, NavController } from '@ionic/angular';
 import { GliderEditPage } from './glider-edit.page';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterTestingModule } from "@angular/router/testing";
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ActivatedRoute, Router, convertToParamMap } from '@angular/router';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('GliderEditPage', () => {
   let component: GliderEditPage;
@@ -35,19 +36,18 @@ describe('GliderEditPage', () => {
     };
 
     TestBed.configureTestingModule({
-      declarations: [GliderEditPage],
-      imports: [
-        IonicModule.forRoot(),
-        HttpClientTestingModule,
+    declarations: [GliderEditPage],
+    imports: [IonicModule.forRoot(),
         RouterTestingModule,
-        TranslateModule.forRoot()
-      ],
-      providers: [
+        TranslateModule.forRoot()],
+    providers: [
         NavController,
         { provide: Router, useClass: RouterStub },
-        { provide: ActivatedRoute, useValue: mockActivatedRoute }
-      ]
-    }).compileComponents();
+        { provide: ActivatedRoute, useValue: mockActivatedRoute },
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting()
+    ]
+}).compileComponents();
 
     fixture = TestBed.createComponent(GliderEditPage);
     component = fixture.componentInstance;

@@ -3,8 +3,9 @@ import { IonicModule } from '@ionic/angular';
 
 import { FlightStatisticPage } from './flight-statistic.page';
 import { TranslateModule } from '@ngx-translate/core';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { HoursFormatPipe } from 'src/app/shared/pipes/hours-format.pipe';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('FlightStatisticPage', () => {
   let component: FlightStatisticPage;
@@ -12,9 +13,10 @@ describe('FlightStatisticPage', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ FlightStatisticPage, HoursFormatPipe ],
-      imports: [HttpClientTestingModule, IonicModule.forRoot(), TranslateModule.forRoot()]
-    }).compileComponents();
+    declarations: [FlightStatisticPage, HoursFormatPipe],
+    imports: [IonicModule.forRoot(), TranslateModule.forRoot()],
+    providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+}).compileComponents();
 
     fixture = TestBed.createComponent(FlightStatisticPage);
     component = fixture.componentInstance;

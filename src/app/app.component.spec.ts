@@ -5,8 +5,9 @@ import { Platform } from '@ionic/angular';
 
 import { AppComponent } from './app.component';
 import { TranslateModule } from '@ngx-translate/core';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('AppComponent', () => {
 
@@ -19,17 +20,16 @@ describe('AppComponent', () => {
     platformSpy = jasmine.createSpyObj('Platform', { ready: platformReadySpy });
 
     TestBed.configureTestingModule({
-      declarations: [AppComponent],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA],
-      imports: [
-        TranslateModule.forRoot(),
-        HttpClientTestingModule,
-        ServiceWorkerModule.register('ngsw-worker.js', { enabled: false })
-      ],
-      providers: [
+    declarations: [AppComponent],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    imports: [TranslateModule.forRoot(),
+        ServiceWorkerModule.register('ngsw-worker.js', { enabled: false })],
+    providers: [
         { provide: Platform, useValue: platformSpy },
-      ],
-    }).compileComponents();
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting(),
+    ]
+}).compileComponents();
   }));
 
   it('should create the app', () => {

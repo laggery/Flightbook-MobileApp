@@ -3,8 +3,9 @@ import { IonicModule } from '@ionic/angular';
 
 import { AppointmentListPage } from './appointment-list.page';
 import { TranslateModule } from '@ngx-translate/core';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { RouterTestingModule } from "@angular/router/testing";
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('AppointmentListPage', () => {
   let component: AppointmentListPage;
@@ -12,9 +13,10 @@ describe('AppointmentListPage', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ AppointmentListPage ],
-      imports: [HttpClientTestingModule, RouterTestingModule, IonicModule.forRoot(), TranslateModule.forRoot()]
-    }).compileComponents();
+    declarations: [AppointmentListPage],
+    imports: [RouterTestingModule, IonicModule.forRoot(), TranslateModule.forRoot()],
+    providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+}).compileComponents();
 
     fixture = TestBed.createComponent(AppointmentListPage);
     component = fixture.componentInstance;

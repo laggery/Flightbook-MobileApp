@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
-import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
@@ -34,8 +34,9 @@ registerLocaleData(germanLocale);
 registerLocaleData(italianLocale);
 registerLocaleData(frenchLocale);
 
-@NgModule({
+@NgModule({ 
     declarations: [AppComponent],
+    bootstrap: [AppComponent],
     imports: [
         BrowserModule,
         TranslateModule.forRoot({
@@ -47,18 +48,15 @@ registerLocaleData(frenchLocale);
         }),
         IonicModule.forRoot(),
         SharedModule,
-        HttpClientModule,
         AppRoutingModule,
-        ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
-    ],
-    providers: [
+        ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })], providers: [
         { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
         { provide: HTTP_INTERCEPTORS, useClass: HttpAuthInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
         PaymentService,
-        NavigationService
-    ],
-    bootstrap: [AppComponent]
+        NavigationService,
+        provideHttpClient(withInterceptorsFromDi())
+    ] 
 })
 export class AppModule {
     constructor(private navigationService: NavigationService) {}

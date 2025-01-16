@@ -3,7 +3,8 @@ import { IonicModule } from '@ionic/angular';
 
 import { MultipleIgcPage } from './multiple-igc.page';
 import { TranslateModule } from '@ngx-translate/core';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('MultipleIgcPage', () => {
   let component: MultipleIgcPage;
@@ -11,9 +12,10 @@ describe('MultipleIgcPage', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MultipleIgcPage ],
-      imports: [HttpClientTestingModule, IonicModule.forRoot(), TranslateModule.forRoot()]
-    }).compileComponents();
+    declarations: [MultipleIgcPage],
+    imports: [IonicModule.forRoot(), TranslateModule.forRoot()],
+    providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+}).compileComponents();
 
     fixture = TestBed.createComponent(MultipleIgcPage);
     component = fixture.componentInstance;
