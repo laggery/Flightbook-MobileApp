@@ -1,9 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
-import { IonicModule } from '@ionic/angular';
-
 import { ControlSheetPageRoutingModule } from './control-sheet-routing.module';
 
 import { ControlSheetPage } from './control-sheet.page';
@@ -16,7 +13,6 @@ import { NxgTransalteSortPipe } from 'src/app/shared/pipes/nxg-transalte-sort.pi
     imports: [
         CommonModule,
         FormsModule,
-        IonicModule,
         ControlSheetPageRoutingModule,
         TranslateModule.forChild(),
         SharedModule,
@@ -26,4 +22,4 @@ import { NxgTransalteSortPipe } from 'src/app/shared/pipes/nxg-transalte-sort.pi
         NxgTransalteSortPipe
     ]
 })
-export class ControlSheetPageModule {}
+export class ControlSheetPageModule { }

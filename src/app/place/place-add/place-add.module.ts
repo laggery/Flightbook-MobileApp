@@ -1,9 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
-import { IonicModule } from '@ionic/angular';
-
 import { PlaceAddPageRoutingModule } from './place-add-routing.module';
 
 import { PlaceAddPage } from './place-add.page';
@@ -14,11 +11,10 @@ import { FormModule } from '../../form/form.module';
     imports: [
         CommonModule,
         FormsModule,
-        IonicModule,
         PlaceAddPageRoutingModule,
         TranslateModule.forChild(),
         FormModule,
         PlaceAddPage
     ]
 })
-export class PlaceAddPageModule {}
+export class PlaceAddPageModule { }

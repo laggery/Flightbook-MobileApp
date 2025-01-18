@@ -1,9 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
-import { IonicModule } from '@ionic/angular';
-
 import { FlightStatisticPageRoutingModule } from './flight-statistic-routing.module';
 
 import { FlightStatisticPage } from './flight-statistic.page';
@@ -16,7 +13,6 @@ import { SharedModule } from 'src/app/shared/shared.module';
     imports: [
         CommonModule,
         FormsModule,
-        IonicModule,
         FlightStatisticPageRoutingModule,
         TranslateModule.forChild(),
         FormModule,
@@ -25,4 +21,4 @@ import { SharedModule } from 'src/app/shared/shared.module';
         FlightStatisticPage
     ]
 })
-export class FlightStatisticPageModule {}
+export class FlightStatisticPageModule { }

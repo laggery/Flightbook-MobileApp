@@ -1,7 +1,7 @@
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpContextToken } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { Router } from '@angular/router';
-import { MenuController, AlertController } from '@ionic/angular';
+import { MenuController, AlertController } from '@ionic/angular/standalone';
 import { Injectable } from '@angular/core';
 import { catchError } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
@@ -17,7 +17,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
         private menuCtrl: MenuController,
         private alertController: AlertController,
         private translate: TranslateService
-    ) {}
+    ) { }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         return next.handle(request).pipe(catchError(err => {
@@ -35,9 +35,9 @@ export class HttpErrorInterceptor implements HttpInterceptor {
                     header: this.translate.instant('message.errortitle'),
                     message: this.translate.instant('message.error'),
                     buttons: [this.translate.instant('buttons.done')]
-                  }).then((alert: any) => {
-                      alert.present();
-                  });
+                }).then((alert: any) => {
+                    alert.present();
+                });
             }
             return throwError(err);
         }));

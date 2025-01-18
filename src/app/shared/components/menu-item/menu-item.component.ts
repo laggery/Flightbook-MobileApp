@@ -1,6 +1,6 @@
 import { Component, Input, } from '@angular/core';
-import { IonicModule } from '@ionic/angular';
 import { TranslateModule } from '@ngx-translate/core';
+import { IonIcon, IonLabel } from "@ionic/angular/standalone";
 
 /**
  * Custom menu item component for flightbook
@@ -10,18 +10,18 @@ import { TranslateModule } from '@ngx-translate/core';
     templateUrl: './menu-item.component.html',
     styleUrls: ['./menu-item.component.scss'],
     standalone: true,
-    imports: [IonicModule, TranslateModule]
+    imports: [TranslateModule, IonIcon, IonLabel]
 })
 export class MenuItemComponent {
 
-  /**
-   * Icon of the menu item
-   */
-  @Input() icon: string;
+    /**
+     * Icon of the menu item
+     */
+    @Input() icon: string;
 
-  /**
-   * Label of the menu item
-   */
-  @Input() label: string;
+    /**
+     * Label of the menu item
+     */
+    @Input() label: string;
 
 }

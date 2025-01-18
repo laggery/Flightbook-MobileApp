@@ -1,9 +1,9 @@
-import { AfterViewInit, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Flight } from 'src/app/flight/shared/flight.model';
 import { Glider } from 'src/app/glider/shared/glider.model';
-import { IonicModule } from '@ionic/angular';
 import { NgFor } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
+import { IonSelect, IonSelectOption } from "@ionic/angular/standalone";
 
 @Component({
     selector: 'fb-glider-select',
@@ -11,34 +11,35 @@ import { TranslateModule } from '@ngx-translate/core';
     styleUrls: ['./glider-select.component.scss'],
     standalone: true,
     imports: [
-        IonicModule,
         NgFor,
         TranslateModule,
+        IonSelect,
+        IonSelectOption
     ],
 })
 export class GliderSelectComponent implements OnInit {
 
-  @Input()
-  gliders: Glider[];
+    @Input()
+    gliders: Glider[];
 
-  @Input()
-  flight: Flight;
+    @Input()
+    flight: Flight;
 
-  @Input()
-  label: string;
+    @Input()
+    label: string;
 
-  @Input()
-  labelPlacement: string;
+    @Input()
+    labelPlacement: string;
 
-  constructor() { }
+    constructor() { }
 
-  ngOnInit() {}
+    ngOnInit() { }
 
-  onSelectChange(selectedValue: any) {
-    this.flight.glider = this.gliders.find(glider => glider.id === +selectedValue.detail.value);
-    if (!this.flight.glider.tandem) {
-      this.flight.price = null;
+    onSelectChange(selectedValue: any) {
+        this.flight.glider = this.gliders.find(glider => glider.id === +selectedValue.detail.value);
+        if (!this.flight.glider.tandem) {
+            this.flight.price = null;
+        }
     }
-  }
 
 }

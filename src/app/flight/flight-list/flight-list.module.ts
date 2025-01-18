@@ -1,9 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
-import { IonicModule } from '@ionic/angular';
-
 import { FlightListPageRoutingModule } from './flight-list-routing.module';
 
 import { FlightListPage } from './flight-list.page';
@@ -15,7 +12,6 @@ import { FlagsModule } from 'nxt-flags';
     imports: [
         CommonModule,
         FormsModule,
-        IonicModule,
         FlightListPageRoutingModule,
         TranslateModule.forChild(),
         FormModule,
@@ -24,4 +20,4 @@ import { FlagsModule } from 'nxt-flags';
     ],
     providers: []
 })
-export class FlightListPageModule {}
+export class FlightListPageModule { }

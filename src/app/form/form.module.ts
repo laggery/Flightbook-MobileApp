@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { GliderFormComponent } from './glider-form/glider-form';
-import { IonicModule } from '@ionic/angular';
 import { PlaceFormComponent } from './place-form/place-form';
 import { FlightFormComponent } from './flight-form/flight-form';
 import { TranslateModule } from '@ngx-translate/core';
@@ -13,7 +12,6 @@ import { SharedModule } from '../shared/shared.module';
     imports: [
         CommonModule,
         FormsModule,
-        IonicModule,
         TranslateModule.forChild(),
         SharedModule,
         PlaceFormComponent,

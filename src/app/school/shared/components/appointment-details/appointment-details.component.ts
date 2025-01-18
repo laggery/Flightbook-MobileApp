@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController, ModalController, IonicModule } from '@ionic/angular';
+import { AlertController, ModalController,IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonIcon, IonContent, IonItem, IonLabel, IonToggle } from '@ionic/angular/standalone';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { firstValueFrom } from 'rxjs';
 import { User } from 'src/app/account/shared/user.model';
@@ -9,6 +9,8 @@ import { SchoolService } from '../../school.service';
 import { State } from '../../state';
 import { FormsModule } from '@angular/forms';
 import { NgIf, NgFor, DatePipe } from '@angular/common';
+import { addIcons } from "ionicons";
+import { close, peopleOutline } from "ionicons/icons";
 
 @Component({
     selector: 'fb-appointment-details',
@@ -16,143 +18,153 @@ import { NgIf, NgFor, DatePipe } from '@angular/common';
     styleUrls: ['./appointment-details.component.scss'],
     standalone: true,
     imports: [
-        IonicModule,
         FormsModule,
         NgIf,
         NgFor,
         DatePipe,
         TranslateModule,
+        IonHeader,
+        IonToolbar,
+        IonTitle,
+        IonButtons,
+        IonButton,
+        IonIcon,
+        IonContent,
+        IonItem,
+        IonLabel,
+        IonToggle
     ],
 })
 export class AppointmentDetailsComponent implements OnInit {
 
-  appointment: Appointment;
-  currentUser: User;
-  currentLang: string;
-  schoolId: number;
-  isSubscribed = false;
-  subscribed: Subscription[] = [];
-  waitingList: Subscription[] = [];
-  hasChanges = false;
+    appointment: Appointment;
+    currentUser: User;
+    currentLang: string;
+    schoolId: number;
+    isSubscribed = false;
+    subscribed: Subscription[] = [];
+    waitingList: Subscription[] = [];
+    hasChanges = false;
 
-  constructor(
-    private modalCtrl: ModalController,
-    private alertController: AlertController,
-    private translate: TranslateService,
-    private schoolService: SchoolService
-  ) {
-    this.currentLang = this.translate.currentLang;
-  }
+    constructor(
+        private modalCtrl: ModalController,
+        private alertController: AlertController,
+        private translate: TranslateService,
+        private schoolService: SchoolService
+    ) {
+        this.currentLang = this.translate.currentLang;
+        addIcons({ close, peopleOutline });
+    }
 
-  ngOnInit() {
-    this.subscribed = [];
-    this.waitingList = [];
-    this.isUserSubscribed();
-    if (this.appointment.maxPeople) {
-      this.appointment.subscriptions.forEach((subscription: Subscription) => {
-        if (subscription.waitingList) {
-          this.waitingList.push(subscription);
+    ngOnInit() {
+        this.subscribed = [];
+        this.waitingList = [];
+        this.isUserSubscribed();
+        if (this.appointment.maxPeople) {
+            this.appointment.subscriptions.forEach((subscription: Subscription) => {
+                if (subscription.waitingList) {
+                    this.waitingList.push(subscription);
+                } else {
+                    this.subscribed.push(subscription);
+                }
+            })
         } else {
-          this.subscribed.push(subscription);
+            this.subscribed = this.appointment.subscriptions;
         }
-      })
-    } else {
-      this.subscribed = this.appointment.subscriptions;
     }
-  }
 
-  async subscribe() {
-    if (!this.isSubscribed) {
-      const alert = await this.alertController.create({
-        header: this.translate.instant('message.infotitle'),
-        message: this.translate.instant('message.subscription'),
-        backdropDismiss: false,
-        buttons: [
-          {
-            text: this.translate.instant('buttons.yes'),
-            handler: async () => {
-              await firstValueFrom(this.schoolService.subscribeToAppointment(this.schoolId, this.appointment.id));
-              this.appointment = await firstValueFrom(this.schoolService.getAppointment(this.schoolId, this.appointment.id));
-              this.hasChanges = true;
-              this.ngOnInit();
-              const subscription = this.appointment.subscriptions.find((subscription: Subscription) => subscription.user.email === this.currentUser.email);
-              if (subscription.waitingList) {
-                this.informWaitingList();
-              }
-              this.isSubscribed = true;
-            }
-          },
-          {
-            text: this.translate.instant('buttons.no'),
-            handler: () => {
-              this.isSubscribed = false;
-            }
-          }
-        ]
-      });
+    async subscribe() {
+        if (!this.isSubscribed) {
+            const alert = await this.alertController.create({
+                header: this.translate.instant('message.infotitle'),
+                message: this.translate.instant('message.subscription'),
+                backdropDismiss: false,
+                buttons: [
+                    {
+                        text: this.translate.instant('buttons.yes'),
+                        handler: async () => {
+                            await firstValueFrom(this.schoolService.subscribeToAppointment(this.schoolId, this.appointment.id));
+                            this.appointment = await firstValueFrom(this.schoolService.getAppointment(this.schoolId, this.appointment.id));
+                            this.hasChanges = true;
+                            this.ngOnInit();
+                            const subscription = this.appointment.subscriptions.find((subscription: Subscription) => subscription.user.email === this.currentUser.email);
+                            if (subscription.waitingList) {
+                                this.informWaitingList();
+                            }
+                            this.isSubscribed = true;
+                        }
+                    },
+                    {
+                        text: this.translate.instant('buttons.no'),
+                        handler: () => {
+                            this.isSubscribed = false;
+                        }
+                    }
+                ]
+            });
 
-      await alert.present();
-    } else {
-      let message: string;
-      if (this.appointment.maxPeople && this.appointment.countWaitingList >= 0) {
-        message = this.translate.instant('message.removeSubscriptionWaitingList');
-      } else {
-        message = this.translate.instant('message.removeSubscription');
-      }
-
-      const alert = await this.alertController.create({
-        header: this.translate.instant('message.warning'),
-        message: message,
-        backdropDismiss: false,
-        buttons: [
-          {
-            text: this.translate.instant('buttons.yes'),
-            handler: async () => {
-              await firstValueFrom(this.schoolService.deleteAppointmentSubscription(this.schoolId, this.appointment.id));
-              this.appointment = await firstValueFrom(this.schoolService.getAppointment(this.schoolId, this.appointment.id));
-              this.ngOnInit();
-              this.isSubscribed = false;
-              this.hasChanges = true;
+            await alert.present();
+        } else {
+            let message: string;
+            if (this.appointment.maxPeople && this.appointment.countWaitingList >= 0) {
+                message = this.translate.instant('message.removeSubscriptionWaitingList');
+            } else {
+                message = this.translate.instant('message.removeSubscription');
             }
-          },
-          {
-            text: this.translate.instant('buttons.no'),
-            handler: () => {
-              this.isSubscribed = true;
-            }
-          }
-        ]
-      });
 
-      await alert.present();
+            const alert = await this.alertController.create({
+                header: this.translate.instant('message.warning'),
+                message: message,
+                backdropDismiss: false,
+                buttons: [
+                    {
+                        text: this.translate.instant('buttons.yes'),
+                        handler: async () => {
+                            await firstValueFrom(this.schoolService.deleteAppointmentSubscription(this.schoolId, this.appointment.id));
+                            this.appointment = await firstValueFrom(this.schoolService.getAppointment(this.schoolId, this.appointment.id));
+                            this.ngOnInit();
+                            this.isSubscribed = false;
+                            this.hasChanges = true;
+                        }
+                    },
+                    {
+                        text: this.translate.instant('buttons.no'),
+                        handler: () => {
+                            this.isSubscribed = true;
+                        }
+                    }
+                ]
+            });
+
+            await alert.present();
+        }
     }
-  }
 
-  private async informWaitingList() {
-    const alert = await this.alertController.create({
-      header: this.translate.instant('message.infotitle'),
-      message: this.translate.instant('message.watingList'),
-      buttons: [this.translate.instant('buttons.done')]
-    });
+    private async informWaitingList() {
+        const alert = await this.alertController.create({
+            header: this.translate.instant('message.infotitle'),
+            message: this.translate.instant('message.watingList'),
+            buttons: [this.translate.instant('buttons.done')]
+        });
 
-    alert.present();
-  }
-
-  isUserSubscribed() {
-    this.isSubscribed = this.appointment.subscriptions?.some((subscription: Subscription) =>
-      subscription.user.email === this.currentUser.email
-    );
-  }
-
-  isDisabled() {
-    if (new Date(this.appointment.scheduling).getTime() < new Date().getTime() || this.appointment.state == State.CANCELED) {
-      return true;
+        alert.present();
     }
-    return false;
-  }
 
-  close() {
-    return this.modalCtrl.dismiss({ hasChange: this.hasChanges });
-  }
+    isUserSubscribed() {
+        this.isSubscribed = this.appointment.subscriptions?.some((subscription: Subscription) =>
+            subscription.user.email === this.currentUser.email
+        );
+    }
+
+    isDisabled() {
+        if (new Date(this.appointment.scheduling).getTime() < new Date().getTime() || this.appointment.state == State.CANCELED) {
+            return true;
+        }
+        return false;
+    }
+
+    close() {
+        return this.modalCtrl.dismiss({ hasChange: this.hasChanges });
+    }
 
 }

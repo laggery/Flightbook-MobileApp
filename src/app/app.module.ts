@@ -5,7 +5,7 @@ import { HTTP_INTERCEPTORS, HttpClient, provideHttpClient, withInterceptorsFromD
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
-import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
+import { IonicRouteStrategy, provideIonicAngular, IonApp, IonSplitPane, IonMenu, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonMenuToggle, IonItem, IonRouterOutlet } from '@ionic/angular/standalone';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -23,18 +23,18 @@ import frenchLocale from '@angular/common/locales/fr';
 import { NavigationService } from './shared/services/navigation.service';
 
 export function createTranslateLoader(http: HttpClient) {
-  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+    return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
 export function tokenGetter() {
-  return localStorage.getItem('access_token');
+    return localStorage.getItem('access_token');
 }
 
 registerLocaleData(germanLocale);
 registerLocaleData(italianLocale);
 registerLocaleData(frenchLocale);
 
-@NgModule({ 
+@NgModule({
     declarations: [AppComponent],
     bootstrap: [AppComponent],
     imports: [
@@ -46,18 +46,30 @@ registerLocaleData(frenchLocale);
                 deps: [HttpClient]
             }
         }),
-        IonicModule.forRoot(),
         SharedModule,
         AppRoutingModule,
-        ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })], providers: [
+        ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+        IonApp,
+        IonSplitPane,
+        IonMenu,
+        IonHeader,
+        IonToolbar,
+        IonTitle,
+        IonContent,
+        IonList,
+        IonMenuToggle,
+        IonItem,
+        IonRouterOutlet
+    ], providers: [
         { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
         { provide: HTTP_INTERCEPTORS, useClass: HttpAuthInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
         PaymentService,
         NavigationService,
-        provideHttpClient(withInterceptorsFromDi())
-    ] 
+        provideHttpClient(withInterceptorsFromDi()),
+        provideIonicAngular()
+    ]
 })
 export class AppModule {
-    constructor(private navigationService: NavigationService) {}
+    constructor(private navigationService: NavigationService) { }
 }

@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { MenuItemComponent } from './components/menu-item/menu-item.component';
-import { IonicModule } from '@ionic/angular';
 import { TranslateModule } from '@ngx-translate/core';
 import { FileInputComponent } from './components/file-input/file-input.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -24,7 +23,6 @@ import { NxgTransalteSortPipe } from './pipes/nxg-transalte-sort.pipe';
         NxgTransalteSortPipe
     ],
     imports: [
-        IonicModule,
         TranslateModule,
         FormsModule,
         CommonModule,
