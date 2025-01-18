@@ -1,16 +1,23 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
-import { ModalController, LoadingController, IonInfiniteScroll } from '@ionic/angular';
+import { ModalController, LoadingController, IonInfiniteScroll, IonicModule } from '@ionic/angular';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { GliderFilter } from 'src/app/glider/shared/glider-filter.model';
 import { GliderService } from '../shared/glider.service';
 import { Glider } from '../shared/glider.model';
+import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-glider-filter',
-  templateUrl: './glider-filter.component.html',
-  styleUrls: ['./glider-filter.component.scss'],
+    selector: 'app-glider-filter',
+    templateUrl: './glider-filter.component.html',
+    styleUrls: ['./glider-filter.component.scss'],
+    standalone: true,
+    imports: [
+        IonicModule,
+        FormsModule,
+        TranslateModule,
+    ],
 })
 export class GliderFilterComponent implements OnInit, OnDestroy {
   @Input() infiniteScroll: IonInfiniteScroll;

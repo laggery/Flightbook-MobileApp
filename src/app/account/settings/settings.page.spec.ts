@@ -12,8 +12,7 @@ describe('SettingsPage', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    declarations: [SettingsPage],
-    imports: [IonicModule.forRoot(), TranslateModule.forRoot()],
+    imports: [IonicModule.forRoot(), TranslateModule.forRoot(), SettingsPage],
     providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
 }).compileComponents();
 

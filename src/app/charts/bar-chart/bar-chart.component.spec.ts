@@ -10,9 +10,8 @@ describe('BarChartComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ BarChartComponent ],
-      imports: [IonicModule.forRoot(), TranslateModule.forRoot()]
-    }).compileComponents();
+    imports: [IonicModule.forRoot(), TranslateModule.forRoot(), BarChartComponent]
+}).compileComponents();
 
     fixture = TestBed.createComponent(BarChartComponent);
     component = fixture.componentInstance;

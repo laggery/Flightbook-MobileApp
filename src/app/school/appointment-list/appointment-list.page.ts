@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AlertController, IonInfiniteScroll, LoadingController, ModalController, NavController } from '@ionic/angular';
-import { TranslateService } from '@ngx-translate/core';
+import { AlertController, IonInfiniteScroll, LoadingController, ModalController, NavController, IonicModule } from '@ionic/angular';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { firstValueFrom, Subject, takeUntil } from 'rxjs';
 import { AccountService } from 'src/app/account/shared/account.service';
 import { User } from 'src/app/account/shared/user.model';
@@ -11,11 +11,21 @@ import { Subscription } from '../shared/subscription.model';
 import { AppointmentDetailsComponent } from '../shared/components/appointment-details/appointment-details.component';
 import { AppointmentFilterComponent } from '../shared/components/appointment-filter/appointment-filter.component';
 import { State } from '../shared/state';
+import { NgIf, NgFor, NgClass, DatePipe } from '@angular/common';
 
 @Component({
-  selector: 'app-appointment-list',
-  templateUrl: './appointment-list.page.html',
-  styleUrls: ['./appointment-list.page.scss'],
+    selector: 'app-appointment-list',
+    templateUrl: './appointment-list.page.html',
+    styleUrls: ['./appointment-list.page.scss'],
+    standalone: true,
+    imports: [
+        IonicModule,
+        NgIf,
+        NgFor,
+        NgClass,
+        DatePipe,
+        TranslateModule,
+    ],
 })
 export class AppointmentListPage implements OnInit, OnDestroy {
   @ViewChild(IonInfiniteScroll, { static: true }) infiniteScroll: IonInfiniteScroll;

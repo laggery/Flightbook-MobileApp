@@ -13,36 +13,34 @@ import { StarRatingComponent } from './components/star-rating/star-rating.compon
 import { NxgTransalteSortPipe } from './pipes/nxg-transalte-sort.pipe';
 
 @NgModule({
-  declarations: [
-    MenuItemComponent,
-    FileInputComponent,
-    IgcMapComponent,
-    PlaceMapComponent,
-    GliderSelectComponent,
-    HoursFormatPipe,
-    StarRatingComponent,
-    NxgTransalteSortPipe
-  ],
-  exports: [
-    MenuItemComponent,
-    FileInputComponent,
-    IgcMapComponent,
-    PlaceMapComponent,
-    GliderSelectComponent,
-    HoursFormatPipe,
-    StarRatingComponent,
-    NxgTransalteSortPipe
-  ],
-  imports: [
-    IonicModule,
-    TranslateModule,
-    FormsModule,
-    CommonModule,
-    ReactiveFormsModule
-  ],
-  providers: [
-    DatePipe
-  ]
+    exports: [
+        MenuItemComponent,
+        FileInputComponent,
+        IgcMapComponent,
+        PlaceMapComponent,
+        GliderSelectComponent,
+        HoursFormatPipe,
+        StarRatingComponent,
+        NxgTransalteSortPipe
+    ],
+    imports: [
+        IonicModule,
+        TranslateModule,
+        FormsModule,
+        CommonModule,
+        ReactiveFormsModule,
+        MenuItemComponent,
+        FileInputComponent,
+        IgcMapComponent,
+        PlaceMapComponent,
+        GliderSelectComponent,
+        HoursFormatPipe,
+        StarRatingComponent,
+        NxgTransalteSortPipe
+    ],
+    providers: [
+        DatePipe
+    ]
 })
 export class SharedModule {
 

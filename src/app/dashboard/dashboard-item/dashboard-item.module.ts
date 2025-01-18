@@ -6,18 +6,16 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 @NgModule({
-  declarations: [
-    DashboardItemComponent
-  ],
-  exports: [
-    DashboardItemComponent
-  ],
-  imports: [
-    IonicModule,
-    TranslateModule,
-    CommonModule,
-    RouterModule
-  ]
+    exports: [
+        DashboardItemComponent
+    ],
+    imports: [
+        IonicModule,
+        TranslateModule,
+        CommonModule,
+        RouterModule,
+        DashboardItemComponent
+    ]
 })
 export class DashboardItemModule {
 

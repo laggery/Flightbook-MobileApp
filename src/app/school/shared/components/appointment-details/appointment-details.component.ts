@@ -1,17 +1,28 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController, ModalController } from '@ionic/angular';
-import { TranslateService } from '@ngx-translate/core';
+import { AlertController, ModalController, IonicModule } from '@ionic/angular';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { firstValueFrom } from 'rxjs';
 import { User } from 'src/app/account/shared/user.model';
 import { Appointment } from 'src/app/school/shared/appointment.model';
 import { Subscription } from 'src/app/school/shared/subscription.model';
 import { SchoolService } from '../../school.service';
 import { State } from '../../state';
+import { FormsModule } from '@angular/forms';
+import { NgIf, NgFor, DatePipe } from '@angular/common';
 
 @Component({
-  selector: 'fb-appointment-details',
-  templateUrl: './appointment-details.component.html',
-  styleUrls: ['./appointment-details.component.scss'],
+    selector: 'fb-appointment-details',
+    templateUrl: './appointment-details.component.html',
+    styleUrls: ['./appointment-details.component.scss'],
+    standalone: true,
+    imports: [
+        IonicModule,
+        FormsModule,
+        NgIf,
+        NgFor,
+        DatePipe,
+        TranslateModule,
+    ],
 })
 export class AppointmentDetailsComponent implements OnInit {
 

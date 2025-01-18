@@ -1,14 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
-import { AlertController, LoadingController } from '@ionic/angular';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
+import { AlertController, LoadingController, IonicModule } from '@ionic/angular';
 import { Router } from '@angular/router';
 import HttpStatusCode from '../../shared/util/HttpStatusCode';
 import { AccountService } from '../shared/account.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-password',
-  templateUrl: './password.page.html',
-  styleUrls: ['./password.page.scss'],
+    selector: 'app-password',
+    templateUrl: './password.page.html',
+    styleUrls: ['./password.page.scss'],
+    standalone: true,
+    imports: [
+        IonicModule,
+        FormsModule,
+        TranslateModule,
+    ],
 })
 export class PasswordPage implements OnInit {
   pwd: any;

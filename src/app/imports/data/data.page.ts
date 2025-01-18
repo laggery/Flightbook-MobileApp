@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Capacitor } from '@capacitor/core';
-import { AlertController, LoadingController } from '@ionic/angular';
-import { TranslateService } from '@ngx-translate/core';
+import { AlertController, LoadingController, IonicModule } from '@ionic/angular';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { Subject, firstValueFrom, takeUntil } from 'rxjs';
 import { FilePicker, PickedFile } from '@capawesome/capacitor-file-picker';
 import { Encoding, Filesystem } from '@capacitor/filesystem';
@@ -10,11 +10,19 @@ import { GliderService } from 'src/app/glider/shared/glider.service';
 import { PlaceService } from 'src/app/place/shared/place.service';
 import { ImportService } from '../shared/import.service';
 import { ImportType } from '../shared/import-type.model';
+import { NgFor, NgIf } from '@angular/common';
 
 @Component({
-  selector: 'app-data',
-  templateUrl: './data.page.html',
-  styleUrls: ['./data.page.scss'],
+    selector: 'app-data',
+    templateUrl: './data.page.html',
+    styleUrls: ['./data.page.scss'],
+    standalone: true,
+    imports: [
+        IonicModule,
+        NgFor,
+        NgIf,
+        TranslateModule,
+    ],
 })
 export class DataPage implements OnInit, OnDestroy {
   unsubscribe$ = new Subject<void>();

@@ -11,15 +11,15 @@ import { TranslateModule } from '@ngx-translate/core';
 import { FlagsModule } from 'nxt-flags';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    PlaceListPageRoutingModule,
-    TranslateModule.forChild(),
-    FlagsModule
-  ],
-  providers: [],
-  declarations: [PlaceListPage]
+    imports: [
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        PlaceListPageRoutingModule,
+        TranslateModule.forChild(),
+        FlagsModule,
+        PlaceListPage
+    ],
+    providers: []
 })
 export class PlaceListPageModule {}

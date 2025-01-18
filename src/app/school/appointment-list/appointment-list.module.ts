@@ -12,17 +12,15 @@ import { AppointmentDetailsComponent } from '../shared/components/appointment-de
 import { AppointmentFilterComponent } from '../shared/components/appointment-filter/appointment-filter.component';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    AppointmentListPageRoutingModule,
-    TranslateModule.forChild()
-  ],
-  declarations: [
-    AppointmentListPage,
-    AppointmentDetailsComponent,
-    AppointmentFilterComponent
-  ]
+    imports: [
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        AppointmentListPageRoutingModule,
+        TranslateModule.forChild(),
+        AppointmentListPage,
+        AppointmentDetailsComponent,
+        AppointmentFilterComponent
+    ]
 })
 export class AppointmentListPageModule {}

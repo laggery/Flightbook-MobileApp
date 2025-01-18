@@ -13,8 +13,7 @@ describe('FlightStatisticPage', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    declarations: [FlightStatisticPage, HoursFormatPipe],
-    imports: [IonicModule.forRoot(), TranslateModule.forRoot()],
+    imports: [IonicModule.forRoot(), TranslateModule.forRoot(), FlightStatisticPage, HoursFormatPipe],
     providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
 }).compileComponents();
 

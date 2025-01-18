@@ -12,8 +12,7 @@ describe('GliderFilterComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    declarations: [GliderFilterComponent],
-    imports: [IonicModule.forRoot(), TranslateModule.forRoot()],
+    imports: [IonicModule.forRoot(), TranslateModule.forRoot(), GliderFilterComponent],
     providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
 }).compileComponents();
 

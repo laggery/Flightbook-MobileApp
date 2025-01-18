@@ -13,8 +13,7 @@ describe('FlightListPage', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    declarations: [FlightListPage],
-    imports: [IonicModule.forRoot(), TranslateModule.forRoot()],
+    imports: [IonicModule.forRoot(), TranslateModule.forRoot(), FlightListPage],
     providers: [DatePipe, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
 }).compileComponents();
 

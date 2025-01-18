@@ -10,13 +10,13 @@ import { PasswordPage } from './password.page';
 import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    PasswordPageRoutingModule,
-    TranslateModule.forChild()
-  ],
-  declarations: [PasswordPage]
+    imports: [
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        PasswordPageRoutingModule,
+        TranslateModule.forChild(),
+        PasswordPage
+    ]
 })
 export class PasswordPageModule {}

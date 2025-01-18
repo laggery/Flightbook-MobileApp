@@ -12,8 +12,7 @@ describe('MultipleIgcPage', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-    declarations: [MultipleIgcPage],
-    imports: [IonicModule.forRoot(), TranslateModule.forRoot()],
+    imports: [IonicModule.forRoot(), TranslateModule.forRoot(), MultipleIgcPage],
     providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
 }).compileComponents();
 

@@ -22,8 +22,7 @@ describe('PlaceEditPage', () => {
     };
 
     TestBed.configureTestingModule({
-    declarations: [PlaceEditPage],
-    imports: [RouterModule.forRoot([]), IonicModule.forRoot(), TranslateModule.forRoot()],
+    imports: [RouterModule.forRoot([]), IonicModule.forRoot(), TranslateModule.forRoot(), PlaceEditPage],
     providers: [
         { provide: Router, useClass: class {
                 navigate = jasmine.createSpy("navigate");

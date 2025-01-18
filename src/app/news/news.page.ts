@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { MenuController, LoadingController, AlertController } from '@ionic/angular';
-import { TranslateService } from '@ngx-translate/core';
+import { MenuController, LoadingController, AlertController, IonicModule } from '@ionic/angular';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { Subject, Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Capacitor } from '@capacitor/core';
@@ -19,11 +19,22 @@ import { PlaceService } from '../place/shared/place.service';
 import { FlightService } from '../flight/shared/flight.service';
 import { PaymentService } from '../shared/services/payment.service';
 import { PaymentStatus } from '../account/shared/paymentStatus.model';
+import { DashboardContainerComponent } from '../dashboard/dashboard-container/dashboard-container.component';
+import { NgFor, AsyncPipe, DatePipe } from '@angular/common';
 
 @Component({
-  selector: 'app-news',
-  templateUrl: './news.page.html',
-  styleUrls: ['./news.page.scss'],
+    selector: 'app-news',
+    templateUrl: './news.page.html',
+    styleUrls: ['./news.page.scss'],
+    standalone: true,
+    imports: [
+        IonicModule,
+        DashboardContainerComponent,
+        NgFor,
+        AsyncPipe,
+        DatePipe,
+        TranslateModule,
+    ],
 })
 export class NewsPage implements OnInit, OnDestroy {
   unsubscribe$ = new Subject<void>();

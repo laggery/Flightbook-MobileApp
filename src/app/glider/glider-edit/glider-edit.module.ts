@@ -12,14 +12,14 @@ import { FormModule } from '../../form/form.module';
 import { environment } from 'src/environments/environment';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    GliderEditPageRoutingModule,
-    TranslateModule.forChild(),
-    FormModule
-  ],
-  declarations: [GliderEditPage]
+    imports: [
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        GliderEditPageRoutingModule,
+        TranslateModule.forChild(),
+        FormModule,
+        GliderEditPage
+    ]
 })
 export class GliderEditPageModule {}

@@ -12,15 +12,15 @@ import { FormModule } from 'src/app/form/form.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    FlightEditPageRoutingModule,
-    TranslateModule.forChild(),
-    FormModule,
-    SharedModule
-  ],
-  declarations: [FlightEditPage]
+    imports: [
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        FlightEditPageRoutingModule,
+        TranslateModule.forChild(),
+        FormModule,
+        SharedModule,
+        FlightEditPage
+    ]
 })
 export class FlightEditPageModule {}

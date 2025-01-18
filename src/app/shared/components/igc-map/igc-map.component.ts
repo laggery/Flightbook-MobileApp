@@ -13,11 +13,20 @@ import { getVectorContext } from 'ol/render';
 import * as IGCParser from 'igc-parser';
 import { ConfigurationService } from '../../services/configuration.service';
 import { firstValueFrom } from 'rxjs';
+import { NgIf } from '@angular/common';
+import { IonicModule } from '@ionic/angular';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
-  selector: 'fb-igc-map',
-  templateUrl: './igc-map.component.html',
-  styleUrls: ['./igc-map.component.scss'],
+    selector: 'fb-igc-map',
+    templateUrl: './igc-map.component.html',
+    styleUrls: ['./igc-map.component.scss'],
+    standalone: true,
+    imports: [
+        NgIf,
+        IonicModule,
+        TranslateModule,
+    ],
 })
 export class IgcMapComponent implements AfterViewInit {
 

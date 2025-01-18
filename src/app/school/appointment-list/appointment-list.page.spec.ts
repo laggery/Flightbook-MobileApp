@@ -13,8 +13,7 @@ describe('AppointmentListPage', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    declarations: [AppointmentListPage],
-    imports: [RouterTestingModule, IonicModule.forRoot(), TranslateModule.forRoot()],
+    imports: [RouterTestingModule, IonicModule.forRoot(), TranslateModule.forRoot(), AppointmentListPage],
     providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
 }).compileComponents();
 

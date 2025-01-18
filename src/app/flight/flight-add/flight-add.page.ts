@@ -2,8 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { AlertController, LoadingController } from '@ionic/angular';
-import { TranslateService } from '@ngx-translate/core';
+import { AlertController, LoadingController, IonicModule } from '@ionic/angular';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import HttpStatusCode from '../../shared/util/HttpStatusCode';
 import { FileUploadService } from 'src/app/flight/shared/fileupload.service';
 import { Place } from 'src/app/place/shared/place.model';
@@ -13,11 +13,20 @@ import { FlightService } from '../shared/flight.service';
 import { GliderService } from 'src/app/glider/shared/glider.service';
 import { IgcService } from 'src/app/shared/services/igc.service';
 import * as moment from 'moment';
+import { FileInputComponent } from '../../shared/components/file-input/file-input.component';
+import { FlightFormComponent } from '../../form/flight-form/flight-form';
 
 @Component({
-  selector: 'app-flight-add',
-  templateUrl: './flight-add.page.html',
-  styleUrls: ['./flight-add.page.scss'],
+    selector: 'app-flight-add',
+    templateUrl: './flight-add.page.html',
+    styleUrls: ['./flight-add.page.scss'],
+    standalone: true,
+    imports: [
+        IonicModule,
+        FileInputComponent,
+        FlightFormComponent,
+        TranslateModule,
+    ],
 })
 export class FlightAddPage implements OnInit, OnDestroy {
   unsubscribe$ = new Subject<void>();

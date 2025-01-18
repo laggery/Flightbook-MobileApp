@@ -2,16 +2,23 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { LoadingController, AlertController } from '@ionic/angular';
-import { TranslateService } from '@ngx-translate/core';
+import { LoadingController, AlertController, IonicModule } from '@ionic/angular';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import HttpStatusCode from '../../shared/util/HttpStatusCode';
 import { Place } from 'src/app/place/shared/place.model';
 import { PlaceService } from '../shared/place.service';
+import { PlaceFormComponent } from '../../form/place-form/place-form';
 
 @Component({
-  selector: 'app-place-add',
-  templateUrl: './place-add.page.html',
-  styleUrls: ['./place-add.page.scss'],
+    selector: 'app-place-add',
+    templateUrl: './place-add.page.html',
+    styleUrls: ['./place-add.page.scss'],
+    standalone: true,
+    imports: [
+        IonicModule,
+        PlaceFormComponent,
+        TranslateModule,
+    ],
 })
 export class PlaceAddPage implements OnInit, OnDestroy {
   unsubscribe$ = new Subject<void>();

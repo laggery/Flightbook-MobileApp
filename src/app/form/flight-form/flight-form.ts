@@ -1,16 +1,31 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { AlertController } from '@ionic/angular';
-import { TranslateService } from '@ngx-translate/core';
+import { AlertController, IonicModule } from '@ionic/angular';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import * as moment from 'moment';
-import { NgForm } from '@angular/forms';
+import { NgForm, FormsModule } from '@angular/forms';
 import { Place } from 'src/app/place/shared/place.model';
 import { Flight } from 'src/app/flight/shared/flight.model';
 import { Glider } from 'src/app/glider/shared/glider.model';
+import { NgIf, DatePipe } from '@angular/common';
+import { GliderSelectComponent } from '../../shared/components/glider-select/glider-select.component';
+import { AutocompleteComponent } from '../autocomplete/autocomplete.component';
+import { IgcMapComponent } from '../../shared/components/igc-map/igc-map.component';
 
 @Component({
-  selector: 'flight-form',
-  templateUrl: 'flight-form.html',
-  styleUrls: ['./flight-form.scss'],
+    selector: 'flight-form',
+    templateUrl: 'flight-form.html',
+    styleUrls: ['./flight-form.scss'],
+    standalone: true,
+    imports: [
+        NgIf,
+        FormsModule,
+        IonicModule,
+        GliderSelectComponent,
+        AutocompleteComponent,
+        IgcMapComponent,
+        DatePipe,
+        TranslateModule,
+    ],
 })
 export class FlightFormComponent implements OnInit {
 

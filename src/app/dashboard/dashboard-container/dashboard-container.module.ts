@@ -3,15 +3,13 @@ import { DashboardContainerComponent } from './dashboard-container.component';
 import { DashboardItemModule } from '../dashboard-item/dashboard-item.module';
 
 @NgModule({
-  declarations: [
-    DashboardContainerComponent
-  ],
-  exports: [
-    DashboardContainerComponent
-  ],
-  imports: [
-    DashboardItemModule,
-  ]
+    exports: [
+        DashboardContainerComponent
+    ],
+    imports: [
+        DashboardItemModule,
+        DashboardContainerComponent,
+    ]
 })
 export class DashboardContainerModule {
 

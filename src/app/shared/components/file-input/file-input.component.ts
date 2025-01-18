@@ -1,14 +1,17 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Capacitor } from '@capacitor/core';
-import { AlertController } from '@ionic/angular';
+import { AlertController, IonicModule } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { v4 as uuidv4 } from 'uuid';
 import { FilePicker, PickedFile } from '@capawesome/capacitor-file-picker';
+import { NgIf } from '@angular/common';
 
 @Component({
-  selector: 'fb-file-input',
-  templateUrl: 'file-input.component.html',
-  styleUrls: ['file-input.component.scss']
+    selector: 'fb-file-input',
+    templateUrl: 'file-input.component.html',
+    styleUrls: ['file-input.component.scss'],
+    standalone: true,
+    imports: [NgIf, IonicModule]
 })
 export class FileInputComponent implements OnInit {
 

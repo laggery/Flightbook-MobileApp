@@ -3,17 +3,24 @@ import { ActivatedRoute, Router } from '@angular/router';
 import * as _ from 'lodash';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-import { TranslateService } from '@ngx-translate/core';
-import { LoadingController, AlertController } from '@ionic/angular';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
+import { LoadingController, AlertController, IonicModule } from '@ionic/angular';
 import HttpStatusCode from '../../shared/util/HttpStatusCode';
 import { Place } from 'src/app/place/shared/place.model';
 import { PlaceService } from '../shared/place.service';
 import { FlightService } from 'src/app/flight/shared/flight.service';
+import { PlaceFormComponent } from '../../form/place-form/place-form';
 
 @Component({
-  selector: 'app-place-edit',
-  templateUrl: './place-edit.page.html',
-  styleUrls: ['./place-edit.page.scss'],
+    selector: 'app-place-edit',
+    templateUrl: './place-edit.page.html',
+    styleUrls: ['./place-edit.page.scss'],
+    standalone: true,
+    imports: [
+        IonicModule,
+        PlaceFormComponent,
+        TranslateModule,
+    ],
 })
 export class PlaceEditPage implements OnInit, OnDestroy {
   unsubscribe$ = new Subject<void>();

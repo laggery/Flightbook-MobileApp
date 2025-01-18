@@ -1,13 +1,21 @@
 import { Component, OnInit, Input, Output, EventEmitter, ElementRef, OnChanges } from '@angular/core';
 import { Place } from 'src/app/place/shared/place.model';
 import { PlaceService } from 'src/app/place/shared/place.service';
+import { NgIf, NgFor } from '@angular/common';
+import { IonicModule } from '@ionic/angular';
 @Component({
-  selector: 'autocomplete',
-  templateUrl: './autocomplete.component.html',
-  styleUrls: ['./autocomplete.component.scss'],
-  host: {
-    '(document:click)': 'onClick($event)',
-  },
+    selector: 'autocomplete',
+    templateUrl: './autocomplete.component.html',
+    styleUrls: ['./autocomplete.component.scss'],
+    host: {
+        '(document:click)': 'onClick($event)',
+    },
+    standalone: true,
+    imports: [
+        NgIf,
+        IonicModule,
+        NgFor,
+    ],
 })
 export class AutocompleteComponent implements OnInit, OnChanges {
   @Input()

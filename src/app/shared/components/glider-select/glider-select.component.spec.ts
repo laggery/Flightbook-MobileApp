@@ -10,9 +10,8 @@ describe('GliderSelectComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ GliderSelectComponent ],
-      imports: [IonicModule.forRoot(), TranslateModule.forRoot()]
-    }).compileComponents();
+    imports: [IonicModule.forRoot(), TranslateModule.forRoot(), GliderSelectComponent]
+}).compileComponents();
 
     fixture = TestBed.createComponent(GliderSelectComponent);
     component = fixture.componentInstance;

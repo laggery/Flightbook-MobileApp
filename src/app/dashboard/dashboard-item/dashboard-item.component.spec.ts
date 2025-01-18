@@ -10,9 +10,8 @@ describe('DashboardItemComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DashboardItemComponent ],
-      imports: [IonicModule.forRoot(), TranslateModule.forRoot()]
-    }).compileComponents();
+    imports: [IonicModule.forRoot(), TranslateModule.forRoot(), DashboardItemComponent]
+}).compileComponents();
 
     fixture = TestBed.createComponent(DashboardItemComponent);
     component = fixture.componentInstance;

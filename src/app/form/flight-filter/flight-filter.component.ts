@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
-import { IonInfiniteScroll, ModalController, LoadingController } from '@ionic/angular';
+import { IonInfiniteScroll, ModalController, LoadingController, IonicModule } from '@ionic/angular';
 import { Subject, firstValueFrom } from 'rxjs';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { takeUntil } from 'rxjs/operators';
 import { FlightFilter } from 'src/app/flight/shared/flight-filter.model';
 import { Glider } from 'src/app/glider/shared/glider.model';
@@ -9,11 +9,21 @@ import { FlightService } from 'src/app/flight/shared/flight.service';
 import { GliderService } from 'src/app/glider/shared/glider.service';
 import { Flight } from 'src/app/flight/shared/flight.model';
 import { FlightStatistic } from 'src/app/flight/shared/flightStatistic.model';
+import { FormsModule } from '@angular/forms';
+import { NgFor, DatePipe } from '@angular/common';
 
 @Component({
-  selector: 'app-flight-filter',
-  templateUrl: './flight-filter.component.html',
-  styleUrls: ['./flight-filter.component.scss'],
+    selector: 'app-flight-filter',
+    templateUrl: './flight-filter.component.html',
+    styleUrls: ['./flight-filter.component.scss'],
+    standalone: true,
+    imports: [
+        IonicModule,
+        FormsModule,
+        NgFor,
+        DatePipe,
+        TranslateModule,
+    ],
 })
 export class FlightFilterComponent implements OnInit, OnDestroy {
   @Input() infiniteScroll: IonInfiniteScroll;

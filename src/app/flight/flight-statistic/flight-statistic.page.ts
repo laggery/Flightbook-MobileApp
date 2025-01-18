@@ -1,21 +1,35 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 import { Subject, firstValueFrom } from 'rxjs';
-import { ModalController, LoadingController } from '@ionic/angular';
+import { ModalController, LoadingController, IonicModule } from '@ionic/angular';
 import { FlightFilterComponent } from '../../form/flight-filter/flight-filter.component';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { FlightStatistic } from '../shared/flightStatistic.model';
 import { FlightService } from '../shared/flight.service';
 import { Chart, ChartData } from 'chart.js';
 
 import zoomPlugin from "chartjs-plugin-zoom";
+import { NgIf, DecimalPipe } from '@angular/common';
+import { BarChartComponent } from '../../charts/bar-chart/bar-chart.component';
+import { LineChartComponent } from '../../charts/line-chart/line-chart.component';
+import { HoursFormatPipe } from '../../shared/pipes/hours-format.pipe';
 
 Chart.register(zoomPlugin);
 
 @Component({
-  selector: 'app-flight-statistic',
-  templateUrl: './flight-statistic.page.html',
-  styleUrls: ['./flight-statistic.page.scss'],
+    selector: 'app-flight-statistic',
+    templateUrl: './flight-statistic.page.html',
+    styleUrls: ['./flight-statistic.page.scss'],
+    standalone: true,
+    imports: [
+        IonicModule,
+        NgIf,
+        BarChartComponent,
+        LineChartComponent,
+        DecimalPipe,
+        TranslateModule,
+        HoursFormatPipe,
+    ],
 })
 export class FlightStatisticPage implements OnInit, OnDestroy {
   unsubscribe$ = new Subject<void>();

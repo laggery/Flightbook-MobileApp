@@ -13,17 +13,17 @@ import { ControlSheetDetailsComponent } from '../shared/components/control-sheet
 import { NxgTransalteSortPipe } from 'src/app/shared/pipes/nxg-transalte-sort.pipe';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    ControlSheetPageRoutingModule,
-    TranslateModule.forChild(),
-    SharedModule
-  ],
-  providers: [
-    NxgTransalteSortPipe
-  ],
-  declarations: [ControlSheetPage, ControlSheetDetailsComponent]
+    imports: [
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        ControlSheetPageRoutingModule,
+        TranslateModule.forChild(),
+        SharedModule,
+        ControlSheetPage, ControlSheetDetailsComponent
+    ],
+    providers: [
+        NxgTransalteSortPipe
+    ]
 })
 export class ControlSheetPageModule {}

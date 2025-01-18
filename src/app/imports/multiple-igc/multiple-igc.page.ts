@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { LoadingController } from '@ionic/angular';
-import { TranslateService } from '@ngx-translate/core';
+import { LoadingController, IonicModule } from '@ionic/angular';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Place } from 'src/app/place/shared/place.model';
@@ -10,11 +10,24 @@ import { GliderService } from 'src/app/glider/shared/glider.service';
 import { IgcService } from 'src/app/shared/services/igc.service';
 import { FlightService } from 'src/app/flight/shared/flight.service';
 import { Flight } from 'src/app/flight/shared/flight.model';
+import { FileInputComponent } from '../../shared/components/file-input/file-input.component';
+import { NgIf, NgFor, DatePipe } from '@angular/common';
+import { GliderSelectComponent } from '../../shared/components/glider-select/glider-select.component';
 
 @Component({
-  selector: 'app-multiple-igc',
-  templateUrl: './multiple-igc.page.html',
-  styleUrls: ['./multiple-igc.page.scss'],
+    selector: 'app-multiple-igc',
+    templateUrl: './multiple-igc.page.html',
+    styleUrls: ['./multiple-igc.page.scss'],
+    standalone: true,
+    imports: [
+        IonicModule,
+        FileInputComponent,
+        NgIf,
+        NgFor,
+        GliderSelectComponent,
+        DatePipe,
+        TranslateModule,
+    ],
 })
 export class MultipleIgcPage implements OnInit {
 

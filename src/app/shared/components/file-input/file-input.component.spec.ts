@@ -10,9 +10,8 @@ describe('FileInputComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FileInputComponent ],
-      imports: [IonicModule.forRoot(), TranslateModule.forRoot()]
-    }).compileComponents();
+    imports: [IonicModule.forRoot(), TranslateModule.forRoot(), FileInputComponent]
+}).compileComponents();
 
     fixture = TestBed.createComponent(FileInputComponent);
     component = fixture.componentInstance;

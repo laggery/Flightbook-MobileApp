@@ -11,14 +11,14 @@ import { TranslateModule } from '@ngx-translate/core';
 import { FormModule } from '../../form/form.module';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    PlaceEditPageRoutingModule,
-    TranslateModule.forChild(),
-    FormModule
-  ],
-  declarations: [PlaceEditPage]
+    imports: [
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        PlaceEditPageRoutingModule,
+        TranslateModule.forChild(),
+        FormModule,
+        PlaceEditPage
+    ]
 })
 export class PlaceEditPageModule {}

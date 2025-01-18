@@ -1,9 +1,9 @@
 import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit } from '@angular/core';
-import { NavController, ModalController, IonInfiniteScroll, IonContent, LoadingController, AlertController } from '@ionic/angular';
+import { NavController, ModalController, IonInfiniteScroll, IonContent, LoadingController, AlertController, IonicModule } from '@ionic/angular';
 import { Subject, Observable, firstValueFrom } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { FlightFilterComponent } from 'src/app/form/flight-filter/flight-filter.component';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { TCreatedPdf } from 'pdfmake/build/pdfmake';
 import { FileOpener } from '@capacitor-community/file-opener';
 
@@ -16,11 +16,25 @@ import { FlightService } from '../shared/flight.service';
 import { AccountService } from 'src/app/account/shared/account.service';
 import { FlightStatistic } from '../shared/flightStatistic.model';
 import { SchoolService } from 'src/app/school/shared/school.service';
+import { NgIf, NgFor, AsyncPipe, DatePipe } from '@angular/common';
+import { RouterLink } from '@angular/router';
+import { FlagsModule } from 'nxt-flags';
 
 @Component({
-  selector: 'app-flight-list',
-  templateUrl: './flight-list.page.html',
-  styleUrls: ['./flight-list.page.scss'],
+    selector: 'app-flight-list',
+    templateUrl: './flight-list.page.html',
+    styleUrls: ['./flight-list.page.scss'],
+    standalone: true,
+    imports: [
+        IonicModule,
+        NgIf,
+        RouterLink,
+        NgFor,
+        FlagsModule,
+        AsyncPipe,
+        DatePipe,
+        TranslateModule,
+    ],
 })
 export class FlightListPage implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild(IonInfiniteScroll, { static: true }) infiniteScroll: IonInfiniteScroll;

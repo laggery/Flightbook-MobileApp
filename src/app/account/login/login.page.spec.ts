@@ -13,10 +13,9 @@ describe('LoginPage', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    declarations: [LoginPage],
     imports: [IonicModule.forRoot(),
         TranslateModule.forRoot(),
-        FormsModule],
+        FormsModule, LoginPage],
     providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
 }).compileComponents();
 

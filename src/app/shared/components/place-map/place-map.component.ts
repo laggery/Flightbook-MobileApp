@@ -18,9 +18,10 @@ import { PlaceService } from 'src/app/place/shared/place.service';
 import { ConfigurationService } from '../../services/configuration.service';
 
 @Component({
-  selector: 'fb-place-map',
-  templateUrl: './place-map.component.html',
-  styleUrls: ['./place-map.component.scss'],
+    selector: 'fb-place-map',
+    templateUrl: './place-map.component.html',
+    styleUrls: ['./place-map.component.scss'],
+    standalone: true,
 })
 export class PlaceMapComponent  implements OnInit, AfterViewInit, OnChanges {
 

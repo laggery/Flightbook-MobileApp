@@ -21,8 +21,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
         TranslateModule.forChild(),
         FormModule,
         ChartsModule,
-        SharedModule
-    ],
-    declarations: [FlightStatisticPage]
+        SharedModule,
+        FlightStatisticPage
+    ]
 })
 export class FlightStatisticPageModule {}

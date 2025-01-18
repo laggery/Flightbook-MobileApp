@@ -36,10 +36,9 @@ describe('GliderEditPage', () => {
     };
 
     TestBed.configureTestingModule({
-    declarations: [GliderEditPage],
     imports: [IonicModule.forRoot(),
         RouterTestingModule,
-        TranslateModule.forRoot()],
+        TranslateModule.forRoot(), GliderEditPage],
     providers: [
         NavController,
         { provide: Router, useClass: RouterStub },

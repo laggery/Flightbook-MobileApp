@@ -18,9 +18,9 @@ import { SharedModule } from 'src/app/shared/shared.module';
         IonicModule,
         GliderListPageRoutingModule,
         TranslateModule.forChild(),
-        SharedModule
+        SharedModule,
+        GliderListPage, GliderFilterComponent
     ],
-    providers: [],
-    declarations: [GliderListPage, GliderFilterComponent]
+    providers: []
 })
 export class GliderListPageModule { }

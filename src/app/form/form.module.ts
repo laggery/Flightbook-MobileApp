@@ -10,19 +10,17 @@ import { AutocompleteComponent } from './autocomplete/autocomplete.component';
 import { FlightFilterComponent } from './flight-filter/flight-filter.component';
 import { SharedModule } from '../shared/shared.module';
 @NgModule({
-    declarations: [
-        PlaceFormComponent,
-        GliderFormComponent,
-        FlightFormComponent,
-        FlightFilterComponent,
-        AutocompleteComponent
-    ],
     imports: [
         CommonModule,
         FormsModule,
         IonicModule,
         TranslateModule.forChild(),
-        SharedModule
+        SharedModule,
+        PlaceFormComponent,
+        GliderFormComponent,
+        FlightFormComponent,
+        FlightFilterComponent,
+        AutocompleteComponent
     ],
     exports: [
         PlaceFormComponent,

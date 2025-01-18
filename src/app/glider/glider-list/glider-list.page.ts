@@ -1,27 +1,33 @@
 import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit } from '@angular/core';
-import {
-  NavController,
-  ModalController,
-  IonInfiniteScroll,
-  IonContent,
-  LoadingController,
-  AlertController
-} from '@ionic/angular';
+import { NavController, ModalController, IonInfiniteScroll, IonContent, LoadingController, AlertController, IonicModule } from '@ionic/angular';
 import { Subject, Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { GliderFilterComponent } from '../glider-filter/glider-filter.component';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { Capacitor } from '@capacitor/core';
 import { Filesystem, Directory } from '@capacitor/filesystem';
 import { FileOpener } from '@capacitor-community/file-opener';
 import { XlsxExportService } from 'src/app/shared/services/xlsx-export.service';
 import { Glider } from '../shared/glider.model';
 import { GliderService } from '../shared/glider.service';
+import { NgIf, NgFor, AsyncPipe } from '@angular/common';
+import { RouterLink } from '@angular/router';
+import { HoursFormatPipe } from '../../shared/pipes/hours-format.pipe';
 
 @Component({
-  selector: 'app-glider-list',
-  templateUrl: './glider-list.page.html',
-  styleUrls: ['./glider-list.page.scss'],
+    selector: 'app-glider-list',
+    templateUrl: './glider-list.page.html',
+    styleUrls: ['./glider-list.page.scss'],
+    standalone: true,
+    imports: [
+        IonicModule,
+        NgIf,
+        RouterLink,
+        NgFor,
+        AsyncPipe,
+        TranslateModule,
+        HoursFormatPipe,
+    ],
 })
 export class GliderListPage implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild(IonInfiniteScroll, { static: true }) infiniteScroll: IonInfiniteScroll;

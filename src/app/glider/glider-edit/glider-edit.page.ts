@@ -3,18 +3,25 @@ import { ActivatedRoute, Router } from '@angular/router';
 import * as _ from 'lodash';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { LoadingController, AlertController } from '@ionic/angular';
-import { TranslateService } from '@ngx-translate/core';
+import { LoadingController, AlertController, IonicModule } from '@ionic/angular';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import HttpStatusCode from '../../shared/util/HttpStatusCode';
 import { Glider } from '../shared/glider.model';
 import { GliderService } from '../shared/glider.service';
 import { FlightService } from 'src/app/flight/shared/flight.service';
 import * as moment from 'moment';
+import { GliderFormComponent } from '../../form/glider-form/glider-form';
 
 @Component({
-  selector: 'app-glider-edit',
-  templateUrl: './glider-edit.page.html',
-  styleUrls: ['./glider-edit.page.scss'],
+    selector: 'app-glider-edit',
+    templateUrl: './glider-edit.page.html',
+    styleUrls: ['./glider-edit.page.scss'],
+    standalone: true,
+    imports: [
+        IonicModule,
+        GliderFormComponent,
+        TranslateModule,
+    ],
 })
 export class GliderEditPage implements OnInit, OnDestroy {
   unsubscribe$ = new Subject<void>();

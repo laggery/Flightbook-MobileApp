@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild, OnDestroy, AfterViewInit } from '@angular/core';
-import { NavController, IonInfiniteScroll, LoadingController, IonContent, AlertController } from '@ionic/angular';
+import { NavController, IonInfiniteScroll, LoadingController, IonContent, AlertController, IonicModule } from '@ionic/angular';
 import { takeUntil } from 'rxjs/operators';
 import { Subject, Observable } from 'rxjs';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { Capacitor } from '@capacitor/core';
 import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
 import { FileOpener } from '@capacitor-community/file-opener';
@@ -13,11 +13,24 @@ import { Countries, Country } from 'src/app/place/shared/place.countries';
 import { json2csv } from 'json-2-csv';
 import * as fileSaver from 'file-saver';
 import { MapUtil } from 'src/app/shared/util/MapUtil';
+import { RouterLink } from '@angular/router';
+import { NgIf, NgFor, AsyncPipe } from '@angular/common';
+import { FlagsModule } from 'nxt-flags';
 
 @Component({
-  selector: 'app-place-list',
-  templateUrl: './place-list.page.html',
-  styleUrls: ['./place-list.page.scss'],
+    selector: 'app-place-list',
+    templateUrl: './place-list.page.html',
+    styleUrls: ['./place-list.page.scss'],
+    standalone: true,
+    imports: [
+        IonicModule,
+        RouterLink,
+        NgIf,
+        NgFor,
+        FlagsModule,
+        AsyncPipe,
+        TranslateModule,
+    ],
 })
 export class PlaceListPage implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild(IonInfiniteScroll, { static: true }) infiniteScroll: IonInfiniteScroll;

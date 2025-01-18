@@ -12,16 +12,16 @@ import { DashboardContainerModule } from '../dashboard/dashboard-container/dashb
 import { DashboardItemModule } from '../dashboard/dashboard-item/dashboard-item.module';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    NewsPageRoutingModule,
-    TranslateModule.forChild(),
-    DashboardContainerModule,
-    DashboardItemModule
-  ],
-  providers: [],
-  declarations: [NewsPage]
+    imports: [
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        NewsPageRoutingModule,
+        TranslateModule.forChild(),
+        DashboardContainerModule,
+        DashboardItemModule,
+        NewsPage
+    ],
+    providers: []
 })
 export class NewsPageModule {}

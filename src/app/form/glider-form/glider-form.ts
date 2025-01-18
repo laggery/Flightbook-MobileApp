@@ -1,11 +1,15 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
-import { AlertController } from '@ionic/angular';
-import { TranslateService } from '@ngx-translate/core';
+import { AlertController, IonicModule } from '@ionic/angular';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { Glider } from 'src/app/glider/shared/glider.model';
+import { FormsModule } from '@angular/forms';
+import { NgIf, DatePipe } from '@angular/common';
 
 @Component({
-  selector: 'glider-form',
-  templateUrl: 'glider-form.html'
+    selector: 'glider-form',
+    templateUrl: 'glider-form.html',
+    standalone: true,
+    imports: [FormsModule, IonicModule, NgIf, DatePipe, TranslateModule]
 })
 export class GliderFormComponent implements OnInit {
   @Input()

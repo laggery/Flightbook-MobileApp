@@ -26,10 +26,9 @@ describe('FlightEditPage', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    declarations: [FlightEditPage],
     imports: [IonicModule.forRoot(),
         TranslateModule.forRoot(),
-        RouterTestingModule],
+        RouterTestingModule, FlightEditPage],
     providers: [
         { provide: Router, useClass: RouterStub },
         provideHttpClient(withInterceptorsFromDi()),

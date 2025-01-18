@@ -8,15 +8,15 @@ import 'hammerjs';
 import 'chartjs-plugin-zoom';
 
 @NgModule({
-  declarations: [BarChartComponent, LineChartComponent],
-  imports: [
-    CommonModule,
-    TranslateModule.forChild(),
-    NgChartsModule
-  ],
-  exports: [
-    BarChartComponent,
-    LineChartComponent
-  ]
+    imports: [
+        CommonModule,
+        TranslateModule.forChild(),
+        NgChartsModule,
+        BarChartComponent, LineChartComponent
+    ],
+    exports: [
+        BarChartComponent,
+        LineChartComponent
+    ]
 })
 export class ChartsModule { }

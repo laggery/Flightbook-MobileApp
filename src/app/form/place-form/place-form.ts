@@ -1,12 +1,17 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { AlertController } from '@ionic/angular';
-import { TranslateService } from '@ngx-translate/core';
+import { AlertController, IonicModule } from '@ionic/angular';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { Place } from 'src/app/place/shared/place.model';
 import { Countries, Country } from 'src/app/place/shared/place.countries';
+import { FormsModule } from '@angular/forms';
+import { NgFor } from '@angular/common';
+import { PlaceMapComponent } from '../../shared/components/place-map/place-map.component';
 
 @Component({
-  selector: 'place-form',
-  templateUrl: 'place-form.html'
+    selector: 'place-form',
+    templateUrl: 'place-form.html',
+    standalone: true,
+    imports: [FormsModule, IonicModule, NgFor, PlaceMapComponent, TranslateModule]
 })
 export class PlaceFormComponent {
 

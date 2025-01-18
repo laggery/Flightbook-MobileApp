@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
-import { MenuController, NavController, AlertController, LoadingController } from '@ionic/angular';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
+import { MenuController, NavController, AlertController, LoadingController, IonicModule } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -15,11 +15,18 @@ import { AccountService } from '../shared/account.service';
 import { NewsService } from 'src/app/news/shared/news.service';
 import { App } from '@capacitor/app';
 import { NavigationService } from 'src/app/shared/services/navigation.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.page.html',
-  styleUrls: ['./login.page.scss'],
+    selector: 'app-login',
+    templateUrl: './login.page.html',
+    styleUrls: ['./login.page.scss'],
+    standalone: true,
+    imports: [
+        IonicModule,
+        FormsModule,
+        TranslateModule,
+    ],
 })
 export class LoginPage implements OnInit, OnDestroy {
   unsubscribe$ = new Subject<void>();

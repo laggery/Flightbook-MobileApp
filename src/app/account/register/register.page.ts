@@ -1,17 +1,24 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { MenuController, LoadingController, AlertController } from '@ionic/angular';
+import { MenuController, LoadingController, AlertController, IonicModule } from '@ionic/angular';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import HttpStatusCode from '../../shared/util/HttpStatusCode';
 import { User } from 'src/app/account/shared/user.model';
 import { AccountService } from '../shared/account.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.page.html',
-  styleUrls: ['./register.page.scss'],
+    selector: 'app-register',
+    templateUrl: './register.page.html',
+    styleUrls: ['./register.page.scss'],
+    standalone: true,
+    imports: [
+        IonicModule,
+        FormsModule,
+        TranslateModule,
+    ],
 })
 export class RegisterPage implements OnInit, OnDestroy {
   unsubscribe$ = new Subject<void>();

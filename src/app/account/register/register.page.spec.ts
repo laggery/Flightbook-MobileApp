@@ -13,10 +13,9 @@ describe('RegisterPage', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    declarations: [RegisterPage],
     imports: [IonicModule.forRoot(),
         TranslateModule.forRoot(),
-        FormsModule],
+        FormsModule, RegisterPage],
     providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
 }).compileComponents();
 

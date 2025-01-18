@@ -10,13 +10,13 @@ import { DataPage } from './data.page';
 import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    DataPageRoutingModule,
-    TranslateModule.forChild()
-  ],
-  declarations: [DataPage]
+    imports: [
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        DataPageRoutingModule,
+        TranslateModule.forChild(),
+        DataPage
+    ]
 })
 export class DataPageModule {}

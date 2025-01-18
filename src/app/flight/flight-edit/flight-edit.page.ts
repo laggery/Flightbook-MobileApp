@@ -3,8 +3,8 @@ import { Subject } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { concatMap, takeUntil } from 'rxjs/operators';
 import * as _ from 'lodash';
-import { AlertController, LoadingController } from '@ionic/angular';
-import { TranslateService } from '@ngx-translate/core';
+import { AlertController, LoadingController, IonicModule } from '@ionic/angular';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import HttpStatusCode from '../../shared/util/HttpStatusCode';
 import { v4 as uuidv4 } from 'uuid';
 import { FileUploadService } from 'src/app/flight/shared/fileupload.service';
@@ -14,11 +14,22 @@ import { FlightService } from '../shared/flight.service';
 import { GliderService } from 'src/app/glider/shared/glider.service';
 import { IgcService } from 'src/app/shared/services/igc.service';
 import * as moment from 'moment';
+import { NgIf } from '@angular/common';
+import { FileInputComponent } from '../../shared/components/file-input/file-input.component';
+import { FlightFormComponent } from '../../form/flight-form/flight-form';
 
 @Component({
-  selector: 'app-flight-edit',
-  templateUrl: './flight-edit.page.html',
-  styleUrls: ['./flight-edit.page.scss'],
+    selector: 'app-flight-edit',
+    templateUrl: './flight-edit.page.html',
+    styleUrls: ['./flight-edit.page.scss'],
+    standalone: true,
+    imports: [
+        IonicModule,
+        NgIf,
+        FileInputComponent,
+        FlightFormComponent,
+        TranslateModule,
+    ],
 })
 export class FlightEditPage implements OnInit, OnDestroy {
   unsubscribe$ = new Subject<void>();

@@ -4,12 +4,14 @@ import { HoursFormatPipe } from 'src/app/shared/pipes/hours-format.pipe';
 import DataLabelsPlugin from 'chartjs-plugin-datalabels';
 import { ChartConfiguration, ChartData } from 'chart.js';
 import 'chartjs-adapter-moment';
-import { BaseChartDirective } from 'ng2-charts';
+import { BaseChartDirective, NgChartsModule } from 'ng2-charts';
 
 @Component({
-  selector: 'line-chart',
-  templateUrl: './line-chart.component.html',
-  styleUrls: ['./line-chart.component.scss'],
+    selector: 'line-chart',
+    templateUrl: './line-chart.component.html',
+    styleUrls: ['./line-chart.component.scss'],
+    standalone: true,
+    imports: [NgChartsModule],
 })
 export class LineChartComponent implements OnInit, OnChanges, AfterViewInit {
 

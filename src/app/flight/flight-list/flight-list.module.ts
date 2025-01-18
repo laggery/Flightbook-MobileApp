@@ -19,9 +19,9 @@ import { FlagsModule } from 'nxt-flags';
         FlightListPageRoutingModule,
         TranslateModule.forChild(),
         FormModule,
-        FlagsModule
+        FlagsModule,
+        FlightListPage
     ],
-    providers: [],
-    declarations: [FlightListPage]
+    providers: []
 })
 export class FlightListPageModule {}

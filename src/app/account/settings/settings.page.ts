@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
-import { AlertController, LoadingController, MenuController, NavController } from '@ionic/angular';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
+import { AlertController, LoadingController, MenuController, NavController, IonicModule } from '@ionic/angular';
 import HttpStatusCode from '../../shared/util/HttpStatusCode';
 import { User } from 'src/app/account/shared/user.model';
 import { AccountService } from '../shared/account.service';
@@ -13,11 +13,21 @@ import { PaymentStatus } from '../shared/paymentStatus.model';
 import { Capacitor } from '@capacitor/core';
 import { ActivatedRoute } from '@angular/router';
 import moment from 'moment';
+import { NgIf, DatePipe } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-settings',
-  templateUrl: './settings.page.html',
-  styleUrls: ['./settings.page.scss'],
+    selector: 'app-settings',
+    templateUrl: './settings.page.html',
+    styleUrls: ['./settings.page.scss'],
+    standalone: true,
+    imports: [
+        IonicModule,
+        NgIf,
+        FormsModule,
+        DatePipe,
+        TranslateModule,
+    ],
 })
 export class SettingsPage implements OnInit, OnDestroy {
   unsubscribe$ = new Subject<void>();
