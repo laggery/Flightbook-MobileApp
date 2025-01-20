@@ -15,7 +15,6 @@ import { PlaceFormComponent } from '../../form/place-form/place-form';
     selector: 'app-place-edit',
     templateUrl: './place-edit.page.html',
     styleUrls: ['./place-edit.page.scss'],
-    standalone: true,
     imports: [
         PlaceFormComponent,
         TranslateModule,
@@ -26,7 +25,7 @@ import { PlaceFormComponent } from '../../form/place-form/place-form';
         IonTitle,
         IonContent,
         IonButton
-    ],
+    ]
 })
 export class PlaceEditPage implements OnInit, OnDestroy {
     unsubscribe$ = new Subject<void>();

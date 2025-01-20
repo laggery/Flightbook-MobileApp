@@ -26,7 +26,6 @@ import { add, filterOutline } from "ionicons/icons";
     selector: 'app-flight-list',
     templateUrl: './flight-list.page.html',
     styleUrls: ['./flight-list.page.scss'],
-    standalone: true,
     imports: [
         NgIf,
         RouterLink,
@@ -50,7 +49,7 @@ import { add, filterOutline } from "ionicons/icons";
         IonList,
         IonInfiniteScroll,
         IonInfiniteScrollContent
-    ],
+    ]
 })
 export class FlightListPage implements OnInit, OnDestroy, AfterViewInit {
     @ViewChild(IonInfiniteScroll, { static: true }) infiniteScroll: IonInfiniteScroll;

@@ -13,7 +13,6 @@ import { PlaceFormComponent } from '../../form/place-form/place-form';
     selector: 'app-place-add',
     templateUrl: './place-add.page.html',
     styleUrls: ['./place-add.page.scss'],
-    standalone: true,
     imports: [
         PlaceFormComponent,
         TranslateModule,
@@ -23,7 +22,7 @@ import { PlaceFormComponent } from '../../form/place-form/place-form';
         IonMenuButton,
         IonTitle,
         IonContent
-    ],
+    ]
 })
 export class PlaceAddPage implements OnInit, OnDestroy {
     unsubscribe$ = new Subject<void>();

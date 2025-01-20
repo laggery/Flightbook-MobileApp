@@ -10,14 +10,13 @@ import { IonCard, IonIcon } from "@ionic/angular/standalone";
     selector: 'fb-dashboard-item',
     templateUrl: './dashboard-item.component.html',
     styleUrls: ['./dashboard-item.component.scss'],
-    standalone: true,
     imports: [
         NgIf,
         TranslateModule,
         AsyncPipe,
         IonCard,
         IonIcon
-    ],
+    ]
 })
 export class DashboardItemComponent implements OnInit {
 

@@ -13,7 +13,7 @@ import { Glider } from 'src/app/glider/shared/glider.model';
 import { FlightService } from '../shared/flight.service';
 import { GliderService } from 'src/app/glider/shared/glider.service';
 import { IgcService } from 'src/app/shared/services/igc.service';
-import * as moment from 'moment';
+import moment from 'moment';
 import { NgIf } from '@angular/common';
 import { FileInputComponent } from '../../shared/components/file-input/file-input.component';
 import { FlightFormComponent } from '../../form/flight-form/flight-form';
@@ -22,7 +22,6 @@ import { FlightFormComponent } from '../../form/flight-form/flight-form';
     selector: 'app-flight-edit',
     templateUrl: './flight-edit.page.html',
     styleUrls: ['./flight-edit.page.scss'],
-    standalone: true,
     imports: [
         NgIf,
         FileInputComponent,
@@ -35,7 +34,7 @@ import { FlightFormComponent } from '../../form/flight-form/flight-form';
         IonTitle,
         IonContent,
         IonButton
-    ],
+    ]
 })
 export class FlightEditPage implements OnInit, OnDestroy {
     unsubscribe$ = new Subject<void>();

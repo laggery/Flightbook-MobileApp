@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AlertController, IonItem, IonInput, IonTextarea, IonButton, IonModal, IonContent, IonDatetime } from '@ionic/angular/standalone';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
-import * as moment from 'moment';
+import moment from 'moment';
 import { NgForm, FormsModule } from '@angular/forms';
 import { Place } from 'src/app/place/shared/place.model';
 import { Flight } from 'src/app/flight/shared/flight.model';
@@ -15,7 +15,6 @@ import { IgcMapComponent } from '../../shared/components/igc-map/igc-map.compone
     selector: 'flight-form',
     templateUrl: 'flight-form.html',
     styleUrls: ['./flight-form.scss'],
-    standalone: true,
     imports: [
         NgIf,
         FormsModule,
@@ -31,7 +30,7 @@ import { IgcMapComponent } from '../../shared/components/igc-map/igc-map.compone
         IonModal,
         IonContent,
         IonDatetime
-    ],
+    ]
 })
 export class FlightFormComponent implements OnInit {
 

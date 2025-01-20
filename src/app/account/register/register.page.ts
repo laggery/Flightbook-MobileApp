@@ -13,7 +13,6 @@ import { FormsModule } from '@angular/forms';
     selector: 'app-register',
     templateUrl: './register.page.html',
     styleUrls: ['./register.page.scss'],
-    standalone: true,
     imports: [
         FormsModule,
         TranslateModule,
@@ -27,7 +26,7 @@ import { FormsModule } from '@angular/forms';
         IonInput,
         IonInputPasswordToggle,
         IonButton
-    ],
+    ]
 })
 export class RegisterPage implements OnInit, OnDestroy {
     unsubscribe$ = new Subject<void>();

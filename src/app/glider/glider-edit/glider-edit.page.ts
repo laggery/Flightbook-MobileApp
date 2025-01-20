@@ -9,14 +9,13 @@ import HttpStatusCode from '../../shared/util/HttpStatusCode';
 import { Glider } from '../shared/glider.model';
 import { GliderService } from '../shared/glider.service';
 import { FlightService } from 'src/app/flight/shared/flight.service';
-import * as moment from 'moment';
+import moment from 'moment';
 import { GliderFormComponent } from '../../form/glider-form/glider-form';
 
 @Component({
     selector: 'app-glider-edit',
     templateUrl: './glider-edit.page.html',
     styleUrls: ['./glider-edit.page.scss'],
-    standalone: true,
     imports: [
         GliderFormComponent,
         TranslateModule,
@@ -27,7 +26,7 @@ import { GliderFormComponent } from '../../form/glider-form/glider-form';
         IonTitle,
         IonContent,
         IonButton
-    ],
+    ]
 })
 export class GliderEditPage implements OnInit, OnDestroy {
     unsubscribe$ = new Subject<void>();

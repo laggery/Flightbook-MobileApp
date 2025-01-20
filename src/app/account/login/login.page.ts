@@ -20,7 +20,6 @@ import { FormsModule } from '@angular/forms';
     selector: 'app-login',
     templateUrl: './login.page.html',
     styleUrls: ['./login.page.scss'],
-    standalone: true,
     imports: [
         FormsModule,
         TranslateModule,
@@ -28,9 +27,9 @@ import { FormsModule } from '@angular/forms';
         IonItem,
         IonInput,
         IonButton,
-        IonFooter, 
+        IonFooter,
         IonInputPasswordToggle
-    ],
+    ]
 })
 export class LoginPage implements OnInit, OnDestroy {
     unsubscribe$ = new Subject<void>();

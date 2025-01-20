@@ -32,7 +32,8 @@ import { home, statsChart, cloudUpload, linkOutline, settings, ellipsisHorizonta
 @Component({
     selector: 'app-root',
     templateUrl: 'app.component.html',
-    styleUrls: ['app.component.scss']
+    styleUrls: ['app.component.scss'],
+    standalone: false
 })
 export class AppComponent implements OnDestroy, OnInit {
     unsubscribe$ = new Subject<void>();

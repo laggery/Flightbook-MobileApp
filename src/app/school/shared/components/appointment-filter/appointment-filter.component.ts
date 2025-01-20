@@ -10,7 +10,6 @@ import { DatePipe } from '@angular/common';
     selector: 'fb-appointment-filter',
     templateUrl: './appointment-filter.component.html',
     styleUrls: ['./appointment-filter.component.scss'],
-    standalone: true,
     imports: [
         FormsModule,
         DatePipe,
@@ -26,7 +25,7 @@ import { DatePipe } from '@angular/common';
         IonButton,
         IonModal,
         IonDatetime
-    ],
+    ]
 })
 export class AppointmentFilterComponent implements OnInit {
     @Input() infiniteScroll: IonInfiniteScroll;

@@ -10,7 +10,6 @@ import { FormsModule } from '@angular/forms';
     selector: 'app-password',
     templateUrl: './password.page.html',
     styleUrls: ['./password.page.scss'],
-    standalone: true,
     imports: [
         FormsModule,
         TranslateModule,
@@ -24,7 +23,7 @@ import { FormsModule } from '@angular/forms';
         IonInput,
         IonInputPasswordToggle,
         IonButton
-    ],
+    ]
 })
 export class PasswordPage implements OnInit {
     pwd: any;

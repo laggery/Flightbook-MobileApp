@@ -11,8 +11,7 @@ import { DashboardItemComponent } from '../dashboard-item/dashboard-item.compone
     selector: 'fb-dashboard-container',
     templateUrl: './dashboard-container.component.html',
     styleUrls: ['./dashboard-container.component.scss'],
-    standalone: true,
-    imports: [DashboardItemComponent],
+    imports: [DashboardItemComponent]
 })
 export class DashboardContainerComponent implements OnInit {
 

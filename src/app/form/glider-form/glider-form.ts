@@ -8,7 +8,6 @@ import { NgIf, DatePipe } from '@angular/common';
 @Component({
     selector: 'glider-form',
     templateUrl: 'glider-form.html',
-    standalone: true,
     imports: [FormsModule, NgIf, DatePipe, TranslateModule, IonItem, IonInput, IonLabel, IonToggle, IonTextarea, IonButton, IonModal, IonContent, IonDatetime]
 })
 export class GliderFormComponent implements OnInit {

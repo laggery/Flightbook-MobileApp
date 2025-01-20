@@ -10,7 +10,6 @@ import { PlaceMapComponent } from '../../shared/components/place-map/place-map.c
 @Component({
     selector: 'place-form',
     templateUrl: 'place-form.html',
-    standalone: true,
     imports: [FormsModule, NgFor, PlaceMapComponent, TranslateModule, IonItem, IonInput, IonSelect, IonSelectOption, IonTextarea, IonButton]
 })
 export class PlaceFormComponent {

@@ -12,7 +12,7 @@ import { Glider } from 'src/app/glider/shared/glider.model';
 import { FlightService } from '../shared/flight.service';
 import { GliderService } from 'src/app/glider/shared/glider.service';
 import { IgcService } from 'src/app/shared/services/igc.service';
-import * as moment from 'moment';
+import moment from 'moment';
 import { FileInputComponent } from '../../shared/components/file-input/file-input.component';
 import { FlightFormComponent } from '../../form/flight-form/flight-form';
 
@@ -20,7 +20,6 @@ import { FlightFormComponent } from '../../form/flight-form/flight-form';
     selector: 'app-flight-add',
     templateUrl: './flight-add.page.html',
     styleUrls: ['./flight-add.page.scss'],
-    standalone: true,
     imports: [
         FileInputComponent,
         FlightFormComponent,
@@ -31,7 +30,7 @@ import { FlightFormComponent } from '../../form/flight-form/flight-form';
         IonMenuButton,
         IonTitle,
         IonContent
-    ],
+    ]
 })
 export class FlightAddPage implements OnInit, OnDestroy {
     unsubscribe$ = new Subject<void>();

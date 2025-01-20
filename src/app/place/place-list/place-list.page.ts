@@ -23,7 +23,6 @@ import { add } from "ionicons/icons";
     selector: 'app-place-list',
     templateUrl: './place-list.page.html',
     styleUrls: ['./place-list.page.scss'],
-    standalone: true,
     imports: [
         RouterLink,
         NgIf,
@@ -46,7 +45,7 @@ import { add } from "ionicons/icons";
         IonList,
         IonInfiniteScroll,
         IonInfiniteScrollContent
-    ],
+    ]
 })
 export class PlaceListPage implements OnInit, OnDestroy, AfterViewInit {
     @ViewChild(IonInfiniteScroll, { static: true }) infiniteScroll: IonInfiniteScroll;

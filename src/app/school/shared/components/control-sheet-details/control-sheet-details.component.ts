@@ -11,7 +11,6 @@ import { close } from "ionicons/icons";
     templateUrl: './control-sheet-details.component.html',
     styleUrls: ['./control-sheet-details.component.scss'],
     encapsulation: ViewEncapsulation.None,
-    standalone: true,
     imports: [
         NgIf,
         TranslateModule,
@@ -22,7 +21,7 @@ import { close } from "ionicons/icons";
         IonButton,
         IonIcon,
         IonContent
-    ],
+    ]
 })
 export class ControlSheetDetailsComponent {
 

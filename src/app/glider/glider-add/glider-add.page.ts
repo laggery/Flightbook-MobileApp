@@ -7,14 +7,13 @@ import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import HttpStatusCode from '../../shared/util/HttpStatusCode';
 import { Glider } from '../shared/glider.model';
 import { GliderService } from '../shared/glider.service';
-import * as moment from 'moment';
+import moment from 'moment';
 import { GliderFormComponent } from '../../form/glider-form/glider-form';
 
 @Component({
     selector: 'app-glider-add',
     templateUrl: './glider-add.page.html',
     styleUrls: ['./glider-add.page.scss'],
-    standalone: true,
     imports: [
         GliderFormComponent,
         TranslateModule,
@@ -24,7 +23,7 @@ import { GliderFormComponent } from '../../form/glider-form/glider-form';
         IonMenuButton,
         IonTitle,
         IonContent
-    ],
+    ]
 })
 export class GliderAddPage implements OnInit, OnDestroy {
     unsubscribe$ = new Subject<void>();

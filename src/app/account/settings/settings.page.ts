@@ -20,7 +20,6 @@ import { FormsModule } from '@angular/forms';
     selector: 'app-settings',
     templateUrl: './settings.page.html',
     styleUrls: ['./settings.page.scss'],
-    standalone: true,
     imports: [
         NgIf,
         FormsModule,
@@ -37,7 +36,7 @@ import { FormsModule } from '@angular/forms';
         IonButton,
         IonCard,
         IonCardContent
-    ],
+    ]
 })
 export class SettingsPage implements OnInit, OnDestroy {
     unsubscribe$ = new Subject<void>();

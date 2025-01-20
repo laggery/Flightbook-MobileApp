@@ -10,7 +10,7 @@ import { Circle as CircleStyle, Fill, Stroke, Style } from 'ol/style';
 import { LineString, Point } from 'ol/geom';
 import { Tile as TileLayer, Vector as VectorLayer } from 'ol/layer';
 import { getVectorContext } from 'ol/render';
-import * as IGCParser from 'igc-parser';
+import IGCParser from 'igc-parser';
 import { ConfigurationService } from '../../services/configuration.service';
 import { firstValueFrom } from 'rxjs';
 import { NgIf } from '@angular/common';
@@ -21,13 +21,12 @@ import { IonRange, IonCard } from "@ionic/angular/standalone";
     selector: 'fb-igc-map',
     templateUrl: './igc-map.component.html',
     styleUrls: ['./igc-map.component.scss'],
-    standalone: true,
     imports: [
         NgIf,
         TranslateModule,
         IonRange,
         IonCard
-    ],
+    ]
 })
 export class IgcMapComponent implements AfterViewInit {
 

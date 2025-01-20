@@ -8,8 +8,7 @@ import { BaseChartDirective, NgChartsModule } from 'ng2-charts';
     selector: 'bar-chart',
     templateUrl: './bar-chart.component.html',
     styleUrls: ['./bar-chart.component.scss'],
-    standalone: true,
-    imports: [NgChartsModule],
+    imports: [NgChartsModule]
 })
 export class BarChartComponent implements OnInit, OnChanges, AfterViewInit {
 

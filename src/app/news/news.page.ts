@@ -28,7 +28,6 @@ import { downloadOutline } from "ionicons/icons";
     selector: 'app-news',
     templateUrl: './news.page.html',
     styleUrls: ['./news.page.scss'],
-    standalone: true,
     imports: [
         DashboardContainerComponent,
         NgFor,
@@ -44,7 +43,7 @@ import { downloadOutline } from "ionicons/icons";
         IonIcon,
         IonContent,
         IonCard
-    ],
+    ]
 })
 export class NewsPage implements OnInit, OnDestroy {
     unsubscribe$ = new Subject<void>();

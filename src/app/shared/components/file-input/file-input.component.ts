@@ -12,7 +12,6 @@ import { document } from "ionicons/icons";
     selector: 'fb-file-input',
     templateUrl: 'file-input.component.html',
     styleUrls: ['file-input.component.scss'],
-    standalone: true,
     imports: [NgIf, IonButton, IonIcon]
 })
 export class FileInputComponent implements OnInit {

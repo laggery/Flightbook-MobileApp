@@ -11,14 +11,17 @@
             "schematics": {},
             "architect": {
                 "build": {
-                    "builder": "@angular-devkit/build-angular:browser",
+                    "builder": "@angular-devkit/build-angular:application",
                     "options": {
                         "preserveSymlinks": true,
                         "aot": true,
-                        "outputPath": "www",
+                        "outputPath": {
+                          "base": "www"
+                        },
                         "index": "src/index.html",
-                        "main": "src/main.ts",
-                        "polyfills": "src/polyfills.ts",
+                        "polyfills": [
+                          "src/polyfills.ts"
+                        ],
                         "tsConfig": "tsconfig.app.json",
                         "assets": [
                             {
@@ -45,7 +48,8 @@
                             }
                         ],
                         "scripts": [],
-                        "webWorkerTsConfig": "tsconfig.worker.json"
+                        "webWorkerTsConfig": "tsconfig.worker.json",
+                        "browser": "src/main.ts"
                     },
                     "configurations": {
                         "development": {
@@ -64,8 +68,6 @@
                             "namedChunks": false,
                             "aot": true,
                             "extractLicenses": true,
-                            "vendorChunk": false,
-                            "buildOptimizer": true,
                             "budgets": [
                                 {
                                     "type": "initial",
@@ -77,8 +79,7 @@
                                     "maximumWarning": "6kb"
                                 }
                             ],
-                            "serviceWorker": true,
-                            "ngswConfigPath": "ngsw-config.json"
+                            "serviceWorker": "ngsw-config.json"
                         },
                         "docker": {
                             "fileReplacements": [
@@ -93,8 +94,6 @@
                             "namedChunks": false,
                             "aot": true,
                             "extractLicenses": true,
-                            "vendorChunk": false,
-                            "buildOptimizer": true,
                             "budgets": [
                                 {
                                     "type": "initial",
@@ -106,8 +105,7 @@
                                     "maximumWarning": "6kb"
                                 }
                             ],
-                            "serviceWorker": true,
-                            "ngswConfigPath": "ngsw-config.json"
+                            "serviceWorker": "ngsw-config.json"
                         },
                         "ci": {
                             "budgets": [

@@ -19,7 +19,6 @@ import { filterOutline } from "ionicons/icons";
     selector: 'app-appointment-list',
     templateUrl: './appointment-list.page.html',
     styleUrls: ['./appointment-list.page.scss'],
-    standalone: true,
     imports: [
         NgIf,
         NgFor,
@@ -40,7 +39,7 @@ import { filterOutline } from "ionicons/icons";
         IonLabel,
         IonInfiniteScroll,
         IonInfiniteScrollContent
-    ],
+    ]
 })
 export class AppointmentListPage implements OnInit, OnDestroy {
     @ViewChild(IonInfiniteScroll, { static: true }) infiniteScroll: IonInfiniteScroll;

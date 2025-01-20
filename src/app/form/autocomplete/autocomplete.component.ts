@@ -13,14 +13,13 @@ import { IonIcon, IonList, IonItem } from "@ionic/angular/standalone";
     host: {
         '(document:click)': 'onClick($event)',
     },
-    standalone: true,
     imports: [
         NgIf,
         NgFor,
         IonIcon,
         IonList,
         IonItem
-    ],
+    ]
 })
 export class AutocompleteComponent implements OnInit, OnChanges {
     @Input()

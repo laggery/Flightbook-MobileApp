@@ -16,7 +16,6 @@ import { close, peopleOutline } from "ionicons/icons";
     selector: 'fb-appointment-details',
     templateUrl: './appointment-details.component.html',
     styleUrls: ['./appointment-details.component.scss'],
-    standalone: true,
     imports: [
         FormsModule,
         NgIf,
@@ -33,7 +32,7 @@ import { close, peopleOutline } from "ionicons/icons";
         IonItem,
         IonLabel,
         IonToggle
-    ],
+    ]
 })
 export class AppointmentDetailsComponent implements OnInit {
 

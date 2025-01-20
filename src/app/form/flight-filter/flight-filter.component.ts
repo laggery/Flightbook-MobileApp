@@ -16,7 +16,6 @@ import { NgFor, DatePipe } from '@angular/common';
     selector: 'app-flight-filter',
     templateUrl: './flight-filter.component.html',
     styleUrls: ['./flight-filter.component.scss'],
-    standalone: true,
     imports: [
         FormsModule,
         NgFor,
@@ -33,7 +32,7 @@ import { NgFor, DatePipe } from '@angular/common';
         IonButton,
         IonModal,
         IonDatetime
-    ],
+    ]
 })
 export class FlightFilterComponent implements OnInit, OnDestroy {
     @Input() infiniteScroll: IonInfiniteScroll;

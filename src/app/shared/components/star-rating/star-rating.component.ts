@@ -8,7 +8,6 @@ import { star } from "ionicons/icons";
     selector: 'fb-star-rating',
     templateUrl: './star-rating.component.html',
     styleUrls: ['./star-rating.component.scss'],
-    standalone: true,
     imports: [NgFor, NgClass, IonIcon]
 })
 export class StarRatingComponent {

@@ -20,7 +20,6 @@ import { trashOutline, cloudDoneOutline, alert } from "ionicons/icons";
     selector: 'app-multiple-igc',
     templateUrl: './multiple-igc.page.html',
     styleUrls: ['./multiple-igc.page.scss'],
-    standalone: true,
     imports: [
         FileInputComponent,
         NgIf,
@@ -39,7 +38,7 @@ import { trashOutline, cloudDoneOutline, alert } from "ionicons/icons";
         IonSpinner,
         IonButton,
         IonIcon
-    ],
+    ]
 })
 export class MultipleIgcPage implements OnInit {
 

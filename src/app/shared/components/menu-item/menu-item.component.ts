@@ -9,7 +9,6 @@ import { IonIcon, IonLabel } from "@ionic/angular/standalone";
     selector: 'fb-menu-item',
     templateUrl: './menu-item.component.html',
     styleUrls: ['./menu-item.component.scss'],
-    standalone: true,
     imports: [TranslateModule, IonIcon, IonLabel]
 })
 export class MenuItemComponent {

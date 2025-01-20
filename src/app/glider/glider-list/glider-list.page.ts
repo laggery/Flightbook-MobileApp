@@ -20,7 +20,6 @@ import { add, filterOutline } from "ionicons/icons";
     selector: 'app-glider-list',
     templateUrl: './glider-list.page.html',
     styleUrls: ['./glider-list.page.scss'],
-    standalone: true,
     imports: [
         NgIf,
         RouterLink,
@@ -43,7 +42,7 @@ import { add, filterOutline } from "ionicons/icons";
         IonList,
         IonInfiniteScroll,
         IonInfiniteScrollContent
-    ],
+    ]
 })
 export class GliderListPage implements OnInit, OnDestroy, AfterViewInit {
     @ViewChild(IonInfiniteScroll, { static: true }) infiniteScroll: IonInfiniteScroll;

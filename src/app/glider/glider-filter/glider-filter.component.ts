@@ -12,7 +12,6 @@ import { FormsModule } from '@angular/forms';
     selector: 'app-glider-filter',
     templateUrl: './glider-filter.component.html',
     styleUrls: ['./glider-filter.component.scss'],
-    standalone: true,
     imports: [
         FormsModule,
         TranslateModule,
@@ -25,7 +24,7 @@ import { FormsModule } from '@angular/forms';
         IonSelect,
         IonSelectOption,
         IonButton
-    ],
+    ]
 })
 export class GliderFilterComponent implements OnInit, OnDestroy {
     @Input() infiniteScroll: IonInfiniteScroll;

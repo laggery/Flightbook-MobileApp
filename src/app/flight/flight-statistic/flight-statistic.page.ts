@@ -22,7 +22,6 @@ Chart.register(zoomPlugin);
     selector: 'app-flight-statistic',
     templateUrl: './flight-statistic.page.html',
     styleUrls: ['./flight-statistic.page.scss'],
-    standalone: true,
     imports: [
         NgIf,
         BarChartComponent,
@@ -42,7 +41,7 @@ Chart.register(zoomPlugin);
         IonCardContent,
         IonSelect,
         IonSelectOption
-    ],
+    ]
 })
 export class FlightStatisticPage implements OnInit, OnDestroy {
     unsubscribe$ = new Subject<void>();

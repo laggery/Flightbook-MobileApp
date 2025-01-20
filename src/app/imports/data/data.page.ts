@@ -18,7 +18,6 @@ import { document } from "ionicons/icons";
     selector: 'app-data',
     templateUrl: './data.page.html',
     styleUrls: ['./data.page.scss'],
-    standalone: true,
     imports: [
         NgFor,
         NgIf,
@@ -35,7 +34,7 @@ import { document } from "ionicons/icons";
         IonIcon,
         IonCard,
         IonCardContent
-    ],
+    ]
 })
 export class DataPage implements OnInit, OnDestroy {
     unsubscribe$ = new Subject<void>();

@@ -10,8 +10,7 @@ import { BaseChartDirective, NgChartsModule } from 'ng2-charts';
     selector: 'line-chart',
     templateUrl: './line-chart.component.html',
     styleUrls: ['./line-chart.component.scss'],
-    standalone: true,
-    imports: [NgChartsModule],
+    imports: [NgChartsModule]
 })
 export class LineChartComponent implements OnInit, OnChanges, AfterViewInit {
 

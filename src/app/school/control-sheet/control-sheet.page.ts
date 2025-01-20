@@ -20,7 +20,6 @@ type StarRating = {
     selector: 'app-control-sheet',
     templateUrl: './control-sheet.page.html',
     styleUrls: ['./control-sheet.page.scss'],
-    standalone: true,
     imports: [
         NgFor,
         NgIf,
@@ -39,7 +38,7 @@ type StarRating = {
         IonList,
         IonButton,
         IonModal
-    ],
+    ]
 })
 export class ControlSheetPage implements OnInit, OnDestroy {
     unsubscribe$ = new Subject<void>();

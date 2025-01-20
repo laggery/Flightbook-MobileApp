@@ -9,13 +9,12 @@ import { IonSelect, IonSelectOption } from "@ionic/angular/standalone";
     selector: 'fb-glider-select',
     templateUrl: './glider-select.component.html',
     styleUrls: ['./glider-select.component.scss'],
-    standalone: true,
     imports: [
         NgFor,
         TranslateModule,
         IonSelect,
         IonSelectOption
-    ],
+    ]
 })
 export class GliderSelectComponent implements OnInit {
 
