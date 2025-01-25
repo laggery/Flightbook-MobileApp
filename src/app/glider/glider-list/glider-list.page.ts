@@ -1,5 +1,5 @@
-import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit } from '@angular/core';
-import { NavController, ModalController, LoadingController, AlertController, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonButton, IonIcon, IonContent, IonItem, IonGrid, IonRow, IonCol, IonList, IonInfiniteScroll, IonInfiniteScrollContent } from '@ionic/angular/standalone';
+import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit, Signal } from '@angular/core';
+import { NavController, ModalController, LoadingController, AlertController, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonButton, IonIcon, IonContent, IonItem, IonGrid, IonRow, IonCol, IonList, IonInfiniteScroll, IonInfiniteScrollContent, IonLabel } from '@ionic/angular/standalone';
 import { Subject, Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { GliderFilterComponent } from '../glider-filter/glider-filter.component';
@@ -10,7 +10,7 @@ import { FileOpener } from '@capacitor-community/file-opener';
 import { XlsxExportService } from 'src/app/shared/services/xlsx-export.service';
 import { Glider } from '../shared/glider.model';
 import { GliderService } from '../shared/glider.service';
-import { NgIf, NgFor, AsyncPipe } from '@angular/common';
+import { NgIf, AsyncPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { HoursFormatPipe } from '../../shared/pipes/hours-format.pipe';
 import { addIcons } from "ionicons";
@@ -23,7 +23,6 @@ import { add, filterOutline } from "ionicons/icons";
     imports: [
         NgIf,
         RouterLink,
-        NgFor,
         AsyncPipe,
         TranslateModule,
         HoursFormatPipe,
@@ -39,6 +38,7 @@ import { add, filterOutline } from "ionicons/icons";
         IonGrid,
         IonRow,
         IonCol,
+        IonLabel,
         IonList,
         IonInfiniteScroll,
         IonInfiniteScrollContent
@@ -49,7 +49,9 @@ export class GliderListPage implements OnInit, OnDestroy, AfterViewInit {
     @ViewChild(IonContent) content: IonContent;
     unsubscribe$ = new Subject<void>();
     gliders$: Observable<Glider[]>;
-    filtered: boolean;
+    get filtered(): Signal<boolean> {
+        return this.gliderService.filtered$;
+    }
 
     constructor(
         public navCtrl: NavController,
@@ -61,10 +63,6 @@ export class GliderListPage implements OnInit, OnDestroy, AfterViewInit {
         private xlsxExportService: XlsxExportService
     ) {
         this.gliders$ = this.gliderService.getState();
-        this.filtered = this.gliderService.filtered$.getValue();
-        this.gliderService.filtered$.pipe(takeUntil(this.unsubscribe$)).subscribe((value: boolean) => {
-            this.filtered = value;
-        });
 
         this.initialDataLoad();
         addIcons({ add, filterOutline });

@@ -11,7 +11,7 @@ import { Subscription } from '../shared/subscription.model';
 import { AppointmentDetailsComponent } from '../shared/components/appointment-details/appointment-details.component';
 import { AppointmentFilterComponent } from '../shared/components/appointment-filter/appointment-filter.component';
 import { State } from '../shared/state';
-import { NgIf, NgFor, NgClass, DatePipe } from '@angular/common';
+import { NgIf, NgClass, DatePipe } from '@angular/common';
 import { addIcons } from "ionicons";
 import { filterOutline } from "ionicons/icons";
 
@@ -21,7 +21,6 @@ import { filterOutline } from "ionicons/icons";
     styleUrls: ['./appointment-list.page.scss'],
     imports: [
         NgIf,
-        NgFor,
         NgClass,
         DatePipe,
         TranslateModule,

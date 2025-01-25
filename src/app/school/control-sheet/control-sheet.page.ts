@@ -6,7 +6,7 @@ import { LoadingController, ModalController, IonHeader, IonToolbar, IonButtons, 
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { ControlSheetDetailsComponent } from '../shared/components/control-sheet-details/control-sheet-details.component';
 import { NxgTransalteSortPipe } from 'src/app/shared/pipes/nxg-transalte-sort.pipe';
-import { NgFor, NgIf } from '@angular/common';
+import { NgIf } from '@angular/common';
 import { StarRatingComponent } from '../../shared/components/star-rating/star-rating.component';
 
 type StarRating = {
@@ -21,7 +21,6 @@ type StarRating = {
     templateUrl: './control-sheet.page.html',
     styleUrls: ['./control-sheet.page.scss'],
     imports: [
-        NgFor,
         NgIf,
         StarRatingComponent,
         TranslateModule,

@@ -3,8 +3,11 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>{{ 'groupname.flight' | translate }} <span
-        *ngIf="filtered">({{ 'groupname.filtered' | translate }})</span></ion-title>
+    <ion-title>{{ 'groupname.flight' | translate }}
+      @if (filtered()) {
+        <span>({{ 'groupname.filtered' | translate }})</span>
+      } 
+    </ion-title>
     <ion-buttons slot="primary">
       <ion-button class="submit-button" [replaceUrl]="true" [routerLink]="['/flights/add']">
         <ion-icon name="add"></ion-icon>
@@ -17,39 +20,46 @@
 </ion-header>
 
 <ion-content class="no-padding">
-  <ion-item class="export-buttons" *ngIf="(flights$ | async)?.length > 0">
-    <ion-grid>
-      <ion-row>
-        <ion-col>
-          <ion-button (click)="xlsxExport()">Xlsx Export</ion-button>
-        </ion-col>
-        <ion-col offset-4>
-          <ion-button (click)="pdfExport()">Pdf Export</ion-button>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </ion-item>
-  <ion-list *ngIf="(flights$ | async)?.length > 0">
-    <ion-item button detail *ngFor="let flight of flights$ | async" (click)="itemTapped($event, flight)">
-      <p class="flightRow">
-        <span class="flightNumber">{{ flight.number }}</span>
-        <span class="flightDate">{{ flight.date | date:'dd.MM.yyyy'}}</span>
-        <span class="flightStart"><nxt-flag country="{{ flight.start?.country}}" size="s"></nxt-flag> {{flight.start?.name}}</span>
-        <span class="flightLanding"><nxt-flag country="{{ flight.landing?.country}}" size="s"></nxt-flag> {{flight.landing?.name}}</span>
-        <span class="flightGlider">{{flight.glider.brand}} {{flight.glider.name}}</span>
-        <span class="flightTime">{{flight.time}}</span>
-        <span class="flightKm">{{flight.km}}</span>
-        <span class="flightDesc">{{flight.description}}</span>
-      </p>
-      <ion-icon item-end></ion-icon>
+  @if ((flights$ | async)?.length > 0) {
+    <ion-item class="export-buttons">
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-button (click)="xlsxExport()">Xlsx Export</ion-button>
+          </ion-col>
+          <ion-col offset-4>
+            <ion-button (click)="pdfExport()">Pdf Export</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </ion-item>
+  }
+  
+  <ion-list>
+    @for (flight of flights$ | async; track flight.id) {
+      <ion-item button detail (click)="itemTapped($event, flight)">
+        <p class="flightRow">
+          <span class="flightNumber">{{ flight.number }}</span>
+          <span class="flightDate">{{ flight.date | date:'dd.MM.yyyy'}}</span>
+          <span class="flightStart"><nxt-flag country="{{ flight.start?.country}}" size="s"></nxt-flag> {{flight.start?.name}}</span>
+          <span class="flightLanding"><nxt-flag country="{{ flight.landing?.country}}" size="s"></nxt-flag> {{flight.landing?.name}}</span>
+          <span class="flightGlider">{{flight.glider.brand}} {{flight.glider.name}}</span>
+          <span class="flightTime">{{flight.time}}</span>
+          <span class="flightKm">{{flight.km}}</span>
+          <span class="flightDesc">{{flight.description}}</span>
+        </p>
+        <ion-icon item-end></ion-icon>
+      </ion-item>
+    }
+    @empty {
+      <ion-item lines="none">
+        <ion-label class="ion-text-center">{{ 'emptylist' | translate }}</ion-label>
+      </ion-item>
+    }
   </ion-list>
 
   <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
     <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="{{ 'loading.loading' | translate }}">
     </ion-infinite-scroll-content>
-  </ion-infinite-scroll>
-
-  <p class="emptylist" *ngIf="(flights$ | async)?.length == 0">{{ 'emptylist' | translate }}</p>
-
+  </ion-infinite-scroll>  
 </ion-content>

@@ -4,7 +4,7 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>{{ 'groupname.glider' | translate }} <span
-        *ngIf="filtered">({{ 'groupname.filtered' | translate }})</span></ion-title>
+        *ngIf="filtered()">({{ 'groupname.filtered' | translate }})</span></ion-title>
     <ion-buttons slot="primary">
       <ion-button class="submit-button" [replaceUrl]="true" [routerLink]="['/gliders/add']">
         <ion-icon name="add"></ion-icon>
@@ -26,24 +26,28 @@
       </ion-row>
     </ion-grid>
   </ion-item>
-  <ion-list *ngIf="(gliders$ | async)?.length > 0">
-    <ion-item button detail *ngFor="let glider of gliders$ | async" (click)="itemTapped($event, glider)">
-      <p class="gliderRow">
-        <span class="gliderName">{{ glider.brand}} {{glider.name}}</span>
-        <span class="gliderTandem" *ngIf="glider.tandem; else noTandem">{{ 'buttons.yes' | translate }}</span>
-        <ng-template #noTandem><span class="gliderTandem">{{ 'buttons.no' | translate }}</span></ng-template>
-        <span class="gliderNbFlights">{{ glider.nbFlights }}</span>
-        <span class="gliderTime">{{ glider.time || "0" | hoursFormat }}</span>
-      </p>
-      <ion-icon item-end></ion-icon>
-    </ion-item>
+  <ion-list>
+    @for (glider of gliders$ | async; track glider.id) {
+      <ion-item button detail (click)="itemTapped($event, glider)">
+        <p class="gliderRow">
+          <span class="gliderName">{{ glider.brand}} {{glider.name}}</span>
+          <span class="gliderTandem" *ngIf="glider.tandem; else noTandem">{{ 'buttons.yes' | translate }}</span>
+          <ng-template #noTandem><span class="gliderTandem">{{ 'buttons.no' | translate }}</span></ng-template>
+          <span class="gliderNbFlights">{{ glider.nbFlights }}</span>
+          <span class="gliderTime">{{ glider.time || "0" | hoursFormat }}</span>
+        </p>
+        <ion-icon item-end></ion-icon>
+      </ion-item>
+    }
+    @empty {
+      <ion-item lines="none">
+        <ion-label class="ion-text-center">{{ 'emptylist' | translate }}</ion-label>
+      </ion-item>
+    }
   </ion-list>
 
   <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
     <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="{{ 'loading.loading' | translate }}">
     </ion-infinite-scroll-content>
   </ion-infinite-scroll>
-
-  <p class="emptylist" *ngIf="(gliders$ | async)?.length == 0">{{ 'emptylist' | translate }}</p>
-
 </ion-content>

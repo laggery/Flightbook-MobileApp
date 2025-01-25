@@ -1,12 +1,11 @@
-import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit } from '@angular/core';
-import { NavController, ModalController, LoadingController, AlertController, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonButton, IonIcon, IonContent, IonItem, IonGrid, IonRow, IonCol, IonList, IonInfiniteScroll, IonInfiniteScrollContent } from '@ionic/angular/standalone';
+import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit, Signal } from '@angular/core';
+import { NavController, ModalController, LoadingController, AlertController, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonButton, IonIcon, IonContent, IonItem, IonGrid, IonRow, IonCol, IonList, IonInfiniteScroll, IonInfiniteScrollContent, IonLabel } from '@ionic/angular/standalone';
 import { Subject, Observable, firstValueFrom } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { FlightFilterComponent } from 'src/app/form/flight-filter/flight-filter.component';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { TCreatedPdf } from 'pdfmake/build/pdfmake';
 import { FileOpener } from '@capacitor-community/file-opener';
-
 import { Capacitor } from '@capacitor/core';
 import { Filesystem, Directory } from '@capacitor/filesystem';
 import { XlsxExportService } from '../../shared/services/xlsx-export.service';
@@ -16,7 +15,7 @@ import { FlightService } from '../shared/flight.service';
 import { AccountService } from 'src/app/account/shared/account.service';
 import { FlightStatistic } from '../shared/flightStatistic.model';
 import { SchoolService } from 'src/app/school/shared/school.service';
-import { NgIf, NgFor, AsyncPipe, DatePipe } from '@angular/common';
+import { AsyncPipe, DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { FlagsModule } from 'nxt-flags';
 import { addIcons } from "ionicons";
@@ -27,9 +26,7 @@ import { add, filterOutline } from "ionicons/icons";
     templateUrl: './flight-list.page.html',
     styleUrls: ['./flight-list.page.scss'],
     imports: [
-        NgIf,
         RouterLink,
-        NgFor,
         FlagsModule,
         AsyncPipe,
         DatePipe,
@@ -46,6 +43,7 @@ import { add, filterOutline } from "ionicons/icons";
         IonGrid,
         IonRow,
         IonCol,
+        IonLabel,
         IonList,
         IonInfiniteScroll,
         IonInfiniteScrollContent
@@ -56,7 +54,10 @@ export class FlightListPage implements OnInit, OnDestroy, AfterViewInit {
     @ViewChild(IonContent) content: IonContent;
     unsubscribe$ = new Subject<void>();
     flights$: Observable<Flight[]>;
-    filtered: boolean;
+    
+    get filtered(): Signal<boolean> {
+        return this.flightService.filtered$;
+    }
 
     constructor(
         public navCtrl: NavController,
@@ -71,10 +72,6 @@ export class FlightListPage implements OnInit, OnDestroy, AfterViewInit {
         private pdfExportService: PdfExportService
     ) {
         this.flights$ = this.flightService.getState();
-        this.filtered = this.flightService.filtered$.getValue();
-        this.flightService.filtered$.pipe(takeUntil(this.unsubscribe$)).subscribe((value: boolean) => {
-            this.filtered = value;
-        });
 
         if (this.flightService.getValue().length === 0) {
             this.initialDataLoad();

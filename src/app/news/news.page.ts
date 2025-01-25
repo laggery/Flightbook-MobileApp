@@ -20,7 +20,7 @@ import { FlightService } from '../flight/shared/flight.service';
 import { PaymentService } from '../shared/services/payment.service';
 import { PaymentStatus } from '../account/shared/paymentStatus.model';
 import { DashboardContainerComponent } from '../dashboard/dashboard-container/dashboard-container.component';
-import { NgFor, AsyncPipe, DatePipe } from '@angular/common';
+import { AsyncPipe, DatePipe } from '@angular/common';
 import { addIcons } from "ionicons";
 import { downloadOutline } from "ionicons/icons";
 
@@ -30,7 +30,6 @@ import { downloadOutline } from "ionicons/icons";
     styleUrls: ['./news.page.scss'],
     imports: [
         DashboardContainerComponent,
-        NgFor,
         AsyncPipe,
         DatePipe,
         TranslateModule,

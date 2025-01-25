@@ -1,5 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { takeUntil } from 'rxjs/operators';
+import { Component, OnInit, OnDestroy, Signal } from '@angular/core';
 import { Subject, firstValueFrom } from 'rxjs';
 import { ModalController, LoadingController, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonButton, IonIcon, IonContent, IonCard, IonCardContent, IonSelect, IonSelectOption } from '@ionic/angular/standalone';
 import { FlightFilterComponent } from '../../form/flight-filter/flight-filter.component';
@@ -9,7 +8,7 @@ import { FlightService } from '../shared/flight.service';
 import { Chart, ChartData } from 'chart.js';
 
 import zoomPlugin from "chartjs-plugin-zoom";
-import { NgIf, DecimalPipe } from '@angular/common';
+import { DecimalPipe } from '@angular/common';
 import { BarChartComponent } from '../../charts/bar-chart/bar-chart.component';
 import { LineChartComponent } from '../../charts/line-chart/line-chart.component';
 import { HoursFormatPipe } from '../../shared/pipes/hours-format.pipe';
@@ -23,7 +22,6 @@ Chart.register(zoomPlugin);
     templateUrl: './flight-statistic.page.html',
     styleUrls: ['./flight-statistic.page.scss'],
     imports: [
-        NgIf,
         BarChartComponent,
         LineChartComponent,
         DecimalPipe,
@@ -47,7 +45,6 @@ export class FlightStatisticPage implements OnInit, OnDestroy {
     unsubscribe$ = new Subject<void>();
     statistics: FlightStatistic;
     statisticsList: FlightStatistic[];
-    filtered: boolean;
     graphType: string;
 
     nbFlightBarChartData: ChartData<'bar'> = {
@@ -71,6 +68,10 @@ export class FlightStatisticPage implements OnInit, OnDestroy {
         ]
     };
 
+    get filtered(): Signal<boolean> {
+        return this.flightService.filtered$;
+    }
+
     constructor(
         private flightService: FlightService,
         private modalCtrl: ModalController,
@@ -78,10 +79,6 @@ export class FlightStatisticPage implements OnInit, OnDestroy {
         private loadingCtrl: LoadingController
     ) {
         this.graphType = 'yearly';
-        this.filtered = this.flightService.filtered$.getValue();
-        this.flightService.filtered$.pipe(takeUntil(this.unsubscribe$)).subscribe((value: boolean) => {
-            this.filtered = value;
-        });
 
         this.statistics = new FlightStatistic();
         this.statisticsList = [];

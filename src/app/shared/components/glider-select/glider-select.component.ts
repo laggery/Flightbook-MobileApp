@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Flight } from 'src/app/flight/shared/flight.model';
 import { Glider } from 'src/app/glider/shared/glider.model';
-import { NgFor } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { IonSelect, IonSelectOption } from "@ionic/angular/standalone";
 
@@ -10,7 +9,6 @@ import { IonSelect, IonSelectOption } from "@ionic/angular/standalone";
     templateUrl: './glider-select.component.html',
     styleUrls: ['./glider-select.component.scss'],
     imports: [
-        NgFor,
         TranslateModule,
         IonSelect,
         IonSelectOption

@@ -4,13 +4,12 @@ import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { Place } from 'src/app/place/shared/place.model';
 import { Countries, Country } from 'src/app/place/shared/place.countries';
 import { FormsModule } from '@angular/forms';
-import { NgFor } from '@angular/common';
 import { PlaceMapComponent } from '../../shared/components/place-map/place-map.component';
 
 @Component({
     selector: 'place-form',
     templateUrl: 'place-form.html',
-    imports: [FormsModule, NgFor, PlaceMapComponent, TranslateModule, IonItem, IonInput, IonSelect, IonSelectOption, IonTextarea, IonButton]
+    imports: [FormsModule, PlaceMapComponent, TranslateModule, IonItem, IonInput, IonSelect, IonSelectOption, IonTextarea, IonButton]
 })
 export class PlaceFormComponent {
 

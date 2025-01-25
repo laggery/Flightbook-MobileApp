@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, ElementRef, OnChanges } from '@angular/core';
 import { Place } from 'src/app/place/shared/place.model';
 import { PlaceService } from 'src/app/place/shared/place.service';
-import { NgIf, NgFor } from '@angular/common';
 import { addIcons } from "ionicons";
 import { close } from "ionicons/icons";
 import { IonIcon, IonList, IonItem } from "@ionic/angular/standalone";
@@ -14,8 +13,6 @@ import { IonIcon, IonList, IonItem } from "@ionic/angular/standalone";
         '(document:click)': 'onClick($event)',
     },
     imports: [
-        NgIf,
-        NgFor,
         IonIcon,
         IonList,
         IonItem

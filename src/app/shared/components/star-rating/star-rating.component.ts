@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { NgFor, NgClass } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { IonIcon } from "@ionic/angular/standalone";
 import { addIcons } from "ionicons";
 import { star } from "ionicons/icons";
@@ -8,7 +8,7 @@ import { star } from "ionicons/icons";
     selector: 'fb-star-rating',
     templateUrl: './star-rating.component.html',
     styleUrls: ['./star-rating.component.scss'],
-    imports: [NgFor, NgClass, IonIcon]
+    imports: [NgClass, IonIcon]
 })
 export class StarRatingComponent {
     @Input()

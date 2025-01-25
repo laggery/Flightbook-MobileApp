@@ -14,13 +14,13 @@
         <ion-label>{{ 'controlSheet.theory.title' | translate }}</ion-label>
       </ion-item>
       <ion-list slot="content">
-        <ng-container *ngFor="let item of orderedTheory">
+        @for (item of orderedTheory; track item) {
           <ion-item *ngIf="item.key != 'id'">
             <ion-button *ngIf="controlSheet.userCanEdit" class="star-button" fill="clear" (click)="openRateAlert($event, item.value, 'controlSheet.theory.' + item.key, 'theory', item.key)"><fb-star-rating [edit]="false" [selectedRating]="item.value"></fb-star-rating></ion-button>
             <fb-star-rating *ngIf="!controlSheet.userCanEdit" [edit]="false" [selectedRating]="item.value"></fb-star-rating>
             <span class="definition">{{ ('controlSheet.theory.' + item.key) | translate }}</span>
           </ion-item>
-        </ng-container>
+        }
       </ion-list>
     </ion-accordion>
     <ion-accordion value="trainingHill">
@@ -28,13 +28,13 @@
         <ion-label>{{ 'controlSheet.trainingHill.title' | translate }}</ion-label>
       </ion-item>
       <ion-list slot="content">
-        <ng-container *ngFor="let item of orderedTrainingHill">
+        @for (item of orderedTrainingHill; track item) {
           <ion-item button *ngIf="item.key != 'id'" (click)="openDetail('trainingHill',item.key)">
             <ion-button *ngIf="controlSheet.userCanEdit" class="star-button" fill="clear" (click)="openRateAlert($event, item.value, 'controlSheet.trainingHill.' + item.key + '.title', 'trainingHill', item.key)"><fb-star-rating [edit]="false" [selectedRating]="item.value"></fb-star-rating></ion-button>
             <fb-star-rating *ngIf="!controlSheet.userCanEdit" [edit]="false" [selectedRating]="item.value"></fb-star-rating>
             <span class="definition">{{ ('controlSheet.trainingHill.' + item.key + '.title') | translate }}</span>
           </ion-item>
-        </ng-container>
+        }
       </ion-list>
     </ion-accordion>
     <ion-accordion value="altitudeFlight">
@@ -42,13 +42,13 @@
         <ion-label>{{ 'controlSheet.altitudeFlight.title' | translate }}</ion-label>
       </ion-item>
       <ion-list slot="content">
-        <ng-container *ngFor="let item of orderedAltitudeFlight">
+        @for (item of orderedAltitudeFlight; track item) {
           <ion-item button *ngIf="item.key != 'id'" (click)="openDetail('altitudeFlight',item.key)">
             <ion-button *ngIf="controlSheet.userCanEdit" class="star-button" fill="clear" (click)="openRateAlert($event, item.value, 'controlSheet.altitudeFlight.' + item.key + '.title', 'altitudeFlight', item.key)"><fb-star-rating [edit]="false" [selectedRating]="item.value" ></fb-star-rating></ion-button>
             <fb-star-rating *ngIf="!controlSheet.userCanEdit" [edit]="false" [selectedRating]="item.value"></fb-star-rating>
             <span class="definition">{{ ('controlSheet.altitudeFlight.' + item.key + '.title') | translate }}</span>
           </ion-item>
-        </ng-container>
+        }
       </ion-list>
     </ion-accordion>
   </ion-accordion-group>

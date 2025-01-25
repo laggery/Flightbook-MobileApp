@@ -7,7 +7,9 @@
   </ion-item>
   <ion-item>
     <ion-select label="{{ 'place.country' | translate }}" labelPlacement="stacked" [(ngModel)]="place.country" name="country" okText="{{ 'buttons.done' | translate }}" cancelText="{{ 'buttons.clear' | translate }}" (ionCancel)="clearCountry()">
-      <ion-select-option *ngFor="let country of countries" value="{{ country.code }}">{{ country.name[this.lang] }}</ion-select-option>
+      @for (country of countries; track country.code) {
+        <ion-select-option value="{{ country.code }}">{{ country.name[this.lang] }}</ion-select-option>
+      }     
     </ion-select>
   </ion-item>
   <ion-item>

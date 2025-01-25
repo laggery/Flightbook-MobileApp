@@ -1,7 +1,7 @@
 export class News {
     id: number;
     date: Date;
-    name: string;
+    title: string;
     text: string;
     language: string
 }

@@ -10,7 +10,7 @@ import { GliderService } from 'src/app/glider/shared/glider.service';
 import { Flight } from 'src/app/flight/shared/flight.model';
 import { FlightStatistic } from 'src/app/flight/shared/flightStatistic.model';
 import { FormsModule } from '@angular/forms';
-import { NgFor, DatePipe } from '@angular/common';
+import { DatePipe } from '@angular/common';
 
 @Component({
     selector: 'app-flight-filter',
@@ -18,7 +18,6 @@ import { NgFor, DatePipe } from '@angular/common';
     styleUrls: ['./flight-filter.component.scss'],
     imports: [
         FormsModule,
-        NgFor,
         DatePipe,
         TranslateModule,
         IonHeader,
@@ -128,11 +127,11 @@ export class FlightFilterComponent implements OnInit, OnDestroy {
     }
 
     private async closeStatisticFilter(loading: HTMLIonLoadingElement) {
-        this.flightService.setState([]);
         try {
             const promiseList = [];
             promiseList.push(firstValueFrom(this.flightService.getStatistics('global')));
             promiseList.push(firstValueFrom(this.flightService.getStatistics(this.graphType)));
+            promiseList.push(firstValueFrom(this.flightService.getFlights({ limit: this.flightService.defaultLimit, clearStore: true })));
             const data = await Promise.all(promiseList);
             await loading.dismiss();
             this.modalCtrl.dismiss({

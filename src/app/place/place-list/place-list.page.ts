@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, OnDestroy, AfterViewInit } from '@angular/core';
-import { NavController, LoadingController, AlertController, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonButton, IonIcon, IonContent, IonItem, IonGrid, IonRow, IonCol, IonList, IonInfiniteScroll, IonInfiniteScrollContent } from '@ionic/angular/standalone';
+import { NavController, LoadingController, AlertController, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonButton, IonIcon, IonContent, IonItem, IonGrid, IonRow, IonCol, IonList, IonInfiniteScroll, IonInfiniteScrollContent, IonLabel } from '@ionic/angular/standalone';
 import { takeUntil } from 'rxjs/operators';
 import { Subject, Observable } from 'rxjs';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
@@ -14,7 +14,7 @@ import { json2csv } from 'json-2-csv';
 import * as fileSaver from 'file-saver';
 import { MapUtil } from 'src/app/shared/util/MapUtil';
 import { RouterLink } from '@angular/router';
-import { NgIf, NgFor, AsyncPipe } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { FlagsModule } from 'nxt-flags';
 import { addIcons } from "ionicons";
 import { add } from "ionicons/icons";
@@ -25,8 +25,6 @@ import { add } from "ionicons/icons";
     styleUrls: ['./place-list.page.scss'],
     imports: [
         RouterLink,
-        NgIf,
-        NgFor,
         FlagsModule,
         AsyncPipe,
         TranslateModule,
@@ -42,6 +40,7 @@ import { add } from "ionicons/icons";
         IonGrid,
         IonRow,
         IonCol,
+        IonLabel,
         IonList,
         IonInfiniteScroll,
         IonInfiniteScrollContent

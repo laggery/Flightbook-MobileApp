@@ -1,5 +1,7 @@
 <div class="star-rating-container star-rating-animation" fxLayout="row" fxLayoutAlign="start center" >
-    <div *ngFor="let star of stars" [ngClass]="[star.class]" (click)="selectStar(star.id)">
-        <ion-icon [name]="star.icon" class="icon"></ion-icon>
-    </div>
+    @for (star of stars; track star) {
+        <div [ngClass]="[star.class]" (click)="selectStar(star.id)">
+            <ion-icon [name]="star.icon" class="icon"></ion-icon>
+        </div>
+    }
 </div>

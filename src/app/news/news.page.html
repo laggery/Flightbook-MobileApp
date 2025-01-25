@@ -15,9 +15,11 @@
 <ion-content class="ion-padding">
   <fb-dashboard-container></fb-dashboard-container>
   <div class="news-container">
-      <ion-card class="news" *ngFor="let n of newsData$ | async">
-        <p class="title"><span>{{ n.date | date:'dd.MM.yyyy'}}:</span> {{ n.title }}</p>
-        <p class="description" [innerHTML]="n.text"></p>
-      </ion-card>
+      @for (n of newsData$ | async; track n.id) {
+        <ion-card class="news">
+          <p class="title"><span>{{ n.date | date:'dd.MM.yyyy'}}:</span> {{ n.title }}</p>
+          <p class="description" [innerHTML]="n.text"></p>
+        </ion-card>
+      }
     </div>
 </ion-content>
