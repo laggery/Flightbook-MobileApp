@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit, Signal } from '@angular/core';
-import { NavController, ModalController, LoadingController, AlertController, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonButton, IonIcon, IonContent, IonItem, IonGrid, IonRow, IonCol, IonList, IonInfiniteScroll, IonInfiniteScrollContent, IonLabel } from '@ionic/angular/standalone';
+import { NavController, ModalController, LoadingController, AlertController, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonButton, IonIcon, IonContent, IonItem, IonGrid, IonRow, IonCol, IonList, IonInfiniteScroll, IonInfiniteScrollContent, IonLabel, IonItemSliding, IonItemOptions, IonItemOption } from '@ionic/angular/standalone';
 import { Subject, Observable, firstValueFrom } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { concatMap, takeUntil } from 'rxjs/operators';
 import { FlightFilterComponent } from 'src/app/form/flight-filter/flight-filter.component';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { TCreatedPdf } from 'pdfmake/build/pdfmake';
@@ -19,7 +19,7 @@ import { AsyncPipe, DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { FlagsModule } from 'nxt-flags';
 import { addIcons } from "ionicons";
-import { add, filterOutline } from "ionicons/icons";
+import { add, filterOutline, trash } from "ionicons/icons";
 
 @Component({
     selector: 'app-flight-list',
@@ -45,6 +45,9 @@ import { add, filterOutline } from "ionicons/icons";
         IonCol,
         IonLabel,
         IonList,
+        IonItemOptions,
+        IonItemOption,
+        IonItemSliding,
         IonInfiniteScroll,
         IonInfiniteScrollContent
     ]
@@ -76,7 +79,7 @@ export class FlightListPage implements OnInit, OnDestroy, AfterViewInit {
         if (this.flightService.getValue().length === 0) {
             this.initialDataLoad();
         }
-        addIcons({ add, filterOutline });
+        addIcons({ add, filterOutline, trash });
     }
 
     private async initialDataLoad() {
@@ -126,6 +129,24 @@ export class FlightListPage implements OnInit, OnDestroy, AfterViewInit {
 
     itemTapped(event: MouseEvent, flight: Flight) {
         this.navCtrl.navigateForward(`flights/${flight.id}`);
+    }
+
+    async deleteItem(flight: Flight){
+        const loading = await this.loadingCtrl.create({
+            message: this.translate.instant('loading.deleteflight')
+        });
+        await loading.present();
+
+        this.flightService.deleteFlight(flight).pipe(
+            concatMap(() => this.flightService.getFlights({ limit: this.flightService.defaultLimit, clearStore: true }))
+        ).pipe(takeUntil(this.unsubscribe$)).subscribe({
+            next: async (res: Flight[]) => {
+                await loading.dismiss();
+            },
+            error: (async (resp: any) => {
+                await loading.dismiss();
+            })
+        });
     }
 
     async openFilter() {
