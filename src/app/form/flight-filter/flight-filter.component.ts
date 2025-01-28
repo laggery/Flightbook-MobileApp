@@ -127,11 +127,11 @@ export class FlightFilterComponent implements OnInit, OnDestroy {
     }
 
     private async closeStatisticFilter(loading: HTMLIonLoadingElement) {
+        this.flightService.setState([]);
         try {
             const promiseList = [];
             promiseList.push(firstValueFrom(this.flightService.getStatistics('global')));
             promiseList.push(firstValueFrom(this.flightService.getStatistics(this.graphType)));
-            promiseList.push(firstValueFrom(this.flightService.getFlights({ limit: this.flightService.defaultLimit, clearStore: true })));
             const data = await Promise.all(promiseList);
             await loading.dismiss();
             this.modalCtrl.dismiss({
