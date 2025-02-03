@@ -29,6 +29,10 @@ export class NavigationService {
     }
   }
 
+  clearHistory(): void {
+    this.history = [];
+  }
+
   private previsousIsNotRegister(): boolean {
     return this.history[this.history.length - 2] !== '/register' && this.history[this.history.length - 1] !== '/register';
   }
