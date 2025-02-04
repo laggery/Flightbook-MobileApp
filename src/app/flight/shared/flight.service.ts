@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal, WritableSignal } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import * as moment from 'moment';
+import moment from 'moment';
 import { environment } from 'src/environments/environment';
 import { Store } from 'src/app/shared/services/store.class';
 import { Flight } from './flight.model';
@@ -15,13 +15,12 @@ import { Pager } from 'src/app/shared/domain/pager.model';
 })
 export class FlightService extends Store<Flight[]> {
   public filter: FlightFilter;
-  public filtered$: BehaviorSubject<boolean>;
+  public filtered$: WritableSignal<boolean> = signal(false);
   public defaultLimit = 20;
 
   constructor(private http: HttpClient) {
     super([]);
     this.filter = new FlightFilter();
-    this.filtered$ = new BehaviorSubject(false);
   }
 
   getFlights({ limit = null, offset = null, store = true, clearStore = false }: { limit?: number, offset?: number, store?: boolean, clearStore?: boolean } = {}): Observable<Flight[]> {
@@ -112,7 +111,7 @@ export class FlightService extends Store<Flight[]> {
   }
 
   private setFilterState(nextState: boolean) {
-    this.filtered$.next(nextState);
+    this.filtered$.set(nextState);
   }
 
   private createFilterParams(): HttpParams {

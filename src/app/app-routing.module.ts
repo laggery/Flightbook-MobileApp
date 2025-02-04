@@ -70,7 +70,8 @@ const routes: Routes = [
   },
   {
     path: 'imports/data',
-    loadChildren: () => import('./imports/data/data.module').then( m => m.DataPageModule)
+    loadChildren: () => import('./imports/data/data.module').then( m => m.DataPageModule),
+    canActivate: [AuthGuardService]
   },
   {
     path: 'login',
@@ -97,11 +98,13 @@ const routes: Routes = [
   },
   {
     path: 'school/:id',
-    loadChildren: () => import('./school/appointment-list/appointment-list.module').then( m => m.AppointmentListPageModule)
+    loadChildren: () => import('./school/appointment-list/appointment-list.module').then( m => m.AppointmentListPageModule),
+    canActivate: [AuthGuardService]
   },
   {
     path: 'control-sheet',
-    loadChildren: () => import('./school/control-sheet/control-sheet.module').then( m => m.ControlSheetPageModule)
+    loadChildren: () => import('./school/control-sheet/control-sheet.module').then( m => m.ControlSheetPageModule),
+    canActivate: [AuthGuardService]
   }
 ];
 

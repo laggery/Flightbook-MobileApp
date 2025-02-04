@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { MenuItemComponent } from './components/menu-item/menu-item.component';
-import { IonicModule } from '@ionic/angular';
 import { TranslateModule } from '@ngx-translate/core';
 import { FileInputComponent } from './components/file-input/file-input.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -13,36 +12,33 @@ import { StarRatingComponent } from './components/star-rating/star-rating.compon
 import { NxgTransalteSortPipe } from './pipes/nxg-transalte-sort.pipe';
 
 @NgModule({
-  declarations: [
-    MenuItemComponent,
-    FileInputComponent,
-    IgcMapComponent,
-    PlaceMapComponent,
-    GliderSelectComponent,
-    HoursFormatPipe,
-    StarRatingComponent,
-    NxgTransalteSortPipe
-  ],
-  exports: [
-    MenuItemComponent,
-    FileInputComponent,
-    IgcMapComponent,
-    PlaceMapComponent,
-    GliderSelectComponent,
-    HoursFormatPipe,
-    StarRatingComponent,
-    NxgTransalteSortPipe
-  ],
-  imports: [
-    IonicModule,
-    TranslateModule,
-    FormsModule,
-    CommonModule,
-    ReactiveFormsModule
-  ],
-  providers: [
-    DatePipe
-  ]
+    exports: [
+        MenuItemComponent,
+        FileInputComponent,
+        IgcMapComponent,
+        PlaceMapComponent,
+        GliderSelectComponent,
+        HoursFormatPipe,
+        StarRatingComponent,
+        NxgTransalteSortPipe
+    ],
+    imports: [
+        TranslateModule,
+        FormsModule,
+        CommonModule,
+        ReactiveFormsModule,
+        MenuItemComponent,
+        FileInputComponent,
+        IgcMapComponent,
+        PlaceMapComponent,
+        GliderSelectComponent,
+        HoursFormatPipe,
+        StarRatingComponent,
+        NxgTransalteSortPipe
+    ],
+    providers: [
+        DatePipe
+    ]
 })
 export class SharedModule {
 

@@ -9,7 +9,9 @@
     <ion-item>
       <ion-select label="{{ 'groupname.glider' | translate }}" labelPlacement="stacked" [(ngModel)]="filter.glider.id" name="glider" okText="{{ 'buttons.done' | translate }}"
         cancelText="{{ 'buttons.clear' | translate }}" (ionCancel)="clearGLiderButton()">
-        <ion-select-option *ngFor="let glider of gliders" value="{{ glider.id }}">{{ glider.brand }} {{ glider.name }}</ion-select-option>
+        @for (glider of gliders; track glider.id) {
+          <ion-select-option value="{{ glider.id }}">{{ glider.brand }} {{ glider.name }}</ion-select-option>
+        }
       </ion-select>
     </ion-item>
     <ion-item id="filterFrom">

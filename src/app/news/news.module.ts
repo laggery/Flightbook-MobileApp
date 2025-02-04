@@ -1,9 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
-import { IonicModule } from '@ionic/angular';
-
 import { NewsPageRoutingModule } from './news-routing.module';
 
 import { NewsPage } from './news.page';
@@ -12,16 +9,15 @@ import { DashboardContainerModule } from '../dashboard/dashboard-container/dashb
 import { DashboardItemModule } from '../dashboard/dashboard-item/dashboard-item.module';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    NewsPageRoutingModule,
-    TranslateModule.forChild(),
-    DashboardContainerModule,
-    DashboardItemModule
-  ],
-  providers: [],
-  declarations: [NewsPage]
+    imports: [
+        CommonModule,
+        FormsModule,
+        NewsPageRoutingModule,
+        TranslateModule.forChild(),
+        DashboardContainerModule,
+        DashboardItemModule,
+        NewsPage
+    ],
+    providers: []
 })
-export class NewsPageModule {}
+export class NewsPageModule { }

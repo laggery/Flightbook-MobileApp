@@ -1,265 +1,253 @@
 {
-  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
-  "version": 1,
-  "newProjectRoot": "projects",
-  "projects": {
-    "app": {
-      "root": "",
-      "sourceRoot": "src",
-      "projectType": "application",
-      "prefix": "app",
-      "schematics": {},
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:browser",
-          "options": {
-            "preserveSymlinks": true,
-            "aot": true,
-            "outputPath": "www",
-            "index": "src/index.html",
-            "main": "src/main.ts",
-            "polyfills": "src/polyfills.ts",
-            "tsConfig": "tsconfig.app.json",
-            "assets": [
-              {
-                "glob": "**/*",
-                "input": "src/assets",
-                "output": "assets"
-              },
-              {
-                "glob": "**/*.svg",
-                "input": "node_modules/ionicons/dist/ionicons/svg",
-                "output": "./svg"
-              },
-              {
-                "glob": "**/*.svg",
-                "input": "src/assets/custom-ion-icons",
-                "output": "./svg"
-              },
-              {
-                "glob": "**/*",
-                "input": "./node_modules/nxt-flags/assets/flags",
-                "output": "./assets/flags"
-              },
-              "src/manifest.webmanifest"
-            ],
-            "styles": [
-              {
-                "input": "src/global.scss"
-              },
-              {
-                "input": "src/theme/variables.scss"
-              },
-              {
-                "input": "node_modules/ol/ol.css"
-              }
-            ],
-            "scripts": [],
-            "webWorkerTsConfig": "tsconfig.worker.json"
-          },
-          "configurations": {
-            "development": {
-              "optimization": false
-            },
-            "production": {
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
-                }
-              ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "namedChunks": false,
-              "aot": true,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
+    "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+    "version": 1,
+    "newProjectRoot": "projects",
+    "projects": {
+        "app": {
+            "root": "",
+            "sourceRoot": "src",
+            "projectType": "application",
+            "prefix": "app",
+            "schematics": {},
+            "architect": {
+                "build": {
+                    "builder": "@angular-devkit/build-angular:application",
+                    "options": {
+                        "preserveSymlinks": true,
+                        "aot": true,
+                        "outputPath": {
+                          "base": "www"
+                        },
+                        "index": "src/index.html",
+                        "polyfills": [
+                          "src/polyfills.ts"
+                        ],
+                        "tsConfig": "tsconfig.app.json",
+                        "assets": [
+                            {
+                                "glob": "**/*",
+                                "input": "src/assets",
+                                "output": "assets"
+                            },
+                            {
+                                "glob": "**/*",
+                                "input": "./node_modules/nxt-flags/assets/flags",
+                                "output": "./assets/flags"
+                            },
+                            "src/manifest.webmanifest"
+                        ],
+                        "styles": [
+                            {
+                                "input": "src/global.scss"
+                            },
+                            {
+                                "input": "src/theme/variables.scss"
+                            },
+                            {
+                                "input": "node_modules/ol/ol.css"
+                            }
+                        ],
+                        "scripts": [],
+                        "webWorkerTsConfig": "tsconfig.worker.json",
+                        "browser": "src/main.ts"
+                    },
+                    "configurations": {
+                        "development": {
+                            "optimization": false
+                        },
+                        "production": {
+                            "fileReplacements": [
+                                {
+                                    "replace": "src/environments/environment.ts",
+                                    "with": "src/environments/environment.prod.ts"
+                                }
+                            ],
+                            "optimization": true,
+                            "outputHashing": "all",
+                            "sourceMap": false,
+                            "namedChunks": false,
+                            "aot": true,
+                            "extractLicenses": true,
+                            "budgets": [
+                                {
+                                    "type": "initial",
+                                    "maximumWarning": "2mb",
+                                    "maximumError": "5mb"
+                                },
+                                {
+                                    "type": "anyComponentStyle",
+                                    "maximumWarning": "6kb"
+                                }
+                            ],
+                            "serviceWorker": "ngsw-config.json"
+                        },
+                        "docker": {
+                            "fileReplacements": [
+                                {
+                                    "replace": "src/environments/environment.ts",
+                                    "with": "src/environments/environment.docker.ts"
+                                }
+                            ],
+                            "optimization": true,
+                            "outputHashing": "all",
+                            "sourceMap": false,
+                            "namedChunks": false,
+                            "aot": true,
+                            "extractLicenses": true,
+                            "budgets": [
+                                {
+                                    "type": "initial",
+                                    "maximumWarning": "2mb",
+                                    "maximumError": "5mb"
+                                },
+                                {
+                                    "type": "anyComponentStyle",
+                                    "maximumWarning": "6kb"
+                                }
+                            ],
+                            "serviceWorker": "ngsw-config.json"
+                        },
+                        "ci": {
+                            "budgets": [
+                                {
+                                    "type": "anyComponentStyle",
+                                    "maximumWarning": "6kb"
+                                }
+                            ],
+                            "progress": false
+                        }
+                    }
                 },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "6kb"
-                }
-              ],
-              "serviceWorker": true,
-              "ngswConfigPath": "ngsw-config.json"
-            },
-            "docker": {
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.docker.ts"
-                }
-              ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "namedChunks": false,
-              "aot": true,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
+                "serve": {
+                    "builder": "@angular-devkit/build-angular:dev-server",
+                    "options": {
+                        "buildTarget": "app:build"
+                    },
+                    "configurations": {
+                        "production": {
+                            "buildTarget": "app:build:production"
+                        },
+                        "development": {
+                            "buildTarget": "app:build:development"
+                        },
+                        "ci": {
+                            "progress": false
+                        }
+                    },
+                    "defaultConfiguration": "development"
                 },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "6kb"
+                "extract-i18n": {
+                    "builder": "@angular-devkit/build-angular:extract-i18n",
+                    "options": {
+                        "buildTarget": "app:build"
+                    }
+                },
+                "test": {
+                    "builder": "@angular-devkit/build-angular:karma",
+                    "options": {
+                        "main": "src/test.ts",
+                        "polyfills": "src/polyfills.ts",
+                        "tsConfig": "tsconfig.spec.json",
+                        "karmaConfig": "karma.conf.js",
+                        "styles": [],
+                        "scripts": [],
+                        "assets": [
+                            {
+                                "glob": "favicon.ico",
+                                "input": "src/",
+                                "output": "/"
+                            },
+                            {
+                                "glob": "**/*",
+                                "input": "src/assets",
+                                "output": "/assets"
+                            },
+                            "src/manifest.webmanifest"
+                        ],
+                        "webWorkerTsConfig": "tsconfig.worker.json"
+                    },
+                    "configurations": {
+                        "ci": {
+                            "progress": false,
+                            "watch": false
+                        }
+                    }
+                },
+                "lint": {
+                    "builder": "@angular-devkit/build-angular:tslint",
+                    "options": {
+                        "tsConfig": [
+                            "tsconfig.app.json",
+                            "tsconfig.spec.json",
+                            "cypress/tsconfig.json"
+                        ],
+                        "exclude": [
+                            "**/node_modules/**"
+                        ]
+                    }
+                },
+                "e2e": {
+                    "builder": "@cypress/schematic:cypress",
+                    "options": {
+                        "devServerTarget": "app:serve",
+                        "watch": true,
+                        "headless": false
+                    },
+                    "configurations": {
+                        "production": {
+                            "devServerTarget": "app:serve:production"
+                        }
+                    }
+                },
+                "cypress-run": {
+                    "builder": "@cypress/schematic:cypress",
+                    "options": {
+                        "devServerTarget": "app:serve"
+                    },
+                    "configurations": {
+                        "production": {
+                            "devServerTarget": "app:serve:production"
+                        }
+                    }
+                },
+                "cypress-open": {
+                    "builder": "@cypress/schematic:cypress",
+                    "options": {
+                        "watch": true,
+                        "headless": false
+                    }
+                },
+                "ct": {
+                    "builder": "@cypress/schematic:cypress",
+                    "options": {
+                        "devServerTarget": "app:serve",
+                        "watch": true,
+                        "headless": false,
+                        "testingType": "component"
+                    },
+                    "configurations": {
+                        "development": {
+                            "devServerTarget": "app:serve:development"
+                        }
+                    }
                 }
-              ],
-              "serviceWorker": true,
-              "ngswConfigPath": "ngsw-config.json"
-            },
-            "ci": {
-              "budgets": [
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "6kb"
-                }
-              ],
-              "progress": false
             }
-          }
-        },
-        "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "buildTarget": "app:build"
-          },
-          "configurations": {
-            "production": {
-              "buildTarget": "app:build:production"
-            },
-            "development": {
-              "buildTarget": "app:build:development"
-            },
-            "ci": {
-              "progress": false
-            }
-          },
-          "defaultConfiguration": "development"
-        },
-        "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
-          "options": {
-            "buildTarget": "app:build"
-          }
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "src/test.ts",
-            "polyfills": "src/polyfills.ts",
-            "tsConfig": "tsconfig.spec.json",
-            "karmaConfig": "karma.conf.js",
-            "styles": [],
-            "scripts": [],
-            "assets": [
-              {
-                "glob": "favicon.ico",
-                "input": "src/",
-                "output": "/"
-              },
-              {
-                "glob": "**/*",
-                "input": "src/assets",
-                "output": "/assets"
-              },
-              "src/manifest.webmanifest"
-            ],
-            "webWorkerTsConfig": "tsconfig.worker.json"
-          },
-          "configurations": {
-            "ci": {
-              "progress": false,
-              "watch": false
-            }
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "tsconfig.app.json",
-              "tsconfig.spec.json",
-              "cypress/tsconfig.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
-        },
-        "e2e": {
-          "builder": "@cypress/schematic:cypress",
-          "options": {
-            "devServerTarget": "app:serve",
-            "watch": true,
-            "headless": false
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "app:serve:production"
-            }
-          }
-        },
-        "cypress-run": {
-          "builder": "@cypress/schematic:cypress",
-          "options": {
-            "devServerTarget": "app:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "app:serve:production"
-            }
-          }
-        },
-        "cypress-open": {
-          "builder": "@cypress/schematic:cypress",
-          "options": {
-            "watch": true,
-            "headless": false
-          }
-        },
-        "ct": {
-          "builder": "@cypress/schematic:cypress",
-          "options": {
-            "devServerTarget": "app:serve",
-            "watch": true,
-            "headless": false,
-            "testingType": "component"
-          },
-          "configurations": {
-            "development": {
-              "devServerTarget": "app:serve:development"
-            }
-          }
         }
-      }
-    }
-  },
-  "cli": {
-    "schematicCollections": [
-      "@cypress/schematic",
-      "@ionic/angular-toolkit",
-      "@schematics/angular"
-    ],
-    "analytics": false
-  },
-  "schematics": {
-    "@ionic/angular-toolkit:component": {
-      "styleext": "scss"
     },
-    "@ionic/angular-toolkit:page": {
-      "styleext": "scss"
+    "cli": {
+        "schematicCollections": [
+            "@cypress/schematic",
+            "@ionic/angular-toolkit",
+            "@schematics/angular"
+        ],
+        "analytics": false
+    },
+    "schematics": {
+        "@ionic/angular-toolkit:component": {
+            "styleext": "scss"
+        },
+        "@ionic/angular-toolkit:page": {
+            "styleext": "scss"
+        }
     }
-  }
 }

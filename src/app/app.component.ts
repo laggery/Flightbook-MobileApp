@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 
-import { MenuController, AlertController } from '@ionic/angular';
+import { MenuController, AlertController } from '@ionic/angular/standalone';
 import { TranslateService } from '@ngx-translate/core';
 import { filter, takeUntil } from 'rxjs/operators';
 import { SwUpdate, VersionReadyEvent } from '@angular/service-worker';
@@ -12,10 +12,10 @@ import { SchoolService } from './school/shared/school.service';
 import { School } from './school/shared/school.model';
 import { LoginPage } from './account/login/login.page';
 import {
-  ActionPerformed,
-  PushNotificationSchema,
-  PushNotifications,
-  Token,
+    ActionPerformed,
+    PushNotificationSchema,
+    PushNotifications,
+    Token,
 } from '@capacitor/push-notifications';
 import { Capacitor } from '@capacitor/core';
 import { Router } from '@angular/router';
@@ -25,205 +25,224 @@ import { PaymentService } from './shared/services/payment.service';
 import { firstValueFrom, Subject } from 'rxjs';
 import { ControlSheet } from './shared/domain/control-sheet';
 import { Browser } from '@capacitor/browser';
+import { addIcons } from "ionicons";
+import { home, statsChart, cloudUpload, linkOutline, settings, ellipsisHorizontal, logOutOutline, school, document as iconDocument } from 'ionicons/icons';
+
 
 @Component({
-  selector: 'app-root',
-  templateUrl: 'app.component.html',
-  styleUrls: ['app.component.scss']
+    selector: 'app-root',
+    templateUrl: 'app.component.html',
+    styleUrls: ['app.component.scss'],
+    standalone: false
 })
 export class AppComponent implements OnDestroy, OnInit {
-  unsubscribe$ = new Subject<void>();
-  schools: School[] = [];
-  hasControlSheet = false;
-  initialRequestsFired = false;
+    unsubscribe$ = new Subject<void>();
+    schools: School[] = [];
+    hasControlSheet = false;
+    initialRequestsFired = false;
 
-  constructor(
-    private router: Router,
-    private translate: TranslateService,
-    private accountService: AccountService,
-    private menuCtrl: MenuController,
-    private swUpdate: SwUpdate,
-    private flighService: FlightService,
-    private gliderService: GliderService,
-    private placeService: PlaceService,
-    private schoolService: SchoolService,
-    private alertController: AlertController,
-    private paymentService: PaymentService
-  ) {
-    this.translate.setDefaultLang('en');
-    this.translate.use(localStorage.getItem('language') || navigator.language.split('-')[0]);
-  }
-
-  ngOnInit(): void {
-    if (this.swUpdate.isEnabled) {
-      this.swUpdate.versionUpdates
-        .pipe(filter((evt): evt is VersionReadyEvent => evt.type === 'VERSION_READY'))
-        .subscribe(async evt => {
-          const alert = await this.alertController.create({
-            header: this.translate.instant('message.infotitle'),
-            message: this.translate.instant('message.newVersion'),
-            backdropDismiss: false,
-            buttons: [
-              {
-                text: this.translate.instant('buttons.done'),
-                handler: () => {
-                  document.location.reload();
-                }
-              }
-            ]
-          });
-          await alert.present();
+    constructor(
+        private router: Router,
+        private translate: TranslateService,
+        private accountService: AccountService,
+        private menuCtrl: MenuController,
+        private swUpdate: SwUpdate,
+        private flighService: FlightService,
+        private gliderService: GliderService,
+        private placeService: PlaceService,
+        private schoolService: SchoolService,
+        private alertController: AlertController,
+        private paymentService: PaymentService
+    ) {
+        this.translate.setDefaultLang('en');
+        this.translate.use(localStorage.getItem('language') || navigator.language.split('-')[0]);
+        addIcons({
+            home,
+            statsChart,
+            cloudUpload,
+            linkOutline,
+            settings,
+            ellipsisHorizontal,
+            logOutOutline,
+            school,
+            'document': iconDocument,
+            'flight': 'assets/custom-ion-icons/flight.svg',
+            'copyflight': 'assets/custom-ion-icons/copyflight.svg',
+            'glider': 'assets/custom-ion-icons/glider.svg',
+            'place': 'assets/custom-ion-icons/place.svg'
         });
     }
-  }
 
-  logout() {
-    this.menuCtrl.enable(false);
-    this.flighService.setState([]);
-    this.gliderService.setState([]);
-    this.placeService.setState([]);
-    this.accountService.logout().pipe(takeUntil(this.unsubscribe$)).subscribe(resp => {
-      // TODO error handling
-      localStorage.removeItem('access_token');
-      localStorage.removeItem('refresh_token');
-      this.initialRequestsFired = false;
-    });
-    this.schools = [];
-  }
-
-  subscribeToEmmiter(componentRef: any) {
-    if (componentRef instanceof LoginPage || componentRef instanceof RegisterPage || this.initialRequestsFired) {
-      return;
+    ngOnInit(): void {
+        if (this.swUpdate.isEnabled) {
+            this.swUpdate.versionUpdates
+                .pipe(filter((evt): evt is VersionReadyEvent => evt.type === 'VERSION_READY'))
+                .subscribe(async evt => {
+                    const alert = await this.alertController.create({
+                        header: this.translate.instant('message.infotitle'),
+                        message: this.translate.instant('message.newVersion'),
+                        backdropDismiss: false,
+                        buttons: [
+                            {
+                                text: this.translate.instant('buttons.done'),
+                                handler: () => {
+                                    document.location.reload();
+                                }
+                            }
+                        ]
+                    });
+                    await alert.present();
+                });
+        }
     }
 
-    this.schoolService.getSchools().pipe(takeUntil(this.unsubscribe$)).subscribe((schools: School[]) => {
-      this.schools = schools;
-    })
-
-    this.schoolService.getControlSheet().pipe(takeUntil(this.unsubscribe$)).subscribe((controlSheet: ControlSheet) => {
-      this.hasControlSheet = controlSheet ? true : false;
-    })
-
-    if (Capacitor.isNativePlatform()) {
-      this.initPushNotification();
+    logout() {
+        this.menuCtrl.enable(false);
+        this.flighService.setState([]);
+        this.gliderService.setState([]);
+        this.placeService.setState([]);
+        this.accountService.logout().pipe(takeUntil(this.unsubscribe$)).subscribe(resp => {
+            // TODO error handling
+            localStorage.removeItem('access_token');
+            localStorage.removeItem('refresh_token');
+            this.initialRequestsFired = false;
+        });
+        this.schools = [];
     }
 
-    this.accountService.getPaymentStatus().pipe(takeUntil(this.unsubscribe$)).subscribe((paymentStatus: PaymentStatus) => {
-      this.paymentService.setPaymentStatus(paymentStatus);
-    })
+    subscribeToEmmiter(componentRef: any) {
+        if (componentRef instanceof LoginPage || componentRef instanceof RegisterPage || this.initialRequestsFired) {
+            return;
+        }
 
-    this.initialRequestsFired = true;
-  }
+        this.schoolService.getSchools().pipe(takeUntil(this.unsubscribe$)).subscribe((schools: School[]) => {
+            this.schools = schools;
+        })
 
-  private initPushNotification() {
-    PushNotifications.requestPermissions().then((result) => {
-      if (result.receive === 'granted') {
-        PushNotifications.register();
-      } else {
-        // Show some error
-      }
-    });
+        this.schoolService.getControlSheet().pipe(takeUntil(this.unsubscribe$)).subscribe((controlSheet: ControlSheet) => {
+            this.hasControlSheet = controlSheet ? true : false;
+        })
 
-    PushNotifications.addListener('registration', (token: Token) => {
-      // Push Notifications registered successfully.
-      // Send token details to API to keep in DB.
-      firstValueFrom(this.accountService.updateNotificationToken(token.value));
-    });
+        if (Capacitor.isNativePlatform()) {
+            this.initPushNotification();
+        }
 
-    PushNotifications.addListener('registrationError', async (error: any) => {
-      // Handle push notification registration error here.
-      const alert = await this.alertController.create({
-        header: this.translate.instant('message.warning'),
-        message: this.translate.instant('message.notificationRegistrationFailed'),
-        backdropDismiss: false,
-        buttons: [
-          {
-            text: this.translate.instant('buttons.done')
-          }
-        ]
-      });
-      await alert.present();
-    });
+        this.accountService.getPaymentStatus().pipe(takeUntil(this.unsubscribe$)).subscribe((paymentStatus: PaymentStatus) => {
+            this.paymentService.setPaymentStatus(paymentStatus);
+        })
 
-    PushNotifications.addListener(
-      'pushNotificationReceived',
-      async (notification: PushNotificationSchema) => {
-        // Show the notification payload if the app is open on the device.
-        const alert = await this.alertController.create({
-          header: notification.title,
-          message: notification.body.replace('\r\n', '<br/>'),
-          backdropDismiss: false,
-          buttons: [
-            {
-              text: this.translate.instant('buttons.done')
-            },
-            {
-              text: this.translate.instant('buttons.show'),
-              handler: () => {
-                const type = notification.data.type
-                if (type == "APPOINTMENT") {
-                  const schoolId = notification.data.schoolId
-                  const appointmentId = notification.data.appointmentId
-                  this.router.navigate(
-                    ['/school/', schoolId],
-                    { queryParams: { appointmentId: appointmentId } }
-                  );
-                }
-              }
+        this.initialRequestsFired = true;
+    }
+
+    private initPushNotification() {
+        PushNotifications.requestPermissions().then((result) => {
+            if (result.receive === 'granted') {
+                PushNotifications.register();
+            } else {
+                // Show some error
             }
-          ]
         });
-        await alert.present();
-      }
-    );
 
-    PushNotifications.addListener(
-      'pushNotificationActionPerformed',
-      (notification: ActionPerformed) => {
-        // Action when user tap on a notification.
-        const type = notification.notification.data.type
-        if (type == "APPOINTMENT") {
-          const schoolId = notification.notification.data.schoolId
-          const appointmentId = notification.notification.data.appointmentId
-          this.router.navigate(
-            ['/school/', schoolId],
-            { queryParams: { appointmentId: appointmentId } }
-          );
-        }
-      }
-    );
-  }
+        PushNotifications.addListener('registration', (token: Token) => {
+            // Push Notifications registered successfully.
+            // Send token details to API to keep in DB.
+            firstValueFrom(this.accountService.updateNotificationToken(token.value));
+        });
 
-  async openBrowser(type: string) {
-    let url
+        PushNotifications.addListener('registrationError', async (error: any) => {
+            // Handle push notification registration error here.
+            const alert = await this.alertController.create({
+                header: this.translate.instant('message.warning'),
+                message: this.translate.instant('message.notificationRegistrationFailed'),
+                backdropDismiss: false,
+                buttons: [
+                    {
+                        text: this.translate.instant('buttons.done')
+                    }
+                ]
+            });
+            await alert.present();
+        });
 
-    switch (type) {
-      case "shvWeather":
-        if (this.translate.currentLang === 'fr') {
-          url = "https://www.meteo-fsvl.ch"; 
-        } else {
-          url = "https://www.meteo-shv.ch"; 
-        }
-        
-        break;
-      case "dabsToday":
-        url = "https://www.skybriefing.com/o/dabs?today";
-        break;
-      case "dabsTomorrow":
-        url = "https://www.skybriefing.com/o/dabs?tomorrow";
-        break;  
-      default:
-        return;
+        PushNotifications.addListener(
+            'pushNotificationReceived',
+            async (notification: PushNotificationSchema) => {
+                // Show the notification payload if the app is open on the device.
+                const alert = await this.alertController.create({
+                    header: notification.title,
+                    message: notification.body.replace('\r\n', '<br/>'),
+                    backdropDismiss: false,
+                    buttons: [
+                        {
+                            text: this.translate.instant('buttons.done')
+                        },
+                        {
+                            text: this.translate.instant('buttons.show'),
+                            handler: () => {
+                                const type = notification.data.type
+                                if (type == "APPOINTMENT") {
+                                    const schoolId = notification.data.schoolId
+                                    const appointmentId = notification.data.appointmentId
+                                    this.router.navigate(
+                                        ['/school/', schoolId],
+                                        { queryParams: { appointmentId: appointmentId } }
+                                    );
+                                }
+                            }
+                        }
+                    ]
+                });
+                await alert.present();
+            }
+        );
+
+        PushNotifications.addListener(
+            'pushNotificationActionPerformed',
+            (notification: ActionPerformed) => {
+                // Action when user tap on a notification.
+                const type = notification.notification.data.type
+                if (type == "APPOINTMENT") {
+                    const schoolId = notification.notification.data.schoolId
+                    const appointmentId = notification.notification.data.appointmentId
+                    this.router.navigate(
+                        ['/school/', schoolId],
+                        { queryParams: { appointmentId: appointmentId } }
+                    );
+                }
+            }
+        );
     }
 
-    const browserOption = {
-      url: url
-    }
-    Browser.open(browserOption);
-  }
+    async openBrowser(type: string) {
+        let url
 
-  ngOnDestroy() {
-    this.unsubscribe$.next();
-    this.unsubscribe$.complete();
-  }
+        switch (type) {
+            case "shvWeather":
+                if (this.translate.currentLang === 'fr') {
+                    url = "https://www.meteo-fsvl.ch";
+                } else {
+                    url = "https://www.meteo-shv.ch";
+                }
+
+                break;
+            case "dabsToday":
+                url = "https://www.skybriefing.com/o/dabs?today";
+                break;
+            case "dabsTomorrow":
+                url = "https://www.skybriefing.com/o/dabs?tomorrow";
+                break;
+            default:
+                return;
+        }
+
+        const browserOption = {
+            url: url
+        }
+        Browser.open(browserOption);
+    }
+
+    ngOnDestroy() {
+        this.unsubscribe$.next();
+        this.unsubscribe$.complete();
+    }
 }

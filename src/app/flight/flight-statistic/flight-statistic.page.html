@@ -3,8 +3,11 @@
         <ion-buttons slot="start">
             <ion-menu-button></ion-menu-button>
         </ion-buttons>
-        <ion-title>{{ 'groupname.statistics' | translate }} <span
-                *ngIf="filtered">({{ 'groupname.filtered' | translate }})</span></ion-title>
+        <ion-title>{{ 'groupname.statistics' | translate }}
+            @if (filtered()) {
+                <span>({{ 'groupname.filtered' | translate }})</span>
+            } 
+        </ion-title>
         <ion-buttons slot="primary">
             <ion-button (click)="openFilter()">
                 <ion-icon name="filter-outline"></ion-icon>
@@ -32,19 +35,25 @@
                 <div><label>{{ 'statistics.totalDistance' | translate }}:</label><span
                         id="totalDistance">{{ (statistics.totalDistance | number : '1.2-2')?.replace(',', "'") || "0" }} km</span></div>
                 <div><label>{{ 'statistics.bestDistance' | translate }}:</label><span
-                        id="bestDistance">{{ statistics.bestDistance | number: '1.2-2' || "0" }} km</span></div>
+                        id="bestDistance">{{ statistics.bestDistance | number: '1.2-2' }} km</span></div>
             </ion-card-content>
         </ion-card>
     </div>
 
-    <ion-select *ngIf="statisticsList?.length > 0" aria-label="graphType" interface="popover" value="yearly" (ionChange)="changeGraphType($event)">
-        <ion-select-option value="yearly">{{ 'statistics.type.yearly' | translate }}</ion-select-option>
-        <ion-select-option value="monthly">{{ 'statistics.type.monthly' | translate }}</ion-select-option>
-      </ion-select>
+    @if (statisticsList?.length > 0) {
+        <ion-select aria-label="graphType" interface="popover" value="yearly" (ionChange)="changeGraphType($event)">
+            <ion-select-option value="yearly">{{ 'statistics.type.yearly' | translate }}</ion-select-option>
+            <ion-select-option value="monthly">{{ 'statistics.type.monthly' | translate }}</ion-select-option>
+        </ion-select>
 
+        <bar-chart chartType="nbFlights" [data]="nbFlightBarChartData"></bar-chart>  
+    }
 
-    <bar-chart *ngIf="statisticsList?.length > 0" chartType="nbFlights" [data]="nbFlightBarChartData"></bar-chart>  
-    <bar-chart *ngIf="statistics.income > 0" chartType="income" [data]="incomeBarChartData"></bar-chart>  
+    @if (statistics.income > 0) {
+        <bar-chart chartType="income" [data]="incomeBarChartData"></bar-chart>  
+    }
 
-    <line-chart *ngIf="statisticsList?.length > 0" [data]="averageLineChartData"></line-chart>
+    @if (statisticsList?.length > 0) {
+        <line-chart [data]="averageLineChartData"></line-chart>
+    }   
 </ion-content>

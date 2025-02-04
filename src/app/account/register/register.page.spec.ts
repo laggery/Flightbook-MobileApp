@@ -1,31 +1,28 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { IonicModule } from '@ionic/angular';
-
 import { RegisterPage } from './register.page';
 import { TranslateModule } from '@ngx-translate/core';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { FormsModule } from '@angular/forms';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('RegisterPage', () => {
-  let component: RegisterPage;
-  let fixture: ComponentFixture<RegisterPage>;
+    let component: RegisterPage;
+    let fixture: ComponentFixture<RegisterPage>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [ RegisterPage ],
-      imports: [HttpClientTestingModule,
-        IonicModule.forRoot(),
-        TranslateModule.forRoot(),
-        FormsModule
-      ]
-    }).compileComponents();
+    beforeEach(waitForAsync(() => {
+        TestBed.configureTestingModule({
+            imports: [IonicModule.forRoot(),
+            TranslateModule.forRoot(),
+                FormsModule, RegisterPage],
+            providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+        }).compileComponents();
 
-    fixture = TestBed.createComponent(RegisterPage);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  }));
+        fixture = TestBed.createComponent(RegisterPage);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    }));
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

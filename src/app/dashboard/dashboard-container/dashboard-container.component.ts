@@ -5,11 +5,13 @@ import { FlightStatistic } from 'src/app/flight/shared/flightStatistic.model';
 import { Flight } from 'src/app/flight/shared/flight.model';
 import { FlightService } from 'src/app/flight/shared/flight.service';
 import { Router } from '@angular/router';
+import { DashboardItemComponent } from '../dashboard-item/dashboard-item.component';
 
 @Component({
-  selector: 'fb-dashboard-container',
-  templateUrl: './dashboard-container.component.html',
-  styleUrls: ['./dashboard-container.component.scss'],
+    selector: 'fb-dashboard-container',
+    templateUrl: './dashboard-container.component.html',
+    styleUrls: ['./dashboard-container.component.scss'],
+    imports: [DashboardItemComponent]
 })
 export class DashboardContainerComponent implements OnInit {
 

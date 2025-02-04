@@ -22,10 +22,18 @@ export class NavigationService {
 
   back(): void {
     this.history.pop();
-    if (this.history.length > 0) {
+    if (this.history.length > 0 && this.previsousIsNotRegister()) {
       this.location.back();
     } else {
       this.router.navigateByUrl('/');
     }
+  }
+
+  clearHistory(): void {
+    this.history = [];
+  }
+
+  private previsousIsNotRegister(): boolean {
+    return this.history[this.history.length - 2] !== '/register' && this.history[this.history.length - 1] !== '/register';
   }
 }

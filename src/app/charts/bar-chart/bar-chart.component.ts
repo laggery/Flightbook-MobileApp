@@ -2,12 +2,13 @@ import { AfterViewInit, Component, Input, OnChanges, OnInit, SimpleChanges, View
 
 import DataLabelsPlugin, { Context } from 'chartjs-plugin-datalabels';
 import { ChartConfiguration, ChartData } from 'chart.js';
-import { BaseChartDirective } from 'ng2-charts';
+import { BaseChartDirective, NgChartsModule } from 'ng2-charts';
 
 @Component({
-  selector: 'bar-chart',
-  templateUrl: './bar-chart.component.html',
-  styleUrls: ['./bar-chart.component.scss'],
+    selector: 'bar-chart',
+    templateUrl: './bar-chart.component.html',
+    styleUrls: ['./bar-chart.component.scss'],
+    imports: [NgChartsModule]
 })
 export class BarChartComponent implements OnInit, OnChanges, AfterViewInit {
 

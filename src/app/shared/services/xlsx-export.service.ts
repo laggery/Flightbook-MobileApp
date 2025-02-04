@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import * as fileSaver from 'file-saver';
-import * as moment from 'moment';
+import moment from 'moment';
 import { TranslateService } from '@ngx-translate/core';
 import { Place } from '../../place/shared/place.model';
 import { HoursFormatPipe } from 'src/app/shared/pipes/hours-format.pipe';

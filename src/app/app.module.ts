@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
-import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
-import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
+import { IonicRouteStrategy, provideIonicAngular, IonApp, IonSplitPane, IonMenu, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonMenuToggle, IonItem, IonRouterOutlet } from '@ionic/angular/standalone';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -23,11 +23,11 @@ import frenchLocale from '@angular/common/locales/fr';
 import { NavigationService } from './shared/services/navigation.service';
 
 export function createTranslateLoader(http: HttpClient) {
-  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+    return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
 export function tokenGetter() {
-  return localStorage.getItem('access_token');
+    return localStorage.getItem('access_token');
 }
 
 registerLocaleData(germanLocale);
@@ -36,6 +36,7 @@ registerLocaleData(frenchLocale);
 
 @NgModule({
     declarations: [AppComponent],
+    bootstrap: [AppComponent],
     imports: [
         BrowserModule,
         TranslateModule.forRoot({
@@ -45,21 +46,30 @@ registerLocaleData(frenchLocale);
                 deps: [HttpClient]
             }
         }),
-        IonicModule.forRoot(),
         SharedModule,
-        HttpClientModule,
         AppRoutingModule,
-        ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
-    ],
-    providers: [
+        ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+        IonApp,
+        IonSplitPane,
+        IonMenu,
+        IonHeader,
+        IonToolbar,
+        IonTitle,
+        IonContent,
+        IonList,
+        IonMenuToggle,
+        IonItem,
+        IonRouterOutlet
+    ], providers: [
         { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
         { provide: HTTP_INTERCEPTORS, useClass: HttpAuthInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
         PaymentService,
-        NavigationService
-    ],
-    bootstrap: [AppComponent]
+        NavigationService,
+        provideHttpClient(withInterceptorsFromDi()),
+        provideIonicAngular()
+    ]
 })
 export class AppModule {
-    constructor(private navigationService: NavigationService) {}
+    constructor(private navigationService: NavigationService) { }
 }

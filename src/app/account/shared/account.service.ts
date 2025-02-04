@@ -5,6 +5,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { environment } from 'src/environments/environment';
 import { User } from './user.model';
 import { PaymentStatus } from './paymentStatus.model';
+import { NavigationService } from 'src/app/shared/services/navigation.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ import { PaymentStatus } from './paymentStatus.model';
 export class AccountService {
   private jwtHelper: JwtHelperService;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private naviagationService: NavigationService) {
     this.jwtHelper = new JwtHelperService();
   }
 
@@ -29,6 +30,7 @@ export class AccountService {
   }
 
   logout(): Observable<any> {
+    this.naviagationService.clearHistory();
     return this.http.get<any>(`${environment.baseUrl}/auth/logout`);
   }
 

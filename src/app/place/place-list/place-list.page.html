@@ -13,27 +13,36 @@
 </ion-header>
 
 <ion-content class="no-padding">
-  <ion-item class="export-buttons" *ngIf="(places$ | async)?.length > 0">
-    <ion-grid>
-      <ion-row>
-        <ion-col>
-          <ion-button (click)="xlsxExport()">Xlsx Export</ion-button>
-        </ion-col>
-        <ion-col>
-          <ion-button (click)="csvExport()">CSV Export</ion-button>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </ion-item>
-  <ion-list *ngIf="(places$ | async)?.length > 0" >
-    <ion-item button detail *ngFor="let place of places$ | async" (click)="itemTapped($event, place)">
-      <p class="placeRow">
-        <span class="placeName">{{place.name}}</span>
-        <span class="placeAltitude">{{ place.altitude}}</span>
-        <span class="placeCountry"><nxt-flag country="{{ place.country}}" size="s"></nxt-flag> {{ getCountryNameByCode(place.country) }}</span>
-      </p>
-      <ion-icon item-end></ion-icon>
+  @if ((places$ | async)?.length > 0) {
+    <ion-item class="export-buttons">
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-button (click)="xlsxExport()">Xlsx Export</ion-button>
+          </ion-col>
+          <ion-col>
+            <ion-button (click)="csvExport()">CSV Export</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </ion-item>
+  }
+  <ion-list>
+    @for (place of places$ | async; track place.id) {
+      <ion-item button detail (click)="itemTapped($event, place)">
+        <p class="placeRow">
+          <span class="placeName">{{place.name}}</span>
+          <span class="placeAltitude">{{ place.altitude}}</span>
+          <span class="placeCountry"><nxt-flag country="{{ place.country}}" size="s"></nxt-flag> {{ getCountryNameByCode(place.country) }}</span>
+        </p>
+        <ion-icon item-end></ion-icon>
+      </ion-item>
+    }
+    @empty {
+      <ion-item lines="none">
+        <ion-label class="ion-text-center">{{ 'emptylist' | translate }}</ion-label>
+      </ion-item>
+    }
   </ion-list>
 
   <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
@@ -42,7 +51,4 @@
       loadingText="{{ 'loading.loading' | translate }}">
     </ion-infinite-scroll-content>
   </ion-infinite-scroll>
-
-  <p class="emptylist" *ngIf="(places$ | async)?.length == 0">{{ 'emptylist' | translate }}</p>
-
 </ion-content>

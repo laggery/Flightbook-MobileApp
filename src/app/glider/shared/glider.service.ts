@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal, WritableSignal } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { HttpParams, HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
@@ -14,14 +14,13 @@ import { Pager } from 'src/app/shared/domain/pager.model';
 export class GliderService extends Store<Glider[]> {
   public isGliderlistComplete = false;
   public filter: GliderFilter;
-  public filtered$: BehaviorSubject<boolean>;
+  public filtered$: WritableSignal<boolean> = signal(false);
   public defaultLimit = 40;
   public disableList = false;
 
   constructor(private http: HttpClient) {
     super([]);
     this.filter = new GliderFilter();
-    this.filtered$ = new BehaviorSubject(false);
   }
 
   getGliders({ limit = null, offset = null, store = true, clearStore = false }: { limit?: number, offset?: number, store?: boolean, clearStore?: boolean } = {}): Observable<Glider[]> {
@@ -95,7 +94,7 @@ export class GliderService extends Store<Glider[]> {
   }
 
   private setFilterState(nextState: boolean) {
-    this.filtered$.next(nextState);
+    this.filtered$.set(nextState);
   }
 
   private createFilterParams(limit: Number, offset: Number): HttpParams {

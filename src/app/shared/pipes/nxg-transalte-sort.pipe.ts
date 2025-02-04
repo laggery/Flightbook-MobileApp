@@ -3,7 +3,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
 @Pipe({
-  name: 'nxgTransalteSort'
+    name: 'nxgTransalteSort',
+    standalone: true
 })
 export class NxgTransalteSortPipe implements PipeTransform {
 

@@ -9,7 +9,9 @@
 
 <ion-content class="ion-padding">
   <ion-select interface="popover" value="{{ importTypes[0]?.type }}" (ionChange)="changeImportType($event)">
-    <ion-select-option *ngFor="let type of importTypes" value="{{ type.type }}">{{ type.name }}</ion-select-option>
+    @for (type of importTypes; track type) {
+      <ion-select-option value="{{ type.type }}">{{ type.name }}</ion-select-option>
+    }
   </ion-select>
 
   <div class="content"><p>{{ currentType?.description }}</p></div>

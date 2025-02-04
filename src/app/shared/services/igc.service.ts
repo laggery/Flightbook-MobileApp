@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import * as IGCParser from 'igc-parser';
+import IGCParser from 'igc-parser';
 // import { scoringRules as scoring, solver } from 'igc-xc-score';
 import { GliderService } from 'src/app/glider/shared/glider.service';
 import { Flight } from 'src/app/flight/shared/flight.model';
