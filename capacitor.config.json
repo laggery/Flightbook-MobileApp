@@ -1,7 +1,7 @@
 {
   "appId": "ch.flightbook",
   "appName": "Flightbook",
-  "webDir": "www",
+  "webDir": "www/browser",
   "cordova": {},
   "plugins": {
     "SplashScreen": {
