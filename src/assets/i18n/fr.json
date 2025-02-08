@@ -172,7 +172,7 @@
         "emptyIgcFile": "Ce fichier IGC est vide",
         "igcUploadError": "Le fichier IGC n'a pas pu être téléchargé",
         "igcCopyError": "Le fichier IGC n'a pas pu être copié",
-        "wrongCsvFileType": "Veuillez choisir un fichier CSV",
+        "wrongFileType": "Veuillez choisir un fichier {{fileType}}",
         "downloadExcel": "Pour pouvoir ouvrir un fichier xlsx, vous devez télécharger l'application \"Microsoft Excel: Spreadsheets\"",
         "subscription": "Voulez-vous vraiment vous inscrire à ce rendez-vous?",
         "removeSubscription": "Souhaites-tu vraiment te désinscrire?",

@@ -83,16 +83,14 @@ export class DataPage implements OnInit, OnDestroy {
 
     changeImportType(event: CustomEvent) {
         this.currentType = this.importTypes.find(element => element.type === event.detail.value);
-
     }
 
     async onFilesSelect(event: any) {
         const file = event.target.files[0];
-        const fileType = file.name.slice(-3);
-        if (fileType.toLowerCase() != "csv") {
+        if (!file.name.toLowerCase().endsWith(`.${this.currentType.fileType}`)) {
             const alert = await this.alertController.create({
                 header: this.translate.instant('message.infotitle'),
-                message: this.translate.instant('message.wrongCsvFileType'),
+                message: this.translate.instant('message.wrongFileType', {fileType: this.currentType.fileType.toUpperCase()}),
                 buttons: [this.translate.instant('buttons.done')]
             });
             await alert.present();
@@ -107,10 +105,10 @@ export class DataPage implements OnInit, OnDestroy {
             readData: true
         });
 
-        if ((result.files[0] as PickedFile).name.slice(-3).toLowerCase() != "csv") {
+        if (!(result.files[0] as PickedFile).name.toLowerCase().endsWith(`.${this.currentType.fileType}`)) {
             const alert = await this.alertController.create({
                 header: this.translate.instant('message.infotitle'),
-                message: this.translate.instant('message.wrongCsvFileType'),
+                message: this.translate.instant('message.wrongFileType', {fileType: this.currentType.fileType.toUpperCase()}),
                 buttons: [this.translate.instant('buttons.done')]
             });
             await alert.present();
