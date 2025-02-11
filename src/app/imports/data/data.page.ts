@@ -3,8 +3,7 @@ import { Capacitor } from '@capacitor/core';
 import { AlertController, LoadingController, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonContent, IonSelect, IonSelectOption, IonButton, IonIcon, IonCard, IonCardContent } from '@ionic/angular/standalone';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { Subject, firstValueFrom, takeUntil } from 'rxjs';
-import { FilePicker, PickedFile } from '@capawesome/capacitor-file-picker';
-import { Encoding, Filesystem } from '@capacitor/filesystem';
+import { FilePicker, PickedFile, PickFilesResult } from '@capawesome/capacitor-file-picker';
 import { FlightService } from 'src/app/flight/shared/flight.service';
 import { GliderService } from 'src/app/glider/shared/glider.service';
 import { PlaceService } from 'src/app/place/shared/place.service';
@@ -90,7 +89,7 @@ export class DataPage implements OnInit, OnDestroy {
         if (!file.name.toLowerCase().endsWith(`.${this.currentType.fileType}`)) {
             const alert = await this.alertController.create({
                 header: this.translate.instant('message.infotitle'),
-                message: this.translate.instant('message.wrongFileType', {fileType: this.currentType.fileType.toUpperCase()}),
+                message: this.translate.instant('message.wrongFileType', { fileType: this.currentType.fileType.toUpperCase() }),
                 buttons: [this.translate.instant('buttons.done')]
             });
             await alert.present();
@@ -100,7 +99,7 @@ export class DataPage implements OnInit, OnDestroy {
     }
 
     async onIosFilesSelect() {
-        const result = await FilePicker.pickFiles({
+        const result: PickFilesResult = await FilePicker.pickFiles({
             limit: 1,
             readData: true
         });
@@ -108,19 +107,26 @@ export class DataPage implements OnInit, OnDestroy {
         if (!(result.files[0] as PickedFile).name.toLowerCase().endsWith(`.${this.currentType.fileType}`)) {
             const alert = await this.alertController.create({
                 header: this.translate.instant('message.infotitle'),
-                message: this.translate.instant('message.wrongFileType', {fileType: this.currentType.fileType.toUpperCase()}),
+                message: this.translate.instant('message.wrongFileType', { fileType: this.currentType.fileType.toUpperCase() }),
                 buttons: [this.translate.instant('buttons.done')]
             });
             await alert.present();
             return;
         }
 
-        const contents = await Filesystem.readFile({
-            path: result.files[0].path,
-            encoding: Encoding.UTF8,
-        });
+        const stringContent = atob(result.files[0].data);
+        // Convert binary string to array buffer
+        const arrayBuffer = new ArrayBuffer(stringContent.length);
+        const uint8Array = new Uint8Array(arrayBuffer);
+        for (let i = 0; i < stringContent.length; i++) {
+            uint8Array[i] = stringContent.charCodeAt(i);
+        }
 
-        this.file = new File([new Blob([contents.data])], result.files[0].name);
+        // Create a Blob from the array buffer
+        const blob = new Blob([arrayBuffer], { type: result.files[0].mimeType });
+
+        // Create a File object from the Blob
+        this.file = new File([blob], result.files[0].name);
     }
 
     async save() {
