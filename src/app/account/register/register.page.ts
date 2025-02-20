@@ -60,6 +60,12 @@ export class RegisterPage implements OnInit, OnDestroy {
             await loading.present();
             this.accountService.register(this.registerData).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: User) => {
                 await loading.dismiss();
+                const alert = await this.alertController.create({
+                    header: this.translate.instant('account.register'),
+                    message: this.translate.instant('message.registrationSuccess'),
+                    buttons: [this.translate.instant('buttons.done')]
+                });
+                await alert.present();
                 await this.router.navigate(['/login'], { replaceUrl: true });
             },
                 (async (error: any) => {

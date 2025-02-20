@@ -47,7 +47,8 @@
     "account": {
         "register": "Register",
         "firstname": "Firstname",
-        "lastname": "Lastname"
+        "lastname": "Lastname",
+        "verification": "Account Verification"
     },
     "place": {
         "place": "Place",
@@ -181,7 +182,11 @@
         "notificationRegistrationFailed": "The app could not register for push notifications. Try closing the app and opening it again.",
         "newVersion": "The new version of the app will be loaded",
         "cancelPymentSubscription": "Are you sure you want to cancel your subscription?",
-        "uploadError": "An error has occurred during import. The Flightbook team has been informed and will get back to you by email as soon as possible."
+        "uploadError": "An error has occurred during import. The Flightbook team has been informed and will get back to you by email as soon as possible.",
+        "accountVerificationSuccess": "Your account has been successfully validated.",
+        "accountVerificationError": "Your account could not be validated. The token seems not to be valid. For any issues, contact yannick.lagger@flightbook.ch.",
+        "registrationSuccess": "A validation email has been sent. Please check your email and validate your account. If you haven't received the email, please check your spam folder. For any issues, contact yannick.lagger@flightbook.ch.",
+        "accountNotValidated": "Your account has not been validated yet. Please check your emails to validate your account."
     },
     "loading": {
         "createaccount": "Create account...",

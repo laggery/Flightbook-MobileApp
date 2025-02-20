@@ -47,7 +47,8 @@
     "account": {
         "register": "Registrieren",
         "firstname": "Vorname",
-        "lastname": "Nachname"
+        "lastname": "Nachname",
+        "verification": "Kontoüberprüfung"
     },
     "place": {
         "place": "Ort",
@@ -181,7 +182,11 @@
         "notificationRegistrationFailed": "Die Applikation konnte sich nicht für die Push Notifikationen registrieren. Versuchen sie die Applikation zu schliessen und nochmals zu öffnen.",
         "newVersion": "Die neue Version der App wird geladen",
         "cancelPymentSubscription": "Sind Sie sicher, dass Sie Ihr Abonnement kündigen möchten?",
-        "uploadError": "Beim Import ist ein Fehler aufgetreten. Das Flightbook Team wurde informiert und wird sich so schnell wie möglich bei ihnen per E-Mail melden."
+        "uploadError": "Beim Import ist ein Fehler aufgetreten. Das Flightbook Team wurde informiert und wird sich so schnell wie möglich bei ihnen per E-Mail melden.",
+        "accountVerificationSuccess": "Ihr Konto wurde erfolgreich validiert.",
+        "accountVerificationError": "Ihr Konto konnte nicht validiert werden. Der Token scheint ungültig zu sein. Bitte kontaktieren Sie yannick.lagger@flightbook.ch",
+        "registrationSuccess": "Eine Bestätigungs-E-Mail wurde versendet. Bitte überprüfen Sie Ihre E-Mails und bestätigen Sie Ihr Konto. Falls Sie keine E-Mail erhalten haben, überprüfen Sie bitte Ihren Spam-Ordner. Bei Problemen kontaktieren Sie bitte yannick.lagger@flightbook.ch.",
+        "accountNotValidated": "Ihr Konto wurde noch nicht validiert. Bitte überprüfen Sie Ihre E-Mails, um Ihr Konto zu validieren."
     },
     "loading": {
         "createaccount": "Registrieren...",

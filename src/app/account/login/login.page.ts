@@ -15,6 +15,7 @@ import { NewsService } from 'src/app/news/shared/news.service';
 import { App } from '@capacitor/app';
 import { NavigationService } from 'src/app/shared/services/navigation.service';
 import { FormsModule } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
     selector: 'app-login',
@@ -48,12 +49,44 @@ export class LoginPage implements OnInit, OnDestroy {
         private alertController: AlertController,
         private loadingCtrl: LoadingController,
         private navigationService: NavigationService,
+        private route: ActivatedRoute,
+        private router: Router
     ) {
         this.menuCtrl.enable(false);
         this.defineVersion();
     }
 
     ngOnInit() {
+        const token = this.route.snapshot.queryParamMap.get('token');
+        if (token) {
+            // Remove token from URL
+            this.router.navigate([], {
+                queryParams: { token: null },
+                queryParamsHandling: 'merge',
+                replaceUrl: true
+            });
+            this.navigationService.clearHistory();
+            this.accountService.verifyUser(token).pipe(
+                takeUntil(this.unsubscribe$)
+            ).subscribe({
+                next: async () => {
+                    const alert = await this.alertController.create({
+                        header: this.translate.instant('account.verification'),
+                        message: this.translate.instant('message.accountVerificationSuccess'),
+                        buttons: [this.translate.instant('buttons.done')]
+                    });
+                    await alert.present();
+                },
+                error: async (error) => {
+                    const alert = await this.alertController.create({
+                        header: this.translate.instant('account.verification'),
+                        message: this.translate.instant('message.accountVerificationError'),
+                        buttons: [this.translate.instant('buttons.done')]
+                    });
+                    await alert.present();
+                }
+            });
+        }
     }
 
     ngOnDestroy() {
@@ -76,26 +109,32 @@ export class LoginPage implements OnInit, OnDestroy {
             });
             await loading.present();
 
-            this.accountService.login(this.loginData).pipe(takeUntil(this.unsubscribe$)).subscribe(async resp => {
-                await loading.dismiss();
-                localStorage.setItem('access_token', resp.access_token);
-                localStorage.setItem('refresh_token', resp.refresh_token);
-                this.navigationService.back();
-                this.menuCtrl.enable(true);
-                this.loginData.email = null;
-                this.loginData.password = null;
-            },
-                (async (error: any) => {
+            this.accountService.login(this.loginData).pipe(takeUntil(this.unsubscribe$)).subscribe({
+                next: async resp => {
+                    await loading.dismiss();
+                    localStorage.setItem('access_token', resp.access_token);
+                    localStorage.setItem('refresh_token', resp.refresh_token);
+                    this.navigationService.back();
+                    this.menuCtrl.enable(true);
+                    this.loginData.email = null;
+                    this.loginData.password = null;
+                },
+                error: (async (error: any) => {
                     await loading.dismiss();
                     if (error.status === HttpStatusCode.UNAUTHORIZED) {
+                        let message = this.translate.instant('message.emailpwdnotcorrect');
+                        if (error.error.message === "account not validated") {
+                            message = this.translate.instant('message.accountNotValidated')
+                        }
                         const alert = await this.alertController.create({
                             header: this.translate.instant('buttons.login'),
-                            message: this.translate.instant('message.emailpwdnotcorrect'),
+                            message: message,
                             buttons: [this.translate.instant('buttons.done')]
                         });
                         await alert.present();
                     }
-                }));
+                })
+            });
         } else {
             const alert = await this.alertController.create({
                 header: this.translate.instant('buttons.login'),
@@ -165,18 +204,21 @@ export class LoginPage implements OnInit, OnDestroy {
             loading.present();
         });
 
-        this.accountService.resetPassword(email).pipe(takeUntil(this.unsubscribe$)).subscribe((resp: any) => {
-            loading.dismiss();
-            const alert = this.alertController.create({
-                header: this.translate.instant('message.infotitle'),
-                message: this.translate.instant('message.pwdSend'),
-                buttons: [this.translate.instant('buttons.done')]
-            });
-            alert.then(resp => {
-                resp.present();
-            })
-        }, (error: any) => {
-            loading.dismiss();
+        this.accountService.resetPassword(email).pipe(takeUntil(this.unsubscribe$)).subscribe({
+            next: (resp: any) => {
+                loading.dismiss();
+                const alert = this.alertController.create({
+                    header: this.translate.instant('message.infotitle'),
+                    message: this.translate.instant('message.pwdSend'),
+                    buttons: [this.translate.instant('buttons.done')]
+                });
+                alert.then(resp => {
+                    resp.present();
+                })
+            },
+            error: (error: any) => {
+                loading.dismiss();
+            }
         });
         return true;
     }

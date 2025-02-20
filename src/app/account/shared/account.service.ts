@@ -38,6 +38,10 @@ export class AccountService {
     return this.http.get<User>(`${environment.baseUrl}/users`);
   }
 
+  verifyUser(token: string): Observable<any> {
+    return this.http.get<User>(`${environment.baseUrl}/users/verify-email?token=${token}`);
+  }
+
   updateUser(user: User): Observable<User> {
     return this.http.put<User>(`${environment.baseUrl}/users`, user);
   }
