@@ -26,7 +26,7 @@ export class AccountService {
   }
 
   register(user: User): Observable<any> {
-    return this.http.post<any>(`${environment.baseUrl}/users`, user);
+    return this.http.post<any>(`${environment.baseUrl}/v2/users`, user);
   }
 
   logout(): Observable<any> {

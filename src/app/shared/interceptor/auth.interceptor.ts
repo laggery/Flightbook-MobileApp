@@ -16,7 +16,8 @@ export class HttpAuthInterceptor implements HttpInterceptor {
             ['assets/i18n', 'GET'],
             ['flightbook-bucket', 'PUT'],
             ['auth/login', 'POST'],
-            ['users', 'POST'],
+            ['v2/users', 'POST'],
+            ['users/verify-email', 'GET'],
             ['auth/refresh', 'GET'],
             ['auth/reset-password', 'GET'],
             ['news', 'GET']
