@@ -31,8 +31,9 @@
   </ion-item>
   @if (schools?.length > 0) {
     <ion-item>
-      <ion-label color="primary" position="stacked">{{ 'flight.shvAlone' | translate }}</ion-label>
-      <ion-toggle [(ngModel)]="flight.shvAlone" name="shvAlone"></ion-toggle>
+      <ion-input class="test" label="{{ 'flight.shvAlone' | translate }}" labelPlacement="stacked" type="boolean">
+        <ion-toggle slot="start" [(ngModel)]="flight.shvAlone" name="shvAlone"></ion-toggle>
+      </ion-input>
     </ion-item>
   }
   <ion-item>

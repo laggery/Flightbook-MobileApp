@@ -31,7 +31,6 @@ import { School } from 'src/app/school/shared/school.model';
         IonModal,
         IonContent,
         IonDatetime,
-        IonLabel,
         IonToggle
     ]
 })

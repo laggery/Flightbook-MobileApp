@@ -2,3 +2,11 @@ ion-modal.timeModal {
     --max-width: 250px;
     --max-height: 252px;
 }
+
+:host ::ng-deep ion-input.test .native-wrapper .native-input {
+    display: none !important;
+}
+
+:host ::ng-deep .ios ion-input ion-toggle {
+    margin-top: 3px !important;
+  }
