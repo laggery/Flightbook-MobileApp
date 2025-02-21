@@ -17,6 +17,8 @@ import moment from 'moment';
 import { NgIf } from '@angular/common';
 import { FileInputComponent } from '../../shared/components/file-input/file-input.component';
 import { FlightFormComponent } from '../../form/flight-form/flight-form';
+import { School } from 'src/app/school/shared/school.model';
+import { SchoolService } from 'src/app/school/shared/school.service';
 
 @Component({
     selector: 'app-flight-edit',
@@ -44,6 +46,7 @@ export class FlightEditPage implements OnInit, OnDestroy {
     flight: Flight;
     gliders: Glider[] = [];
     igcFile: string;
+    schools: School[];
 
     constructor(
         private activeRoute: ActivatedRoute,
@@ -54,7 +57,8 @@ export class FlightEditPage implements OnInit, OnDestroy {
         private translate: TranslateService,
         private loadingCtrl: LoadingController,
         private fileUploadService: FileUploadService,
-        private igcService: IgcService
+        private igcService: IgcService,
+        private schoolService: SchoolService
     ) {
         this.flightId = +this.activeRoute.snapshot.paramMap.get('id');
         this.initialFlight = this.flightService.getValue().find(flight => flight.id === this.flightId);
@@ -78,6 +82,9 @@ export class FlightEditPage implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+        this.schoolService.getSchools().then((schools: School[]) => {
+            this.schools = schools;
+        });
     }
 
     ngOnDestroy() {

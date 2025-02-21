@@ -238,7 +238,7 @@ export class FlightListPage implements OnInit, OnDestroy, AfterViewInit {
             res = res.sort((a: Flight, b: Flight) => b.number - a.number);
             res.reverse();
             const user = await firstValueFrom(this.accountService.currentUser());
-            const schools = await firstValueFrom(this.schoolService.getSchools());
+            const schools = await this.schoolService.getSchools();
             const pdfObj: TCreatedPdf = await this.pdfExportService.generatePdf(res, stat, user, schools.length !== 0, 'https://m.flightbook.ch');
             if (Capacitor.isNativePlatform()) {
                 pdfObj.getBase64(async (data) => {

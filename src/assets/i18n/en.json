@@ -88,7 +88,8 @@
         "chooseIgc": "Choose an IGC file",
         "copyIgc": "Do you also want to copy the IGC file?",
         "override": "Do you want to override the glider, date, kilometres and flight duration with the data from the IGC file?",
-        "diff": "Diff."
+        "diff": "Diff.",
+        "shvAlone": "SHGPA alone flight"
     },
     "statistics": {
         "nbflight": "Number of flights",

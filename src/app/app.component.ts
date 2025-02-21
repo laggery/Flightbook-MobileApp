@@ -106,6 +106,7 @@ export class AppComponent implements OnDestroy, OnInit {
             localStorage.removeItem('access_token');
             localStorage.removeItem('refresh_token');
             this.initialRequestsFired = false;
+            this.schoolService.clearSchools();
         });
         this.schools = [];
     }
@@ -115,9 +116,9 @@ export class AppComponent implements OnDestroy, OnInit {
             return;
         }
 
-        this.schoolService.getSchools().pipe(takeUntil(this.unsubscribe$)).subscribe((schools: School[]) => {
+        this.schoolService.getSchools().then((schools: School[]) => {
             this.schools = schools;
-        })
+        });
 
         this.schoolService.getControlSheet().pipe(takeUntil(this.unsubscribe$)).subscribe((controlSheet: ControlSheet) => {
             this.hasControlSheet = controlSheet ? true : false;

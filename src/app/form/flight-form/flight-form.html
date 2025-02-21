@@ -29,6 +29,12 @@
   <ion-item>
     <ion-input label="{{ 'flight.km' | translate }}" labelPlacement="stacked" [(ngModel)]="flight.km" type="number" name="km"></ion-input>
   </ion-item>
+  @if (schools?.length > 0) {
+    <ion-item>
+      <ion-label color="primary" position="stacked">{{ 'flight.shvAlone' | translate }}</ion-label>
+      <ion-toggle [(ngModel)]="flight.shvAlone" name="shvAlone"></ion-toggle>
+    </ion-item>
+  }
   <ion-item>
     <ion-textarea label="{{ 'flight.description' | translate }}" labelPlacement="stacked" [(ngModel)]="flight.description" name="description" autocomplete="on" autocorrect="on" auto-grow="true"></ion-textarea>
   </ion-item>

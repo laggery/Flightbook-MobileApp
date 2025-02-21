@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { AlertController, IonItem, IonInput, IonTextarea, IonButton, IonModal, IonContent, IonDatetime } from '@ionic/angular/standalone';
+import { AlertController, IonItem, IonInput, IonTextarea, IonButton, IonModal, IonContent, IonDatetime, IonLabel, IonToggle } from '@ionic/angular/standalone';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import moment from 'moment';
 import { NgForm, FormsModule } from '@angular/forms';
@@ -10,6 +10,7 @@ import { NgIf, DatePipe } from '@angular/common';
 import { GliderSelectComponent } from '../../shared/components/glider-select/glider-select.component';
 import { AutocompleteComponent } from '../autocomplete/autocomplete.component';
 import { IgcMapComponent } from '../../shared/components/igc-map/igc-map.component';
+import { School } from 'src/app/school/shared/school.model';
 
 @Component({
     selector: 'flight-form',
@@ -29,7 +30,9 @@ import { IgcMapComponent } from '../../shared/components/igc-map/igc-map.compone
         IonButton,
         IonModal,
         IonContent,
-        IonDatetime
+        IonDatetime,
+        IonLabel,
+        IonToggle
     ]
 })
 export class FlightFormComponent implements OnInit {
@@ -38,6 +41,8 @@ export class FlightFormComponent implements OnInit {
     flight: Flight;
     @Input()
     gliders: Glider[];
+    @Input()
+    schools: School[];
     @Input()
     igcFileEdit: any;
     @Input()

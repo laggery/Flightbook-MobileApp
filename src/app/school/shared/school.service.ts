@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import moment from 'moment';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, firstValueFrom, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { AppointmentFilter } from './appointment-filter.model';
 import { Appointment } from './appointment.model';
@@ -16,14 +16,22 @@ export class SchoolService {
   filter: AppointmentFilter;
   filtered$: BehaviorSubject<boolean>;
   defaultLimit = 20;
+  private schools: School[];
 
   constructor(private http: HttpClient) {
     this.filter = new AppointmentFilter();
     this.filtered$ = new BehaviorSubject(false);
   }
 
-  getSchools(): Observable<School[]> {
-    return this.http.get<School[]>(`${environment.baseUrl}/student/schools`);
+  async getSchools(): Promise<School[]> {
+    if (!this.schools) {
+      this.schools = await firstValueFrom(this.http.get<School[]>(`${environment.baseUrl}/student/schools`));
+    }
+    return this.schools;
+  }
+
+  clearSchools() {
+    this.schools = null;
   }
 
   getAppointments({ limit = null, offset = null}: { limit?: number, offset?: number} = {}, schoolId: number ): Observable<Appointment[]> {

@@ -15,6 +15,8 @@ import { IgcService } from 'src/app/shared/services/igc.service';
 import moment from 'moment';
 import { FileInputComponent } from '../../shared/components/file-input/file-input.component';
 import { FlightFormComponent } from '../../form/flight-form/flight-form';
+import { SchoolService } from 'src/app/school/shared/school.service';
+import { School } from 'src/app/school/shared/school.model';
 
 @Component({
     selector: 'app-flight-add',
@@ -37,6 +39,7 @@ export class FlightAddPage implements OnInit, OnDestroy {
     flight: Flight;
     gliders: Glider[] = [];
     igcFile: string;
+    schools: School[];
 
     constructor(
         private router: Router,
@@ -46,6 +49,7 @@ export class FlightAddPage implements OnInit, OnDestroy {
         private translate: TranslateService,
         private loadingCtrl: LoadingController,
         private fileUploadService: FileUploadService,
+        private schoolService: SchoolService,
         private igcService: IgcService
     ) {
         this.flight = new Flight();
@@ -56,6 +60,9 @@ export class FlightAddPage implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+        this.schoolService.getSchools().then((schools: School[]) => {
+            this.schools = schools;
+        });
         if (this.flightService.getValue().length > 0) {
             this.flight.glider = this.flightService.getValue()[0].glider;
         } else {

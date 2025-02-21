@@ -88,7 +88,8 @@
         "chooseIgc": "Choisir un fichier IGC",
         "copyIgc": "Voulez-vous également copier le fichier IGC?",
         "override": "Voulez-vous écraser le parapente, la date, les kilomètres et la durée du vol avec les données du fichier IGC?",
-        "diff": "Diff."
+        "diff": "Diff.",
+        "shvAlone": "FSVL vol autonome"
     },
     "statistics": {
         "nbflight": "Nombre de vols",
@@ -213,8 +214,8 @@
         "nbLandingplaces": "Nombre de places d'atterissages",
         "nbflights": "Nombre de vols",
         "flights": "Vols",
-        "flightsAlone": "Vols seul",
-        "nbflightsAlone": "Nombre de vols seul",
+        "flightsAlone": "Vols autonome",
+        "nbflightsAlone": "Nombre de vols autonome",
         "startplaces": "Places de décollages",
         "landingplaces": "Places d'atterissages",
         "firstlastname": "Nom",
