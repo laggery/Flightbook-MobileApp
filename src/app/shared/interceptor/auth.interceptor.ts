@@ -1,5 +1,5 @@
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
-import { Observable, from } from 'rxjs';
+import { Observable, firstValueFrom, from } from 'rxjs';
 import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { AccountService } from 'src/app/account/shared/account.service';
@@ -39,15 +39,15 @@ export class HttpAuthInterceptor implements HttpInterceptor {
         if (validityCheck) {
             const authenticated = await this.accoutService.isAuth();
             if (authenticated) {
-                if (req.url.includes('file/upload') || req.url.includes('import')){
-                  return next.handle(this.setFormDataHeaders(req)).toPromise();
+                if (req.url.includes('file/upload') || req.url.includes('import')) {
+                    return next.handle(this.setFormDataHeaders(req)).toPromise();
                 }
                 return next.handle(this.setHeaders(req)).toPromise();
             } else {
                 this.router.navigate(['login']);
             }
         } else {
-            return next.handle(req).toPromise();
+            return next.handle(this.setNotAuthenticatedHeaders(req)).toPromise();
         }
     }
 
@@ -60,12 +60,19 @@ export class HttpAuthInterceptor implements HttpInterceptor {
             }
         });
     }
-  private setFormDataHeaders(request: HttpRequest<any>): HttpRequest<any> {
-    return request.clone({
-      setHeaders: {
-        Authorization: `Bearer ${localStorage.getItem('access_token')}`,
-        'Accept-Language': localStorage.getItem('language') || navigator.language.split('-')[0]
-      }
-    });
-  }
+    private setFormDataHeaders(request: HttpRequest<any>): HttpRequest<any> {
+        return request.clone({
+            setHeaders: {
+                Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+                'Accept-Language': localStorage.getItem('language') || navigator.language.split('-')[0]
+            }
+        });
+    }
+    private setNotAuthenticatedHeaders(request: HttpRequest<any>): HttpRequest<any> {
+        return request.clone({
+            setHeaders: {
+                'Accept-Language': localStorage.getItem('language') || navigator.language.split('-')[0]
+            }
+        });
+    }
 }
