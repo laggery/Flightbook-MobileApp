@@ -10,6 +10,7 @@ import { GliderSelectComponent } from './components/glider-select/glider-select.
 import { PlaceMapComponent } from './components/place-map/place-map.component';
 import { StarRatingComponent } from './components/star-rating/star-rating.component';
 import { NxgTransalteSortPipe } from './pipes/nxg-transalte-sort.pipe';
+import { PhoneNumberComponent } from './components/phone-number/phone-number.component';
 
 @NgModule({
     exports: [
@@ -20,7 +21,8 @@ import { NxgTransalteSortPipe } from './pipes/nxg-transalte-sort.pipe';
         GliderSelectComponent,
         HoursFormatPipe,
         StarRatingComponent,
-        NxgTransalteSortPipe
+        NxgTransalteSortPipe,
+        PhoneNumberComponent
     ],
     imports: [
         TranslateModule,
@@ -34,7 +36,8 @@ import { NxgTransalteSortPipe } from './pipes/nxg-transalte-sort.pipe';
         GliderSelectComponent,
         HoursFormatPipe,
         StarRatingComponent,
-        NxgTransalteSortPipe
+        NxgTransalteSortPipe,
+        PhoneNumberComponent
     ],
     providers: [
         DatePipe

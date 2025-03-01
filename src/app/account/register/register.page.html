@@ -10,20 +10,41 @@
 
 <ion-content class="ion-padding">
   <form #form="ngForm" (ngSubmit)="saveRegister(form)">
-    <ion-item>
-      <ion-input  [(ngModel)]="registerData.firstname" required name="firstname" type="text" placeholder="{{ 'account.firstname' | translate }}"></ion-input>
+    <ion-item class="error-item">
+      <ion-input [(ngModel)]="registerData.firstname" #firstname="ngModel" required name="firstname" type="text" label="{{ 'account.firstname' | translate }}*" labelPlacement="stacked"></ion-input>
+      @if (firstname.invalid && (firstname.dirty || firstname.touched)) {
+        <ion-text color="danger" class="error-text">{{ 'message.required' | translate }}</ion-text>
+      }
+    </ion-item>
+    <ion-item class="error-item">
+      <ion-input [(ngModel)]="registerData.lastname" #lastname="ngModel" required name="lastname" type="text" label="{{ 'account.lastname' | translate }}*" labelPlacement="stacked"></ion-input>
+      @if (lastname.invalid && (lastname.dirty || lastname.touched)) {
+        <ion-text color="danger" class="error-text">{{ 'message.required' | translate }}</ion-text>
+      }
+    </ion-item>
+    <ion-item class="error-item">
+      <ion-input  [(ngModel)]="registerData.email" #email="ngModel" required email name="email" type="email" label="{{ 'login.email' | translate }}*" labelPlacement="stacked"></ion-input>
+      @if (email.invalid && (email.dirty || email.touched)) {
+        <ion-text color="danger" class="error-text">
+          @if (email.errors?.['required']) {
+            {{ 'message.required' | translate }}
+          } @else if (email.errors?.['email']) {
+            {{ 'message.invalidEmail' | translate }}
+          }
+        </ion-text>
+      }
     </ion-item>
     <ion-item>
-      <ion-input [(ngModel)]="registerData.lastname" required name="lastname" type="text" placeholder="{{ 'account.lastname' | translate }}"></ion-input>
+      <fb-phone-number [(ngModel)]="registerData.phone" name="phone"></fb-phone-number>
     </ion-item>
-    <ion-item>
-      <ion-input  [(ngModel)]="registerData.email" required name="email" type="email" placeholder="{{ 'login.email' | translate }}"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-input [(ngModel)]="registerData.password" required name="password" type="password" placeholder="{{ 'login.password' | translate }}">
+    <ion-item class="error-item">
+      <ion-input [(ngModel)]="registerData.password" #password="ngModel" required name="password" type="password" label="{{ 'login.password' | translate }}*" labelPlacement="stacked">
         <ion-input-password-toggle slot="end"></ion-input-password-toggle>
       </ion-input>
+      @if (password.invalid && (password.dirty || password.touched)) {
+        <ion-text color="danger" class="error-text">{{ 'message.required' | translate }}</ion-text>
+      }
     </ion-item>
-    <ion-button expand="block" type="submit" >{{ 'buttons.save' | translate }}</ion-button>
+    <ion-button expand="block" [disabled]="form.invalid" type="submit" >{{ 'buttons.save' | translate }}</ion-button>
   </form>
 </ion-content>

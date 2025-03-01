@@ -40,3 +40,21 @@ ion-select {
 ion-select::part(text) {
   color: black;
 }
+
+// form error message
+ion-text.error-text {
+  font-size: 12px;
+}
+
+ion-item.error-item {
+  .item-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  &::part(native) {
+    flex-direction: column;
+    align-items: flex-start;
+  }  
+}

@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { MenuController, LoadingController, AlertController, IonInputPasswordToggle, IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonContent, IonItem, IonInput, IonButton } from '@ionic/angular/standalone';
+import { MenuController, LoadingController, AlertController, IonInputPasswordToggle, IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonContent, IonItem, IonInput, IonButton, IonText } from '@ionic/angular/standalone';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Router } from '@angular/router';
@@ -8,6 +8,7 @@ import HttpStatusCode from '../../shared/util/HttpStatusCode';
 import { User } from 'src/app/account/shared/user.model';
 import { AccountService } from '../shared/account.service';
 import { FormsModule } from '@angular/forms';
+import { PhoneNumberComponent } from 'src/app/shared/components/phone-number/phone-number.component';
 
 @Component({
     selector: 'app-register',
@@ -25,7 +26,9 @@ import { FormsModule } from '@angular/forms';
         IonItem,
         IonInput,
         IonInputPasswordToggle,
-        IonButton
+        IonButton,
+        IonText,
+        PhoneNumberComponent
     ]
 })
 export class RegisterPage implements OnInit, OnDestroy {
@@ -80,6 +83,13 @@ export class RegisterPage implements OnInit, OnDestroy {
                     }
                 })
             );
+        } else {
+            const alert = await this.alertController.create({
+                header: this.translate.instant('message.errortitle'),
+                message: this.translate.instant('message.mendatoryFields'),
+                buttons: [this.translate.instant('buttons.done')]
+            });
+            await alert.present();
         }
     }
 

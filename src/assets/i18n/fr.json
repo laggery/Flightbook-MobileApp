@@ -6,6 +6,14 @@
         "en": "Anglais",
         "it": "Italien"
     },
+    "country": {
+        "switzerland": "Suisse",
+        "france": "France",
+        "germany": "Allemagne",
+        "austria": "Autriche",
+        "italy": "Italie",
+        "other": "Autre"
+    },
     "buttons": {
         "createAccount": "Créer un compte!",
         "login": "Connexion",
@@ -48,6 +56,8 @@
         "register": "Inscription",
         "firstname": "Prénom",
         "lastname": "Nom",
+        "phone": "Téléphone",
+        "prefix": "Préfixe",
         "verification": "Vérification du compte"
     },
     "place": {
@@ -187,7 +197,9 @@
         "accountVerificationSuccess": "Votre compte a été validé avec succès.",
         "accountVerificationError": "Votre compte n'a pas pu être validé. Le jeton semble ne pas être valide. Pour toute question, contactez yannick.lagger@flightbook.ch.",
         "registrationSuccess": "Un e-mail de validation a été envoyé. Veuillez vérifier vos e-mails et valider votre compte. Si vous n'avez pas reçu l'e-mail, vérifiez votre dossier spam. En cas de problème, contactez yannick.lagger@flightbook.ch.",
-        "accountNotValidated": "Votre compte n'a pas encore été validé. Veuillez vérifier vos e-mails pour valider votre compte."
+        "accountNotValidated": "Votre compte n'a pas encore été validé. Veuillez vérifier vos e-mails pour valider votre compte.",
+        "phoneInvalidFormat": "Le numéro de téléphone doit avoir le format suivant: {{format}}",
+        "required": "Champ obligatoire"
     },
     "loading": {
         "createaccount": "Création compte...",

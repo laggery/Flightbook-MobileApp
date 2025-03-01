@@ -6,6 +6,14 @@
         "en": "English",
 	    "it": "Italian"
     },
+    "country": {
+        "switzerland": "Switzerland",
+        "france": "France",
+        "germany": "Germany",
+        "austria": "Austria",
+        "italy": "Italy",
+        "other": "Other"
+    },
     "buttons": {
         "createAccount": "Create an account!",
         "login": "Login",
@@ -48,6 +56,8 @@
         "register": "Register",
         "firstname": "Firstname",
         "lastname": "Lastname",
+        "phone": "Phone",
+        "prefix": "Prefix",
         "verification": "Account Verification"
     },
     "place": {
@@ -187,7 +197,9 @@
         "accountVerificationSuccess": "Your account has been successfully validated.",
         "accountVerificationError": "Your account could not be validated. The token seems not to be valid. For any issues, contact yannick.lagger@flightbook.ch.",
         "registrationSuccess": "A validation email has been sent. Please check your email and validate your account. If you haven't received the email, please check your spam folder. For any issues, contact yannick.lagger@flightbook.ch.",
-        "accountNotValidated": "Your account has not been validated yet. Please check your emails to validate your account."
+        "accountNotValidated": "Your account has not been validated yet. Please check your emails to validate your account.",
+        "phoneInvalidFormat": "Phone number must be in the format {{format}}",
+        "required": "This field is required"
     },
     "loading": {
         "createaccount": "Create account...",

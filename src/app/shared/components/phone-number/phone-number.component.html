@@ -1,0 +1,15 @@
+<div class="phone-container">
+  <ion-select [label]="'account.prefix' | translate" labelPlacement="stacked" [(ngModel)]="selectedPrefix" (ionChange)="onPrefixChange()" [disabled]="disabled" class="prefix-select"
+  okText="{{ 'buttons.done' | translate }}" cancelText="{{ 'buttons.cancel' | translate }}">
+    @for (country of countryPrefixes; track country.name) {
+      <ion-select-option value="{{ country.prefix }}">{{ country.name }} ({{ country.prefix }})</ion-select-option>
+    }
+  </ion-select>
+
+  <ion-input [label]="'account.phone' | translate" labelPlacement="stacked" [(ngModel)]="phoneNumber"
+    [required]="required" type="text" (ionBlur)="onTouched()" (ionChange)="onInputChange()" [disabled]="disabled" class="phone-input" placeholder="{{ selectedPlaceholder }}"></ion-input>
+    
+</div>
+@if (invalidPhone) {
+  <ion-text color="danger" class="error-text">{{ 'message.phoneInvalidFormat' | translate :{format: selectedPlaceholder} }}</ion-text>
+}

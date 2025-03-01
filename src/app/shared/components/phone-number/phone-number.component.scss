@@ -1,0 +1,27 @@
+.phone-container {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+.prefix-select {
+  min-width: 160px;
+  max-width: 160px;
+}
+
+.phone-input {
+  flex: 1;
+}
+
+:host {
+  display: block;
+  width: 100%;
+}
+
+.phone-container {
+  width: 100%;
+}
+
+ion-input, ion-select {
+  width: 100%;
+}

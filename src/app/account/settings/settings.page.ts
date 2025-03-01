@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
-import { AlertController, LoadingController, MenuController, NavController, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonContent, IonItem, IonInput, IonButton, IonCard, IonCardContent } from '@ionic/angular/standalone';
+import { AlertController, LoadingController, MenuController, NavController, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonContent, IonItem, IonInput, IonButton, IonCard, IonCardContent, IonText } from '@ionic/angular/standalone';
 import HttpStatusCode from '../../shared/util/HttpStatusCode';
 import { User } from 'src/app/account/shared/user.model';
 import { AccountService } from '../shared/account.service';
@@ -15,6 +15,7 @@ import { ActivatedRoute } from '@angular/router';
 import moment from 'moment';
 import { NgIf, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { PhoneNumberComponent } from 'src/app/shared/components/phone-number/phone-number.component';
 
 @Component({
     selector: 'app-settings',
@@ -35,7 +36,9 @@ import { FormsModule } from '@angular/forms';
         IonInput,
         IonButton,
         IonCard,
-        IonCardContent
+        IonCardContent,
+        IonText,
+        PhoneNumberComponent
     ]
 })
 export class SettingsPage implements OnInit, OnDestroy {

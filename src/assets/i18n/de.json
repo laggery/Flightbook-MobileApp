@@ -6,6 +6,14 @@
         "en": "Englisch",
         "it": "Italienisch"
     },
+    "country": {
+        "switzerland": "Schweiz",
+        "france": "Frankreich",
+        "germany": "Deutschland",
+        "austria": "Osterreich",
+        "italy": "Italien",
+        "other": "Andere"
+    },
     "buttons": {
         "createAccount": "Registrieren!",
         "login": "Anmelden",
@@ -48,6 +56,8 @@
         "register": "Registrieren",
         "firstname": "Vorname",
         "lastname": "Nachname",
+        "phone": "Telefon",
+        "prefix": "Vorwahl",
         "verification": "Kontoüberprüfung"
     },
     "place": {
@@ -187,7 +197,9 @@
         "accountVerificationSuccess": "Ihr Konto wurde erfolgreich validiert.",
         "accountVerificationError": "Ihr Konto konnte nicht validiert werden. Der Token scheint ungültig zu sein. Bitte kontaktieren Sie yannick.lagger@flightbook.ch",
         "registrationSuccess": "Eine Bestätigungs-E-Mail wurde versendet. Bitte überprüfen Sie Ihre E-Mails und bestätigen Sie Ihr Konto. Falls Sie keine E-Mail erhalten haben, überprüfen Sie bitte Ihren Spam-Ordner. Bei Problemen kontaktieren Sie bitte yannick.lagger@flightbook.ch.",
-        "accountNotValidated": "Ihr Konto wurde noch nicht validiert. Bitte überprüfen Sie Ihre E-Mails, um Ihr Konto zu validieren."
+        "accountNotValidated": "Ihr Konto wurde noch nicht validiert. Bitte überprüfen Sie Ihre E-Mails, um Ihr Konto zu validieren.",
+        "phoneInvalidFormat": "Telefonnummer muss folgendes Format haben: {{format}}",
+        "required": "Pflichtfeld"
     },
     "loading": {
         "createaccount": "Registrieren...",
