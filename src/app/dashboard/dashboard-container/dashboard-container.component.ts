@@ -6,6 +6,9 @@ import { Flight } from 'src/app/flight/shared/flight.model';
 import { FlightService } from 'src/app/flight/shared/flight.service';
 import { Router } from '@angular/router';
 import { DashboardItemComponent } from '../dashboard-item/dashboard-item.component';
+import { PaymentService } from 'src/app/shared/services/payment.service';
+import { AlertController } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'fb-dashboard-container',
@@ -20,7 +23,10 @@ export class DashboardContainerComponent implements OnInit {
 
   constructor(
     private flightService: FlightService,
-    private router: Router
+    private paymentService: PaymentService,
+    private alertController: AlertController,
+    private router: Router,
+    private translate: TranslateService
   ) {
   }
 
@@ -41,6 +47,17 @@ export class DashboardContainerComponent implements OnInit {
   }
 
   async openAddFlight() {
+    if (!this.paymentService.getPaymentStatusValue()?.active && this.flightService.getValue().length >= 25) {
+      const alert = await this.alertController.create({
+                  header: this.translate.instant('message.infotitle'),
+                  message: this.translate.instant('payment.premiumUpgradeRequired'),
+                  buttons: [{
+                      text: this.translate.instant('buttons.done'),
+                  }]
+              });
+              await alert.present();
+      return;
+    }
     this.router.navigate([`flights/add`], { replaceUrl: true });
   }
 

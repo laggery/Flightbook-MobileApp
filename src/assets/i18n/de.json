@@ -39,7 +39,7 @@
         "data": "Daten",
         "cancelSubscription": "Abonnement kündigen",
         "controlSheet": "Kontrollblatt",
-        "subscribe": "Abonnieren",
+        "subscribe": "Flightbook Premium abonnieren",
         "shvWeather": "SHV Wetter (Login)",
         "dabsToday": "DABS Schweiz heute",
         "dabsTomorrow": "DABS Schweiz morgen"
@@ -567,10 +567,13 @@
         }
     },
     "payment": {
-        "noSubscription": "<p>Du nutzt zurzeit Flightbook Free.</p><p>Für 12CHF im Jahr kannst du auf Flightbook Premium wechseln!</p><ul><li>Keine Werbung</li><li>Unterstützt das Projekt</li></ul>",
+        "nativeNoSubscription": "<p>Du verwendest derzeit Flightbook Free.</p><p>Besuche flightbook.ch für weitere Informationen.</p>",
+        "noSubscription": "<p>Du nutzt zurzeit Flightbook Free.</p><p>Für 12CHF im Jahr kannst du auf Flightbook Premium wechseln!</p><ul><li>Unbegrenzte Anzahl Flüge hinzufügen</li><li>Unterstützt das Projekt</li></ul>",
         "thanks": "Vielen Dank für deine Unterstützung!",
         "information": "Ihr Abonnement wird am {{ date }} automatisch verlängert. Sie werden mit einem Betrag von CHF 12.00/Jahr belastet.",
-        "canceled": "Ihr Abonnement wurde gekündigt. Sie verfügen noch über alle Funktionen bis zum {{ date }}."
+        "canceled": "Ihr Abonnement wurde gekündigt. Sie verfügen noch über alle Funktionen bis zum {{ date }}.",
+        "premiumUpgradeRequired": "Du hast das Limit von 25 Flügen erreicht. Besuche flightbook.ch für weitere Informationen.",
+        "welcome": "<p>Willkommen bei Flightbook!</p><p>Du verwendest derzeit Flightbook Free und kannst bis zu 25 Flüge registrieren.</p><p>Besuche flightbook.ch für weitere Informationen.</p>"
     },
     "version": "Version"
 }

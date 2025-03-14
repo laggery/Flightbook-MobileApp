@@ -16,7 +16,7 @@ import { Pager } from 'src/app/shared/domain/pager.model';
 export class FlightService extends Store<Flight[]> {
   public filter: FlightFilter;
   public filtered$: WritableSignal<boolean> = signal(false);
-  public defaultLimit = 20;
+  public defaultLimit = 25;
 
   constructor(private http: HttpClient) {
     super([]);

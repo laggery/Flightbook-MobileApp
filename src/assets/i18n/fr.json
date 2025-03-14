@@ -39,7 +39,7 @@
         "data": "Données",
         "cancelSubscription": "Résilier l'abonnement",
         "controlSheet": "Fiche de contrôle",
-        "subscribe": "S'abonner",
+        "subscribe": "S'abonner à flightbook Premium",
         "shvWeather": "FSVL Météo (Login)",
         "dabsToday": "DABS Suisse aujourd'hui",
         "dabsTomorrow": "DABS Suisse demain"
@@ -567,10 +567,13 @@
         }
     },
     "payment": {
-        "noSubscription": "<p>Tu utilises actuellement Flightbook Free.</p><p>Pour 12CHF par an, tu peux passer à Flightbook Premium!</p><ul><li>Pas de publicité</li><li>Soutient le projet</li></ul>",
+        "nativeNoSubscription": "<p>Tu utilises actuellement Flightbook Free.</p><p>Visite flightbook.ch pour plus d'informations.</p>",
+        "noSubscription": "<p>Tu utilises actuellement Flightbook Free.</p><p>Pour 12CHF par an, tu peux passer à Flightbook Premium!</p><ul><li>Ajouter un nombre illimité de vols</li><li>Soutient le projet</li></ul>",
         "thanks": "Merci beaucoup pour ton soutien!",
         "information": "Votre abonnement sera automatiquement renouvelé le {{ date }}. Vous serez débité d'un montant de CHF 12.00/année",
-        "canceled": "Votre abonnement a été résilié. Vous disposez encore de l'ensemble des fonctionnalités jusqu'au {{ date }}."
+        "canceled": "Votre abonnement a été résilié. Vous disposez encore de l'ensemble des fonctionnalités jusqu'au {{ date }}.",
+        "premiumUpgradeRequired": "Tu as atteint la limite de 25 vols. Visite flightbook.ch pour plus d'informations.",
+        "welcome": "<p>Bienvenue sur Flightbook!</p><p>Tu utilises actuellement Flightbook Free et tu peux enregistrer jusqu'à 25 vols.</p><p>Visite flightbook.ch pour plus d'informations.</p>"
     },
     "version": "Version"
 }

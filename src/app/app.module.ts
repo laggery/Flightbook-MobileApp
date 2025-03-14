@@ -67,7 +67,9 @@ registerLocaleData(frenchLocale);
         PaymentService,
         NavigationService,
         provideHttpClient(withInterceptorsFromDi()),
-        provideIonicAngular()
+        provideIonicAngular({
+            innerHTMLTemplatesEnabled: true
+          }),
     ]
 })
 export class AppModule {

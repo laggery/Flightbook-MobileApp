@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 
-import { MenuController, AlertController } from '@ionic/angular/standalone';
+import { MenuController, AlertController, IonicSafeString } from '@ionic/angular/standalone';
 import { TranslateService } from '@ngx-translate/core';
 import { filter, takeUntil } from 'rxjs/operators';
 import { SwUpdate, VersionReadyEvent } from '@angular/service-worker';
@@ -105,6 +105,7 @@ export class AppComponent implements OnDestroy, OnInit {
             // TODO error handling
             localStorage.removeItem('access_token');
             localStorage.removeItem('refresh_token');
+            localStorage.removeItem('last_login');
             this.initialRequestsFired = false;
             this.schoolService.clearSchools();
         });
@@ -128,8 +129,19 @@ export class AppComponent implements OnDestroy, OnInit {
             this.initPushNotification();
         }
 
-        this.accountService.getPaymentStatus().pipe(takeUntil(this.unsubscribe$)).subscribe((paymentStatus: PaymentStatus) => {
+        this.accountService.getPaymentStatus().pipe(takeUntil(this.unsubscribe$)).subscribe(async(paymentStatus: PaymentStatus) => {
             this.paymentService.setPaymentStatus(paymentStatus);
+            if (paymentStatus?.state != 'EXEMPTED' && !paymentStatus.active && this.accountService.getLastLogin() == null) {
+                localStorage.setItem('last_login', new Date().toISOString());
+                const alert = await this.alertController.create({
+                    header: this.translate.instant('message.infotitle'),
+                    message: new IonicSafeString(this.translate.instant('payment.welcome')),
+                    buttons: [{
+                        text: this.translate.instant('buttons.done'),
+                    }],
+                });
+                await alert.present();
+            }
         })
 
         this.initialRequestsFired = true;

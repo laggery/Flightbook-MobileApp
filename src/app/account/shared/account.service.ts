@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { environment } from 'src/environments/environment';
 import { User } from './user.model';
@@ -18,11 +18,25 @@ export class AccountService {
   }
 
   refresh(refreshToken: string): Observable<any> {
-    return this.http.get<any>(`${environment.baseUrl}/auth/refresh/${refreshToken}`);
+    return this.http.get<any>(`${environment.baseUrl}/auth/refresh/${refreshToken}`).pipe(
+      map((response: any) => {
+        if (response.lastLogin && response.lastLogin !== null) {
+          localStorage.setItem('last_login', response.lastLogin);
+        }
+        return response;
+      })
+    );
   }
 
   login(loginData: any): Observable<any> {
-    return this.http.post<any>(`${environment.baseUrl}/auth/login`, loginData);
+    return this.http.post<any>(`${environment.baseUrl}/auth/login`, loginData).pipe(
+      map((response: any) => {
+        if (response.lastLogin && response.lastLogin !== null) {
+          localStorage.setItem('last_login', response.lastLogin);
+        }
+        return response;
+      })
+    );
   }
 
   register(user: User): Observable<any> {
@@ -47,7 +61,7 @@ export class AccountService {
   }
 
   updateNotificationToken(notificationToken: string): Observable<any> {
-    return this.http.put<any>(`${environment.baseUrl}/users/notification/token`, {token: notificationToken});
+    return this.http.put<any>(`${environment.baseUrl}/users/notification/token`, { token: notificationToken });
   }
 
   updatePassword(pwd: any): Observable<User> {
@@ -66,7 +80,7 @@ export class AccountService {
     return this.http.get<PaymentStatus>(`${environment.baseUrl}/payments/status`);
   }
 
-  cancelPaymentSubscription(){
+  cancelPaymentSubscription() {
     return this.http.post(`${environment.baseUrl}/payments/cancel`, {});
   }
 
@@ -96,5 +110,12 @@ export class AccountService {
 
   getStripeSession(): Observable<any> {
     return this.http.get<any>(`${environment.baseUrl}/payments/stripe/session`);
+  }
+
+  getLastLogin(): Date {
+    if (localStorage.getItem('last_login') !== null) {
+      return new Date(localStorage.getItem('last_login'))
+    }
+    return null;
   }
 }

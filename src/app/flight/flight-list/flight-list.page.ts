@@ -16,17 +16,17 @@ import { AccountService } from 'src/app/account/shared/account.service';
 import { FlightStatistic } from '../shared/flightStatistic.model';
 import { SchoolService } from 'src/app/school/shared/school.service';
 import { AsyncPipe, DatePipe } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { FlagsModule } from 'nxt-flags';
 import { addIcons } from "ionicons";
 import { add, filterOutline, trash } from "ionicons/icons";
+import { PaymentService } from 'src/app/shared/services/payment.service';
 
 @Component({
     selector: 'app-flight-list',
     templateUrl: './flight-list.page.html',
     styleUrls: ['./flight-list.page.scss'],
     imports: [
-        RouterLink,
         FlagsModule,
         AsyncPipe,
         DatePipe,
@@ -72,7 +72,9 @@ export class FlightListPage implements OnInit, OnDestroy, AfterViewInit {
         private translate: TranslateService,
         private loadingCtrl: LoadingController,
         private xlsxExportService: XlsxExportService,
-        private pdfExportService: PdfExportService
+        private pdfExportService: PdfExportService,
+        private paymentService: PaymentService,
+        private router: Router
     ) {
         this.flights$ = this.flightService.getState();
 
@@ -274,4 +276,19 @@ export class FlightListPage implements OnInit, OnDestroy, AfterViewInit {
             await loading.dismiss();
         });
     }
+
+    async openAddFlight() {
+        if (!this.paymentService.getPaymentStatusValue()?.active && this.flightService.getValue().length >= 25) {
+          const alert = await this.alertController.create({
+                      header: this.translate.instant('message.infotitle'),
+                      message: this.translate.instant('payment.premiumUpgradeRequired'),
+                      buttons: [{
+                          text: this.translate.instant('buttons.done'),
+                      }]
+                  });
+                  await alert.present();
+          return;
+        }
+        this.router.navigate([`flights/add`], { replaceUrl: true });
+      }
 }

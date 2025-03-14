@@ -44,6 +44,9 @@
       <ion-card-content *ngIf="!paymentStatus.active && !isNative">
         <div [innerHtml]="'payment.noSubscription' | translate"></div>
       </ion-card-content>
+      <ion-card-content *ngIf="!paymentStatus.active && isNative">
+        <div [innerHtml]="'payment.nativeNoSubscription' | translate"></div>
+      </ion-card-content>
       <ion-card-content *ngIf="paymentStatus.active && paymentStatus.state == 'ACTIVE'">
         {{ 'payment.information' | translate: { date: paymentStatus.expires_date | date:'dd.MM.yyyy HH:mm':'UTC'} }}
       </ion-card-content>
