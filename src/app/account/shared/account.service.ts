@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map, Observable } from 'rxjs';
+import { firstValueFrom, map, Observable } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { environment } from 'src/environments/environment';
 import { User } from './user.model';
@@ -18,7 +18,7 @@ export class AccountService {
   }
 
   refresh(refreshToken: string): Observable<any> {
-    return this.http.get<any>(`${environment.baseUrl}/auth/refresh/${refreshToken}`).pipe(
+    return this.http.post<any>(`${environment.baseUrl}/auth/refresh`, { "refresh_token": refreshToken }).pipe(
       map((response: any) => {
         if (response.lastLogin && response.lastLogin !== null) {
           localStorage.setItem('last_login', response.lastLogin);
@@ -43,9 +43,9 @@ export class AccountService {
     return this.http.post<any>(`${environment.baseUrl}/v2/users`, user);
   }
 
-  logout(): Observable<any> {
+  logout(refreshToken: string): Observable<any> {
     this.naviagationService.clearHistory();
-    return this.http.get<any>(`${environment.baseUrl}/auth/logout`);
+    return this.http.post<any>(`${environment.baseUrl}/auth/logout`, { "refresh_token": refreshToken });
   }
 
   currentUser(): Observable<any> {
@@ -91,7 +91,7 @@ export class AccountService {
       const refreshToken = localStorage.getItem('refresh_token');
       if (refreshToken) {
         try {
-          const loginData = await this.refresh(refreshToken).toPromise();
+          const loginData = await firstValueFrom(this.refresh(refreshToken));
           if (loginData && loginData.access_token && loginData.refresh_token) {
             localStorage.setItem('access_token', loginData.access_token);
             localStorage.setItem('refresh_token', loginData.refresh_token);

@@ -19,6 +19,7 @@ export class HttpAuthInterceptor implements HttpInterceptor {
             ['v2/users', 'POST'],
             ['users/verify-email', 'GET'],
             ['auth/refresh', 'GET'],
+            ['auth/refresh', 'POST'],
             ['auth/reset-password', 'GET'],
             ['news', 'GET']
         ];

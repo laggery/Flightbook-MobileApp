@@ -101,7 +101,7 @@ export class AppComponent implements OnDestroy, OnInit {
         this.flighService.setState([]);
         this.gliderService.setState([]);
         this.placeService.setState([]);
-        this.accountService.logout().pipe(takeUntil(this.unsubscribe$)).subscribe(resp => {
+        this.accountService.logout(localStorage.getItem('refresh_token')).pipe(takeUntil(this.unsubscribe$)).subscribe(resp => {
             // TODO error handling
             localStorage.removeItem('access_token');
             localStorage.removeItem('refresh_token');
