@@ -59,7 +59,7 @@
       <ion-button *ngIf="paymentStatus.active && paymentStatus.state == 'ACTIVE'" expand="block" color="danger" (click)="cancelSubscription()">{{ 'buttons.cancelSubscription' | translate }}</ion-button>
     </ion-card>
 
-    <ion-button *ngIf="!paymentStatus?.active && !isNative" expand="block" (click)="getStripeSession()">{{ 'buttons.subscribe' | translate }}</ion-button>
+    <ion-button *ngIf="(!paymentStatus?.active && !isNative) || (paymentStatus?.active && !isNative && paymentStatus.state == 'EXEMPTED')" expand="block" (click)="getStripeSession()">{{ 'buttons.subscribe' | translate }}</ion-button>
   </div>
 
   <div class="language-list">
