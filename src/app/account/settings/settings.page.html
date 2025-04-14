@@ -44,6 +44,9 @@
       <ion-card-content *ngIf="!paymentStatus.active && !isNative">
         <div [innerHtml]="'payment.noSubscription' | translate"></div>
       </ion-card-content>
+      <ion-card-content *ngIf="paymentStatus.active && !isNative && paymentStatus.state == 'EXEMPTED'">
+        <div [innerHtml]="'payment.noSubscription' | translate"></div>
+      </ion-card-content>
       <ion-card-content *ngIf="!paymentStatus.active && isNative">
         <div [innerHtml]="'payment.nativeNoSubscription' | translate"></div>
       </ion-card-content>
