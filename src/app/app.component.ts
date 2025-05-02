@@ -26,7 +26,8 @@ import { firstValueFrom, Subject } from 'rxjs';
 import { ControlSheet } from './shared/domain/control-sheet';
 import { Browser } from '@capacitor/browser';
 import { addIcons } from "ionicons";
-import { home, statsChart, cloudUpload, linkOutline, settings, ellipsisHorizontal, logOutOutline, school, document as iconDocument } from 'ionicons/icons';
+import { home, statsChart, cloudUpload, linkOutline, settings, ellipsisHorizontal, logOutOutline, school, document as iconDocument, bandage } from 'ionicons/icons';
+import { EmergencyContact } from './school/shared/emergency-contact.model';
 
 
 @Component({
@@ -40,6 +41,7 @@ export class AppComponent implements OnDestroy, OnInit {
     schools: School[] = [];
     hasControlSheet = false;
     initialRequestsFired = false;
+    hasEmergencyContacts = false;
 
     constructor(
         private router: Router,
@@ -61,6 +63,7 @@ export class AppComponent implements OnDestroy, OnInit {
             statsChart,
             cloudUpload,
             linkOutline,
+            bandage,
             settings,
             ellipsisHorizontal,
             logOutOutline,
@@ -123,6 +126,10 @@ export class AppComponent implements OnDestroy, OnInit {
 
         this.schoolService.getControlSheet().pipe(takeUntil(this.unsubscribe$)).subscribe((controlSheet: ControlSheet) => {
             this.hasControlSheet = controlSheet ? true : false;
+        })
+
+        this.schoolService.getEmergencyContacts().pipe(takeUntil(this.unsubscribe$)).subscribe((emergencyContacts: EmergencyContact[]) => {
+            this.hasEmergencyContacts = emergencyContacts && emergencyContacts.length > 0 ? true : false;
         })
 
         if (Capacitor.isNativePlatform()) {

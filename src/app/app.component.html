@@ -46,7 +46,7 @@
               <fb-menu-item [icon]="'cloud-upload'" [label]="'buttons.data'"></fb-menu-item>
             </ion-item>
           </ion-menu-toggle>
-          @if (schools?.length > 0 || hasControlSheet) {
+          @if (schools?.length > 0 || hasControlSheet || hasEmergencyContacts) {
             <p class="divider-menu">{{ 'groupname.school' | translate }}</p>
             @for (school of schools; track school.id) {
               <ion-menu-toggle auto-hide="false">
@@ -59,6 +59,13 @@
               <ion-menu-toggle auto-hide="false">
                 <ion-item routerDirection="root" [routerLink]="['/control-sheet']" lines="full" detail="false" replaceUrl="true">
                   <fb-menu-item [icon]="'document'" [label]="'buttons.controlSheet'"></fb-menu-item>
+                </ion-item>
+              </ion-menu-toggle>
+            }
+            @if (hasEmergencyContacts || schools?.length > 0) {
+              <ion-menu-toggle auto-hide="false">
+                <ion-item routerDirection="root" [routerLink]="['/emergency-contact']" lines="full" detail="false" replaceUrl="true">
+                  <fb-menu-item [icon]="'bandage'" [label]="'buttons.emergencyContacts'"></fb-menu-item>
                 </ion-item>
               </ion-menu-toggle>
             }

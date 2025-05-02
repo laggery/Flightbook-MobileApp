@@ -42,7 +42,8 @@
         "subscribe": "Flightbook Premium abonnieren",
         "shvWeather": "SHV Wetter (Login)",
         "dabsToday": "DABS Schweiz heute",
-        "dabsTomorrow": "DABS Schweiz morgen"
+        "dabsTomorrow": "DABS Schweiz morgen",
+        "emergencyContacts": "Notfallkontakt"
     },
     "login": {
         "email": "E-Mail",
@@ -575,5 +576,9 @@
         "premiumUpgradeRequired": "Du hast das Limit von 25 Flügen erreicht. Besuche flightbook.ch für weitere Informationen.",
         "welcome": "<p>Willkommen bei Flightbook!</p><p>Du verwendest derzeit Flightbook Free und kannst bis zu 25 Flüge registrieren.</p><p>Besuche flightbook.ch für weitere Informationen.</p>"
     },
-    "version": "Version"
+    "version": "Version",
+    "emergencyContact": {
+        "title": "Notfallkontakt",
+        "additionalInformation": "Zusatzinformation"
+    }
 }

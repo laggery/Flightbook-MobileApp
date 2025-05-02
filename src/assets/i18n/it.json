@@ -42,7 +42,8 @@
         "subscribe": "Abbonarsi a Flightbook Premium",
         "shvWeather": "FSVL Tempo (Login)",
         "dabsToday": "DABS Svizzera oggi",
-        "dabsTomorrow": "DABS Svizzera domani"
+        "dabsTomorrow": "DABS Svizzera domani",
+        "emergencyContacts": "Contatto di emergenza"
     },
     "login": {
         "email": "E-Mail",
@@ -575,5 +576,9 @@
         "premiumUpgradeRequired": "Hai raggiunto il limite di 25 voli. Visita flightbook.ch per ulteriori informazioni.",
         "welcome": "<p>Benvenuto su Flightbook!</p><p>Stai utilizzando attualmente Flightbook Free e puoi registrare fino a 25 voli.</p><p>Visita flightbook.ch per maggiori informazioni.</p>"
     },
-    "version": "Versione"
+    "version": "Version",
+    "emergencyContact": {
+        "title": "Contatto di emergenza",
+        "additionalInformation": "Informazioni aggiuntive"
+    }
 }

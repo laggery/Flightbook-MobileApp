@@ -41,6 +41,7 @@ export class PhoneNumberComponent implements ControlValueAccessor, Validator, On
   onChange = (_: any) => { };
   onTouched = () => { };
   invalidPhone = false;
+  isRequiredPhone = false;
 
   get phoneNumber(): string {
     return this._phoneNumber;
@@ -146,6 +147,9 @@ export class PhoneNumberComponent implements ControlValueAccessor, Validator, On
 
   onInputChange(): void {
     this.invalidPhone = !this.validatePhoneNumber();
+    if (this.required) {
+      this.isRequiredPhone = this.phoneNumber ? false : true;
+    }
   }
 
   ngOnDestroy() {

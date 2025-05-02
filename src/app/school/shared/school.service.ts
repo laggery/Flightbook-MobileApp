@@ -7,6 +7,7 @@ import { AppointmentFilter } from './appointment-filter.model';
 import { Appointment } from './appointment.model';
 import { School } from './school.model';
 import { ControlSheet } from 'src/app/shared/domain/control-sheet';
+import { EmergencyContact } from './emergency-contact.model';
 
 @Injectable({
   providedIn: 'root'
@@ -58,6 +59,14 @@ export class SchoolService {
 
   postControlSheet(controlSheet: ControlSheet): Observable<ControlSheet> {
     return this.http.post<ControlSheet>(`${environment.baseUrl}/student/control-sheet`, controlSheet);
+  }
+
+  getEmergencyContacts(): Observable<EmergencyContact[]> {
+    return this.http.get<EmergencyContact[]>(`${environment.baseUrl}/student/emergency-contacts`);
+  }
+
+  postEmergencyContact(emergencyContact: EmergencyContact): Observable<EmergencyContact> {
+    return this.http.post<EmergencyContact>(`${environment.baseUrl}/student/emergency-contacts`, emergencyContact);
   }
 
   private setFilterState(nextState: boolean) {

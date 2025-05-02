@@ -105,6 +105,11 @@ const routes: Routes = [
     path: 'control-sheet',
     loadChildren: () => import('./school/control-sheet/control-sheet.module').then( m => m.ControlSheetPageModule),
     canActivate: [AuthGuardService]
+  },
+  {
+    path: 'emergency-contact',
+    loadChildren: () => import('./school/emergency-contact/emergency-contact.module').then( m => m.EmergencyContactPageModule),
+    canActivate: [AuthGuardService]
   }
 ];
 

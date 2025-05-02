@@ -1,0 +1,33 @@
+
+<ion-header>
+  <ion-toolbar color='primary'>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>{{ 'emergencyContact.title' | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form #form="ngForm" (ngSubmit)="save()">
+    <ion-item class="error-item">
+      <ion-input label="{{ 'account.firstname' | translate }}" labelPlacement="stacked" [(ngModel)]="emergencyContact.firstname" #firstname="ngModel" required name="firstname" type="text"></ion-input>
+      @if (firstname.invalid && (firstname.dirty || firstname.touched)) {
+        <ion-text color="danger" class="error-text">{{ 'message.required' | translate }}</ion-text>
+      }
+    </ion-item>
+    <ion-item class="error-item">
+      <ion-input label="{{ 'account.lastname' | translate }}" labelPlacement="stacked" [(ngModel)]="emergencyContact.lastname" #lastname="ngModel" required name="lastname" type="text"></ion-input>
+      @if (lastname.invalid && (lastname.dirty || lastname.touched)) {
+        <ion-text color="danger" class="error-text">{{ 'message.required' | translate }}</ion-text>
+      }
+    </ion-item>
+    <ion-item class="phone-number">
+      <fb-phone-number [required]="true" [(ngModel)]="emergencyContact.phone" name="phone"></fb-phone-number>
+    </ion-item>
+    <ion-item>
+      <ion-textarea label="{{ 'emergencyContact.additionalInformation' | translate }}" labelPlacement="stacked" [(ngModel)]="emergencyContact.additionalInformation" name="description" autocomplete="on" autocorrect="on" auto-grow="true"></ion-textarea>
+    </ion-item>
+    <ion-button expand="block" [disabled]="form.invalid" type="submit">{{ 'buttons.save' | translate }}</ion-button>
+  </form>
+</ion-content>

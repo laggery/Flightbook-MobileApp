@@ -13,3 +13,6 @@
 @if (invalidPhone) {
   <ion-text color="danger" class="error-text">{{ 'message.phoneInvalidFormat' | translate :{format: selectedPlaceholder} }}</ion-text>
 }
+@if (required && isRequiredPhone) {
+  <ion-text color="danger" class="error-text">{{ 'message.required' | translate }}</ion-text>
+}
