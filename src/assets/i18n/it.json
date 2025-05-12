@@ -100,7 +100,17 @@
         "copyIgc": "Vuoi anche copiare il file IGC?",
         "override": "Vuole sovrascrivere la vela, la data, i chilometri e la durata del volo con i dati del file IGC?",
         "diff": "Diff.",
-        "shvAlone": "FSVL volo da solo"
+        "shvAlone": "FSVL volo da solo",
+        "validationState": {
+            "name": "Validazione",
+            "state": "Stato",
+            "comment": "Commento",
+            "timestamp": "Data",
+            "school": "Scuola",
+            "instructor": "Istruttore",
+            "VALIDATED": "Validato",
+            "REJECTED": "Rifiutato"
+        }
     },
     "statistics": {
         "nbflight": "Numero di voli",

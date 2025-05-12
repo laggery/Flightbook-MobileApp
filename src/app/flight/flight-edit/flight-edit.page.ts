@@ -19,6 +19,7 @@ import { FileInputComponent } from '../../shared/components/file-input/file-inpu
 import { FlightFormComponent } from '../../form/flight-form/flight-form';
 import { School } from 'src/app/school/shared/school.model';
 import { SchoolService } from 'src/app/school/shared/school.service';
+import { FlightValidationState } from '../shared/flight-validation-state';
 
 @Component({
     selector: 'app-flight-edit',
@@ -43,6 +44,7 @@ export class FlightEditPage implements OnInit, OnDestroy {
     private readonly flightId: number;
     private readonly initialFlight: Flight;
     private decoder = new TextDecoder('utf-8');
+    public FlightValidationState = FlightValidationState;
     flight: Flight;
     gliders: Glider[] = [];
     igcFile: string;

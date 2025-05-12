@@ -11,5 +11,7 @@
   <fb-file-input *ngIf="flight && !flight.igc" (onFilesSelectEvent)="onFilesSelectEvent($event)"></fb-file-input>
   <flight-form [flight]=flight [gliders]=gliders [schools]=schools [igcFile]=igcFile (saveFlight)="saveFlight($event)"></flight-form>
   <ion-button class="copy" expand="block" (click)="copy()" >{{ 'buttons.copy' | translate }}</ion-button>
-  <ion-button class="delete" expand="block" color="danger" (click)="delete()" >{{ 'buttons.delete' | translate }}</ion-button>
+  @if (flight.validation?.state !== FlightValidationState.VALIDATED) {
+    <ion-button class="delete" expand="block" color="danger" (click)="delete()" >{{ 'buttons.delete' | translate }}</ion-button>
+  }
 </ion-content>

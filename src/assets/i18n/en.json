@@ -100,7 +100,17 @@
         "copyIgc": "Do you also want to copy the IGC file?",
         "override": "Do you want to override the glider, date, kilometres and flight duration with the data from the IGC file?",
         "diff": "Diff.",
-        "shvAlone": "SHGPA alone flight"
+        "shvAlone": "SHGPA alone flight",
+        "validationState": {
+            "name": "Validation",
+            "state": "State",
+            "comment": "Comment",
+            "timestamp": "Date",
+            "school": "School",
+            "instructor": "Instructor",
+            "VALIDATED": "Validated",
+            "REJECTED": "Rejected"
+        }
     },
     "statistics": {
         "nbflight": "Number of flights",

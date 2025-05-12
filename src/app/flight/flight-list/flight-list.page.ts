@@ -21,6 +21,7 @@ import { FlagsModule } from 'nxt-flags';
 import { addIcons } from "ionicons";
 import { add, filterOutline, trash } from "ionicons/icons";
 import { PaymentService } from 'src/app/shared/services/payment.service';
+import { FlightValidationState } from '../shared/flight-validation-state';
 
 @Component({
     selector: 'app-flight-list',
@@ -57,6 +58,8 @@ export class FlightListPage implements OnInit, OnDestroy, AfterViewInit {
     @ViewChild(IonContent) content: IonContent;
     unsubscribe$ = new Subject<void>();
     flights$: Observable<Flight[]>;
+
+    public FlightValidationState = FlightValidationState;
     
     get filtered(): Signal<boolean> {
         return this.flightService.filtered$;
