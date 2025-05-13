@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subject } from 'rxjs';
+import { firstValueFrom, Subject } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { concatMap, takeUntil } from 'rxjs/operators';
 import * as _ from 'lodash';
@@ -42,10 +42,10 @@ import { FlightValidationState } from '../shared/flight-validation-state';
 export class FlightEditPage implements OnInit, OnDestroy {
     unsubscribe$ = new Subject<void>();
     private readonly flightId: number;
-    private readonly initialFlight: Flight;
+    private initialFlight: Flight;
     private decoder = new TextDecoder('utf-8');
     public FlightValidationState = FlightValidationState;
-    flight: Flight;
+    flight: Flight = new Flight();
     gliders: Glider[] = [];
     igcFile: string;
     schools: School[];
@@ -63,27 +63,47 @@ export class FlightEditPage implements OnInit, OnDestroy {
         private schoolService: SchoolService
     ) {
         this.flightId = +this.activeRoute.snapshot.paramMap.get('id');
-        this.initialFlight = this.flightService.getValue().find(flight => flight.id === this.flightId);
-        this.flight = _.cloneDeep(this.initialFlight);
-        if (!this.flight) {
-            this.getFlightFromDashboardNavigation();
-        }
-        this.flight.date = moment(this.flight.date).format('YYYY-MM-DD');
+    }
 
-        if (this.flight.time) {
-            this.flight.time = this.flight.time.substring(0, 5);
-        }
-
-        const archivedValue = this.gliderService.filter.archived;
-        this.gliderService.filter.archived = "0";
-        this.gliderService.getGliders({ store: false }).pipe(takeUntil(this.unsubscribe$)).subscribe((resp: Glider[]) => {
-            this.gliders = resp;
-            this.gliderService.filter.archived = archivedValue;
+    private async dataLoading() {
+        const loading = await this.loadingCtrl.create({
+            message: this.translate.instant('loading.loading')
         });
-        this.loadIgcData();
+        await loading.present();
+        this.initialFlight = this.flightService.getValue().find(flight => flight.id === this.flightId);
+
+        try {
+            if (!this.initialFlight) {
+                this.initialFlight = await firstValueFrom(this.flightService.getFlightById(this.flightId))
+            }
+
+            this.flight = _.cloneDeep(this.initialFlight);
+            this.flight.date = moment(this.flight.date).format('YYYY-MM-DD');
+
+            if (this.flight.time) {
+                this.flight.time = this.flight.time.substring(0, 5);
+            }
+
+            const archivedValue = this.gliderService.filter.archived;
+            this.gliderService.filter.archived = "0";
+            this.gliderService.getGliders({ store: false }).pipe(takeUntil(this.unsubscribe$)).subscribe((resp: Glider[]) => {
+                this.gliders = resp;
+                if (!this.gliders.find(glider => glider.id === this.flight.glider.id)) {
+                    this.gliders.push(this.flight.glider);
+                }
+                this.gliderService.filter.archived = archivedValue;
+            });
+            this.loadIgcData();
+
+        } catch (error) {
+            this.router.navigate(['/flights'], { replaceUrl: true });
+        } finally {
+            await loading.dismiss();
+        }
     }
 
     ngOnInit() {
+        this.dataLoading();
         this.schoolService.getSchools().then((schools: School[]) => {
             this.schools = schools;
         });
@@ -271,16 +291,6 @@ export class FlightEditPage implements OnInit, OnDestroy {
         await alert.onDidDismiss();
         await alert.dismiss();
         return doOverride;
-    }
-
-    private getFlightFromDashboardNavigation() {
-        const lastFlight = this.router.getCurrentNavigation().extras.state.flight;
-        if (!!lastFlight) {
-            lastFlight.date = new Date().toISOString().slice(0, 10);
-            this.flight = lastFlight;
-        } else {
-            this.router.navigate(['/flights'], { replaceUrl: true });
-        }
     }
 
     private async loadIgcData() {

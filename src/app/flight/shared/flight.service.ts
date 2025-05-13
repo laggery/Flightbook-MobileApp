@@ -51,6 +51,10 @@ export class FlightService extends Store<Flight[]> {
     );
   }
 
+  getFlightById(id: number): Observable<Flight> {
+    return this.http.get<Flight>(`${environment.baseUrl}/flights/${id}`);
+  }
+
   getStatistics(type: string): Observable<FlightStatistic[]> {
     let params: HttpParams = this.createFilterParams();
     params = params.append('type', type);
