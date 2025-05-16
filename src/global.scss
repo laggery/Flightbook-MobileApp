@@ -27,3 +27,8 @@
 
 /* Dark Mode */
 @import '@ionic/angular/css/palettes/dark.system.css';
+
+/* EdgeToEdge: Ensure header is visible below status bar */
+.android ion-header, .android ion-toolbar {
+  padding-top: env(safe-area-inset-top);
+}
