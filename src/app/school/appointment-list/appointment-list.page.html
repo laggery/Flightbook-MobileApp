@@ -16,15 +16,22 @@
 <ion-content class="no-padding language-{{currentLang}}">
   <ion-list>
     @for (appointment of appointments; track appointment.id) {
-      <ion-item button detail (click)="itemTapped(appointment)" class="appointmentRow" [ngClass]="{'disabled' : isDisabled(appointment)}" >
-        <ion-toggle class="subscription" disabled="{{ isDisabled(appointment) }}" checked="{{ isUserSubscribed(appointment) }}" color="primary" (click)="subscriptionClick($event)" (ionChange)="subscriptionChange($event, appointment)"></ion-toggle>
-        <ion-label class="state">{{ 'appointment.stateValue.' + appointment.state| translate }}</ion-label>
-        <ion-label class="scheduling">{{ appointment.scheduling | date:'EE dd.MM.yyyy HH:mm':'UTC':currentLang}}</ion-label>
-        <ion-label class="meetingPoint">{{ appointment.meetingPoint || "-" }}</ion-label>
-        <ion-label *ngIf="appointment.instructor" class="instructor">{{ appointment.instructor.firstname }} {{ appointment.instructor.lastname }}</ion-label>
-        <ion-label *ngIf="!appointment.instructor" class="instructor">-</ion-label>
-        <ion-icon item-end></ion-icon>
-      </ion-item>
+      <div class="appointmentRowWrapper">
+        <ion-toggle class="subscription"
+          [disabled]="isDisabled(appointment)"
+          [(ngModel)]="appointment.subscribed"
+          color="primary"
+          (ionChange)="subscriptionChange($event, appointment)">
+        </ion-toggle>
+        <ion-item detail (click)="itemTapped(appointment)" class="appointmentRow" [ngClass]="{'disabled' : isDisabled(appointment)}">
+          <ion-label class="state">{{ 'appointment.stateValue.' + appointment.state| translate }}</ion-label>
+          <ion-label class="scheduling">{{ appointment.scheduling | date:'EE dd.MM.yyyy HH:mm':'UTC':currentLang}}</ion-label>
+          <ion-label class="meetingPoint">{{ appointment.meetingPoint || "-" }}</ion-label>
+          <ion-label *ngIf="appointment.instructor" class="instructor">{{ appointment.instructor.firstname }} {{ appointment.instructor.lastname }}</ion-label>
+          <ion-label *ngIf="!appointment.instructor" class="instructor">-</ion-label>
+          <ion-icon item-end></ion-icon>
+        </ion-item>
+      </div>
     }
     @empty {
       <ion-item lines="none">

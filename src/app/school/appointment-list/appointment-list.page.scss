@@ -62,3 +62,35 @@ ion-content {
         pointer-events: auto;
     }
 }
+
+/* Extrat ion-toggle outside ion-item but keep the same look and feel */
+.appointmentRowWrapper {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0;
+  border-bottom: 1px solid var(--ion-item-border-color, #d1d1d1);
+}
+
+.appointmentRowWrapper ion-item {
+  --border-width: 0 0 0 0;
+  --inner-border-width: 0 0 0 0;
+  --border-color: transparent;
+  --ion-item-border-color: transparent;
+  width: 100%;
+}
+
+.appointmentRowWrapper ion-toggle {
+  margin-left: 6px;
+  position: relative;
+}
+
+.appointmentRowWrapper ion-toggle::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+}
+
+    

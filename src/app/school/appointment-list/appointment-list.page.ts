@@ -14,6 +14,7 @@ import { State } from '../shared/state';
 import { NgIf, NgClass, DatePipe } from '@angular/common';
 import { addIcons } from "ionicons";
 import { filterOutline } from "ionicons/icons";
+import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'app-appointment-list',
@@ -37,7 +38,8 @@ import { filterOutline } from "ionicons/icons";
         IonToggle,
         IonLabel,
         IonInfiniteScroll,
-        IonInfiniteScrollContent
+        IonInfiniteScrollContent,
+        FormsModule
     ]
 })
 export class AppointmentListPage implements OnInit, OnDestroy {
@@ -81,27 +83,35 @@ export class AppointmentListPage implements OnInit, OnDestroy {
     }
 
     private async initialDataLoad() {
-        const loading = await this.loadingCtrl.create({
-            message: this.translate.instant('loading.loading')
-        });
-        await loading.present();
+    const loading = await this.loadingCtrl.create({
+        message: this.translate.instant('loading.loading')
+    });
+    await loading.present();
 
+    try {
         this.currentUser = await firstValueFrom(this.accountService.currentUser());
+        this.appointments = await firstValueFrom(
+            this.schoolService.getAppointments({ limit: this.schoolService.defaultLimit }, this.schoolId)
+        );
+        
+        this.appointments.forEach((appointment: Appointment) => {
+            appointment.subscribed = appointment.subscriptions?.some((subscription: Subscription) =>
+                subscription.user.email === this.currentUser.email
+            );
+        });
 
-        this.schoolService.getAppointments({ limit: this.schoolService.defaultLimit }, this.schoolId)
-            .pipe(takeUntil(this.unsubscribe$))
-            .subscribe(async (res: Appointment[]) => {
-                this.appointments = res;
-                const appointmentToOpen = this.appointments.find((appointment: Appointment) => appointment.id == this.appointmentId);
-                if (appointmentToOpen) {
-                    this.appointmentId = undefined;
-                    this.itemTapped(appointmentToOpen);
-                }
-                await loading.dismiss();
-            }, async (error: any) => {
-                await loading.dismiss();
-            });
+        const appointmentToOpen = this.appointments.find((appointment: Appointment) => appointment.id == this.appointmentId);
+        if (appointmentToOpen) {
+            this.appointmentId = undefined;
+            this.itemTapped(appointmentToOpen);
+        }
+    } catch (error) {
+        console.error('Error loading appointments', error);
+        // Optionally, you could show an error alert here
+    } finally {
+        await loading.dismiss();
     }
+}
 
     async itemTapped(appointment: Appointment) {
         const modal = await this.modalCtrl.create({
@@ -117,10 +127,6 @@ export class AppointmentListPage implements OnInit, OnDestroy {
         if (resp.data.hasChange) {
             this.initialDataLoad();
         }
-    }
-
-    subscriptionClick(event: MouseEvent) {
-        event.stopPropagation();
     }
 
     async subscriptionChange(event: CustomEvent, appointment: Appointment) {
@@ -167,9 +173,9 @@ export class AppointmentListPage implements OnInit, OnDestroy {
                 buttons: [
                     {
                         text: this.translate.instant('buttons.yes'),
-                        handler: () => {
-                            firstValueFrom(this.schoolService.deleteAppointmentSubscription(this.schoolId, appointment.id));
-                            this.initialDataLoad();
+                        handler: async () => {
+                            await firstValueFrom(this.schoolService.deleteAppointmentSubscription(this.schoolId, appointment.id));
+                            await this.initialDataLoad();
                         }
                     },
                     {
@@ -208,12 +214,6 @@ export class AppointmentListPage implements OnInit, OnDestroy {
                 }
                 this.appointments.push(...res);
             });
-    }
-
-    isUserSubscribed(appointment: Appointment) {
-        return appointment.subscriptions?.some((subscription: Subscription) =>
-            subscription.user.email === this.currentUser.email
-        );
     }
 
     isDisabled(appointment: Appointment): boolean {
