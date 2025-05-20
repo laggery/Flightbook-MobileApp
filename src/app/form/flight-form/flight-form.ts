@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { AlertController, IonItem, IonInput, IonTextarea, IonButton, IonModal, IonContent, IonDatetime, IonLabel, IonToggle } from '@ionic/angular/standalone';
+import { AlertController, IonItem, IonInput, IonTextarea, IonButton, IonModal, IonContent, IonDatetime, IonToggle, IonLabel } from '@ionic/angular/standalone';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import moment from 'moment';
 import { NgForm, FormsModule } from '@angular/forms';
@@ -31,7 +31,8 @@ import { School } from 'src/app/school/shared/school.model';
         IonModal,
         IonContent,
         IonDatetime,
-        IonToggle
+        IonToggle,
+        IonLabel
     ]
 })
 export class FlightFormComponent implements OnInit {

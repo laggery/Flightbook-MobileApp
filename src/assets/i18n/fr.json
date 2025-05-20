@@ -100,7 +100,17 @@
         "copyIgc": "Voulez-vous également copier le fichier IGC?",
         "override": "Voulez-vous écraser le parapente, la date, les kilomètres et la durée du vol avec les données du fichier IGC?",
         "diff": "Diff.",
-        "shvAlone": "FSVL vol autonome"
+        "shvAlone": "FSVL vol autonome",
+        "validationState": {
+            "name": "Validation",
+            "state": "Statut",
+            "comment": "Commentaire",
+            "timestamp": "Date",
+            "school": "Ecole",
+            "instructor": "Instructeur",
+            "VALIDATED": "Validé",
+            "REJECTED": "Refusé"
+        }
     },
     "statistics": {
         "nbflight": "Nombre de vols",

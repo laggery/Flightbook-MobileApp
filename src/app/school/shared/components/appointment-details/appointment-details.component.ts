@@ -73,6 +73,9 @@ export class AppointmentDetailsComponent implements OnInit {
     }
 
     async subscribe() {
+        if (this.isDisabled()) {
+            return;
+        }
         if (!this.isSubscribed) {
             const alert = await this.alertController.create({
                 header: this.translate.instant('message.infotitle'),

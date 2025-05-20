@@ -18,6 +18,7 @@ import {
     Token,
 } from '@capacitor/push-notifications';
 import { Capacitor } from '@capacitor/core';
+import { StatusBar, Style } from '@capacitor/status-bar';
 import { Router } from '@angular/router';
 import { RegisterPage } from './account/register/register.page';
 import { PaymentStatus } from './account/shared/paymentStatus.model';
@@ -76,7 +77,18 @@ export class AppComponent implements OnDestroy, OnInit {
         });
     }
 
-    ngOnInit(): void {
+    async ngOnInit(): Promise<void> {
+        // Fix EdgeToEdge header issue: ensure StatusBar overlaysWebView is false and set style
+        try {
+            if (Capacitor.isNativePlatform() && Capacitor.getPlatform() == "android") {
+                await StatusBar.setOverlaysWebView({ overlay: false });
+                await StatusBar.setStyle({ style: Style.Light });
+            }
+        } catch (e) {
+            // StatusBar not available or not supported
+            console.warn('StatusBar plugin not available:', e);
+        }
+
         if (this.swUpdate.isEnabled) {
             this.swUpdate.versionUpdates
                 .pipe(filter((evt): evt is VersionReadyEvent => evt.type === 'VERSION_READY'))
@@ -207,6 +219,11 @@ export class AppComponent implements OnDestroy, OnInit {
                                         ['/school/', schoolId],
                                         { queryParams: { appointmentId: appointmentId } }
                                     );
+                                } else if (type == "FLIGHT_VALIDATION_REJECTED") {
+                                    const flightId = notification.data.flightId
+                                    this.router.navigate(
+                                        ['/flights/', flightId]
+                                    );
                                 }
                             }
                         }
@@ -227,6 +244,11 @@ export class AppComponent implements OnDestroy, OnInit {
                     this.router.navigate(
                         ['/school/', schoolId],
                         { queryParams: { appointmentId: appointmentId } }
+                    );
+                } else if (type == "FLIGHT_VALIDATION_REJECTED") {
+                    const flightId = notification.notification.data.flightId
+                    this.router.navigate(
+                        ['/flights/', flightId]
                     );
                 }
             }

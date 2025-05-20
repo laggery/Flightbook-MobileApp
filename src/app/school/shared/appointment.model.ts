@@ -19,4 +19,8 @@ export class Appointment {
     subscriptions: Subscription[];
     countSubscription: number;
     countWaitingList: number;
+
+    // @hack -> only used to render the ion-toggle correctly
+    // this property is instatiated after receiving the appointments from the server 
+    subscribed: boolean;
 }

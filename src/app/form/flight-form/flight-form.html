@@ -31,7 +31,7 @@
   </ion-item>
   @if (schools?.length > 0) {
     <ion-item>
-      <ion-input class="test" label="{{ 'flight.shvAlone' | translate }}" labelPlacement="stacked" type="boolean">
+      <ion-input class="shvAlone" label="{{ 'flight.shvAlone' | translate }}" labelPlacement="stacked" type="boolean">
         <ion-toggle slot="start" [(ngModel)]="flight.shvAlone" name="shvAlone"></ion-toggle>
       </ion-input>
     </ion-item>
@@ -41,6 +41,36 @@
   </ion-item>
 
   <fb-igc-map *ngIf="igcFile" [igcFile]="igcFile"></fb-igc-map>
+
+  @if (flight.validation?.state) {
+    <ion-item class="validation">
+      <ion-label>
+        <p style="font-weight: bold;">{{ 'flight.validationState.name' | translate }}:</p>
+        <div class="validation-row">
+          <span class="validation-label">{{ 'flight.validationState.state' | translate }}:</span>
+          <span>{{ 'flight.validationState.' + flight.validation.state| translate }}</span>
+        </div>
+        @if (flight.validation?.comment) {
+          <div class="validation-row">
+            <span class="validation-label">{{ 'flight.validationState.comment' | translate }}:</span>
+            <span>{{ flight.validation?.comment }}</span>
+          </div>
+        }
+        <div class="validation-row">
+          <span class="validation-label">{{ 'flight.validationState.timestamp' | translate }}:</span>
+          <span>{{ flight.validation?.timestamp | date:'dd.MM.yyyy' }}</span>
+        </div>
+        <div class="validation-row">
+          <span class="validation-label">{{ 'flight.validationState.school' | translate }}:</span>
+          <span>{{ flight.validation?.school?.name }}</span>
+        </div>
+        <div class="validation-row">
+          <span class="validation-label">{{ 'flight.validationState.instructor' | translate }}:</span>
+          <span>{{ flight.validation?.instructor?.firstname }} {{ flight.validation?.instructor?.lastname }}</span>
+        </div>
+      </ion-label>
+    </ion-item>
+  }
 
   <ion-button expand="block" type="submit">{{ 'buttons.save' | translate }}</ion-button>
 </form>

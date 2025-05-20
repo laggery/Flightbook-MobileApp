@@ -56,6 +56,16 @@ ion-item {
   --min-height: 48px;
 }
 
+ion-item-sliding.validated ion-item {
+  --background: #e6f9e6 !important; /* light green */
+  background: #e6f9e6 !important;
+}
+
+ion-item-sliding.rejected ion-item {
+  --background: #ffe5e5 !important; /* light red */
+  background: #ffe5e5 !important;
+}
+
 @media (max-width: 320px) {
   .flightRow .flightNumber {
     display: none;
