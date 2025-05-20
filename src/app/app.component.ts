@@ -219,6 +219,11 @@ export class AppComponent implements OnDestroy, OnInit {
                                         ['/school/', schoolId],
                                         { queryParams: { appointmentId: appointmentId } }
                                     );
+                                } else if (type == "FLIGHT_VALIDATION_REJECTED") {
+                                    const flightId = notification.data.flightId
+                                    this.router.navigate(
+                                        ['/flights/', flightId]
+                                    );
                                 }
                             }
                         }
@@ -239,6 +244,11 @@ export class AppComponent implements OnDestroy, OnInit {
                     this.router.navigate(
                         ['/school/', schoolId],
                         { queryParams: { appointmentId: appointmentId } }
+                    );
+                } else if (type == "FLIGHT_VALIDATION_REJECTED") {
+                    const flightId = notification.notification.data.flightId
+                    this.router.navigate(
+                        ['/flights/', flightId]
                     );
                 }
             }

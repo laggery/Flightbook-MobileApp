@@ -212,6 +212,11 @@ export class AppointmentListPage implements OnInit, OnDestroy {
                 if (res.length < this.schoolService.defaultLimit) {
                     event.target.disabled = true;
                 }
+                res.forEach((appointment: Appointment) => {
+                    appointment.subscribed = appointment.subscriptions?.some((subscription: Subscription) =>
+                        subscription.user.email === this.currentUser.email
+                    );
+                });
                 this.appointments.push(...res);
             });
     }
