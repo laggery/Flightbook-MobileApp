@@ -43,7 +43,8 @@
         "shvWeather": "SHV Weather (Login)",
         "dabsToday": "DABS Swiss today",
         "dabsTomorrow": "DABS Swiss tomorrow",
-        "emergencyContacts": "Emergency Contacts"
+        "emergencyContacts": "Emergency Contacts",
+        "pasengerConfirmations": "Confirmations"
     },
     "login": {
         "email": "E-Mail",
@@ -154,9 +155,9 @@
         "12": "December"
     },
     "groupname": {
-        "glider": "Glider",
-        "place": "Place",
-        "flight": "Flight",
+        "glider": "Gliders",
+        "place": "Places",
+        "flight": "Flights",
         "statistics": "Statistics",
         "home": "Home",
         "news": "News",
@@ -165,7 +166,8 @@
         "menu": "Menu",
         "import": "Import",
         "school": "School",
-        "preparation": "Flight preparation"
+        "preparation": "Flight preparation",
+        "tandem": "Tandem"
     },
     "message": {
         "infotitle": "Information",
@@ -217,6 +219,8 @@
         "saveaccount": "Save settings...",
         "login": "Signing in...",
         "logout": "Logout...",
+        "save": "Save...",
+        "delete": "Delete...",
         "saveplace": "Save place...",
         "deleteplace": "Delete place...",
         "saveglider": "Save glider...",
@@ -590,5 +594,14 @@
     "emergencyContact": {
         "title": "Emergency Contact",
         "additionalInformation": "Additional information"
+    },
+    "passengerConfirmation": {
+        "date": "Date",
+        "signature": "Signature",
+        "fullyUnderstoodInstructions": "I confirm that I have fully understood the flight instructions.",
+        "undertakePilotInstructions": "I confirm that I will follow the instructions of the flight instructor.",
+        "noHealthProblems": "I confirm that I have no health problems that could affect the safety of the flight.",
+        "understandRisks": "I confirm that I understand the risks of the flight (e.g., crash during takeoff or landing).",
+        "canUseData": "I agree to receive offers and news by email."
     }
 }

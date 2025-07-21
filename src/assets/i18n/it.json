@@ -43,7 +43,8 @@
         "shvWeather": "FSVL Tempo (Login)",
         "dabsToday": "DABS Svizzera oggi",
         "dabsTomorrow": "DABS Svizzera domani",
-        "emergencyContacts": "Contatto di emergenza"
+        "emergencyContacts": "Contatto di emergenza",
+        "pasengerConfirmations": "Conferme"
     },
     "login": {
         "email": "E-Mail",
@@ -165,7 +166,8 @@
         "menu": "Menu",
         "import": "Importazione",
         "school": "Scuola",
-        "preparation": "Preparazione al volo"
+        "preparation": "Preparazione al volo",
+        "tandem": "Tandem"
     },
     "message": {
         "infotitle": "Informazione",
@@ -217,6 +219,8 @@
         "saveaccount": "Salvataggio impostazioni...",
         "login": "Login...",
         "logout": "Logout...",
+        "save": "Salvataggio...",
+        "delete": "Eliminazione...",
         "saveplace": "Salvataggio luogo",
         "deleteplace": "Eliminazione luogo",
         "saveglider": "Salvataggio vela...",
@@ -590,5 +594,14 @@
     "emergencyContact": {
         "title": "Contatto di emergenza",
         "additionalInformation": "Informazioni aggiuntive"
+    },
+    "passengerConfirmation": {
+        "date": "Data",
+        "signature": "Firma",
+        "fullyUnderstoodInstructions": "Confermo di aver compreso pienamente le istruzioni di volo.",
+        "undertakePilotInstructions": "Confermo che seguirò le istruzioni dell’istruttore di volo.",
+        "noHealthProblems": "Confermo di non avere problemi di salute che possano influire sulla sicurezza del volo.",
+        "understandRisks": "Confermo di aver compreso i rischi del volo (ad esempio, incidente durante il decollo o l’atterraggio).",
+        "canUseData": "Accetto di ricevere offerte e novità via e-mail."
     }
 }

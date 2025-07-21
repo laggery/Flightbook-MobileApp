@@ -110,6 +110,10 @@ const routes: Routes = [
     path: 'emergency-contact',
     loadChildren: () => import('./school/emergency-contact/emergency-contact.module').then( m => m.EmergencyContactPageModule),
     canActivate: [AuthGuardService]
+  },
+  {
+    path: 'passenger-confirmations',
+    loadChildren: () => import('./tandem/passenger-confirmation-list/passenger-confirmation-list.module').then( m => m.PassengerConfirmationListPageModule)
   }
 ];
 

@@ -1,0 +1,55 @@
+.language-list {
+    text-align: center;
+}
+.language {
+    margin-right: 1em;
+    cursor: pointer;
+}
+
+.signature-container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    position: relative;
+
+    .clear-signature-btn {
+        position: absolute;
+        right: 8px;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+}
+
+.toggle-wrapper-custom {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 12px;
+    padding: 8px 0;
+
+    ion-label {
+        white-space: normal !important;
+        word-wrap: break-word;
+        line-height: 1.4;
+        margin: 0;
+        padding: 0;
+        font-size: 14px; 
+        font-weight: 500; 
+        color: var(--ion-color-primary);
+        opacity: 0.6;
+    }
+
+    ion-toggle {
+        align-self: flex-start;
+        width: auto;
+        min-width: 50px;
+        --handle-width: 26px;
+        --handle-height: 26px;
+        --track-width: 50px;
+        --track-height: 30px;
+    }
+}
+
+ion-item .toggle-wrapper-custom {
+    padding: 16px 0;
+}

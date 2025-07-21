@@ -43,7 +43,8 @@
         "shvWeather": "FSVL Météo (Login)",
         "dabsToday": "DABS Suisse aujourd'hui",
         "dabsTomorrow": "DABS Suisse demain",
-        "emergencyContacts": "Contacts d'urgence"
+        "emergencyContacts": "Contacts d'urgence",
+        "pasengerConfirmations": "Confirmations"
     },
     "login": {
         "email": "E-Mail",
@@ -154,9 +155,9 @@
         "12": "Décembre"
     },
     "groupname": {
-        "glider": "Parapente",
-        "place": "Lieu",
-        "flight": "Vol",
+        "glider": "Parapentes",
+        "place": "Lieux",
+        "flight": "Vols",
         "statistics": "Statistiques",
         "home": "Page d'accueil",
         "news": "News",
@@ -165,7 +166,8 @@
         "menu": "Menu",
         "import": "Imports",
         "school": "Ecole",
-        "preparation": "Préparation du vol"
+        "preparation": "Préparation du vol",
+        "tandem": "Tandem"
     },
     "message": {
         "infotitle": "Information",
@@ -217,6 +219,8 @@
         "saveaccount": "Sauvegarde paramètres...",
         "login": "Connexion...",
         "logout": "Déconnexion...",
+        "save": "Sauvegarde...",
+        "delete": "Suppression...",
         "saveplace": "Sauvegarde lieu...",
         "deleteplace": "Supprime place...",
         "saveglider": "Sauvegarde parapente...",
@@ -590,5 +594,14 @@
     "emergencyContact": {
         "title": "Contact d'urgence",
         "additionalInformation": "Informations complémentaires"
+    },
+    "passengerConfirmation": {
+        "date": "Date",
+        "signature": "Signature",
+        "fullyUnderstoodInstructions": "Je confirme avoir parfaitement compris les instructions sur le vol.",
+        "undertakePilotInstructions": "Je m’engage à suivre en tout temps les directives du/de la pilote.",
+        "noHealthProblems": "Je déclare n’avoir aucun problème de santé pouvant avoir une incidence sur la sécurité du vol.",
+        "understandRisks": "Je confirme être conscient(e) que le vol comporte des risques (par ex. chute au décollage ou à l’atterrissage).",
+        "canUseData": "J'accepte de recevoir des offres et des nouveautés par e-mail."
     }
 }

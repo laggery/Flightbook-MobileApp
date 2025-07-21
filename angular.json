@@ -53,7 +53,9 @@
                     },
                     "configurations": {
                         "development": {
-                            "optimization": false
+                            "optimization": false,
+                            "sourceMap": true,
+                            "namedChunks": true
                         },
                         "production": {
                             "fileReplacements": [

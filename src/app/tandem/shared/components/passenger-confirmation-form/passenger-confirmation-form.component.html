@@ -1,0 +1,100 @@
+<ion-header>
+    <ion-toolbar color='primary'>
+        <ion-title>{{ 'buttons.pasengerConfirmations' | translate }}</ion-title>
+        <ion-buttons slot="end">
+            <ion-button (click)="close()"><ion-icon name="close"></ion-icon></ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+    <div class="language-list">
+        <p>
+        <a (click)="setLanguage('fr')" class="language">{{ 'language.fr' | translate }}</a>
+        <a (click)="setLanguage('de')" class="language">{{ 'language.de' | translate }}</a>
+        <a (click)="setLanguage('en')" class="language">{{ 'language.en' | translate }}</a>
+        <a (click)="setLanguage('it')" class="language">{{ 'language.it' | translate }}</a>
+        </p>
+    </div>
+    <form #form="ngForm" (ngSubmit)="savePassengerConfirmation(form)">
+        <ion-item class="error-item">
+          <ion-input [value]="dateString" required readonly name="date" type="date" label="{{ 'passengerConfirmation.date' | translate }}*" labelPlacement="stacked"></ion-input>
+        </ion-item>
+        <ion-item class="error-item">
+          <ion-input [(ngModel)]="passengerData.firstname" #firstname="ngModel" required name="firstname" type="text" label="{{ 'account.firstname' | translate }}*" labelPlacement="stacked" [readonly]="type === 'view'"></ion-input>
+          @if (firstname.invalid && (firstname.dirty || firstname.touched)) {
+            <ion-text color="danger" class="error-text">{{ 'message.required' | translate }}</ion-text>
+          }
+        </ion-item>
+        <ion-item class="error-item">
+          <ion-input [(ngModel)]="passengerData.lastname" #lastname="ngModel" required name="lastname" type="text" label="{{ 'account.lastname' | translate }}*" labelPlacement="stacked" [readonly]="type === 'view'"></ion-input>
+          @if (lastname.invalid && (lastname.dirty || lastname.touched)) {
+            <ion-text color="danger" class="error-text">{{ 'message.required' | translate }}</ion-text>
+          }
+        </ion-item>
+        <ion-item class="error-item">
+          <ion-input [(ngModel)]="passengerData.email" #email="ngModel" required name="email" type="text" label="{{ 'login.email' | translate }}*" labelPlacement="stacked" [readonly]="type === 'view'"></ion-input>
+          @if (email.invalid && (email.dirty || email.touched)) {
+            <ion-text color="danger" class="error-text">{{ 'message.required' | translate }}</ion-text>
+          }
+        </ion-item>
+        <ion-item class="error-item">
+          <ion-input [(ngModel)]="passengerData.phone" #phone="ngModel" required name="phone" type="phone" label="{{ 'account.phone' | translate }}*" labelPlacement="stacked" [readonly]="type === 'view'"></ion-input>
+          @if (phone.invalid && (phone.dirty || phone.touched)) {
+            <ion-text color="danger" class="error-text">{{ 'message.required' | translate }}</ion-text>
+          }
+        </ion-item>
+        <ion-item> 
+            <div class="toggle-wrapper-custom">
+                <ion-label color="primary">{{ 'passengerConfirmation.fullyUnderstoodInstructions' | translate }}*</ion-label>
+                <ion-toggle [(ngModel)]="passengerData.validation.fullyUnderstoodInstructions" name="fullyUnderstoodInstructions" [disabled]="type === 'view'"></ion-toggle>
+            </div>
+        </ion-item>
+        <ion-item>
+            <div class="toggle-wrapper-custom">
+                <ion-label color="primary">{{ 'passengerConfirmation.undertakePilotInstructions' | translate }}*</ion-label>
+                <ion-toggle [(ngModel)]="passengerData.validation.undertakePilotInstructions" name="undertakePilotInstructions" [disabled]="type === 'view'"></ion-toggle>
+            </div>
+        </ion-item>
+        <ion-item>
+            <div class="toggle-wrapper-custom">
+                <ion-label color="primary">{{ 'passengerConfirmation.noHealthProblems' | translate }}*</ion-label>
+                <ion-toggle [(ngModel)]="passengerData.validation.noHealthProblems" name="noHealthProblems" [disabled]="type === 'view'"></ion-toggle>
+            </div>
+        </ion-item>
+        <ion-item>
+            <div class="toggle-wrapper-custom"> 
+                <ion-label color="primary">{{ 'passengerConfirmation.understandRisks' | translate }}*</ion-label>
+                <ion-toggle [(ngModel)]="passengerData.validation.understandRisks" name="understandRisks" [disabled]="type === 'view'"></ion-toggle>
+            </div>
+        </ion-item>
+        <ion-item>
+            <div class="toggle-wrapper-custom">
+                <ion-label color="primary">{{ 'passengerConfirmation.canUseData' | translate }}</ion-label>
+                <ion-toggle [(ngModel)]="passengerData.canUseData" name="canUseData" [disabled]="type === 'view'"></ion-toggle>
+            </div>
+        </ion-item>
+        <ion-item class="error-item">
+          <ion-input [(ngModel)]="passengerData.place" #place="ngModel" required name="place" type="text" label="{{ 'place.place' | translate }}*" labelPlacement="stacked" [readonly]="type === 'view'"></ion-input>
+          @if (place.invalid && (place.dirty || place.touched)) {
+            <ion-text color="danger" class="error-text">{{ 'message.required' | translate }}</ion-text>
+          }
+        </ion-item>
+        <ion-item>
+            <ion-label color="primary" position="stacked">{{ 'passengerConfirmation.signature' | translate }}*</ion-label>
+            <div class="signature-container">
+                <canvas #signatureCanvas [style.pointer-events]="type === 'view' ? 'none' : 'auto'" class="signature-canvas"></canvas>
+                @if (type !== 'view' && signaturePad && !signaturePad.isEmpty()) {
+                    <ion-button fill="clear" size="small" (click)="clearSignature()" class="clear-signature-btn">
+                        <ion-icon name="close" slot="icon-only"></ion-icon>
+                    </ion-button>
+                }
+            </div>
+        </ion-item>
+        @if (type && type === 'view') {
+            <ion-button color="danger" expand="block" (click)="delete()">{{ 'buttons.delete' | translate }}</ion-button>
+        } @else {
+            <ion-button expand="block" [disabled]="form.invalid || signaturePad?.isEmpty()" type="submit">{{ 'buttons.add' | translate }}</ion-button>
+        }
+    </form>
+</ion-content>

@@ -8,6 +8,9 @@
 			"launchAutoHide": false,
 			"showSpinner": false,
 			"splashFullScreen": true
+		},
+		"Keyboard": {
+			"resizeOnFullScreen": true
 		}
 	},
 	"ios": {

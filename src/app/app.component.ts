@@ -27,7 +27,7 @@ import { firstValueFrom, Subject } from 'rxjs';
 import { ControlSheet } from './shared/domain/control-sheet';
 import { Browser } from '@capacitor/browser';
 import { addIcons } from "ionicons";
-import { home, statsChart, cloudUpload, linkOutline, settings, ellipsisHorizontal, logOutOutline, school, document as iconDocument, bandage } from 'ionicons/icons';
+import { home, statsChart, cloudUpload, linkOutline, settings, ellipsisHorizontal, logOutOutline, school, document as iconDocument, bandage, checkmarkDone } from 'ionicons/icons';
 import { EmergencyContact } from './school/shared/emergency-contact.model';
 
 
@@ -69,6 +69,7 @@ export class AppComponent implements OnDestroy, OnInit {
             ellipsisHorizontal,
             logOutOutline,
             school,
+            checkmarkDone,
             'document': iconDocument,
             'flight': 'assets/custom-ion-icons/flight.svg',
             'copyflight': 'assets/custom-ion-icons/copyflight.svg',

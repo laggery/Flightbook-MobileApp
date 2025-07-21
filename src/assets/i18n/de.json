@@ -43,7 +43,8 @@
         "shvWeather": "SHV Wetter (Login)",
         "dabsToday": "DABS Schweiz heute",
         "dabsTomorrow": "DABS Schweiz morgen",
-        "emergencyContacts": "Notfallkontakt"
+        "emergencyContacts": "Notfallkontakt",
+        "pasengerConfirmations": "Bestätigungen"
     },
     "login": {
         "email": "E-Mail",
@@ -154,9 +155,9 @@
         "12": "Dezember"
     },
     "groupname": {
-        "glider": "Gleitschirm",
-        "place": "Ort",
-        "flight": "Flug",
+        "glider": "Gleitschirme",
+        "place": "Orte",
+        "flight": "Flüge",
         "statistics": "Statistik",
         "home": "Start",
         "news": "News",
@@ -165,7 +166,8 @@
         "menu": "Menu",
         "import": "Importieren",
         "school": "Schule",
-        "preparation": "Flugvorbereitung"
+        "preparation": "Flugvorbereitung",
+        "tandem": "Tandem"
     },
     "message": {
         "infotitle": "Information",
@@ -217,6 +219,8 @@
         "saveaccount": "Einstellungen speichern...",
         "login": "Anmelden...",
         "logout": "Abmelden...",
+        "save": "Speichern...",
+        "delete": "Löschen...",
         "saveplace": "Ort speichern...",
         "deleteplace": "Ort löschen...",
         "saveglider": "Gleitschirm speichern...",
@@ -590,5 +594,14 @@
     "emergencyContact": {
         "title": "Notfallkontakt",
         "additionalInformation": "Zusatzinformation"
+    },
+    "passengerConfirmation": {
+        "date": "Datum",
+        "signature": "Unterschrift",
+        "fullyUnderstoodInstructions": "Ich habe die Instruktionen für den Flug vollständig verstanden.",
+        "undertakePilotInstructions": "Ich befolge immer die Weisungen der Pilotin/des Piloten.",
+        "noHealthProblems": "Ich habe keine gesundheitlichen Probleme, die die sichere Durchführung des Fluges beeinträchtigen könnten.",
+        "understandRisks": "Ich bin mir bewusst, dass der Flug mit Risiken verbunden ist (bspw. Sturz beim Start oder Landung).",
+        "canUseData": "Ich bin damit einverstanden, Angebote und Neuigkeiten per E-Mail zu erhalten."
     }
 }

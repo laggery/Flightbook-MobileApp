@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar color='primary'>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>{{ 'buttons.pasengerConfirmations' | translate }} <span
+      *ngIf="filtered">({{ 'groupname.filtered' | translate }})</span></ion-title>
+    <ion-buttons slot="primary">
+      <ion-button class="submit-button" (click)="openAddPassengerConfirmation()">
+        <ion-icon name="add"></ion-icon>
+      </ion-button>
+      <!-- <ion-button (click)="openFilter()">
+        <ion-icon name="filter-outline"></ion-icon>
+      </ion-button> -->
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="no-padding">
+  <ion-list>
+    @for (passengerConfirmation of passengerConfirmations; track passengerConfirmation.id) {
+      <ion-item button detail (click)="itemTapped($event, passengerConfirmation)">
+        <p class="passengerConfirmationRow">
+          <span class="date">{{ passengerConfirmation.date | date:'dd.MM.yyyy'}}</span>
+          <span class="passengerName">{{ passengerConfirmation.firstname}} {{passengerConfirmation.lastname}}</span>
+        </p>
+        <ion-icon item-end></ion-icon>
+      </ion-item>
+    }
+    @empty {
+      <ion-item lines="none">
+        <ion-label class="ion-text-center">{{ 'emptylist' | translate }}</ion-label>
+      </ion-item>
+    }
+  </ion-list>
+
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="{{ 'loading.loading' | translate }}">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>
