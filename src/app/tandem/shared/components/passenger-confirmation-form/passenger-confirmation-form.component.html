@@ -33,9 +33,13 @@
           }
         </ion-item>
         <ion-item class="error-item">
-          <ion-input [(ngModel)]="passengerData.email" #email="ngModel" required name="email" type="text" label="{{ 'login.email' | translate }}*" labelPlacement="stacked" [readonly]="type === 'view'"></ion-input>
+          <ion-input [(ngModel)]="passengerData.email" #email="ngModel" required name="email" type="text" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" label="{{ 'login.email' | translate }}*" labelPlacement="stacked" [readonly]="type === 'view'"></ion-input>
           @if (email.invalid && (email.dirty || email.touched)) {
-            <ion-text color="danger" class="error-text">{{ 'message.required' | translate }}</ion-text>
+            @if (email.errors?.pattern) {
+              <ion-text color="danger" class="error-text">{{ 'message.invalidEmail' | translate }}</ion-text>
+            } @else if (email.errors?.required) {
+              <ion-text color="danger" class="error-text">{{ 'message.required' | translate }}</ion-text>
+            }
           }
         </ion-item>
         <ion-item class="error-item">

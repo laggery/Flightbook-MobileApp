@@ -1,6 +1,6 @@
 import { DatePipe, NgIf } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ModalController, LoadingController, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonButton, IonIcon, IonContent, IonItem, IonGrid, IonRow, IonCol, IonList, IonInfiniteScroll, IonInfiniteScrollContent, IonLabel } from '@ionic/angular/standalone';
+import { ModalController, LoadingController, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonButton, IonIcon, IonContent, IonItem, IonList, IonInfiniteScroll, IonInfiniteScrollContent, IonLabel, AlertController } from '@ionic/angular/standalone';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { firstValueFrom, Subject, takeUntil } from 'rxjs';
 import { addIcons } from "ionicons";
@@ -8,6 +8,7 @@ import { add, filterOutline } from 'ionicons/icons';
 import { PassengerConfirmationFormComponent } from '../shared/components/passenger-confirmation-form/passenger-confirmation-form.component';
 import { TandemService } from '../shared/tandem.service';
 import { PassengerConfirmation } from '../shared/domain/passenger-confirmation.model';
+import { PaymentService } from 'src/app/shared/services/payment.service';
 
 @Component({
   selector: 'app-passenger-confirmation-list',
@@ -42,7 +43,9 @@ export class PassengerConfirmationListPage implements OnInit, OnDestroy {
     private modalCtrl: ModalController,
     private tandemService: TandemService,
     private loadingCtrl: LoadingController,
+    private alertController: AlertController,
     private translate: TranslateService,
+    private paymentService: PaymentService
   ) {
     addIcons({ filterOutline, add });
   }
@@ -57,6 +60,21 @@ export class PassengerConfirmationListPage implements OnInit, OnDestroy {
   }
 
   async openAddPassengerConfirmation() {
+    if (
+      (!this.paymentService.getPaymentStatusValue()?.active && this.passengerConfirmations.length >= 10) ||
+      (this.paymentService.getPaymentStatusValue()?.active && this.paymentService.getPaymentStatusValue()?.state == 'EXEMPTED' && this.passengerConfirmations.length >= 10)
+    ) {
+          const alert = await this.alertController.create({
+                      header: this.translate.instant('message.infotitle'),
+                      message: this.translate.instant('payment.premiumUpgradeRequiredTandem'),
+                      buttons: [{
+                          text: this.translate.instant('buttons.done'),
+                      }]
+                  });
+                  await alert.present();
+          return;
+        }
+
     const modal = await this.modalCtrl.create({
       component: PassengerConfirmationFormComponent,
       cssClass: 'passenger-confirmation-form-class',

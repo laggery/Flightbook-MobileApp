@@ -583,11 +583,12 @@
     },
     "payment": {
         "nativeNoSubscription": "<p>Stai utilizzando attualmente Flightbook Free.</p><p>Visita flightbook.ch per ulteriori informazioni.</p>",
-        "noSubscription": "<p>Stai utilizzando Flightbook Free.</p><p>Per 12CHF all'anno, potete passare a Flightbook Premium!</p><ul><li>Aggiungere un numero illimitato di voli</li><li>Sostiene il progetto</li></ul>",
+        "noSubscription": "<p>Stai utilizzando Flightbook Free.</p><p>Per 12CHF all'anno, potete passare a Flightbook Premium!</p><ul><li>Aggiungere un numero illimitato di voli</li><li>Aggiungere un numero illimitato di conferme passeggeri</li><li>Sostiene il progetto</li></ul>",
         "thanks": "Grazie mille per il vostro sostegno!",
         "information": "L'abbonamento sarà rinnovato automaticamente alla {{ date }}. Verranno addebitati CHF 12.00/anno.",
         "canceled": "L'abbonamento è stato annullato. Hai ancora accesso a tutte le funzioni fino a {{ date }}.",
         "premiumUpgradeRequired": "Hai raggiunto il limite di 25 voli. Visita flightbook.ch per ulteriori informazioni.",
+        "premiumUpgradeRequiredTandem": "Hai raggiunto il limite di 10 conferme passeggeri. Visita flightbook.ch per ulteriori informazioni.",
         "welcome": "<p>Benvenuto su Flightbook!</p><p>Stai utilizzando attualmente Flightbook Free e puoi registrare fino a 25 voli.</p><p>Visita flightbook.ch per maggiori informazioni.</p>"
     },
     "version": "Version",
