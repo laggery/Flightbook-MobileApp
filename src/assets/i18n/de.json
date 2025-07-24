@@ -589,6 +589,7 @@
         "canceled": "Ihr Abonnement wurde gekündigt. Sie verfügen noch über alle Funktionen bis zum {{ date }}.",
         "premiumUpgradeRequired": "Du hast das Limit von 25 Flügen erreicht. Besuche flightbook.ch für weitere Informationen.",
         "premiumUpgradeRequiredTandem": "Du hast das Limit von 10 Passagierbestätigungen erreicht. Besuche flightbook.ch für weitere Informationen.",
+        "passengerConfirmationInfo": "Du nutzt derzeit Flightbook Free. Mit dieser Version kannst du maximal 10 Passagierbestätigungen hinzufügen. Für nur 12 CHF pro Jahr kannst du auf Flightbook Premium upgraden und unbegrenzt Passagierbestätigungen hinzufügen. Besuche flightbook.ch für weitere Informationen.",
         "welcome": "<p>Willkommen bei Flightbook!</p><p>Du verwendest derzeit Flightbook Free und kannst bis zu 25 Flüge registrieren.</p><p>Besuche flightbook.ch für weitere Informationen.</p>"
     },
     "version": "Version",

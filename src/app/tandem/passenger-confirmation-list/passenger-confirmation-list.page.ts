@@ -64,16 +64,29 @@ export class PassengerConfirmationListPage implements OnInit, OnDestroy {
       (!this.paymentService.getPaymentStatusValue()?.active && this.passengerConfirmations.length >= 10) ||
       (this.paymentService.getPaymentStatusValue()?.active && this.paymentService.getPaymentStatusValue()?.state == 'EXEMPTED' && this.passengerConfirmations.length >= 10)
     ) {
-          const alert = await this.alertController.create({
-                      header: this.translate.instant('message.infotitle'),
-                      message: this.translate.instant('payment.premiumUpgradeRequiredTandem'),
-                      buttons: [{
-                          text: this.translate.instant('buttons.done'),
-                      }]
-                  });
-                  await alert.present();
-          return;
-        }
+      const alert = await this.alertController.create({
+        header: this.translate.instant('message.infotitle'),
+        message: this.translate.instant('payment.premiumUpgradeRequiredTandem'),
+        buttons: [{
+          text: this.translate.instant('buttons.done'),
+        }]
+      });
+      await alert.present();
+      return;
+    } else if (
+      (!this.paymentService.getPaymentStatusValue()?.active && this.passengerConfirmations.length == 0) ||
+      (this.paymentService.getPaymentStatusValue()?.active && this.paymentService.getPaymentStatusValue()?.state == 'EXEMPTED' && this.passengerConfirmations.length == 0)
+    ) {
+      const alert = await this.alertController.create({
+        header: this.translate.instant('message.infotitle'),
+        message: this.translate.instant('payment.passengerConfirmationInfo'),
+        buttons: [{
+          text: this.translate.instant('buttons.done'),
+        }]
+      });
+      await alert.present();
+      await alert.onDidDismiss();
+    }
 
     const modal = await this.modalCtrl.create({
       component: PassengerConfirmationFormComponent,
