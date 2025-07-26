@@ -16,7 +16,8 @@ import { NxgTransalteSortPipe } from 'src/app/shared/pipes/nxg-transalte-sort.pi
         ControlSheetPageRoutingModule,
         TranslateModule.forChild(),
         SharedModule,
-        ControlSheetPage, ControlSheetDetailsComponent
+        ControlSheetPage,
+        ControlSheetDetailsComponent
     ],
     providers: [
         NxgTransalteSortPipe

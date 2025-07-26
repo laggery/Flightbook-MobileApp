@@ -278,6 +278,11 @@
     },
     "controlSheet": {
         "title": "Fiche de contrôle",
+        "exam": {
+            "title": "Examens",
+            "theory": "Théorie réussie le",
+            "practice": "Pratique réussie le"
+        },
         "trainingHill": {
             "title": "Pente école",
             "auslegen": {

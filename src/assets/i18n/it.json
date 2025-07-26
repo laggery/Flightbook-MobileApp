@@ -278,6 +278,11 @@
     },
     "controlSheet": {
         "title": "Scheda di controllo",
+        "exam": {
+            "title": "Esami",
+            "theory": "Teoria superata il",
+            "practice": "Pratica superata il"
+        },
         "trainingHill": {
             "title": "Übungshang",
             "auslegen": {

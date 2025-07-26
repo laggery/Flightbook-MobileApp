@@ -278,6 +278,11 @@
     },
     "controlSheet": {
         "title": "Control sheet",
+        "exam": {
+            "title": "Exams",
+            "theory": "Theory passed on",
+            "practice": "Practice passed on"
+        },
         "trainingHill": {
             "title": "Übungshang",
             "auslegen": {

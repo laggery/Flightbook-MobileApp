@@ -278,6 +278,11 @@
     },
     "controlSheet": {
         "title": "Kontrollblatt",
+        "exam": {
+            "title": "Prüfungen",
+            "theory": "Theorie bestanden am",
+            "practice": "Praxis bestanden am"
+        },
         "trainingHill": {
             "title": "Übungshang",
             "auslegen": {

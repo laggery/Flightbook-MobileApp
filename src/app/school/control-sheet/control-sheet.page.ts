@@ -2,11 +2,11 @@ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ControlSheet } from 'src/app/shared/domain/control-sheet';
 import { SchoolService } from '../shared/school.service';
 import { Subject, takeUntil } from 'rxjs';
-import { LoadingController, ModalController, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonContent, IonAccordionGroup, IonAccordion, IonItem, IonLabel, IonList, IonButton, IonModal } from '@ionic/angular/standalone';
+import { LoadingController, ModalController, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonContent, IonAccordionGroup, IonAccordion, IonItem, IonLabel, IonList, IonButton, IonModal, IonInput, IonDatetime } from '@ionic/angular/standalone';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { ControlSheetDetailsComponent } from '../shared/components/control-sheet-details/control-sheet-details.component';
 import { NxgTransalteSortPipe } from 'src/app/shared/pipes/nxg-transalte-sort.pipe';
-import { NgIf } from '@angular/common';
+import { DatePipe, NgIf } from '@angular/common';
 import { StarRatingComponent } from '../../shared/components/star-rating/star-rating.component';
 
 type StarRating = {
@@ -21,6 +21,9 @@ type StarRating = {
     templateUrl: './control-sheet.page.html',
     styleUrls: ['./control-sheet.page.scss'],
     imports: [
+        DatePipe,
+        IonDatetime, 
+        IonInput, 
         NgIf,
         StarRatingComponent,
         TranslateModule,
@@ -51,13 +54,19 @@ export class ControlSheetPage implements OnInit, OnDestroy {
     orderedTheory: any[] = [];
     orderedTrainingHill: any[] = [];
 
+    language: string;
+    theoryExamDate: string;
+    practiceExamDate: string;
+
     constructor(
         private schoolService: SchoolService,
         private loadingCtrl: LoadingController,
         private modalCtrl: ModalController,
         private translate: TranslateService,
         private nxgTransalteSortPipe: NxgTransalteSortPipe
-    ) { }
+    ) {
+        this.language = this.translate.currentLang;
+    }
 
     ngOnInit() {
         this.initialDataLoad();
@@ -71,6 +80,12 @@ export class ControlSheetPage implements OnInit, OnDestroy {
         this.schoolService.getControlSheet().pipe(takeUntil(this.unsubscribe$)).subscribe({
             next: async (controlSheet: ControlSheet) => {
                 this.controlSheet = controlSheet;
+                this.theoryExamDate = this.controlSheet?.passTheoryExam 
+                    ? new Date(this.controlSheet.passTheoryExam).toISOString() 
+                    : new Date().toISOString();
+                this.practiceExamDate = this.controlSheet?.passPracticeExam
+                    ? new Date(this.controlSheet.passPracticeExam).toISOString()
+                    : new Date().toISOString();
                 this.orderControlSheet(controlSheet);
                 await loading.dismiss();
             },
@@ -167,6 +182,36 @@ export class ControlSheetPage implements OnInit, OnDestroy {
                 break;
         }
 
+        await this.postControlSheet();
+    }
+
+    async onTheoryDateChange(event: any) {
+        this.theoryExamDate = event.detail.value;
+        this.controlSheet.passTheoryExam = new Date(event.detail.value);
+
+        await this.postControlSheet();
+    }
+
+    async onPracticeDateChange(event: any) {
+        this.practiceExamDate = event.detail.value;
+        this.controlSheet.passPracticeExam = new Date(event.detail.value);
+
+        await this.postControlSheet();
+    }
+
+    async clearDateButton(type: string) {
+        if (type === 'theoryExam') {
+            this.controlSheet.passTheoryExam = undefined;
+            this.theoryExamDate = new Date().toISOString();
+        }
+        if (type === 'practiceExam') {
+            this.controlSheet.passPracticeExam = undefined;
+            this.practiceExamDate = new Date().toISOString();
+        }
+        await this.postControlSheet();
+    }
+
+    private async postControlSheet() {
         const loading = await this.loadingCtrl.create({
             message: this.translate.instant('loading.loading')
         });
@@ -182,5 +227,5 @@ export class ControlSheetPage implements OnInit, OnDestroy {
                     this.starModal.dismiss();
                 })
             });
-    }
+        }
 }

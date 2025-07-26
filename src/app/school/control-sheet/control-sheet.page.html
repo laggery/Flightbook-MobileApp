@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content class="no-padding">
-  <ion-accordion-group [multiple]="true" [value]="['theory', 'trainingHill', 'altitudeFlight']">
+  <ion-accordion-group [multiple]="true" [value]="['theory', 'trainingHill', 'altitudeFlight', 'exam']">
     <ion-accordion value="theory">
       <ion-item slot="header" color="light">
         <ion-label>{{ 'controlSheet.theory.title' | translate }}</ion-label>
@@ -51,6 +51,19 @@
         }
       </ion-list>
     </ion-accordion>
+    <ion-accordion value="exam">
+      <ion-item slot="header" color="light">
+        <ion-label>{{ 'controlSheet.exam.title' | translate }}</ion-label>
+      </ion-item>
+      <ion-list slot="content">
+        <ion-item id="theoryDateInput">
+          <ion-input label="{{ 'controlSheet.exam.theory' | translate }}:" labelPlacement="stacked" value="{{ controlSheet?.passTheoryExam | date:'dd.MM.yyyy' }}" ></ion-input>
+        </ion-item>
+        <ion-item id="practiceDateInput">
+          <ion-input label="{{ 'controlSheet.exam.practice' | translate }}:" labelPlacement="stacked" value="{{ controlSheet?.passPracticeExam | date:'dd.MM.yyyy' }}" ></ion-input>
+        </ion-item>
+      </ion-list>
+    </ion-accordion>
   </ion-accordion-group>
 </ion-content>
 
@@ -59,6 +72,26 @@
     <ion-content class="startRatingModal">
       <h2>{{ starRating.translationKey | translate }}</h2>
       <fb-star-rating [edit]="true" [selectedRating]="starRating.currentValue" (selectEvent)="saveRating($event)"></fb-star-rating>
+    </ion-content>
+  </ng-template>
+</ion-modal>
+
+<ion-modal class="dateModal" trigger='theoryDateInput'>
+  <ng-template>
+    <ion-content>
+      <ion-datetime size="cover" presentation="date" [preferWheel]="true" [value]="theoryExamDate" (ionChange)="onTheoryDateChange($event)" locale="{{ language }}" [showDefaultButtons]="true"
+          doneText="{{ 'buttons.done' | translate }}" cancelText="{{ 'buttons.clear' | translate }}" (ionCancel)="clearDateButton('theoryExam')">
+        </ion-datetime>
+    </ion-content>
+  </ng-template>
+</ion-modal>
+
+<ion-modal class="dateModal" trigger='practiceDateInput'>
+  <ng-template>
+    <ion-content>
+      <ion-datetime size="cover" presentation="date" [preferWheel]="true" [value]="practiceExamDate" (ionChange)="onPracticeDateChange($event)" locale="{{ language }}" [showDefaultButtons]="true"
+          doneText="{{ 'buttons.done' | translate }}" cancelText="{{ 'buttons.clear' | translate }}" (ionCancel)="clearDateButton('practiceExam')">
+        </ion-datetime>
     </ion-content>
   </ng-template>
 </ion-modal>
