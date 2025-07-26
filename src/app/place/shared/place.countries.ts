@@ -1589,7 +1589,7 @@ export const Countries = [
         code: 'tr',
         name: {
             de: 'Türkei',
-            en: 'Turkey',
+            en: 'Türkiye',
             fr: 'Turquie',
             it: 'Turchia'
         }
