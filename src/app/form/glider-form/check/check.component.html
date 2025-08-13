@@ -1,0 +1,32 @@
+<ion-header>
+    <ion-toolbar color='primary'>
+        <ion-title>{{ 'glider.check.title' | translate }}</ion-title>
+        <ion-buttons slot="end">
+            <ion-button (click)="closeCheckModal()"><ion-icon name="close"></ion-icon></ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+    <form>
+        <ion-item id="checkDateInput">
+            <ion-input required label="{{ 'glider.check.date' | translate }}*" labelPlacement="stacked"
+                value="{{ gliderCheck?.date | date:'dd.MM.yyyy' }}"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-textarea label="{{ 'glider.check.result' | translate }}" labelPlacement="stacked"
+                 [(ngModel)]="gliderCheck.result" name="result" autocomplete="on" autocorrect="on"
+                auto-grow="true"></ion-textarea>
+        </ion-item>
+        <ion-button (click)="saveCheck()" expand="block">{{ 'buttons.add' | translate }}</ion-button>
+    </form>
+</ion-content>
+
+<ion-modal class="dateModal" trigger='checkDateInput'>
+  <ng-template>
+    <ion-content>
+        <ion-datetime [value]="gliderCheck?.date | date:'yyyy-MM-dd'" size="cover" presentation="date" [preferWheel]="true" locale="{{ language }}" [showDefaultButtons]="true"
+          doneText="{{ 'buttons.done' | translate }}" cancelText="{{ 'buttons.cancel' | translate }}" (ionChange)="changeDate($event)">
+        </ion-datetime>
+    </ion-content>
+  </ng-template>
+</ion-modal>

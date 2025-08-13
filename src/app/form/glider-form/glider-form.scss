@@ -1,0 +1,27 @@
+.checks-wrapper {
+    margin-top: 10px;
+}
+
+.checks-header ion-button {
+    float: left;
+}
+
+.checks-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-left: 16px;
+    padding-right: 16px;
+    
+    ion-label {
+        font-size: 16px;
+        font-weight: 500;
+    }
+}
+
+.checks-wrapper {
+    ion-list {
+        padding-left: 45px;
+        padding-top: 0;
+    }
+}

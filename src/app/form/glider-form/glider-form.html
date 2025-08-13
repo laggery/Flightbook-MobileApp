@@ -19,6 +19,31 @@
   <ion-item>
     <ion-textarea label="{{ 'glider.note' | translate }}" labelPlacement="stacked" [(ngModel)]="glider.note" name="note" autocomplete="on" autocorrect="on" auto-grow="true"></ion-textarea>
   </ion-item>
+  <div class="checks-wrapper">
+    <div class="checks-header">
+      <ion-button size="small" shape="round" id="addCheckButton" (click)="gliderCheckAddButton()">
+        <ion-icon slot="icon-only" name="add"></ion-icon>
+      </ion-button>
+      <ion-label lines="none">{{ 'glider.check.title' | translate }}</ion-label>
+    </div>
+    <ion-list>
+      @for (check of glider.checks; track check) {
+        <ion-item-sliding>
+          <ion-item button detail (click)="manageCheckModal(check, 'edit')">
+            <ion-label>
+              <h3>{{ check.date | date:'dd.MM.yyyy' }}</h3>
+              <p style="white-space: pre-wrap;">{{ check.result }}</p>
+            </ion-label>
+          </ion-item>
+          <ion-item-options side="end">
+            <ion-item-option color="danger" (click)="deleteCheckItem(check)">
+              <ion-icon slot="icon-only" name="trash"></ion-icon>
+            </ion-item-option>
+          </ion-item-options>
+      </ion-item-sliding>
+      }
+    </ion-list>
+  </div>
   <ion-button expand="block" type="submit">{{ 'buttons.save' | translate }}</ion-button>
 </form>
 

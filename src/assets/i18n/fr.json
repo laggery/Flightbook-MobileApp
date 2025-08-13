@@ -81,7 +81,12 @@
         "solo": "Solo",
         "archived": "Archivé",
         "archive": "Archiver ?",
-        "note": "Notes"
+        "note": "Notes",
+        "check": {
+            "title": "Contrôle",
+            "date": "Date",
+            "result": "Résultat"
+        }
     },
     "flight": {
         "number": "No",

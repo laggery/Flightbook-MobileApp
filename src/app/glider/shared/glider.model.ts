@@ -8,4 +8,10 @@ export class Glider {
     note?: string;
     time: number;
     nbFlights: number;
+    checks: GliderCheck[] = [];
+}
+
+export class GliderCheck {
+    date: Date;
+    result: string;
 }
