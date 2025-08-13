@@ -7,6 +7,7 @@ import { close } from 'ionicons/icons';
 import { Subject } from 'rxjs';
 import SignaturePad from 'signature_pad';
 import { PassengerConfirmation } from '../../domain/passenger-confirmation.model';
+import { ColorService } from 'src/app/shared/services/color.service';
 
 @Component({
   selector: 'app-passenger-confirmation-form',
@@ -37,7 +38,11 @@ export class PassengerConfirmationFormComponent implements OnInit, OnDestroy, Af
   signaturePad!: SignaturePad;
   @ViewChild('signatureCanvas') canvasEl!: ElementRef;
 
-  constructor(private modalController: ModalController, private translate: TranslateService) {
+  constructor(
+    private modalController: ModalController,
+    private translate: TranslateService,
+    private colorService: ColorService
+  ) {
     addIcons({ close });
   }
 
@@ -50,7 +55,9 @@ export class PassengerConfirmationFormComponent implements OnInit, OnDestroy, Af
   }
 
   ngAfterViewInit() {
-    this.signaturePad = new SignaturePad(this.canvasEl.nativeElement);
+    this.signaturePad = new SignaturePad(this.canvasEl.nativeElement, {
+      penColor: this.colorService.getIonTextColor()
+    });
     if (this.type === 'view' && this.passengerData.signature) {
       this.signaturePad.fromDataURL(this.passengerData.signature);
     }
@@ -58,13 +65,13 @@ export class PassengerConfirmationFormComponent implements OnInit, OnDestroy, Af
 
   get dateString(): string {
     if (!this.passengerData?.date) return '';
-    
-    const date = this.passengerData.date instanceof Date 
-        ? this.passengerData.date 
-        : new Date(this.passengerData.date);
-        
+
+    const date = this.passengerData.date instanceof Date
+      ? this.passengerData.date
+      : new Date(this.passengerData.date);
+
     return date.toISOString().split('T')[0];
-}
+  }
 
   savePassengerConfirmation(form: NgForm) {
     this.passengerData.signature = this.signaturePad.toDataURL();
@@ -85,6 +92,6 @@ export class PassengerConfirmationFormComponent implements OnInit, OnDestroy, Af
   }
 
   setLanguage(lang: string) {
-      this.translate.use(lang)
+    this.translate.use(lang)
   }
 }

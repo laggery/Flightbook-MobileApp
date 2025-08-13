@@ -138,7 +138,7 @@ export class PassengerConfirmationListPage implements OnInit, OnDestroy {
         this.tandemService.getPassengerConfirmations({ limit: this.tandemService.defaultLimit })
       );
     } catch (error) {
-      console.error('Error loading appointments', error);
+      console.error('Error loading passenger confirmations', error);
     } finally {
       await loading.dismiss();
     }
