@@ -41,7 +41,7 @@ export class DashboardContainerComponent implements OnInit {
       .pipe(take(1))
       .subscribe((flightArray: Flight[]) => {
         if (flightArray.length > 0) {
-          this.router.navigate([`flights/${flightArray[0].id}`], { replaceUrl: true });
+          this.router.navigate([`flights/${flightArray[0].id}`]);
         }
       });
   }
@@ -58,10 +58,10 @@ export class DashboardContainerComponent implements OnInit {
               await alert.present();
       return;
     }
-    this.router.navigate([`flights/add`], { replaceUrl: true });
+    this.router.navigate([`flights/add`]);
   }
 
   async openStatistics() {
-    this.router.navigate([`flights/statistic`], { replaceUrl: true });
+    this.router.navigate([`flights/statistic`]);
   }
 }

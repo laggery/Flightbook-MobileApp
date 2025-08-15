@@ -16,7 +16,7 @@ export class AuthGuardService  {
     const authenticated = await this.accoutService.isAuth();
 
     if (!authenticated) {
-      this.router.navigate(['login']);
+      this.router.navigate(['login'], { replaceUrl: true });
     }
 
     return authenticated;

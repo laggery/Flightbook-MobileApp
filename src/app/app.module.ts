@@ -5,7 +5,7 @@ import { HTTP_INTERCEPTORS, HttpClient, provideHttpClient, withInterceptorsFromD
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
-import { IonicRouteStrategy, provideIonicAngular, IonApp, IonSplitPane, IonMenu, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonMenuToggle, IonItem, IonRouterOutlet } from '@ionic/angular/standalone';
+import { IonicRouteStrategy, provideIonicAngular, IonApp, IonSplitPane, IonMenu, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonMenuToggle, IonItem, IonRouterOutlet, isPlatform } from '@ionic/angular/standalone';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -33,6 +33,14 @@ export function tokenGetter() {
 registerLocaleData(germanLocale);
 registerLocaleData(italianLocale);
 registerLocaleData(frenchLocale);
+
+function getIonicConfig() {
+  const isAndroid = isPlatform('android');
+  return {
+    innerHTMLTemplatesEnabled: true,
+    swipeBackEnabled: isAndroid  // Only enable on Android
+  };
+}
 
 @NgModule({
     declarations: [AppComponent],
@@ -67,9 +75,7 @@ registerLocaleData(frenchLocale);
         PaymentService,
         NavigationService,
         provideHttpClient(withInterceptorsFromDi()),
-        provideIonicAngular({
-            innerHTMLTemplatesEnabled: true
-          }),
+        provideIonicAngular(getIonicConfig()),
     ]
 })
 export class AppModule {

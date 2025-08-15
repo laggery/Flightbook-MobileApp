@@ -9,40 +9,40 @@
       <ion-content>
         <ion-list id="inbox-list">
           <ion-menu-toggle auto-hide="false">
-            <ion-item routerDirection="root" [routerLink]="['/news']" lines="full" detail="false" replaceUrl="true">
+            <ion-item routerDirection="root" [routerLink]="['/news']" lines="full" detail="false" >
               <fb-menu-item [icon]="'home'" [label]="'groupname.home'"></fb-menu-item>
             </ion-item>
           </ion-menu-toggle>
           <p class="divider-menu">{{ 'groupname.flight' | translate }}</p>
           <ion-menu-toggle auto-hide="false">
-            <ion-item routerDirection="root" [routerLink]="['/flights']" lines="full" detail="false" replaceUrl="true">
+            <ion-item routerDirection="root" [routerLink]="['/flights']" lines="full" detail="false" >
               <fb-menu-item [icon]="'flight'" [label]="'groupname.flight'"></fb-menu-item>
             </ion-item>
           </ion-menu-toggle>
           <ion-menu-toggle auto-hide="false">
-            <ion-item routerDirection="root" [routerLink]="['/gliders']" lines="full" detail="false" replaceUrl="true">
+            <ion-item routerDirection="root" [routerLink]="['/gliders']" lines="full" detail="false" >
               <fb-menu-item [icon]="'glider'" [label]="'groupname.glider'"></fb-menu-item>
             </ion-item>
           </ion-menu-toggle>
           <ion-menu-toggle auto-hide="false">
-            <ion-item routerDirection="root" [routerLink]="['/places']" lines="full" detail="false" replaceUrl="true">
+            <ion-item routerDirection="root" [routerLink]="['/places']" lines="full" detail="false" >
               <fb-menu-item [icon]="'place'" [label]="'groupname.place'"></fb-menu-item>
             </ion-item>
           </ion-menu-toggle>
 
           <ion-menu-toggle auto-hide="false">
-            <ion-item routerDirection="root" [routerLink]="['/flights/statistic']" lines="full" detail="false" replaceUrl="true">
+            <ion-item routerDirection="root" [routerLink]="['/flights/statistic']" lines="full" detail="false" >
               <fb-menu-item [icon]="'stats-chart'" [label]="'buttons.statistics'"></fb-menu-item>
             </ion-item>
           </ion-menu-toggle>
           <p class="divider-menu">{{ 'groupname.import' | translate }}</p>
           <ion-menu-toggle auto-hide="false">
-            <ion-item routerDirection="root" [routerLink]="['/imports/igc']" lines="full" detail="false" replaceUrl="true">
+            <ion-item routerDirection="root" [routerLink]="['/imports/igc']" lines="full" detail="false" >
               <fb-menu-item [icon]="'cloud-upload'" [label]="'buttons.multipleIgc'"></fb-menu-item>
             </ion-item>
           </ion-menu-toggle>
           <ion-menu-toggle auto-hide="false">
-            <ion-item routerDirection="root" [routerLink]="['/imports/data']" lines="full" detail="false" replaceUrl="true">
+            <ion-item routerDirection="root" [routerLink]="['/imports/data']" lines="full" detail="false" >
               <fb-menu-item [icon]="'cloud-upload'" [label]="'buttons.data'"></fb-menu-item>
             </ion-item>
           </ion-menu-toggle>
@@ -50,21 +50,21 @@
             <p class="divider-menu">{{ 'groupname.school' | translate }}</p>
             @for (school of schools; track school.id) {
               <ion-menu-toggle auto-hide="false">
-                <ion-item routerDirection="root" [routerLink]="['/school/', school.id]" lines="full" detail="false" replaceUrl="true">
+                <ion-item routerDirection="root" [routerLink]="['/school/', school.id]" lines="full" detail="false" >
                   <fb-menu-item [icon]="'school'" [label]="school.name"></fb-menu-item>
                 </ion-item>
               </ion-menu-toggle>
             }
             @if (hasControlSheet) {
               <ion-menu-toggle auto-hide="false">
-                <ion-item routerDirection="root" [routerLink]="['/control-sheet']" lines="full" detail="false" replaceUrl="true">
+                <ion-item routerDirection="root" [routerLink]="['/control-sheet']" lines="full" detail="false" >
                   <fb-menu-item [icon]="'document'" [label]="'buttons.controlSheet'"></fb-menu-item>
                 </ion-item>
               </ion-menu-toggle>
             }
             @if (hasEmergencyContacts || schools?.length > 0) {
               <ion-menu-toggle auto-hide="false">
-                <ion-item routerDirection="root" [routerLink]="['/emergency-contact']" lines="full" detail="false" replaceUrl="true">
+                <ion-item routerDirection="root" [routerLink]="['/emergency-contact']" lines="full" detail="false" >
                   <fb-menu-item [icon]="'bandage'" [label]="'buttons.emergencyContacts'"></fb-menu-item>
                 </ion-item>
               </ion-menu-toggle>
@@ -72,7 +72,7 @@
           }
           <p class="divider-menu">{{ 'groupname.tandem' | translate }}</p>
           <ion-menu-toggle auto-hide="false">
-            <ion-item routerDirection="root" [routerLink]="['/passenger-confirmations']" lines="full" detail="false" replaceUrl="true">
+            <ion-item routerDirection="root" [routerLink]="['/passenger-confirmations']" lines="full" detail="false" >
               <fb-menu-item [icon]="'checkmark-done'" [label]="'buttons.pasengerConfirmations'"></fb-menu-item>
             </ion-item>
           </ion-menu-toggle>
@@ -94,17 +94,17 @@
           </ion-menu-toggle>
           <p class="divider-menu">{{ 'groupname.account' | translate }}</p>
           <ion-menu-toggle auto-hide="false">
-            <ion-item routerDirection="root" [routerLink]="['/settings']" lines="full" detail="false" replaceUrl="true">
+            <ion-item routerDirection="root" [routerLink]="['/settings']" lines="full" detail="false" >
               <fb-menu-item [icon]="'settings'" [label]="'buttons.settings'"></fb-menu-item>
             </ion-item>
           </ion-menu-toggle>
           <ion-menu-toggle auto-hide="false">
-            <ion-item routerDirection="root" [routerLink]="['/password']" lines="full" detail="false" replaceUrl="true">
+            <ion-item routerDirection="root" [routerLink]="['/password']" lines="full" detail="false" >
               <fb-menu-item [icon]="'ellipsis-horizontal'" [label]="'login.password'"></fb-menu-item>
             </ion-item>
           </ion-menu-toggle>
           <ion-menu-toggle auto-hide="false">
-            <ion-item routerDirection="root" [routerLink]="['/login']" (click)="logout()" lines="full" detail="false" replaceUrl="true">
+            <ion-item routerDirection="root" [routerLink]="['/login']" (click)="logout()" lines="full" detail="false" >
               <fb-menu-item [icon]="'log-out-outline'" [label]="'buttons.logout'"></fb-menu-item>
             </ion-item>
           </ion-menu-toggle>

@@ -292,6 +292,6 @@ export class FlightListPage implements OnInit, OnDestroy, AfterViewInit {
                   await alert.present();
           return;
         }
-        this.router.navigate([`flights/add`], { replaceUrl: true });
+        this.router.navigate([`flights/add`]);
       }
 }

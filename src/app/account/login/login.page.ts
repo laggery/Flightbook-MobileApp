@@ -114,10 +114,10 @@ export class LoginPage implements OnInit, OnDestroy {
                     await loading.dismiss();
                     localStorage.setItem('access_token', resp.access_token);
                     localStorage.setItem('refresh_token', resp.refresh_token);
-                    this.navigationService.back();
                     this.menuCtrl.enable(true);
                     this.loginData.email = null;
                     this.loginData.password = null;
+                    this.router.navigate([`news`], { replaceUrl: true });
                 },
                 error: (async (error: any) => {
                     await loading.dismiss();

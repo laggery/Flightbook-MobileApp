@@ -45,7 +45,7 @@ export class HttpAuthInterceptor implements HttpInterceptor {
                 }
                 return next.handle(this.setHeaders(req)).toPromise();
             } else {
-                this.router.navigate(['login']);
+                this.router.navigate(['login'], { replaceUrl: true });
             }
         } else {
             return next.handle(this.setNotAuthenticatedHeaders(req)).toPromise();
