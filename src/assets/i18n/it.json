@@ -29,7 +29,8 @@
         "show": "Mostra",
         "news": "Novità",
         "statistics": "Statistiche",
-        "settings": "Impostazioni",
+        "accountData": "I miei dati",
+        "configuration": "Configurazione",
         "logout": "Esci",
         "filter": "Filtra",
         "close": "Vicino",
@@ -60,7 +61,14 @@
         "lastname": "Cognome",
         "phone": "Telefono",
         "prefix": "Prefisso",
-        "verification": "Verifica dell'account"
+        "verification": "Verifica dell'account",
+        "configuration": {
+            "shvLinkDisabled": "Disattivare il link \"FSVL Tempo\"",
+            "dabsLinkDisabled": "Disattivare i link DABS",
+            "link": "Link",
+            "label": "Label",
+            "url": "URL"
+        }
     },
     "place": {
         "place": "Luogo",
@@ -217,7 +225,8 @@
         "registrationSuccess": "È stata inviata un'email di convalida. Controlla la tua email e convalida il tuo account. Se non hai ricevuto l'email, controlla la cartella spam. In caso di problemi, contatta yannick.lagger@flightbook.ch.",
         "accountNotValidated": "Il tuo account non è ancora validato. Controlla le tue email per validare il tuo account.",
         "phoneInvalidFormat": "Il numero di telefono deve avere il seguente formato: {{format}}",
-        "required": "Questo campo è obbligatorio"
+        "required": "Questo campo è obbligatorio",
+        "invalidUrl": "URL non valida"
     },
     "loading": {
         "createaccount": "Iscrizione...",

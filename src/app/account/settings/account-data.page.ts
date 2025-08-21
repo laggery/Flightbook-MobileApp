@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, effect, OnDestroy, OnInit } from '@angular/core';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { AlertController, LoadingController, MenuController, NavController, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonContent, IonItem, IonInput, IonButton, IonCard, IonCardContent, IonText } from '@ionic/angular/standalone';
 import HttpStatusCode from '../../shared/util/HttpStatusCode';
@@ -16,11 +16,12 @@ import moment from 'moment';
 import { NgIf, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { PhoneNumberComponent } from 'src/app/shared/components/phone-number/phone-number.component';
+import _ from 'lodash';
 
 @Component({
-    selector: 'app-settings',
-    templateUrl: './settings.page.html',
-    styleUrls: ['./settings.page.scss'],
+    selector: 'app-account-data',
+    templateUrl: './account-data.page.html',
+    styleUrls: ['./account-data.page.scss'],
     imports: [
         NgIf,
         FormsModule,
@@ -41,7 +42,7 @@ import { PhoneNumberComponent } from 'src/app/shared/components/phone-number/pho
         PhoneNumberComponent
     ]
 })
-export class SettingsPage implements OnInit, OnDestroy {
+export class AccountDataPage implements OnInit, OnDestroy {
     unsubscribe$ = new Subject<void>();
     user: User;
     paymentStatus: PaymentStatus;
@@ -61,9 +62,9 @@ export class SettingsPage implements OnInit, OnDestroy {
         private route: ActivatedRoute
     ) {
         this.isNative = Capacitor.isNativePlatform();
-        this.accountService.currentUser().pipe(takeUntil(this.unsubscribe$)).subscribe((resp: User) => {
-            this.user = resp;
-        })
+        effect(() => {
+            this.user = _.cloneDeep(this.accountService.currentUser$());
+        });
 
         this.paymentService.getPaymentStatus().pipe(takeUntil(this.unsubscribe$)).subscribe((paymentStatus: PaymentStatus) => {
             this.paymentStatus = paymentStatus;

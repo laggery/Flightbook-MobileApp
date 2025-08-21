@@ -29,7 +29,8 @@
         "show": "Show",
         "news": "News",
         "statistics": "Statistics",
-        "settings": "Settings",
+        "accountData": "Account Data",
+        "configuration": "Configuration",
         "logout": "Logout",
         "filter": "Filter",
         "close": "Close",
@@ -60,7 +61,14 @@
         "lastname": "Lastname",
         "phone": "Phone",
         "prefix": "Prefix",
-        "verification": "Account Verification"
+        "verification": "Account Verification",
+        "configuration": {
+            "shvLinkDisabled": "Hide SHV Weather Link",
+            "dabsLinkDisabled": "Hide DABS Links",
+            "link": "Link",
+            "label": "Label",
+            "url": "URL"
+        }
     },
     "place": {
         "place": "Place",
@@ -217,7 +225,8 @@
         "registrationSuccess": "A validation email has been sent. Please check your email and validate your account. If you haven't received the email, please check your spam folder. For any issues, contact yannick.lagger@flightbook.ch.",
         "accountNotValidated": "Your account has not been validated yet. Please check your emails to validate your account.",
         "phoneInvalidFormat": "Phone number must be in the format {{format}}",
-        "required": "This field is required"
+        "required": "This field is required",
+        "invalidUrl": "Invalid URL"
     },
     "loading": {
         "createaccount": "Create account...",

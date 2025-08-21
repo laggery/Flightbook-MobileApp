@@ -1,3 +1,5 @@
+import { UserConfig } from "./userConfig.model";
+
 export class User {
     firstname: string;
     lastname: string;
@@ -5,4 +7,5 @@ export class User {
     password: string;
     phone: string;
     token: string;
+    config?: UserConfig;
 }

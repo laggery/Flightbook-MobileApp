@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, effect, OnDestroy, OnInit } from '@angular/core';
 
 import { MenuController, AlertController, IonicSafeString } from '@ionic/angular/standalone';
 import { TranslateService } from '@ngx-translate/core';
@@ -27,8 +27,9 @@ import { firstValueFrom, Subject } from 'rxjs';
 import { ControlSheet } from './shared/domain/control-sheet';
 import { Browser } from '@capacitor/browser';
 import { addIcons } from "ionicons";
-import { home, statsChart, cloudUpload, linkOutline, settings, ellipsisHorizontal, logOutOutline, school, document as iconDocument, bandage, checkmarkDone } from 'ionicons/icons';
+import { home, statsChart, cloudUpload, linkOutline, settings, ellipsisHorizontal, logOutOutline, school, document as iconDocument, bandage, checkmarkDone, personCircle, personCircleOutline } from 'ionicons/icons';
 import { EmergencyContact } from './school/shared/emergency-contact.model';
+import { User } from './account/shared/user.model';
 
 
 @Component({
@@ -43,6 +44,8 @@ export class AppComponent implements OnDestroy, OnInit {
     hasControlSheet = false;
     initialRequestsFired = false;
     hasEmergencyContacts = false;
+    currentUser: User | undefined;
+
 
     constructor(
         private router: Router,
@@ -59,6 +62,11 @@ export class AppComponent implements OnDestroy, OnInit {
     ) {
         this.translate.setDefaultLang('en');
         this.translate.use(localStorage.getItem('language') || navigator.language.split('-')[0]);
+        
+        effect(() => {
+            this.currentUser = this.accountService.currentUser$();
+        });
+
         addIcons({
             home,
             statsChart,
@@ -70,6 +78,7 @@ export class AppComponent implements OnDestroy, OnInit {
             logOutOutline,
             school,
             checkmarkDone,
+            personCircleOutline,
             'document': iconDocument,
             'flight': 'assets/custom-ion-icons/flight.svg',
             'copyflight': 'assets/custom-ion-icons/copyflight.svg',
@@ -144,6 +153,8 @@ export class AppComponent implements OnDestroy, OnInit {
         this.schoolService.getEmergencyContacts().pipe(takeUntil(this.unsubscribe$)).subscribe((emergencyContacts: EmergencyContact[]) => {
             this.hasEmergencyContacts = emergencyContacts && emergencyContacts.length > 0 ? true : false;
         })
+
+        this.accountService.currentUser().pipe(takeUntil(this.unsubscribe$)).subscribe((user: any) => {});
 
         if (Capacitor.isNativePlatform()) {
             this.initPushNotification();
@@ -282,6 +293,16 @@ export class AppComponent implements OnDestroy, OnInit {
             url: url
         }
         Browser.open(browserOption);
+    }
+
+    async openLink(link: string) {
+        if (!link || link === '') {
+            return;
+        }
+
+        Browser.open({
+            url: link
+        });
     }
 
     ngOnDestroy() {

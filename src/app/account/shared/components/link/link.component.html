@@ -1,0 +1,32 @@
+<ion-header>
+    <ion-toolbar color='primary'>
+        <ion-title>{{ 'glider.check.title' | translate }}</ion-title>
+        <ion-buttons slot="end">
+            <ion-button (click)="closeLinkModal()"><ion-icon name="close"></ion-icon></ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+    <form #form="ngForm">
+        <ion-item class="error-item">
+            <ion-input label="{{ 'account.configuration.label' | translate }}" labelPlacement="stacked" [(ngModel)]="link.label"
+                #inputLabel="ngModel" required name="inputLabel" type="text"></ion-input>
+            @if (inputLabel.invalid && (inputLabel.dirty || inputLabel.touched)) {
+                <ion-text color="danger" class="error-text">{{ 'message.required' | translate }}</ion-text>
+            }
+        </ion-item>
+        <ion-item class="error-item">
+            <ion-input label="{{ 'account.configuration.url' | translate }}" labelPlacement="stacked" [(ngModel)]="link.url"
+                #inputUrl="ngModel" required name="inputUrl" type="url" pattern="https?://.+" placeholder="https://example.com"></ion-input>
+            @if (inputUrl.invalid && (inputUrl.dirty || inputUrl.touched)) {
+                @if(inputUrl.errors?.['required']) {
+                    <ion-text color="danger" class="error-text">{{ 'message.required' | translate }}</ion-text>
+                }
+                @if(inputUrl.errors?.['pattern']) {
+                    <ion-text color="danger" class="error-text">{{ 'message.invalidUrl' | translate }}</ion-text>
+                }
+            }
+        </ion-item>
+        <ion-button [disabled]="form.invalid" (click)="saveLink()" expand="block">{{ 'buttons.add' | translate }}</ion-button>
+    </form>
+</ion-content>

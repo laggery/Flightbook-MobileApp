@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { SettingsPageRoutingModule } from './settings-routing.module';
 
-import { SettingsPage } from './settings.page';
+import { AccountDataPage } from './account-data.page';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { createTranslateLoader } from 'src/app/app.module';
 import { HttpClient } from '@angular/common/http';
@@ -20,7 +20,7 @@ import { HttpClient } from '@angular/common/http';
                 deps: [HttpClient]
             }
         }),
-        SettingsPage
+        AccountDataPage
     ]
 })
 export class SettingsPageModule { }

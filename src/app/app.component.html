@@ -76,26 +76,48 @@
               <fb-menu-item [icon]="'checkmark-done'" [label]="'buttons.pasengerConfirmations'"></fb-menu-item>
             </ion-item>
           </ion-menu-toggle>
-          <p class="divider-menu">{{ 'groupname.preparation' | translate }}</p>
-          <ion-menu-toggle auto-hide="false">
-            <ion-item (click)="openBrowser('shvWeather')" lines="full" detail="false">
-              <fb-menu-item [icon]="'link-outline'" [label]="'buttons.shvWeather'"></fb-menu-item>
-            </ion-item>
-          </ion-menu-toggle>
-          <ion-menu-toggle auto-hide="false">
-            <ion-item (click)="openBrowser('dabsToday')" lines="full" detail="false">
-              <fb-menu-item [icon]="'link-outline'" [label]="'buttons.dabsToday'"></fb-menu-item>
-            </ion-item>
-          </ion-menu-toggle>
-          <ion-menu-toggle auto-hide="false">
-            <ion-item (click)="openBrowser('dabsTomorrow')" lines="full" detail="false">
-              <fb-menu-item [icon]="'link-outline'" [label]="'buttons.dabsTomorrow'"></fb-menu-item>
-            </ion-item>
-          </ion-menu-toggle>
+          @if (!currentUser?.config?.preparation?.shvLinkDisabled || !currentUser?.config?.preparation?.dabsLinkDisabled || currentUser?.config?.preparation?.links?.length > 0) {
+            <p class="divider-menu">{{ 'groupname.preparation' | translate }}</p>
+
+          }
+          @if(!currentUser?.config?.preparation?.shvLinkDisabled) {
+            <ion-menu-toggle auto-hide="false">
+              <ion-item (click)="openBrowser('shvWeather')" lines="full" detail="false">
+                <fb-menu-item [icon]="'link-outline'" [label]="'buttons.shvWeather'"></fb-menu-item>
+              </ion-item>
+            </ion-menu-toggle>
+          }
+          
+          @if(!currentUser?.config?.preparation?.dabsLinkDisabled) {
+            <ion-menu-toggle auto-hide="false">
+              <ion-item (click)="openBrowser('dabsToday')" lines="full" detail="false">
+                <fb-menu-item [icon]="'link-outline'" [label]="'buttons.dabsToday'"></fb-menu-item>
+              </ion-item>
+            </ion-menu-toggle>
+            <ion-menu-toggle auto-hide="false">
+              <ion-item (click)="openBrowser('dabsTomorrow')" lines="full" detail="false">
+                <fb-menu-item [icon]="'link-outline'" [label]="'buttons.dabsTomorrow'"></fb-menu-item>
+              </ion-item>
+            </ion-menu-toggle>
+          }
+
+          @for( link of currentUser?.config?.preparation?.links || []; track link) {
+            <ion-menu-toggle auto-hide="false">
+              <ion-item (click)="openLink(link.url)" lines="full" detail="false">
+                <fb-menu-item [icon]="'link-outline'" [label]="link.label"></fb-menu-item>
+              </ion-item>
+            </ion-menu-toggle>
+          }
+          
           <p class="divider-menu">{{ 'groupname.account' | translate }}</p>
           <ion-menu-toggle auto-hide="false">
             <ion-item routerDirection="root" [routerLink]="['/settings']" lines="full" detail="false" >
-              <fb-menu-item [icon]="'settings'" [label]="'buttons.settings'"></fb-menu-item>
+              <fb-menu-item [icon]="'person-circle-outline'" [label]="'buttons.accountData'"></fb-menu-item>
+            </ion-item>
+          </ion-menu-toggle>
+          <ion-menu-toggle auto-hide="false">
+            <ion-item routerDirection="root" [routerLink]="['/settings/configuration']" lines="full" detail="false" >
+              <fb-menu-item [icon]="'settings'" [label]="'buttons.configuration'"></fb-menu-item>
             </ion-item>
           </ion-menu-toggle>
           <ion-menu-toggle auto-hide="false">

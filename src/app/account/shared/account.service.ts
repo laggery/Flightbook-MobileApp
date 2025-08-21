@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal, WritableSignal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom, map, Observable } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
@@ -12,6 +12,7 @@ import { NavigationService } from 'src/app/shared/services/navigation.service';
 })
 export class AccountService {
   private jwtHelper: JwtHelperService;
+  public currentUser$: WritableSignal<User> = signal(null);
 
   constructor(private http: HttpClient, private naviagationService: NavigationService) {
     this.jwtHelper = new JwtHelperService();
@@ -45,11 +46,18 @@ export class AccountService {
 
   logout(refreshToken: string): Observable<any> {
     this.naviagationService.clearHistory();
+    this.currentUser$.set(null);
     return this.http.post<any>(`${environment.baseUrl}/auth/logout`, { "refresh_token": refreshToken });
   }
 
   currentUser(): Observable<any> {
-    return this.http.get<User>(`${environment.baseUrl}/users`);
+    return this.http.get<User>(`${environment.baseUrl}/users`).pipe(
+      map((response: any) => {
+        this.initializeUserConfig(response);
+        this.currentUser$.set(response);
+        return response;
+      })
+    );
   }
 
   verifyUser(token: string): Observable<any> {
@@ -57,7 +65,12 @@ export class AccountService {
   }
 
   updateUser(user: User): Observable<User> {
-    return this.http.put<User>(`${environment.baseUrl}/users`, user);
+    return this.http.put<User>(`${environment.baseUrl}/users`, user).pipe(
+      map((response: any) => {
+        this.currentUser$.set(response);
+        return response;
+      })
+    );
   }
 
   updateNotificationToken(notificationToken: string): Observable<any> {
@@ -118,4 +131,15 @@ export class AccountService {
     }
     return null;
   }
+
+  private initializeUserConfig(user: User) {
+          if (user && !user.config) {
+              user.config = {
+                  preparation: {
+                      shvLinkDisabled: false,
+                      dabsLinkDisabled: false
+                  }
+              };
+          }
+      }
 }
