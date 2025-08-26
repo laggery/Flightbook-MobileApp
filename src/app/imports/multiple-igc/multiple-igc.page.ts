@@ -8,7 +8,7 @@ import { FileUploadService } from 'src/app/flight/shared/fileupload.service';
 import { Glider } from 'src/app/glider/shared/glider.model';
 import { GliderService } from 'src/app/glider/shared/glider.service';
 import { IgcService } from 'src/app/shared/services/igc.service';
-import { FlightService } from 'src/app/flight/shared/flight.service';
+import { FlightStore } from 'src/app/flight/shared/flight.store';
 import { Flight } from 'src/app/flight/shared/flight.model';
 import { FileInputComponent } from '../../shared/components/file-input/file-input.component';
 import { NgIf, NgFor, DatePipe } from '@angular/common';
@@ -54,7 +54,7 @@ export class MultipleIgcPage implements OnInit {
         private loadingCtrl: LoadingController,
         private translate: TranslateService,
         private fileUploadService: FileUploadService,
-        private flightService: FlightService
+        private flightStore: FlightStore
     ) {
         addIcons({ trashOutline, cloudDoneOutline, alert });
     }
@@ -116,7 +116,7 @@ export class MultipleIgcPage implements OnInit {
                     await this.uploadIgc(flightSate.flight);
                 }
 
-                await this.flightService.postFlight(flightSate.flight).toPromise();
+                await this.flightStore.postFlight(flightSate.flight).toPromise();
 
                 flightSate.state = State.SAVED;
             } catch {

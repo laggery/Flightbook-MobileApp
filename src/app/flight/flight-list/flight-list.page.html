@@ -20,7 +20,7 @@
 </ion-header>
 
 <ion-content class="no-padding">
-  @if ((flights$ | async)?.length > 0) {
+  @if (flights()?.length > 0) {
     <ion-item class="export-buttons">
       <ion-grid>
         <ion-row>
@@ -36,7 +36,7 @@
   }
   
   <ion-list>
-    @for (flight of flights$ | async; track flight.id) {
+    @for (flight of flights(); track flight.id) {
       <ion-item-sliding [className]="flight.validation?.state === FlightValidationState.VALIDATED 
       ? 'validated' 
       : (flight.validation?.state === FlightValidationState.REJECTED 

@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, effect, inject, Injector, runInInjectionContext } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map, take } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { FlightStatistic } from 'src/app/flight/shared/flightStatistic.model';
-import { Flight } from 'src/app/flight/shared/flight.model';
-import { FlightService } from 'src/app/flight/shared/flight.service';
+import { FlightStore } from 'src/app/flight/shared/flight.store';
 import { Router } from '@angular/router';
 import { DashboardItemComponent } from '../dashboard-item/dashboard-item.component';
 import { PaymentService } from 'src/app/shared/services/payment.service';
@@ -19,10 +18,11 @@ import { TranslateService } from '@ngx-translate/core';
 export class DashboardContainerComponent implements OnInit {
 
   flightStatistics$: Observable<FlightStatistic | FlightStatistic[]>;
-  flights$: Observable<Flight[]>;
+  public flights = this.flightStore.flights;
+  private injector = inject(Injector);
 
   constructor(
-    private flightService: FlightService,
+    private flightStore: FlightStore,
     private paymentService: PaymentService,
     private alertController: AlertController,
     private router: Router,
@@ -31,23 +31,24 @@ export class DashboardContainerComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.flights$ = this.flightService.getState();
-    this.flightStatistics$ = this.flightService.getStatistics("global").pipe(
-      map(flightStatistic => flightStatistic));
+    // Run effect in proper injection context using the class-level injector
+    runInInjectionContext(this.injector, () => {
+      effect(() => {
+        // Update statistics whenever flights change
+        this.flightStore.flights()
+        this.flightStatistics$ = this.flightStore.getStatistics("global").pipe(
+          map(flightStatistic => flightStatistic)
+        );
+      });
+    });
   }
 
   async openLastFlight() {
-    this.flights$
-      .pipe(take(1))
-      .subscribe((flightArray: Flight[]) => {
-        if (flightArray.length > 0) {
-          this.router.navigate([`flights/${flightArray[0].id}`]);
-        }
-      });
+    this.flights().length > 0 && this.router.navigate([`flights/${this.flights()[0].id}`]);
   }
 
   async openAddFlight() {
-    if (!this.paymentService.getPaymentStatusValue()?.active && this.flightService.getValue().length >= 25) {
+    if (!this.paymentService.getPaymentStatusValue()?.active && this.flightStore.flights().length >= 25) {
       const alert = await this.alertController.create({
                   header: this.translate.instant('message.infotitle'),
                   message: this.translate.instant('payment.premiumUpgradeRequired'),

@@ -8,7 +8,7 @@ import { LoadingController, AlertController, IonHeader, IonToolbar, IonButtons, 
 import HttpStatusCode from '../../shared/util/HttpStatusCode';
 import { Place } from 'src/app/place/shared/place.model';
 import { PlaceService } from '../shared/place.service';
-import { FlightService } from 'src/app/flight/shared/flight.service';
+import { FlightStore } from 'src/app/flight/shared/flight.store';
 import { PlaceFormComponent } from '../../form/place-form/place-form';
 
 @Component({
@@ -37,7 +37,7 @@ export class PlaceEditPage implements OnInit, OnDestroy {
         private activeRoute: ActivatedRoute,
         private router: Router,
         private placeService: PlaceService,
-        private flightService: FlightService,
+        private flightStore: FlightStore,
         private translate: TranslateService,
         private loadingCtrl: LoadingController,
         private alertController: AlertController
@@ -49,7 +49,7 @@ export class PlaceEditPage implements OnInit, OnDestroy {
         if (!this.place) {
             this.router.navigate(['/places'], { replaceUrl: true });
         }
-        this.flightService.nbFlightsByPlaceId(this.placeId).subscribe((resp: any) => {
+        this.flightStore.nbFlightsByPlaceId(this.placeId).subscribe((resp: any) => {
             if (resp.nbFlights == 0) {
                 this.deleteDisabled = false;
             }
@@ -71,7 +71,7 @@ export class PlaceEditPage implements OnInit, OnDestroy {
         await loading.present();
 
         this.placeService.putPlace(place).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Place) => {
-            this.flightService.setState([]);
+            this.flightStore.clearFlights();
             await loading.dismiss();
             this.router.navigate(['/places'], { replaceUrl: true });
         },

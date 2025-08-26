@@ -4,7 +4,7 @@ import { ModalController, LoadingController, IonHeader, IonToolbar, IonButtons, 
 import { FlightFilterComponent } from '../../form/flight-filter/flight-filter.component';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { FlightStatistic } from '../shared/flightStatistic.model';
-import { FlightService } from '../shared/flight.service';
+import { FlightStore } from '../shared/flight.store';
 import { Chart, ChartData } from 'chart.js';
 
 import zoomPlugin from "chartjs-plugin-zoom";
@@ -69,11 +69,11 @@ export class FlightStatisticPage implements OnInit, OnDestroy {
     };
 
     get filtered(): Signal<boolean> {
-        return this.flightService.filtered$;
+        return this.flightStore.filtered;
     }
 
     constructor(
-        private flightService: FlightService,
+        private flightStore: FlightStore,
         private modalCtrl: ModalController,
         private translate: TranslateService,
         private loadingCtrl: LoadingController
@@ -92,8 +92,8 @@ export class FlightStatisticPage implements OnInit, OnDestroy {
 
         try {
             const promiseList = [];
-            promiseList.push(firstValueFrom(this.flightService.getStatistics('global')));
-            promiseList.push(firstValueFrom(this.flightService.getStatistics(this.graphType)));
+            promiseList.push(firstValueFrom(this.flightStore.getStatistics('global')));
+            promiseList.push(firstValueFrom(this.flightStore.getStatistics(this.graphType)));
             const data = await Promise.all(promiseList);
             this.statistics = (data[0] as FlightStatistic[])[0];
             this.statisticsList = data[1] as FlightStatistic[];
@@ -109,7 +109,7 @@ export class FlightStatisticPage implements OnInit, OnDestroy {
         });
 
         try {
-            const data = await firstValueFrom(this.flightService.getStatistics(this.graphType));
+            const data = await firstValueFrom(this.flightStore.getStatistics(this.graphType));
             this.statisticsList = data;
             this.prepareData();
         } catch (exception: any) {

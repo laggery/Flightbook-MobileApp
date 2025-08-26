@@ -1,15 +1,17 @@
 <fb-dashboard-item
         [icon]="'flight'"
         [label]="'dashboard.addflight'"
+        [type]="'addFlight'"
         (click)="openAddFlight()">
 </fb-dashboard-item>
 <fb-dashboard-item
         [label]="'dashboard.amountofflights'"
         [flightStatistics$]="flightStatistics$"
+        [type]="'statistics'"
         (click)="openStatistics()">
 </fb-dashboard-item>
 <fb-dashboard-item
         [icon]="'place'"
-        [flights$]="flights$"
+        [type]="'lastFlight'"
         (click)="openLastFlight()">
 </fb-dashboard-item>

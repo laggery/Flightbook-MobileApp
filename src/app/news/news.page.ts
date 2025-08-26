@@ -16,7 +16,7 @@ import { Flight } from '../flight/shared/flight.model';
 import { NewsService } from './shared/news.service';
 import { GliderService } from '../glider/shared/glider.service';
 import { PlaceService } from '../place/shared/place.service';
-import { FlightService } from '../flight/shared/flight.service';
+import { FlightStore } from '../flight/shared/flight.store';
 import { PaymentService } from '../shared/services/payment.service';
 import { PaymentStatus } from '../account/shared/paymentStatus.model';
 import { DashboardContainerComponent } from '../dashboard/dashboard-container/dashboard-container.component';
@@ -57,7 +57,7 @@ export class NewsPage implements OnInit, OnDestroy {
         private newsService: NewsService,
         private gliderService: GliderService,
         private placeService: PlaceService,
-        private flightService: FlightService,
+        private flightStore: FlightStore,
         private loadingCtrl: LoadingController,
         private xlsxExportService: XlsxExportService,
         private paymentService: PaymentService
@@ -70,9 +70,11 @@ export class NewsPage implements OnInit, OnDestroy {
         addIcons({ downloadOutline });
     }
 
-    ngOnInit() {
+    ngOnInit() {}
+
+    ionViewWillEnter() {
         this.newsData$ = this.newsService.getState();
-        if (this.newsService.getValue().length === 0 || this.newsService.getValue()[0].language != this.translate.currentLang) {
+        if (this.newsService.getValue().length === 0 || this.newsService.getValue()[0].language != this.translate.currentLang || this.flightStore.flights().length === 0) {
             this.initialDataLoad();
         }
     }
@@ -92,11 +94,10 @@ export class NewsPage implements OnInit, OnDestroy {
         }, async (error: any) => {
             await loading.dismiss();
         });
-        let limit = this.flightService.defaultLimit;
         if (window.innerHeight > 1024) {
-            limit += Math.ceil((window.innerHeight - 1024) / 47) + 2;
+            this.flightStore.defaultLimit += Math.ceil((window.innerHeight - 1024) / 47) + 2;
         }
-        this.flightService.getFlights({ limit: limit, clearStore: true })
+        this.flightStore.getFlights({ limit: this.flightStore.defaultLimit, clearStore: true })
             .pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Flight[]) => {
             }, async (error: any) => {
                 await loading.dismiss();
@@ -109,7 +110,7 @@ export class NewsPage implements OnInit, OnDestroy {
         });
         await loading.present();
         const promiseList: Promise<any>[] = [];
-        promiseList.push(this.flightService.getFlights({ store: false }).pipe(takeUntil(this.unsubscribe$)).toPromise());
+        promiseList.push(this.flightStore.getFlights({ store: false }).pipe(takeUntil(this.unsubscribe$)).toPromise());
         promiseList.push(this.gliderService.getGliders({ store: false }).pipe(takeUntil(this.unsubscribe$)).toPromise());
         promiseList.push(this.placeService.getPlaces({ store: false }).pipe(takeUntil(this.unsubscribe$)).toPromise());
 

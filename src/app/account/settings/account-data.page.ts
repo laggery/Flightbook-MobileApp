@@ -4,7 +4,7 @@ import { AlertController, LoadingController, MenuController, NavController, IonH
 import HttpStatusCode from '../../shared/util/HttpStatusCode';
 import { User } from 'src/app/account/shared/user.model';
 import { AccountService } from '../shared/account.service';
-import { FlightService } from 'src/app/flight/shared/flight.service';
+import { FlightStore } from 'src/app/flight/shared/flight.store';
 import { GliderService } from 'src/app/glider/shared/glider.service';
 import { PlaceService } from 'src/app/place/shared/place.service';
 import { firstValueFrom, Subject, takeUntil } from 'rxjs';
@@ -53,7 +53,7 @@ export class AccountDataPage implements OnInit, OnDestroy {
         private accountService: AccountService,
         private alertController: AlertController,
         private loadingCtrl: LoadingController,
-        private flightService: FlightService,
+        private flightStore: FlightStore,
         private gliderService: GliderService,
         private placeService: PlaceService,
         private menuCtrl: MenuController,
@@ -176,7 +176,7 @@ export class AccountDataPage implements OnInit, OnDestroy {
                         this.accountService.deleteUser().pipe(takeUntil(this.unsubscribe$)).subscribe({
                             next: (res: any) => {
                                 this.menuCtrl.enable(false);
-                                this.flightService.setState([]);
+                                this.flightStore.clearFlights();
                                 this.gliderService.setState([]);
                                 this.placeService.setState([]);
                                 localStorage.removeItem('access_token');

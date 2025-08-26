@@ -8,7 +8,7 @@ import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import HttpStatusCode from '../../shared/util/HttpStatusCode';
 import { Glider } from '../shared/glider.model';
 import { GliderService } from '../shared/glider.service';
-import { FlightService } from 'src/app/flight/shared/flight.service';
+import { FlightStore } from 'src/app/flight/shared/flight.store';
 import moment from 'moment';
 import { GliderFormComponent } from '../../form/glider-form/glider-form';
 
@@ -38,7 +38,7 @@ export class GliderEditPage implements OnInit, OnDestroy {
         private activeRoute: ActivatedRoute,
         private router: Router,
         private gliderService: GliderService,
-        private flightService: FlightService,
+        private flightStore: FlightStore,
         private loadingCtrl: LoadingController,
         private alertController: AlertController,
         private translate: TranslateService
@@ -50,7 +50,7 @@ export class GliderEditPage implements OnInit, OnDestroy {
         if (!this.glider) {
             this.router.navigate(['/gliders'], { replaceUrl: true });
         }
-        this.flightService.nbFlightsByGliderId(this.gliderId).subscribe((resp: any) => {
+        this.flightStore.nbFlightsByGliderId(this.gliderId).subscribe((resp: any) => {
             if (resp.nbFlights == 0) {
                 this.deleteDisabled = false;
             }
@@ -76,6 +76,7 @@ export class GliderEditPage implements OnInit, OnDestroy {
         }
 
         this.gliderService.putGlider(glider).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Glider) => {
+            this.flightStore.clearFlights();
             await loading.dismiss();
             this.router.navigate(['/gliders'], { replaceUrl: true });
         },

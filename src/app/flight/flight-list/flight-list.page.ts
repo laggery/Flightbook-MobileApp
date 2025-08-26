@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit, Signal } from '@angular/core';
 import { NavController, ModalController, LoadingController, AlertController, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonButton, IonIcon, IonContent, IonItem, IonGrid, IonRow, IonCol, IonList, IonInfiniteScroll, IonInfiniteScrollContent, IonLabel, IonItemSliding, IonItemOptions, IonItemOption } from '@ionic/angular/standalone';
-import { Subject, Observable, firstValueFrom } from 'rxjs';
+import { Subject, firstValueFrom } from 'rxjs';
 import { concatMap, takeUntil } from 'rxjs/operators';
 import { FlightFilterComponent } from 'src/app/form/flight-filter/flight-filter.component';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
@@ -11,17 +11,17 @@ import { Filesystem, Directory } from '@capacitor/filesystem';
 import { XlsxExportService } from '../../shared/services/xlsx-export.service';
 import { PdfExportService } from 'src/app/shared/services/pdf-export.service';
 import { Flight } from '../shared/flight.model';
-import { FlightService } from '../shared/flight.service';
 import { AccountService } from 'src/app/account/shared/account.service';
 import { FlightStatistic } from '../shared/flightStatistic.model';
 import { SchoolService } from 'src/app/school/shared/school.service';
-import { AsyncPipe, DatePipe } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
 import { FlagsModule } from 'nxt-flags';
 import { addIcons } from "ionicons";
 import { add, filterOutline, trash } from "ionicons/icons";
 import { PaymentService } from 'src/app/shared/services/payment.service';
 import { FlightValidationState } from '../shared/flight-validation-state';
+import { FlightStore } from '../shared/flight.store';
 
 @Component({
     selector: 'app-flight-list',
@@ -29,7 +29,6 @@ import { FlightValidationState } from '../shared/flight-validation-state';
     styleUrls: ['./flight-list.page.scss'],
     imports: [
         FlagsModule,
-        AsyncPipe,
         DatePipe,
         TranslateModule,
         IonHeader,
@@ -57,17 +56,20 @@ export class FlightListPage implements OnInit, OnDestroy, AfterViewInit {
     @ViewChild(IonInfiniteScroll, { static: true }) infiniteScroll: IonInfiniteScroll;
     @ViewChild(IonContent) content: IonContent;
     unsubscribe$ = new Subject<void>();
-    flights$: Observable<Flight[]>;
-
+    // Use signals directly from the store
+    public flights = this.flightStore.flights;
+    public loading = this.flightStore.loading;
+    public error = this.flightStore.error;
+    
     public FlightValidationState = FlightValidationState;
     
     get filtered(): Signal<boolean> {
-        return this.flightService.filtered$;
+        return this.flightStore.filtered;
     }
 
     constructor(
         public navCtrl: NavController,
-        private flightService: FlightService,
+        private flightStore: FlightStore,
         private accountService: AccountService,
         private schoolService: SchoolService,
         private modalCtrl: ModalController,
@@ -79,12 +81,13 @@ export class FlightListPage implements OnInit, OnDestroy, AfterViewInit {
         private paymentService: PaymentService,
         private router: Router
     ) {
-        this.flights$ = this.flightService.getState();
+        addIcons({ add, filterOutline, trash });
+    }
 
-        if (this.flightService.getValue().length === 0) {
+    ionViewDidEnter() {
+        if (this.flights().length === 0) {
             this.initialDataLoad();
         }
-        addIcons({ add, filterOutline, trash });
     }
 
     private async initialDataLoad() {
@@ -92,20 +95,23 @@ export class FlightListPage implements OnInit, OnDestroy, AfterViewInit {
             message: this.translate.instant('loading.loading')
         });
         await loading.present();
-        let limit = this.flightService.defaultLimit;
         if (window.innerHeight > 1024) {
-            limit += Math.ceil((window.innerHeight - 1024) / 47) + 2;
+            this.flightStore.defaultLimit += Math.ceil((window.innerHeight - 1024) / 47) + 2;
         }
-        this.flightService.getFlights({ limit: limit, clearStore: true })
+
+        this.flightStore.getFlights({ limit: this.flightStore.defaultLimit, clearStore: true })
             .pipe(takeUntil(this.unsubscribe$))
-            .subscribe(async (res: Flight[]) => {
-                // @hack for hide export item
-                setTimeout(async () => {
-                    await this.content.scrollToPoint(0, 48);
+            .subscribe({
+                next: async (res: Flight[]) => {
+                    // @hack for hide export item
+                    setTimeout(async () => {
+                        await this.content.scrollToPoint(0, 48);
+                        await loading.dismiss();
+                    }, 1);
+                },
+                error: async (error: any) => {
                     await loading.dismiss();
-                }, 1);
-            }, async (error: any) => {
-                await loading.dismiss();
+                }
             });
     }
 
@@ -122,14 +128,22 @@ export class FlightListPage implements OnInit, OnDestroy, AfterViewInit {
     }
 
     loadData(event: any) {
-        this.flightService.getFlights({ limit: this.flightService.defaultLimit, offset: this.flightService.getValue().length })
-            .pipe(takeUntil(this.unsubscribe$))
-            .subscribe((res: Flight[]) => {
+        this.flightStore.getFlights({ 
+            limit: this.flightStore.defaultLimit, 
+            offset: this.flights().length 
+        })
+        .pipe(takeUntil(this.unsubscribe$))
+        .subscribe({
+            next: (res: Flight[]) => {
                 event.target.complete();
-                if (res.length < this.flightService.defaultLimit) {
+                if (res.length < this.flightStore.defaultLimit) {
                     event.target.disabled = true;
                 }
-            });
+            },
+            error: () => {
+                event.target.complete();
+            }
+        });
     }
 
     itemTapped(event: MouseEvent, flight: Flight) {
@@ -142,15 +156,13 @@ export class FlightListPage implements OnInit, OnDestroy, AfterViewInit {
         });
         await loading.present();
 
-        this.flightService.deleteFlight(flight).pipe(
-            concatMap(() => this.flightService.getFlights({ limit: this.flightService.defaultLimit, clearStore: true }))
-        ).pipe(takeUntil(this.unsubscribe$)).subscribe({
-            next: async (res: Flight[]) => {
+        this.flightStore.deleteFlight(flight).pipe(takeUntil(this.unsubscribe$)).subscribe({
+            next: async () => {
                 await loading.dismiss();
             },
-            error: (async (resp: any) => {
+            error: async (resp: any) => {
                 await loading.dismiss();
-            })
+            }
         });
     }
 
@@ -180,7 +192,7 @@ export class FlightListPage implements OnInit, OnDestroy, AfterViewInit {
             message: this.translate.instant('loading.loading')
         });
         await loading.present();
-        this.flightService.getFlights({ store: false }).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Flight[]) => {
+        this.flightStore.getFlights({ store: false }).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Flight[]) => {
             res = res.sort((a: Flight, b: Flight) => b.number - a.number);
             if (Capacitor.isNativePlatform()) {
                 try {
@@ -237,9 +249,9 @@ export class FlightListPage implements OnInit, OnDestroy, AfterViewInit {
             message: this.translate.instant('loading.loading')
         });
         await loading.present();
-        const res = <FlightStatistic[]>await firstValueFrom(this.flightService.getStatistics("global"));
+        const res = <FlightStatistic[]>await firstValueFrom(this.flightStore.getStatistics("global"));
         const stat = res[0];
-        this.flightService.getFlights({ store: false }).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Flight[]) => {
+        this.flightStore.getFlights({ store: false }).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Flight[]) => {
             res = res.sort((a: Flight, b: Flight) => b.number - a.number);
             res.reverse();
             const user = await firstValueFrom(this.accountService.currentUser());
@@ -281,7 +293,7 @@ export class FlightListPage implements OnInit, OnDestroy, AfterViewInit {
     }
 
     async openAddFlight() {
-        if (!this.paymentService.getPaymentStatusValue()?.active && this.flightService.getValue().length >= 25) {
+        if (!this.paymentService.getPaymentStatusValue()?.active && this.flightStore.flights().length >= 25) {
           const alert = await this.alertController.create({
                       header: this.translate.instant('message.infotitle'),
                       message: this.translate.instant('payment.premiumUpgradeRequired'),

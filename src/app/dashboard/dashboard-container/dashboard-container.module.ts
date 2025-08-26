@@ -8,7 +8,7 @@ import { DashboardItemModule } from '../dashboard-item/dashboard-item.module';
     ],
     imports: [
         DashboardItemModule,
-        DashboardContainerComponent,
+        DashboardContainerComponent
     ]
 })
 export class DashboardContainerModule {
