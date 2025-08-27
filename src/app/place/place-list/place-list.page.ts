@@ -1,20 +1,19 @@
 import { Component, OnInit, ViewChild, OnDestroy, AfterViewInit } from '@angular/core';
 import { NavController, LoadingController, AlertController, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonButton, IonIcon, IonContent, IonItem, IonGrid, IonRow, IonCol, IonList, IonInfiniteScroll, IonInfiniteScrollContent, IonLabel } from '@ionic/angular/standalone';
 import { takeUntil } from 'rxjs/operators';
-import { Subject, Observable } from 'rxjs';
+import { Subject } from 'rxjs';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { Capacitor } from '@capacitor/core';
 import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
 import { FileOpener } from '@capacitor-community/file-opener';
 import { Place } from 'src/app/place/shared/place.model';
 import { XlsxExportService } from 'src/app/shared/services/xlsx-export.service';
-import { PlaceService } from '../shared/place.service';
+import { PlaceStore } from '../shared/place.store';
 import { Countries, Country } from 'src/app/place/shared/place.countries';
 import { json2csv } from 'json-2-csv';
 import * as fileSaver from 'file-saver';
 import { MapUtil } from 'src/app/shared/util/MapUtil';
 import { RouterLink } from '@angular/router';
-import { AsyncPipe } from '@angular/common';
 import { FlagsModule } from 'nxt-flags';
 import { addIcons } from "ionicons";
 import { add } from "ionicons/icons";
@@ -26,7 +25,6 @@ import { add } from "ionicons/icons";
     imports: [
         RouterLink,
         FlagsModule,
-        AsyncPipe,
         TranslateModule,
         IonHeader,
         IonToolbar,
@@ -51,7 +49,10 @@ export class PlaceListPage implements OnInit, OnDestroy, AfterViewInit {
     @ViewChild(IonContent) content: IonContent;
 
     unsubscribe$ = new Subject<void>();
-    places$: Observable<Place[]>;
+    // Use signals directly from the store
+    public places = this.placeStore.places;
+    public loading = this.placeStore.loading;
+    public error = this.placeStore.error;
     limit = 50;
     lang: string;
     countries: Country[] = Countries;
@@ -59,12 +60,11 @@ export class PlaceListPage implements OnInit, OnDestroy, AfterViewInit {
     constructor(
         public navCtrl: NavController,
         private alertController: AlertController,
-        private placeService: PlaceService,
+        private placeStore: PlaceStore,
         private translate: TranslateService,
         private loadingCtrl: LoadingController,
         private xlsxExportService: XlsxExportService
     ) {
-        this.places$ = this.placeService.getState();
         this.lang = this.translate.currentLang;
         this.initialDataLoad();
         addIcons({ add });
@@ -75,7 +75,7 @@ export class PlaceListPage implements OnInit, OnDestroy, AfterViewInit {
             message: this.translate.instant('loading.loading')
         });
         await loading.present();
-        this.placeService.getPlaces({ limit: this.limit, clearStore: true })
+        this.placeStore.getPlaces({ limit: this.limit, clearStore: true })
             .pipe(takeUntil(this.unsubscribe$))
             .subscribe(async (res: Place[]) => {
                 // @hack for hide export item
@@ -105,7 +105,7 @@ export class PlaceListPage implements OnInit, OnDestroy, AfterViewInit {
     }
 
     loadData(event: any) {
-        this.placeService.getPlaces({ limit: this.limit, offset: this.placeService.getValue().length })
+        this.placeStore.getPlaces({ limit: this.limit, offset: this.placeStore.places().length })
             .pipe(takeUntil(this.unsubscribe$))
             .subscribe((res: Place[]) => {
                 event.target.complete();
@@ -124,7 +124,7 @@ export class PlaceListPage implements OnInit, OnDestroy, AfterViewInit {
             message: this.translate.instant('loading.loading')
         });
         await loading.present();
-        this.placeService.getPlaces({ store: false }).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Place[]) => {
+        this.placeStore.getPlaces({ store: false }).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Place[]) => {
             res.forEach((val: Place) => {
                 delete val['id'];
                 val.coordinates = MapUtil.convertEPSG3857ToEPSG4326(val.coordinates)?.flatCoordinates;
@@ -178,7 +178,7 @@ export class PlaceListPage implements OnInit, OnDestroy, AfterViewInit {
             message: this.translate.instant('loading.loading')
         });
         await loading.present();
-        this.placeService.getPlaces({ store: false }).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Place[]) => {
+        this.placeStore.getPlaces({ store: false }).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Place[]) => {
             if (Capacitor.isNativePlatform()) {
                 try {
                     const data: any = await this.xlsxExportService.generatePlacesXlsxFile(res, { bookType: 'xlsx', type: 'base64' });

@@ -6,7 +6,7 @@ import { User } from 'src/app/account/shared/user.model';
 import { AccountService } from '../shared/account.service';
 import { FlightStore } from 'src/app/flight/shared/flight.store';
 import { GliderService } from 'src/app/glider/shared/glider.service';
-import { PlaceService } from 'src/app/place/shared/place.service';
+import { PlaceStore } from 'src/app/place/shared/place.store';
 import { firstValueFrom, Subject, takeUntil } from 'rxjs';
 import { PaymentService } from 'src/app/shared/services/payment.service';
 import { PaymentStatus } from '../shared/paymentStatus.model';
@@ -55,7 +55,7 @@ export class AccountDataPage implements OnInit, OnDestroy {
         private loadingCtrl: LoadingController,
         private flightStore: FlightStore,
         private gliderService: GliderService,
-        private placeService: PlaceService,
+        private placeStore: PlaceStore,
         private menuCtrl: MenuController,
         public navCtrl: NavController,
         private paymentService: PaymentService,
@@ -178,7 +178,7 @@ export class AccountDataPage implements OnInit, OnDestroy {
                                 this.menuCtrl.enable(false);
                                 this.flightStore.clearFlights();
                                 this.gliderService.setState([]);
-                                this.placeService.setState([]);
+                                this.placeStore.clearPlaces();
                                 localStorage.removeItem('access_token');
                                 localStorage.removeItem('refresh_token');
                                 this.navCtrl.navigateRoot('login');

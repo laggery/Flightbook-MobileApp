@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, ElementRef, OnChanges } from '@angular/core';
 import { Place } from 'src/app/place/shared/place.model';
-import { PlaceService } from 'src/app/place/shared/place.service';
+import { PlaceStore } from 'src/app/place/shared/place.store';
 import { addIcons } from "ionicons";
 import { close } from "ionicons/icons";
 import { IonIcon, IonList, IonItem } from "@ionic/angular/standalone";
@@ -28,7 +28,7 @@ export class AutocompleteComponent implements OnInit, OnChanges {
     show: boolean;
     listElement: Place[];
 
-    constructor(private placeService: PlaceService, private eRef: ElementRef) {
+    constructor(private placeStore: PlaceStore, private eRef: ElementRef) {
         this.search = null;
         this.show = false;
         addIcons({ close });
@@ -44,7 +44,7 @@ export class AutocompleteComponent implements OnInit, OnChanges {
 
     ngOnChanges() {
         if (this.search && this.search !== '') {
-            this.placeService.getPlacesByName(this.search, { limit: 4 }).subscribe((res: Place[]) => {
+            this.placeStore.getPlacesByName(this.search, { limit: 4 }).subscribe((res: Place[]) => {
                 if (res && res.length > 0) {
                     this.show = true;
                     this.listElement = res;

@@ -6,7 +6,7 @@ import { Subject, firstValueFrom, takeUntil } from 'rxjs';
 import { FilePicker, PickedFile, PickFilesResult } from '@capawesome/capacitor-file-picker';
 import { FlightStore } from 'src/app/flight/shared/flight.store';
 import { GliderService } from 'src/app/glider/shared/glider.service';
-import { PlaceService } from 'src/app/place/shared/place.service';
+import { PlaceStore } from 'src/app/place/shared/place.store';
 import { ImportService } from '../shared/import.service';
 import { ImportType } from '../shared/import-type.model';
 import { NgIf } from '@angular/common';
@@ -52,7 +52,7 @@ export class DataPage implements OnInit, OnDestroy {
         private importService: ImportService,
         private flightStore: FlightStore,
         private gliderService: GliderService,
-        private placeService: PlaceService
+        private placeStore: PlaceStore
     ) {
         if (Capacitor.getPlatform() == "ios") {
             this.isIos = true;
@@ -144,7 +144,7 @@ export class DataPage implements OnInit, OnDestroy {
             this.result = result;
             this.flightStore.clearFlights();
             this.gliderService.setState([]);
-            this.placeService.setState([]);
+            this.placeStore.clearPlaces();
         } catch (error) {
             const alert = await this.alertController.create({
                 header: this.translate.instant('message.errortitle'),

@@ -7,7 +7,7 @@ import { SwUpdate, VersionReadyEvent } from '@angular/service-worker';
 import { AccountService } from './account/shared/account.service';
 import { FlightStore } from './flight/shared/flight.store';
 import { GliderService } from './glider/shared/glider.service';
-import { PlaceService } from './place/shared/place.service';
+import { PlaceStore } from './place/shared/place.store';
 import { SchoolService } from './school/shared/school.service';
 import { School } from './school/shared/school.model';
 import { LoginPage } from './account/login/login.page';
@@ -55,7 +55,7 @@ export class AppComponent implements OnDestroy, OnInit {
         private swUpdate: SwUpdate,
         private flightStore: FlightStore,
         private gliderService: GliderService,
-        private placeService: PlaceService,
+        private placeStore: PlaceStore,
         private schoolService: SchoolService,
         private alertController: AlertController,
         private paymentService: PaymentService
@@ -125,7 +125,7 @@ export class AppComponent implements OnDestroy, OnInit {
         this.menuCtrl.enable(false);
         this.flightStore.clearFlights();
         this.gliderService.setState([]);
-        this.placeService.setState([]);
+        this.placeStore.clearPlaces();
         this.accountService.logout(localStorage.getItem('refresh_token')).pipe(takeUntil(this.unsubscribe$)).subscribe(resp => {
             // TODO error handling
             localStorage.removeItem('access_token');

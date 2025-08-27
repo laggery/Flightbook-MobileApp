@@ -15,7 +15,7 @@ import { XlsxExportService } from '../shared/services/xlsx-export.service';
 import { Flight } from '../flight/shared/flight.model';
 import { NewsService } from './shared/news.service';
 import { GliderService } from '../glider/shared/glider.service';
-import { PlaceService } from '../place/shared/place.service';
+import { PlaceStore } from '../place/shared/place.store';
 import { FlightStore } from '../flight/shared/flight.store';
 import { PaymentService } from '../shared/services/payment.service';
 import { PaymentStatus } from '../account/shared/paymentStatus.model';
@@ -56,7 +56,7 @@ export class NewsPage implements OnInit, OnDestroy {
         private translate: TranslateService,
         private newsService: NewsService,
         private gliderService: GliderService,
-        private placeService: PlaceService,
+        private placeStore: PlaceStore,
         private flightStore: FlightStore,
         private loadingCtrl: LoadingController,
         private xlsxExportService: XlsxExportService,
@@ -112,7 +112,7 @@ export class NewsPage implements OnInit, OnDestroy {
         const promiseList: Promise<any>[] = [];
         promiseList.push(this.flightStore.getFlights({ store: false }).pipe(takeUntil(this.unsubscribe$)).toPromise());
         promiseList.push(this.gliderService.getGliders({ store: false }).pipe(takeUntil(this.unsubscribe$)).toPromise());
-        promiseList.push(this.placeService.getPlaces({ store: false }).pipe(takeUntil(this.unsubscribe$)).toPromise());
+        promiseList.push(this.placeStore.getPlaces({ store: false }).pipe(takeUntil(this.unsubscribe$)).toPromise());
 
         Promise.all(promiseList).then(async (res: any) => {
             if (Capacitor.isNativePlatform()) {

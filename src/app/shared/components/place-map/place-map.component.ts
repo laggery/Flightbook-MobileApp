@@ -14,7 +14,7 @@ import VectorSource from 'ol/source/Vector';
 import { Icon, Style } from 'ol/style';
 import { firstValueFrom } from 'rxjs';
 import { Place } from 'src/app/place/shared/place.model';
-import { PlaceService } from 'src/app/place/shared/place.service';
+import { PlaceStore } from 'src/app/place/shared/place.store';
 import { ConfigurationService } from '../../services/configuration.service';
 
 @Component({
@@ -40,7 +40,7 @@ export class PlaceMapComponent implements OnInit, AfterViewInit, OnChanges {
     place: Place;
 
     constructor(
-        private placeService: PlaceService,
+        private placeStore: PlaceStore,
         private alertController: AlertController,
         private translate: TranslateService,
         private configurationService: ConfigurationService,
@@ -82,7 +82,7 @@ export class PlaceMapComponent implements OnInit, AfterViewInit, OnChanges {
     }
 
     private async searchPlace(name: string) {
-        const res = await firstValueFrom(this.placeService.searchOpenstreetmapPlace(name));
+        const res = await firstValueFrom(this.placeStore.searchOpenstreetmapPlace(name));
         if (!res.features || res.features.length === 0) {
             return;
         }
@@ -133,7 +133,7 @@ export class PlaceMapComponent implements OnInit, AfterViewInit, OnChanges {
         this.place.coordinates = evt.coordinate;
         this.marker.setGeometry(new Point(evt.coordinate));
         const epsgGeometry: any = this.marker.getGeometry().clone().transform(this.map.getView().getProjection(), 'EPSG:4326')
-        const res = await firstValueFrom(this.placeService.getPlaceMetadata(epsgGeometry.flatCoordinates));
+        const res = await firstValueFrom(this.placeStore.getPlaceMetadata(epsgGeometry.flatCoordinates));
 
         if (this.place.altitude) {
             const alert = await this.alertController.create({
