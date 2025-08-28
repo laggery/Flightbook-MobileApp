@@ -13,7 +13,7 @@ import { FileOpener } from '@capacitor-community/file-opener'
 import { News } from './shared/news.model';
 import { XlsxExportService } from '../shared/services/xlsx-export.service';
 import { Flight } from '../flight/shared/flight.model';
-import { NewsService } from './shared/news.service';
+import { NewsStore } from './shared/news.store';
 import { GliderStore } from '../glider/shared/glider.store';
 import { PlaceStore } from '../place/shared/place.store';
 import { FlightStore } from '../flight/shared/flight.store';
@@ -30,7 +30,6 @@ import { downloadOutline } from "ionicons/icons";
     styleUrls: ['./news.page.scss'],
     imports: [
         DashboardContainerComponent,
-        AsyncPipe,
         DatePipe,
         TranslateModule,
         IonHeader,
@@ -46,15 +45,18 @@ import { downloadOutline } from "ionicons/icons";
 })
 export class NewsPage implements OnInit, OnDestroy {
     unsubscribe$ = new Subject<void>();
-    newsData$: Observable<News[]>;
     flights$: Observable<Flight[]>;
     paymentStatus: PaymentStatus;
+    
+    public news = this.newsStore.news;
+    public loading = this.newsStore.loading;
+    public error = this.newsStore.error;
 
     constructor(
         private menuCtrl: MenuController,
         private alertController: AlertController,
         private translate: TranslateService,
-        private newsService: NewsService,
+        private newsStore: NewsStore,
         private gliderStore: GliderStore,
         private placeStore: PlaceStore,
         private flightStore: FlightStore,
@@ -73,8 +75,7 @@ export class NewsPage implements OnInit, OnDestroy {
     ngOnInit() {}
 
     ionViewWillEnter() {
-        this.newsData$ = this.newsService.getState();
-        if (this.newsService.getValue().length === 0 || this.newsService.getValue()[0].language != this.translate.currentLang || this.flightStore.flights().length === 0) {
+        if (this.news().length === 0 || (this.news().length > 0 && this.news()[0].language != this.translate.currentLang) || this.flightStore.flights().length === 0) {
             this.initialDataLoad();
         }
     }
@@ -89,7 +90,7 @@ export class NewsPage implements OnInit, OnDestroy {
             message: this.translate.instant('loading.loading')
         });
         await loading.present();
-        this.newsService.getNews(this.translate.currentLang).pipe(takeUntil(this.unsubscribe$)).subscribe(async (resp: News[]) => {
+        this.newsStore.getNews(this.translate.currentLang).pipe(takeUntil(this.unsubscribe$)).subscribe(async (resp: News[]) => {
             await loading.dismiss();
         }, async (error: any) => {
             await loading.dismiss();
