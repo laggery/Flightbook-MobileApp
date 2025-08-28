@@ -66,8 +66,13 @@ export class PlaceListPage implements OnInit, OnDestroy, AfterViewInit {
         private xlsxExportService: XlsxExportService
     ) {
         this.lang = this.translate.currentLang;
-        this.initialDataLoad();
         addIcons({ add });
+    }
+
+    ionViewDidEnter() {
+        if (this.places().length === 0) {
+            this.initialDataLoad();
+        }
     }
 
     private async initialDataLoad() {

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import IGCParser from 'igc-parser';
 // import { scoringRules as scoring, solver } from 'igc-xc-score';
-import { GliderService } from 'src/app/glider/shared/glider.service';
+import { GliderStore } from 'src/app/glider/shared/glider.store';
 import { Flight } from 'src/app/flight/shared/flight.model';
 import { Igc } from '../domain/igc.model';
 
@@ -10,7 +10,7 @@ import { Igc } from '../domain/igc.model';
 })
 export class IgcService {
 
-  constructor(private gliderService: GliderService) { }
+  constructor(private gliderStore: GliderStore) { }
 
   async getIgcFileContentAndPrefillFlight(flight: Flight, igcFile: File, override = true): Promise<string> {
     const igcData = await igcFile.text();
@@ -45,7 +45,7 @@ export class IgcService {
           flight.time = new Date(timeInMillisecond).toISOString().substr(11, 8);
           
           if (igcFile.gliderType && igcFile.gliderType != '') {
-            flight.glider = await this.gliderService.getGliderByName(igcFile.gliderType).toPromise();
+            flight.glider = await this.gliderStore.getGliderByName(igcFile.gliderType).toPromise();
           }
         }
   

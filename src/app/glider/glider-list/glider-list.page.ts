@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit, Signal } from '@angular/core';
 import { NavController, ModalController, LoadingController, AlertController, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonButton, IonIcon, IonContent, IonItem, IonGrid, IonRow, IonCol, IonList, IonInfiniteScroll, IonInfiniteScrollContent, IonLabel } from '@ionic/angular/standalone';
-import { Subject, Observable } from 'rxjs';
+import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { GliderFilterComponent } from '../glider-filter/glider-filter.component';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
@@ -9,8 +9,8 @@ import { Filesystem, Directory } from '@capacitor/filesystem';
 import { FileOpener } from '@capacitor-community/file-opener';
 import { XlsxExportService } from 'src/app/shared/services/xlsx-export.service';
 import { Glider } from '../shared/glider.model';
-import { GliderService } from '../shared/glider.service';
-import { NgIf, AsyncPipe } from '@angular/common';
+import { GliderStore } from '../shared/glider.store';
+import { NgIf } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { HoursFormatPipe } from '../../shared/pipes/hours-format.pipe';
 import { addIcons } from "ionicons";
@@ -23,7 +23,6 @@ import { add, filterOutline } from "ionicons/icons";
     imports: [
         NgIf,
         RouterLink,
-        AsyncPipe,
         TranslateModule,
         HoursFormatPipe,
         IonHeader,
@@ -48,24 +47,31 @@ export class GliderListPage implements OnInit, OnDestroy, AfterViewInit {
     @ViewChild(IonInfiniteScroll, { static: true }) infiniteScroll: IonInfiniteScroll;
     @ViewChild(IonContent) content: IonContent;
     unsubscribe$ = new Subject<void>();
-    gliders$: Observable<Glider[]>;
+    // Use signals directly from the store
+    public gliders = this.gliderStore.gliders;
+    public loading = this.gliderStore.loading;
+    public error = this.gliderStore.error;
+    
     get filtered(): Signal<boolean> {
-        return this.gliderService.filtered$;
+        return this.gliderStore.filtered;
     }
 
     constructor(
         public navCtrl: NavController,
-        private gliderService: GliderService,
+        private gliderStore: GliderStore,
         public modalCtrl: ModalController,
         private alertController: AlertController,
         private translate: TranslateService,
         private loadingCtrl: LoadingController,
         private xlsxExportService: XlsxExportService
     ) {
-        this.gliders$ = this.gliderService.getState();
-
-        this.initialDataLoad();
         addIcons({ add, filterOutline });
+    }
+
+    ionViewDidEnter() {
+        if (this.gliders().length === 0) {
+            this.initialDataLoad();
+        }
     }
 
     private async initialDataLoad() {
@@ -73,7 +79,7 @@ export class GliderListPage implements OnInit, OnDestroy, AfterViewInit {
             message: this.translate.instant('loading.loading')
         });
         await loading.present();
-        this.gliderService.getGliders({ limit: this.gliderService.defaultLimit, clearStore: true })
+        this.gliderStore.getGliders({ limit: this.gliderStore.defaultLimit, clearStore: true })
             .pipe(takeUntil(this.unsubscribe$))
             .subscribe(async (res: Glider[]) => {
                 // @hack for hide export item
@@ -103,16 +109,16 @@ export class GliderListPage implements OnInit, OnDestroy, AfterViewInit {
     }
 
     loadData(event: any) {
-        this.gliderService.getGliders({
-            limit: this.gliderService.defaultLimit,
-            offset: this.gliderService.getValue().length
+        this.gliderStore.getGliders({
+            limit: this.gliderStore.defaultLimit,
+            offset: this.gliders().length
         })
             .pipe(takeUntil(this.unsubscribe$))
             .subscribe((res: Glider[]) => {
                 event.target.complete();
-                if (res.length < this.gliderService.defaultLimit) {
+                if (res.length < this.gliderStore.defaultLimit) {
                     event.target.disabled = true;
-                    this.gliderService.isGliderlistComplete = true;
+                    this.gliderStore.isGliderlistComplete = true;
                 }
             });
     }
@@ -142,7 +148,7 @@ export class GliderListPage implements OnInit, OnDestroy, AfterViewInit {
             message: this.translate.instant('loading.loading')
         });
         loading.present();
-        this.gliderService.getGliders({ store: false }).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Glider[]) => {
+        this.gliderStore.getGliders({ store: false }).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Glider[]) => {
             if (Capacitor.isNativePlatform()) {
                 try {
                     const data: any = await this.xlsxExportService.generateGlidersXlsxFile(res, { bookType: 'xlsx', type: 'base64' });

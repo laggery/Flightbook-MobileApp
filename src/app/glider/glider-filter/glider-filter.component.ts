@@ -4,7 +4,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { GliderFilter } from 'src/app/glider/shared/glider-filter.model';
-import { GliderService } from '../shared/glider.service';
+import { GliderStore } from '../shared/glider.store';
 import { Glider } from '../shared/glider.model';
 import { FormsModule } from '@angular/forms';
 
@@ -33,11 +33,11 @@ export class GliderFilterComponent implements OnInit, OnDestroy {
 
     constructor(
         private modalCtrl: ModalController,
-        private gliderService: GliderService,
+        private gliderStore: GliderStore,
         private loadingCtrl: LoadingController,
         private translate: TranslateService
     ) {
-        this.filter = this.gliderService.filter;
+        this.filter = this.gliderStore.filter;
     }
 
     ngOnInit() { }
@@ -48,13 +48,13 @@ export class GliderFilterComponent implements OnInit, OnDestroy {
     }
 
     async filterElement() {
-        this.gliderService.filter = this.filter;
+        this.gliderStore.filter = this.filter;
         this.closeFilter();
     }
 
     clearFilter() {
         this.filter = new GliderFilter();
-        this.gliderService.filter = this.filter;
+        this.gliderStore.filter = this.filter;
         this.closeFilter();
     }
 
@@ -66,7 +66,7 @@ export class GliderFilterComponent implements OnInit, OnDestroy {
 
         this.infiniteScroll.disabled = false;
 
-        this.gliderService.getGliders({ limit: this.gliderService.defaultLimit, clearStore: true })
+        this.gliderStore.getGliders({ limit: this.gliderStore.defaultLimit, clearStore: true })
             .pipe(takeUntil(this.unsubscribe$))
             .subscribe(async (res: Glider[]) => {
                 await loading.dismiss();

@@ -4,7 +4,7 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>{{ 'groupname.glider' | translate }} <span
-        *ngIf="filtered()">({{ 'groupname.filtered' | translate }})</span></ion-title>
+        *ngIf="filtered()">{{ 'groupname.filtered' | translate }}</span></ion-title>
     <ion-buttons slot="primary">
       <ion-button class="submit-button" [routerLink]="['/gliders/add']">
         <ion-icon name="add"></ion-icon>
@@ -17,7 +17,7 @@
 </ion-header>
 
 <ion-content class="no-padding">
-  <ion-item class="export-buttons" *ngIf="(gliders$ | async)?.length > 0">
+  <ion-item class="export-buttons" *ngIf="gliders().length > 0">
     <ion-grid>
       <ion-row>
         <ion-col>
@@ -27,7 +27,7 @@
     </ion-grid>
   </ion-item>
   <ion-list>
-    @for (glider of gliders$ | async; track glider.id) {
+    @for (glider of gliders(); track glider.id) {
       <ion-item button detail (click)="itemTapped($event, glider)">
         <p class="gliderRow">
           <span class="gliderName">{{ glider.brand}} {{glider.name}}</span>

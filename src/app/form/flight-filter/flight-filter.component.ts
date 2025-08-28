@@ -6,7 +6,7 @@ import { takeUntil } from 'rxjs/operators';
 import { FlightFilter } from 'src/app/flight/shared/flight-filter.model';
 import { Glider } from 'src/app/glider/shared/glider.model';
 import { FlightStore } from 'src/app/flight/shared/flight.store';
-import { GliderService } from 'src/app/glider/shared/glider.service';
+import { GliderStore } from 'src/app/glider/shared/glider.store';
 import { Flight } from 'src/app/flight/shared/flight.model';
 import { FlightStatistic } from 'src/app/flight/shared/flightStatistic.model';
 import { FormsModule } from '@angular/forms';
@@ -45,19 +45,19 @@ export class FlightFilterComponent implements OnInit, OnDestroy {
     constructor(
         private modalCtrl: ModalController,
         private flightStore: FlightStore,
-        private gliderService: GliderService,
+        private gliderStore: GliderStore,
         private loadingCtrl: LoadingController,
         private translate: TranslateService
     ) {
         this.filter = this.flightStore.filter();
         this.language = translate.currentLang;
 
-        if (this.gliderService.isGliderlistComplete) {
-            this.gliders = this.gliderService.getValue();
+        if (this.gliderStore.isGliderlistComplete) {
+            this.gliders = this.gliderStore.gliders();
         } else {
-            this.gliderService.getGliders({ clearStore: true }).pipe(takeUntil(this.unsubscribe$)).subscribe((resp: Glider[]) => {
-                this.gliderService.isGliderlistComplete = true;
-                this.gliders = this.gliderService.getValue();
+            this.gliderStore.getGliders({ clearStore: true }).pipe(takeUntil(this.unsubscribe$)).subscribe((resp: Glider[]) => {
+                this.gliderStore.isGliderlistComplete = true;
+                this.gliders = this.gliderStore.gliders();
             });
         }
     }

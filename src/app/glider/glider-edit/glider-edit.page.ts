@@ -7,7 +7,7 @@ import { LoadingController, AlertController, IonHeader, IonToolbar, IonButtons, 
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import HttpStatusCode from '../../shared/util/HttpStatusCode';
 import { Glider } from '../shared/glider.model';
-import { GliderService } from '../shared/glider.service';
+import { GliderStore } from '../shared/glider.store';
 import { FlightStore } from 'src/app/flight/shared/flight.store';
 import moment from 'moment';
 import { GliderFormComponent } from '../../form/glider-form/glider-form';
@@ -37,7 +37,7 @@ export class GliderEditPage implements OnInit, OnDestroy {
     constructor(
         private activeRoute: ActivatedRoute,
         private router: Router,
-        private gliderService: GliderService,
+        private gliderStore: GliderStore,
         private flightStore: FlightStore,
         private loadingCtrl: LoadingController,
         private alertController: AlertController,
@@ -45,7 +45,7 @@ export class GliderEditPage implements OnInit, OnDestroy {
     ) {
         this.deleteDisabled = true;
         this.gliderId = +this.activeRoute.snapshot.paramMap.get('id');
-        this.glider = this.gliderService.getValue().find(glider => glider.id === this.gliderId);
+        this.glider = this.gliderStore.gliders().find(glider => glider.id === this.gliderId);
         this.glider = _.cloneDeep(this.glider);
         if (!this.glider) {
             this.router.navigate(['/gliders'], { replaceUrl: true });
@@ -75,7 +75,7 @@ export class GliderEditPage implements OnInit, OnDestroy {
             glider.buyDate = moment(glider.buyDate).format('YYYY-MM-DD');
         }
 
-        this.gliderService.putGlider(glider).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Glider) => {
+        this.gliderStore.putGlider(glider).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Glider) => {
             this.flightStore.clearFlights();
             await loading.dismiss();
             this.router.navigate(['/gliders'], { replaceUrl: true });
@@ -100,7 +100,7 @@ export class GliderEditPage implements OnInit, OnDestroy {
         });
         await loading.present();
 
-        this.gliderService.deleteGlider(this.glider).subscribe(async (res: any) => {
+        this.gliderStore.deleteGlider(this.glider).subscribe(async (res: any) => {
             await loading.dismiss();
             await this.router.navigate(['/gliders'], { replaceUrl: true });
         },

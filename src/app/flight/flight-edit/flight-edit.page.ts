@@ -11,7 +11,7 @@ import { FileUploadService } from 'src/app/flight/shared/fileupload.service';
 import { Flight } from '../shared/flight.model';
 import { Glider } from 'src/app/glider/shared/glider.model';
 import { FlightStore } from '../shared/flight.store';
-import { GliderService } from 'src/app/glider/shared/glider.service';
+import { GliderStore } from 'src/app/glider/shared/glider.store';
 import { IgcService } from 'src/app/shared/services/igc.service';
 import moment from 'moment';
 import { NgIf } from '@angular/common';
@@ -55,7 +55,7 @@ export class FlightEditPage implements OnInit, OnDestroy {
         private activeRoute: ActivatedRoute,
         private router: Router,
         private flightStore: FlightStore,
-        private gliderService: GliderService,
+        private gliderStore: GliderStore,
         private alertController: AlertController,
         private translate: TranslateService,
         private loadingCtrl: LoadingController,
@@ -93,14 +93,14 @@ export class FlightEditPage implements OnInit, OnDestroy {
                 this.flight.landing = new Place();
             }
 
-            const archivedValue = this.gliderService.filter.archived;
-            this.gliderService.filter.archived = "0";
-            this.gliderService.getGliders({ store: false }).pipe(takeUntil(this.unsubscribe$)).subscribe((resp: Glider[]) => {
+            const archivedValue = this.gliderStore.filter.archived;
+            this.gliderStore.filter.archived = "0";
+            this.gliderStore.getGliders({ store: false }).pipe(takeUntil(this.unsubscribe$)).subscribe((resp: Glider[]) => {
                 this.gliders = resp;
                 if (!this.gliders.find(glider => glider.id === this.flight.glider.id)) {
                     this.gliders.push(this.flight.glider);
                 }
-                this.gliderService.filter.archived = archivedValue;
+                this.gliderStore.filter.archived = archivedValue;
             });
             this.loadIgcData();
 

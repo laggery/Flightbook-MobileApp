@@ -5,7 +5,7 @@ import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { Subject, firstValueFrom, takeUntil } from 'rxjs';
 import { FilePicker, PickedFile, PickFilesResult } from '@capawesome/capacitor-file-picker';
 import { FlightStore } from 'src/app/flight/shared/flight.store';
-import { GliderService } from 'src/app/glider/shared/glider.service';
+import { GliderStore } from 'src/app/glider/shared/glider.store';
 import { PlaceStore } from 'src/app/place/shared/place.store';
 import { ImportService } from '../shared/import.service';
 import { ImportType } from '../shared/import-type.model';
@@ -51,7 +51,7 @@ export class DataPage implements OnInit, OnDestroy {
         private translate: TranslateService,
         private importService: ImportService,
         private flightStore: FlightStore,
-        private gliderService: GliderService,
+        private gliderStore: GliderStore,
         private placeStore: PlaceStore
     ) {
         if (Capacitor.getPlatform() == "ios") {
@@ -143,7 +143,7 @@ export class DataPage implements OnInit, OnDestroy {
             const result = await firstValueFrom(this.importService.importData(formData, this.currentType.type));
             this.result = result;
             this.flightStore.clearFlights();
-            this.gliderService.setState([]);
+            this.gliderStore.clearGliders();
             this.placeStore.clearPlaces();
         } catch (error) {
             const alert = await this.alertController.create({

@@ -6,7 +6,7 @@ import { takeUntil } from 'rxjs/operators';
 import { Place } from 'src/app/place/shared/place.model';
 import { FileUploadService } from 'src/app/flight/shared/fileupload.service';
 import { Glider } from 'src/app/glider/shared/glider.model';
-import { GliderService } from 'src/app/glider/shared/glider.service';
+import { GliderStore } from 'src/app/glider/shared/glider.store';
 import { IgcService } from 'src/app/shared/services/igc.service';
 import { FlightStore } from 'src/app/flight/shared/flight.store';
 import { Flight } from 'src/app/flight/shared/flight.model';
@@ -49,7 +49,7 @@ export class MultipleIgcPage implements OnInit {
     isSaved = false;
 
     constructor(
-        private gliderService: GliderService,
+        private gliderStore: GliderStore,
         private igcService: IgcService,
         private loadingCtrl: LoadingController,
         private translate: TranslateService,
@@ -60,12 +60,12 @@ export class MultipleIgcPage implements OnInit {
     }
 
     ngOnInit() {
-        if (this.gliderService.isGliderlistComplete) {
-            this.gliders = this.gliderService.getValue();
+        if (this.gliderStore.isGliderlistComplete) {
+            this.gliders = this.gliderStore.gliders();
         } else {
-            this.gliderService.getGliders({ clearStore: true }).pipe(takeUntil(this.unsubscribe$)).subscribe((resp: Glider[]) => {
-                this.gliderService.isGliderlistComplete = true;
-                this.gliders = this.gliderService.getValue();
+            this.gliderStore.getGliders({ clearStore: true }).pipe(takeUntil(this.unsubscribe$)).subscribe((resp: Glider[]) => {
+                this.gliderStore.isGliderlistComplete = true;
+                this.gliders = this.gliderStore.gliders();
             });
         }
     }

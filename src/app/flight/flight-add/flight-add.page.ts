@@ -10,7 +10,7 @@ import { Place } from 'src/app/place/shared/place.model';
 import { Flight } from '../shared/flight.model';
 import { Glider } from 'src/app/glider/shared/glider.model';
 import { FlightStore } from '../shared/flight.store';
-import { GliderService } from 'src/app/glider/shared/glider.service';
+import { GliderStore } from 'src/app/glider/shared/glider.store';
 import { IgcService } from 'src/app/shared/services/igc.service';
 import moment from 'moment';
 import { FileInputComponent } from '../../shared/components/file-input/file-input.component';
@@ -44,7 +44,7 @@ export class FlightAddPage implements OnInit, OnDestroy {
     constructor(
         private router: Router,
         private flightStore: FlightStore,
-        private gliderService: GliderService,
+        private gliderStore: GliderStore,
         private alertController: AlertController,
         private translate: TranslateService,
         private loadingCtrl: LoadingController,
@@ -78,11 +78,11 @@ export class FlightAddPage implements OnInit, OnDestroy {
                 });
         }
 
-        const archivedValue = this.gliderService.filter.archived;
-        this.gliderService.filter.archived = "0";
-        this.gliderService.getGliders({ store: false }).pipe(takeUntil(this.unsubscribe$)).subscribe((resp: Glider[]) => {
+        const archivedValue = this.gliderStore.filter.archived;
+        this.gliderStore.filter.archived = "0";
+        this.gliderStore.getGliders({ store: false }).pipe(takeUntil(this.unsubscribe$)).subscribe((resp: Glider[]) => {
             this.gliders = resp;
-            this.gliderService.filter.archived = archivedValue;
+            this.gliderStore.filter.archived = archivedValue;
             this.noGliderCheck();
         });
     }

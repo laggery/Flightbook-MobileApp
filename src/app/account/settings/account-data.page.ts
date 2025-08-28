@@ -5,7 +5,7 @@ import HttpStatusCode from '../../shared/util/HttpStatusCode';
 import { User } from 'src/app/account/shared/user.model';
 import { AccountService } from '../shared/account.service';
 import { FlightStore } from 'src/app/flight/shared/flight.store';
-import { GliderService } from 'src/app/glider/shared/glider.service';
+import { GliderStore } from 'src/app/glider/shared/glider.store';
 import { PlaceStore } from 'src/app/place/shared/place.store';
 import { firstValueFrom, Subject, takeUntil } from 'rxjs';
 import { PaymentService } from 'src/app/shared/services/payment.service';
@@ -54,7 +54,7 @@ export class AccountDataPage implements OnInit, OnDestroy {
         private alertController: AlertController,
         private loadingCtrl: LoadingController,
         private flightStore: FlightStore,
-        private gliderService: GliderService,
+        private gliderStore: GliderStore,
         private placeStore: PlaceStore,
         private menuCtrl: MenuController,
         public navCtrl: NavController,
@@ -177,7 +177,7 @@ export class AccountDataPage implements OnInit, OnDestroy {
                             next: (res: any) => {
                                 this.menuCtrl.enable(false);
                                 this.flightStore.clearFlights();
-                                this.gliderService.setState([]);
+                                this.gliderStore.clearGliders();
                                 this.placeStore.clearPlaces();
                                 localStorage.removeItem('access_token');
                                 localStorage.removeItem('refresh_token');

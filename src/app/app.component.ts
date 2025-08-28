@@ -6,7 +6,7 @@ import { filter, takeUntil } from 'rxjs/operators';
 import { SwUpdate, VersionReadyEvent } from '@angular/service-worker';
 import { AccountService } from './account/shared/account.service';
 import { FlightStore } from './flight/shared/flight.store';
-import { GliderService } from './glider/shared/glider.service';
+import { GliderStore } from './glider/shared/glider.store';
 import { PlaceStore } from './place/shared/place.store';
 import { SchoolService } from './school/shared/school.service';
 import { School } from './school/shared/school.model';
@@ -54,7 +54,7 @@ export class AppComponent implements OnDestroy, OnInit {
         private menuCtrl: MenuController,
         private swUpdate: SwUpdate,
         private flightStore: FlightStore,
-        private gliderService: GliderService,
+        private gliderStore: GliderStore,
         private placeStore: PlaceStore,
         private schoolService: SchoolService,
         private alertController: AlertController,
@@ -124,7 +124,7 @@ export class AppComponent implements OnDestroy, OnInit {
     logout() {
         this.menuCtrl.enable(false);
         this.flightStore.clearFlights();
-        this.gliderService.setState([]);
+        this.gliderStore.clearGliders();
         this.placeStore.clearPlaces();
         this.accountService.logout(localStorage.getItem('refresh_token')).pipe(takeUntil(this.unsubscribe$)).subscribe(resp => {
             // TODO error handling

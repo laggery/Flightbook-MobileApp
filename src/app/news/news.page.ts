@@ -14,7 +14,7 @@ import { News } from './shared/news.model';
 import { XlsxExportService } from '../shared/services/xlsx-export.service';
 import { Flight } from '../flight/shared/flight.model';
 import { NewsService } from './shared/news.service';
-import { GliderService } from '../glider/shared/glider.service';
+import { GliderStore } from '../glider/shared/glider.store';
 import { PlaceStore } from '../place/shared/place.store';
 import { FlightStore } from '../flight/shared/flight.store';
 import { PaymentService } from '../shared/services/payment.service';
@@ -55,7 +55,7 @@ export class NewsPage implements OnInit, OnDestroy {
         private alertController: AlertController,
         private translate: TranslateService,
         private newsService: NewsService,
-        private gliderService: GliderService,
+        private gliderStore: GliderStore,
         private placeStore: PlaceStore,
         private flightStore: FlightStore,
         private loadingCtrl: LoadingController,
@@ -111,7 +111,7 @@ export class NewsPage implements OnInit, OnDestroy {
         await loading.present();
         const promiseList: Promise<any>[] = [];
         promiseList.push(this.flightStore.getFlights({ store: false }).pipe(takeUntil(this.unsubscribe$)).toPromise());
-        promiseList.push(this.gliderService.getGliders({ store: false }).pipe(takeUntil(this.unsubscribe$)).toPromise());
+        promiseList.push(this.gliderStore.getGliders({ store: false }).pipe(takeUntil(this.unsubscribe$)).toPromise());
         promiseList.push(this.placeStore.getPlaces({ store: false }).pipe(takeUntil(this.unsubscribe$)).toPromise());
 
         Promise.all(promiseList).then(async (res: any) => {
