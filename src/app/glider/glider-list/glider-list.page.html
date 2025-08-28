@@ -4,7 +4,7 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>{{ 'groupname.glider' | translate }} <span
-        *ngIf="filtered()">{{ 'groupname.filtered' | translate }}</span></ion-title>
+        *ngIf="filtered()">({{ 'groupname.filtered' | translate }})</span></ion-title>
     <ion-buttons slot="primary">
       <ion-button class="submit-button" [routerLink]="['/gliders/add']">
         <ion-icon name="add"></ion-icon>

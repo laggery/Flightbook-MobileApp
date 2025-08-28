@@ -73,8 +73,12 @@ export class AppointmentListPage implements OnInit, OnDestroy {
         addIcons({ filterOutline });
     }
 
-    ngOnInit() {
-        this.initialDataLoad();
+    ngOnInit() {}
+
+    ionViewDidEnter() {
+        if (!this.appointments || this.appointments.length === 0) {
+            this.initialDataLoad();
+        }
     }
 
     ngOnDestroy() {
@@ -99,6 +103,11 @@ export class AppointmentListPage implements OnInit, OnDestroy {
                 subscription.user.email === this.currentUser.email
             );
         });
+
+        // Reset infinite scroll state
+        if (this.infiniteScroll) {
+            this.infiniteScroll.disabled = false;
+        }
 
         const appointmentToOpen = this.appointments.find((appointment: Appointment) => appointment.id == this.appointmentId);
         if (appointmentToOpen) {

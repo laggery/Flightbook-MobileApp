@@ -10,5 +10,8 @@ export class FlightFilter {
     constructor() {
         this.glider = new Glider();
         this.gliderType = "";
+        this.from = null;
+        this.to = null;
+        this.description = "";
     }
 }
