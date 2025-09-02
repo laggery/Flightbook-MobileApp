@@ -1,23 +1,57 @@
 <div class="square">
     <div class="content">
         <div class="table">
-            <ion-card class="dashboard-item"
+            <!-- Add Flight card -->
+            <ion-card *ngIf="type === 'addFlight'" class="dashboard-item">
+                <div class="body">
+                    <ion-icon *ngIf=icon [name]="icon"></ion-icon>
+                </div>
+                <div class="title">{{ label | translate }}</div>
+            </ion-card>
+
+            <!-- Statistics card -->
+            <ion-card *ngIf="type === 'statistics'" class="dashboard-item">
+                <div class="body">
+                    <ion-icon *ngIf=icon [name]="icon"></ion-icon>
+                    <ng-container *ngIf="flightStatistics$ | async as stats">
+                        <div class="statistic-tile" *ngIf="stats && stats.length > 0">
+                            <div class="body">{{stats[0]?.nbFlights || 0}}</div>
+                        </div>
+                    </ng-container>
+                </div>
+                <div class="title">{{ label | translate }}</div>
+            </ion-card>
+
+            <!-- Last Flight card -->
+            <ion-card *ngIf="type === 'lastFlight'" class="dashboard-item">
+                <div class="body">
+                    <ion-icon *ngIf=icon [name]="icon"></ion-icon>
+                </div>
+                <div class="title" *ngIf="flights().length > 0; else noFlights">
+                    <div>{{ 'dashboard.lastflight' | translate }}</div>
+                </div>
+            </ion-card>
+            <!-- <ion-card class="dashboard-item"
                       *ngIf="{
-                      flights: flights$ | async,
+                      flights: flights().length > 0,
                       flightStatistics: flightStatistics$ | async}
                       as observables">
                 <div class="body">
                     <ion-icon *ngIf=icon [name]="icon"></ion-icon>
-                    <div class="statistic-tile" *ngIf="observables.flightStatistics">
+                    <div class="statistic-tile" *ngIf="isStatistic && observables.flightStatistics">
                         <div class="body">{{observables.flightStatistics[0].nbFlights}}</div>
                     </div>
                 </div>
                 <div class="title">{{ label | translate }}</div>
-                <div class="title" *ngIf="observables.flights">
-                    <div *ngIf="observables.flights[0]?.date; else noFlights">{{ 'dashboard.lastflight' | translate }}</div>
+                <div class="title" *ngIf="flights()">
+                    <div *ngIf="flights()[0]?.date; else noFlights">{{ 'dashboard.lastflight' | translate }}</div>
                 </div>
-            </ion-card>
+            </ion-card> -->
         </div>
     </div>
 </div>
-<ng-template class="title" #noFlights>{{ 'dashboard.noflights' | translate}}</ng-template>
+<ng-template #noFlights>
+    <div class="title">
+        {{ 'dashboard.noflights' | translate}}
+    </div>
+</ng-template>

@@ -4,9 +4,9 @@ import { AlertController, LoadingController, IonHeader, IonToolbar, IonButtons, 
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { Subject, firstValueFrom, takeUntil } from 'rxjs';
 import { FilePicker, PickedFile, PickFilesResult } from '@capawesome/capacitor-file-picker';
-import { FlightService } from 'src/app/flight/shared/flight.service';
-import { GliderService } from 'src/app/glider/shared/glider.service';
-import { PlaceService } from 'src/app/place/shared/place.service';
+import { FlightStore } from 'src/app/flight/shared/flight.store';
+import { GliderStore } from 'src/app/glider/shared/glider.store';
+import { PlaceStore } from 'src/app/place/shared/place.store';
 import { ImportService } from '../shared/import.service';
 import { ImportType } from '../shared/import-type.model';
 import { NgIf } from '@angular/common';
@@ -50,9 +50,9 @@ export class DataPage implements OnInit, OnDestroy {
         private alertController: AlertController,
         private translate: TranslateService,
         private importService: ImportService,
-        private flightService: FlightService,
-        private gliderService: GliderService,
-        private placeService: PlaceService
+        private flightStore: FlightStore,
+        private gliderStore: GliderStore,
+        private placeStore: PlaceStore
     ) {
         if (Capacitor.getPlatform() == "ios") {
             this.isIos = true;
@@ -142,9 +142,9 @@ export class DataPage implements OnInit, OnDestroy {
         try {
             const result = await firstValueFrom(this.importService.importData(formData, this.currentType.type));
             this.result = result;
-            this.flightService.setState([]);
-            this.gliderService.setState([]);
-            this.placeService.setState([]);
+            this.flightStore.clearFlights();
+            this.gliderStore.clearGliders();
+            this.placeStore.clearPlaces();
         } catch (error) {
             const alert = await this.alertController.create({
                 header: this.translate.instant('message.errortitle'),

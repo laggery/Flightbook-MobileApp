@@ -4,9 +4,9 @@ import { AlertController, LoadingController, MenuController, NavController, IonH
 import HttpStatusCode from '../../shared/util/HttpStatusCode';
 import { User } from 'src/app/account/shared/user.model';
 import { AccountService } from '../shared/account.service';
-import { FlightService } from 'src/app/flight/shared/flight.service';
-import { GliderService } from 'src/app/glider/shared/glider.service';
-import { PlaceService } from 'src/app/place/shared/place.service';
+import { FlightStore } from 'src/app/flight/shared/flight.store';
+import { GliderStore } from 'src/app/glider/shared/glider.store';
+import { PlaceStore } from 'src/app/place/shared/place.store';
 import { firstValueFrom, Subject, takeUntil } from 'rxjs';
 import { PaymentService } from 'src/app/shared/services/payment.service';
 import { PaymentStatus } from '../shared/paymentStatus.model';
@@ -53,9 +53,9 @@ export class AccountDataPage implements OnInit, OnDestroy {
         private accountService: AccountService,
         private alertController: AlertController,
         private loadingCtrl: LoadingController,
-        private flightService: FlightService,
-        private gliderService: GliderService,
-        private placeService: PlaceService,
+        private flightStore: FlightStore,
+        private gliderStore: GliderStore,
+        private placeStore: PlaceStore,
         private menuCtrl: MenuController,
         public navCtrl: NavController,
         private paymentService: PaymentService,
@@ -176,9 +176,9 @@ export class AccountDataPage implements OnInit, OnDestroy {
                         this.accountService.deleteUser().pipe(takeUntil(this.unsubscribe$)).subscribe({
                             next: (res: any) => {
                                 this.menuCtrl.enable(false);
-                                this.flightService.setState([]);
-                                this.gliderService.setState([]);
-                                this.placeService.setState([]);
+                                this.flightStore.clearFlights();
+                                this.gliderStore.clearGliders();
+                                this.placeStore.clearPlaces();
                                 localStorage.removeItem('access_token');
                                 localStorage.removeItem('refresh_token');
                                 this.navCtrl.navigateRoot('login');

@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { firstValueFrom, Subject } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
-import { concatMap, takeUntil } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 import * as _ from 'lodash';
 import { AlertController, LoadingController, IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonContent, IonButton } from '@ionic/angular/standalone';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
@@ -10,8 +10,8 @@ import { v4 as uuidv4 } from 'uuid';
 import { FileUploadService } from 'src/app/flight/shared/fileupload.service';
 import { Flight } from '../shared/flight.model';
 import { Glider } from 'src/app/glider/shared/glider.model';
-import { FlightService } from '../shared/flight.service';
-import { GliderService } from 'src/app/glider/shared/glider.service';
+import { FlightStore } from '../shared/flight.store';
+import { GliderStore } from 'src/app/glider/shared/glider.store';
 import { IgcService } from 'src/app/shared/services/igc.service';
 import moment from 'moment';
 import { NgIf } from '@angular/common';
@@ -20,6 +20,7 @@ import { FlightFormComponent } from '../../form/flight-form/flight-form';
 import { School } from 'src/app/school/shared/school.model';
 import { SchoolService } from 'src/app/school/shared/school.service';
 import { FlightValidationState } from '../shared/flight-validation-state';
+import { Place } from 'src/app/place/shared/place.model';
 
 @Component({
     selector: 'app-flight-edit',
@@ -53,8 +54,8 @@ export class FlightEditPage implements OnInit, OnDestroy {
     constructor(
         private activeRoute: ActivatedRoute,
         private router: Router,
-        private flightService: FlightService,
-        private gliderService: GliderService,
+        private flightStore: FlightStore,
+        private gliderStore: GliderStore,
         private alertController: AlertController,
         private translate: TranslateService,
         private loadingCtrl: LoadingController,
@@ -70,11 +71,11 @@ export class FlightEditPage implements OnInit, OnDestroy {
             message: this.translate.instant('loading.loading')
         });
         await loading.present();
-        this.initialFlight = this.flightService.getValue().find(flight => flight.id === this.flightId);
+        this.initialFlight = this.flightStore.flights().find(flight => flight.id === this.flightId);
 
         try {
             if (!this.initialFlight) {
-                this.initialFlight = await firstValueFrom(this.flightService.getFlightById(this.flightId))
+                this.initialFlight = await firstValueFrom(this.flightStore.getFlightById(this.flightId))
             }
 
             this.flight = _.cloneDeep(this.initialFlight);
@@ -84,14 +85,22 @@ export class FlightEditPage implements OnInit, OnDestroy {
                 this.flight.time = this.flight.time.substring(0, 5);
             }
 
-            const archivedValue = this.gliderService.filter.archived;
-            this.gliderService.filter.archived = "0";
-            this.gliderService.getGliders({ store: false }).pipe(takeUntil(this.unsubscribe$)).subscribe((resp: Glider[]) => {
+            if (!this.flight.start) {
+                this.flight.start = new Place();
+            }
+
+            if (!this.flight.landing) {
+                this.flight.landing = new Place();
+            }
+
+            const archivedValue = this.gliderStore.filter.archived;
+            this.gliderStore.filter.archived = "0";
+            this.gliderStore.getGliders({ store: false }).pipe(takeUntil(this.unsubscribe$)).subscribe((resp: Glider[]) => {
                 this.gliders = resp;
                 if (!this.gliders.find(glider => glider.id === this.flight.glider.id)) {
                     this.gliders.push(this.flight.glider);
                 }
-                this.gliderService.filter.archived = archivedValue;
+                this.gliderStore.filter.archived = archivedValue;
             });
             this.loadIgcData();
 
@@ -124,10 +133,10 @@ export class FlightEditPage implements OnInit, OnDestroy {
             await this.uploadIgc(flight, loading);
         }
 
-        this.flightService.putFlight(flight).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Flight) => {
+        this.flightStore.putFlight(flight).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Flight) => {
 
             if (this.initialFlight?.date !== this.flight.date) {
-                this.flightService.getFlights({ limit: this.flightService.defaultLimit, clearStore: true })
+                this.flightStore.getFlights({ limit: this.flightStore.defaultLimit, clearStore: true })
                     .pipe(takeUntil(this.unsubscribe$))
                     .subscribe(async (res: Flight[]) => {
                         await loading.dismiss();
@@ -158,10 +167,8 @@ export class FlightEditPage implements OnInit, OnDestroy {
         });
         await loading.present();
 
-        this.flightService.deleteFlight(this.flight).pipe(
-            concatMap(() => this.flightService.getFlights({ limit: this.flightService.defaultLimit, clearStore: true }))
-        ).pipe(takeUntil(this.unsubscribe$)).subscribe({
-            next: async (res: Flight[]) => {
+        this.flightStore.deleteFlight(this.flight).pipe(takeUntil(this.unsubscribe$)).subscribe({
+            next: async () => {
                 await loading.dismiss();
                 await this.router.navigate(['/flights'], { replaceUrl: true });
             },
@@ -207,13 +214,9 @@ export class FlightEditPage implements OnInit, OnDestroy {
     }
 
     private postFlightRequest(loading: any) {
-        this.flightService.postFlight(this.flight, { clearStore: false }).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Flight) => {
-            this.flightService.getFlights({ limit: this.flightService.defaultLimit, clearStore: true })
-                .pipe(takeUntil(this.unsubscribe$))
-                .subscribe(async (res: Flight[]) => {
-                    await loading.dismiss();
-                    await this.router.navigate(['/flights'], { replaceUrl: true });
-                });
+        this.flightStore.postFlight(this.flight).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Flight) => {
+            await loading.dismiss();
+            await this.router.navigate(['/flights'], { replaceUrl: true });
         },
             (async (resp: any) => {
                 await loading.dismiss();

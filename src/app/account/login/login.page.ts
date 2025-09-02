@@ -11,7 +11,7 @@ setTimeout(() => {
 import HttpStatusCode from '../../shared/util/HttpStatusCode';
 import { environment } from 'src/environments/environment';
 import { AccountService } from '../shared/account.service';
-import { NewsService } from 'src/app/news/shared/news.service';
+import { NewsStore } from 'src/app/news/shared/news.store';
 import { App } from '@capacitor/app';
 import { NavigationService } from 'src/app/shared/services/navigation.service';
 import { FormsModule } from '@angular/forms';
@@ -45,7 +45,7 @@ export class LoginPage implements OnInit, OnDestroy {
         private menuCtrl: MenuController,
         private navCtrl: NavController,
         private accountService: AccountService,
-        private newsService: NewsService,
+        private newsStore: NewsStore,
         private alertController: AlertController,
         private loadingCtrl: LoadingController,
         private navigationService: NavigationService,
@@ -148,7 +148,7 @@ export class LoginPage implements OnInit, OnDestroy {
     setLanguage(lang: string) {
         localStorage.setItem('language', lang);
         this.translate.use(lang);
-        this.newsService.setState([]);
+        this.newsStore.clearNews();
     }
 
     register() {

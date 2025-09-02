@@ -9,8 +9,8 @@ import { FileUploadService } from 'src/app/flight/shared/fileupload.service';
 import { Place } from 'src/app/place/shared/place.model';
 import { Flight } from '../shared/flight.model';
 import { Glider } from 'src/app/glider/shared/glider.model';
-import { FlightService } from '../shared/flight.service';
-import { GliderService } from 'src/app/glider/shared/glider.service';
+import { FlightStore } from '../shared/flight.store';
+import { GliderStore } from 'src/app/glider/shared/glider.store';
 import { IgcService } from 'src/app/shared/services/igc.service';
 import moment from 'moment';
 import { FileInputComponent } from '../../shared/components/file-input/file-input.component';
@@ -43,8 +43,8 @@ export class FlightAddPage implements OnInit, OnDestroy {
 
     constructor(
         private router: Router,
-        private flightService: FlightService,
-        private gliderService: GliderService,
+        private flightStore: FlightStore,
+        private gliderStore: GliderStore,
         private alertController: AlertController,
         private translate: TranslateService,
         private loadingCtrl: LoadingController,
@@ -63,10 +63,13 @@ export class FlightAddPage implements OnInit, OnDestroy {
         this.schoolService.getSchools().then((schools: School[]) => {
             this.schools = schools;
         });
-        if (this.flightService.getValue().length > 0) {
-            this.flight.glider = this.flightService.getValue()[0].glider;
+        
+        // Use the store directly to get flights
+        const currentFlights = this.flightStore.flights();
+        if (currentFlights.length > 0) {
+            this.flight.glider = currentFlights[0].glider;
         } else {
-            this.flightService.getFlights({ limit: 1, store: false })
+            this.flightStore.getFlights({ limit: 1, store: false })
                 .pipe(takeUntil(this.unsubscribe$))
                 .subscribe((res: Flight[]) => {
                     if (res.length > 0) {
@@ -75,11 +78,11 @@ export class FlightAddPage implements OnInit, OnDestroy {
                 });
         }
 
-        const archivedValue = this.gliderService.filter.archived;
-        this.gliderService.filter.archived = "0";
-        this.gliderService.getGliders({ store: false }).pipe(takeUntil(this.unsubscribe$)).subscribe((resp: Glider[]) => {
+        const archivedValue = this.gliderStore.filter.archived;
+        this.gliderStore.filter.archived = "0";
+        this.gliderStore.getGliders({ store: false }).pipe(takeUntil(this.unsubscribe$)).subscribe((resp: Glider[]) => {
             this.gliders = resp;
-            this.gliderService.filter.archived = archivedValue;
+            this.gliderStore.filter.archived = archivedValue;
             this.noGliderCheck();
         });
     }
@@ -99,11 +102,15 @@ export class FlightAddPage implements OnInit, OnDestroy {
             await this.uploadIgc(flight, loading);
         }
 
-        this.flightService.postFlight(flight).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Flight) => {
-            await loading.dismiss();
-            await this.router.navigate(['/flights'], { replaceUrl: true });
-        },
-            async (resp: any) => {
+        // Use the store directly to post the flight
+        // The store will automatically refresh the flights list
+        this.flightStore.postFlight(flight).pipe(takeUntil(this.unsubscribe$)).subscribe({
+            next: async (res: Flight) => {
+                await loading.dismiss();
+                // Navigate back to the flights list and ensure it's refreshed
+                await this.router.navigate(['/flights'], { replaceUrl: true });
+            },
+            error: async (resp: any) => {
                 await loading.dismiss();
                 if (resp.status === HttpStatusCode.UNPROCESSABLE_ENTITY) {
                     const alert = await this.alertController.create({
@@ -114,7 +121,7 @@ export class FlightAddPage implements OnInit, OnDestroy {
                     await alert.present();
                 }
             }
-        );
+        });
     }
 
     private async uploadIgc(flight: Flight, loading: any) {

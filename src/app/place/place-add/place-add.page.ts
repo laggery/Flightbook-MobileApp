@@ -6,7 +6,7 @@ import { LoadingController, AlertController, IonHeader, IonToolbar, IonButtons, 
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import HttpStatusCode from '../../shared/util/HttpStatusCode';
 import { Place } from 'src/app/place/shared/place.model';
-import { PlaceService } from '../shared/place.service';
+import { PlaceStore } from '../shared/place.store';
 import { PlaceFormComponent } from '../../form/place-form/place-form';
 
 @Component({
@@ -31,7 +31,7 @@ export class PlaceAddPage implements OnInit, OnDestroy {
     constructor(
         private router: Router,
         private translate: TranslateService,
-        private placeService: PlaceService,
+        private placeStore: PlaceStore,
         private loadingCtrl: LoadingController,
         private alertController: AlertController
     ) {
@@ -52,7 +52,7 @@ export class PlaceAddPage implements OnInit, OnDestroy {
         });
         await loading.present();
 
-        this.placeService.postPlace(place).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Place) => {
+        this.placeStore.postPlace(place).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Place) => {
             await loading.dismiss();
             await this.router.navigate(['/places'], { replaceUrl: true });
         },

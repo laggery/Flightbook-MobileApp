@@ -1,10 +1,10 @@
-import { Component, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Flight } from 'src/app/flight/shared/flight.model';
 import { FlightStatistic } from 'src/app/flight/shared/flightStatistic.model';
 import { NgIf, AsyncPipe } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { IonCard, IonIcon } from "@ionic/angular/standalone";
+import { FlightStore } from 'src/app/flight/shared/flight.store';
 
 @Component({
     selector: 'fb-dashboard-item',
@@ -33,7 +33,7 @@ export class DashboardItemComponent implements OnInit {
     /**
      * Flight data to show
      */
-    @Input() flights$?: Observable<Flight[]>;
+    public flights = this.flightStore.flights;
 
     /**
      * Flight statistic to show
@@ -43,9 +43,9 @@ export class DashboardItemComponent implements OnInit {
     /**
      * Toggle
      */
-    @Input() isStatistic: boolean;
+    @Input() type: string = "addFlight";
 
-    constructor() {
+    constructor(private flightStore: FlightStore) {
     }
 
     ngOnInit() {

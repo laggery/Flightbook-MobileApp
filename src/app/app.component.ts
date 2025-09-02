@@ -5,9 +5,9 @@ import { TranslateService } from '@ngx-translate/core';
 import { filter, takeUntil } from 'rxjs/operators';
 import { SwUpdate, VersionReadyEvent } from '@angular/service-worker';
 import { AccountService } from './account/shared/account.service';
-import { FlightService } from './flight/shared/flight.service';
-import { GliderService } from './glider/shared/glider.service';
-import { PlaceService } from './place/shared/place.service';
+import { FlightStore } from './flight/shared/flight.store';
+import { GliderStore } from './glider/shared/glider.store';
+import { PlaceStore } from './place/shared/place.store';
 import { SchoolService } from './school/shared/school.service';
 import { School } from './school/shared/school.model';
 import { LoginPage } from './account/login/login.page';
@@ -53,9 +53,9 @@ export class AppComponent implements OnDestroy, OnInit {
         private accountService: AccountService,
         private menuCtrl: MenuController,
         private swUpdate: SwUpdate,
-        private flighService: FlightService,
-        private gliderService: GliderService,
-        private placeService: PlaceService,
+        private flightStore: FlightStore,
+        private gliderStore: GliderStore,
+        private placeStore: PlaceStore,
         private schoolService: SchoolService,
         private alertController: AlertController,
         private paymentService: PaymentService
@@ -123,9 +123,9 @@ export class AppComponent implements OnDestroy, OnInit {
 
     logout() {
         this.menuCtrl.enable(false);
-        this.flighService.setState([]);
-        this.gliderService.setState([]);
-        this.placeService.setState([]);
+        this.flightStore.clearFlights();
+        this.gliderStore.clearGliders();
+        this.placeStore.clearPlaces();
         this.accountService.logout(localStorage.getItem('refresh_token')).pipe(takeUntil(this.unsubscribe$)).subscribe(resp => {
             // TODO error handling
             localStorage.removeItem('access_token');

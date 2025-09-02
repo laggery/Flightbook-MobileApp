@@ -6,7 +6,7 @@ import { LoadingController, AlertController, IonHeader, IonToolbar, IonButtons, 
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import HttpStatusCode from '../../shared/util/HttpStatusCode';
 import { Glider } from '../shared/glider.model';
-import { GliderService } from '../shared/glider.service';
+import { GliderStore } from '../shared/glider.store';
 import moment from 'moment';
 import { GliderFormComponent } from '../../form/glider-form/glider-form';
 
@@ -31,7 +31,7 @@ export class GliderAddPage implements OnInit, OnDestroy {
 
     constructor(
         private router: Router,
-        private gliderService: GliderService,
+        private gliderStore: GliderStore,
         private loadingCtrl: LoadingController,
         private alertController: AlertController,
         private translate: TranslateService
@@ -57,7 +57,7 @@ export class GliderAddPage implements OnInit, OnDestroy {
             glider.buyDate = moment(glider.buyDate).format('YYYY-MM-DD');
         }
 
-        this.gliderService.postGlider(glider).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Glider) => {
+        this.gliderStore.postGlider(glider).pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: Glider) => {
             await loading.dismiss();
             await this.router.navigate(['/gliders'], { replaceUrl: true });
         },

@@ -6,9 +6,9 @@ import { takeUntil } from 'rxjs/operators';
 import { Place } from 'src/app/place/shared/place.model';
 import { FileUploadService } from 'src/app/flight/shared/fileupload.service';
 import { Glider } from 'src/app/glider/shared/glider.model';
-import { GliderService } from 'src/app/glider/shared/glider.service';
+import { GliderStore } from 'src/app/glider/shared/glider.store';
 import { IgcService } from 'src/app/shared/services/igc.service';
-import { FlightService } from 'src/app/flight/shared/flight.service';
+import { FlightStore } from 'src/app/flight/shared/flight.store';
 import { Flight } from 'src/app/flight/shared/flight.model';
 import { FileInputComponent } from '../../shared/components/file-input/file-input.component';
 import { NgIf, NgFor, DatePipe } from '@angular/common';
@@ -49,23 +49,23 @@ export class MultipleIgcPage implements OnInit {
     isSaved = false;
 
     constructor(
-        private gliderService: GliderService,
+        private gliderStore: GliderStore,
         private igcService: IgcService,
         private loadingCtrl: LoadingController,
         private translate: TranslateService,
         private fileUploadService: FileUploadService,
-        private flightService: FlightService
+        private flightStore: FlightStore
     ) {
         addIcons({ trashOutline, cloudDoneOutline, alert });
     }
 
     ngOnInit() {
-        if (this.gliderService.isGliderlistComplete) {
-            this.gliders = this.gliderService.getValue();
+        if (this.gliderStore.isGliderlistComplete) {
+            this.gliders = this.gliderStore.gliders();
         } else {
-            this.gliderService.getGliders({ clearStore: true }).pipe(takeUntil(this.unsubscribe$)).subscribe((resp: Glider[]) => {
-                this.gliderService.isGliderlistComplete = true;
-                this.gliders = this.gliderService.getValue();
+            this.gliderStore.getGliders({ clearStore: true }).pipe(takeUntil(this.unsubscribe$)).subscribe((resp: Glider[]) => {
+                this.gliderStore.isGliderlistComplete = true;
+                this.gliders = this.gliderStore.gliders();
             });
         }
     }
@@ -116,7 +116,7 @@ export class MultipleIgcPage implements OnInit {
                     await this.uploadIgc(flightSate.flight);
                 }
 
-                await this.flightService.postFlight(flightSate.flight).toPromise();
+                await this.flightStore.postFlight(flightSate.flight).toPromise();
 
                 flightSate.state = State.SAVED;
             } catch {
