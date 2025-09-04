@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit, Signal } from '@angular/core';
 import { NavController, ModalController, LoadingController, AlertController, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonButton, IonIcon, IonContent, IonItem, IonGrid, IonRow, IonCol, IonList, IonInfiniteScroll, IonInfiniteScrollContent, IonLabel, IonItemSliding, IonItemOptions, IonItemOption } from '@ionic/angular/standalone';
 import { Subject, firstValueFrom } from 'rxjs';
-import { concatMap, takeUntil } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 import { FlightFilterComponent } from 'src/app/form/flight-filter/flight-filter.component';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { TCreatedPdf } from 'pdfmake/build/pdfmake';
@@ -18,7 +18,16 @@ import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
 import { FlagsModule } from 'nxt-flags';
 import { addIcons } from "ionicons";
-import { add, filterOutline, trash } from "ionicons/icons";
+import { 
+    add,
+    filterOutline,
+    trash,
+    timeOutline,
+    peopleOutline,
+    personOutline,
+    attachOutline,
+    arrowForwardOutline
+} from "ionicons/icons";
 import { PaymentService } from 'src/app/shared/services/payment.service';
 import { FlightValidationState } from '../shared/flight-validation-state';
 import { FlightStore } from '../shared/flight.store';
@@ -81,7 +90,15 @@ export class FlightListPage implements OnInit, OnDestroy, AfterViewInit {
         private paymentService: PaymentService,
         private router: Router
     ) {
-        addIcons({ add, filterOutline, trash });
+        addIcons({ add,
+            filterOutline,
+            trash,
+            timeOutline,
+            peopleOutline,
+            personOutline,
+            attachOutline,
+            arrowForwardOutline
+        });
     }
 
     ionViewDidEnter() {
@@ -105,7 +122,7 @@ export class FlightListPage implements OnInit, OnDestroy, AfterViewInit {
                 next: async (res: Flight[]) => {
                     // @hack for hide export item
                     setTimeout(async () => {
-                        await this.content.scrollToPoint(0, 48);
+                        await this.content.scrollToPoint(0, 54);
                         await loading.dismiss();
                     }, 1);
                 },
@@ -119,7 +136,7 @@ export class FlightListPage implements OnInit, OnDestroy, AfterViewInit {
     }
 
     ngAfterViewInit() {
-        this.content.scrollToPoint(0, 48);
+        this.content.scrollToPoint(0, 54);
     }
 
     ngOnDestroy() {
@@ -183,7 +200,7 @@ export class FlightListPage implements OnInit, OnDestroy, AfterViewInit {
 
     async modalOnDidDismiss(modal: HTMLIonModalElement) {
         modal.onDidDismiss().then((resp: any) => {
-            this.content.scrollToPoint(0, 48);
+            this.content.scrollToPoint(0, 54);
         });
     }
 

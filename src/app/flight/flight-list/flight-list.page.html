@@ -42,18 +42,35 @@
       : (flight.validation?.state === FlightValidationState.REJECTED 
           ? 'rejected' 
           : '')">
-        <ion-item button detail (click)="itemTapped($event, flight)">
-          <p class="flightRow">
-            <span class="flightNumber">{{ flight.number }}</span>
-            <span class="flightDate">{{ flight.date | date:'dd.MM.yyyy'}}</span>
-            <span class="flightStart"><nxt-flag country="{{ flight.start?.country}}" size="s"></nxt-flag> {{flight.start?.name}}</span>
-            <span class="flightLanding"><nxt-flag country="{{ flight.landing?.country}}" size="s"></nxt-flag> {{flight.landing?.name}}</span>
-            <span class="flightGlider">{{flight.glider.brand}} {{flight.glider.name}}</span>
-            <span class="flightTime">{{flight.time}}</span>
-            <span class="flightKm">{{flight.km}}</span>
-            <span class="flightDesc">{{flight.description}}</span>
-          </p>
-          <ion-icon item-end></ion-icon>
+        <ion-item button detail="false" (click)="itemTapped($event, flight)">
+          <ion-grid>
+            <ion-row class="ion-align-items-start">
+              <ion-col size="3" class="flight-meta">
+                <div class="flight-number">{{ flight.number }}
+                  @if(flight.igc) {
+                    <div class="flight-igc"><ion-icon name="attach-outline"></ion-icon></div>
+                  }
+                </div>
+                <div class="flight-date">{{ flight.date | date:'dd.MM.yyyy' }}</div>
+              </ion-col>
+              <ion-col size="9" class="flight-details">
+                @if (!flight.start?.name && !flight.landing?.name) {
+                  <div class="location">-</div>
+                } @else {
+                  <div class="location"><nxt-flag country="{{ flight.start?.country}}" size="xs"></nxt-flag>{{ flight.start?.name || "-" }}<ion-icon name="arrow-forward-outline"></ion-icon> <nxt-flag country="{{ flight.landing?.country}}" size="xs"></nxt-flag>{{ flight.landing?.name || "-" }}</div>
+                }
+                <div class="glider">@if(flight.glider.tandem) {<ion-icon name="people-outline"></ion-icon>} @else {<ion-icon name="person-outline"></ion-icon>} {{ flight.glider.brand }} {{ flight.glider.name }}</div>
+                <ion-row class="flight-stats">
+                  <ion-col size="5">
+                    <ion-icon name="arrow-forward-outline"></ion-icon> {{ flight.km || "-" }} km
+                  </ion-col>
+                  <ion-col size="7">
+                    <ion-icon name="time-outline"></ion-icon> {{ flight.time?.substring(0, 5) || "-" }}
+                  </ion-col>
+                </ion-row>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
         </ion-item>
         <ion-item-options side="end">
           <ion-item-option color="danger" (click)="deleteItem(flight)">

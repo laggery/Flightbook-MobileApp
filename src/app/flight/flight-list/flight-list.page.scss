@@ -1,45 +1,102 @@
+ion-list {
+  padding-top: 0;
+}
+
 ion-item {
-  --padding-start: 8px;
+  --padding-start: 0;
+  --inner-padding-end: 0;
 }
 
-.flightRow {
-  max-height: 0px;
-  line-height: 60px;
-  margin-top: -42px;
+ion-grid {
+  width: 100%;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
-.flightRow .item-native {
-  max-height: 50px !important;
+.flight-meta {
+  color: var(--ion-color-medium-shade);
+  text-align: left;
+  padding-left: 5px;
+  font-size: 0.9em;
+
+  .flight-number {
+    color: var(--ion-color-dark-shade);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 80px;
+
+    .flight-igc {
+      margin-right: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  // Special case for iOS
+  &:host-context(.ios) .flight-number .flight-igc {
+    margin-right: 0px;
+  }
+
+  .flight-date {
+    white-space: nowrap;
+    width: 80px;
+  }
 }
 
-.flightRow span {
-  overflow-x: hidden;
-  text-overflow: ellipsis;
-  width: 150px;
-  white-space: nowrap;
-  display: inline-block;
+.flight-details {
+  font-size: 0.9em;
+
+  .location,
+  .glider {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .location {
+    color: var(--ion-color-primary);
+
+    ion-icon[name="arrow-forward-outline"] {
+      font-size: 0.7em;
+      margin-left: 3px;
+      margin-right: 3px;
+    }
+
+    nxt-flag {
+      margin-right: 3px;
+    }
+  }
+
+  .glider {
+    color: var(--ion-color-medium-shade);
+    display: flex;
+    align-items: center;
+
+    ion-icon {
+      margin-right: 4px;
+    }
+  }
 }
 
-.flightRow .flightDate,
-.flightRow .flightTime {
-  width: 90px;
-}
+.flight-stats {
+  font-size: 0.8em;
+  color: var(--ion-color-dark-shade);
 
-.flightRow .flightTime {
-  margin-left: 10px;
-}
+  ion-col {
+    display: flex;
+    align-items: center;
+  }
 
-.flightRow .flightStart,
-.flightRow .flightLanding {
-  min-width: 170px;
-}
+  ion-icon {
+    margin-right: 4px;
+    font-size: 1.1em;
+  }
 
-.flightRow .flightKm {
-  width: 70px;
-}
-
-.flightRow .flightNumber {
-  width: 45px;
+  ion-icon[name="arrow-forward-outline"] {
+    font-size: 0.9em;
+  }
 }
 
 .export-buttons ion-button {
@@ -47,7 +104,8 @@ ion-item {
   height: 36px;
 }
 
-ion-grid, ion-col {
+ion-grid,
+ion-col {
   padding-top: 0;
   padding-bottom: 0;
 }
@@ -57,24 +115,13 @@ ion-item {
 }
 
 ion-item-sliding.validated ion-item {
-  --background: #e6f9e6 !important; /* light green */
+  --background: #e6f9e6 !important;
+  /* light green */
   background: #e6f9e6 !important;
 }
 
 ion-item-sliding.rejected ion-item {
-  --background: #ffe5e5 !important; /* light red */
+  --background: #ffe5e5 !important;
+  /* light red */
   background: #ffe5e5 !important;
-}
-
-@media (max-width: 320px) {
-  .flightRow .flightNumber {
-    display: none;
-  }
-}
-
-@media (min-width: 546px) and (max-width: 684px) {
-  .flightRow .flightGlider {
-    width: 132px;
-    max-width: 150px;
-  }
 }
