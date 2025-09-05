@@ -168,7 +168,7 @@ export class GliderStore {
             const index = updatedGliders.findIndex((listGlider: Glider) => listGlider.id === response.id);
             
             if (index !== -1) {
-              updatedGliders[index] = response;
+              updatedGliders[index] = glider;
               // Sort by brand and name
               updatedGliders.sort((a, b) => {
                 if (a.brand.toUpperCase() === b.brand.toUpperCase()) {

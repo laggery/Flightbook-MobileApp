@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit, Signal } from '@angular/core';
-import { NavController, ModalController, LoadingController, AlertController, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonButton, IonIcon, IonContent, IonItem, IonGrid, IonRow, IonCol, IonList, IonInfiniteScroll, IonInfiniteScrollContent, IonLabel } from '@ionic/angular/standalone';
+import { NavController, ModalController, LoadingController, AlertController, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonButton, IonIcon, IonContent, IonItem, IonGrid, IonRow, IonCol, IonList, IonInfiniteScroll, IonInfiniteScrollContent, IonLabel, IonItemSliding } from '@ionic/angular/standalone';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { GliderFilterComponent } from '../glider-filter/glider-filter.component';
@@ -10,11 +10,11 @@ import { FileOpener } from '@capacitor-community/file-opener';
 import { XlsxExportService } from 'src/app/shared/services/xlsx-export.service';
 import { Glider } from '../shared/glider.model';
 import { GliderStore } from '../shared/glider.store';
-import { NgIf } from '@angular/common';
+import { DatePipe, NgIf } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { HoursFormatPipe } from '../../shared/pipes/hours-format.pipe';
 import { addIcons } from "ionicons";
-import { add, filterOutline } from "ionicons/icons";
+import { add, filterOutline, peopleOutline, personOutline, statsChartOutline, timeOutline, archiveOutline, checkmarkDoneOutline } from "ionicons/icons";
 
 @Component({
     selector: 'app-glider-list',
@@ -25,6 +25,7 @@ import { add, filterOutline } from "ionicons/icons";
         RouterLink,
         TranslateModule,
         HoursFormatPipe,
+        DatePipe,
         IonHeader,
         IonToolbar,
         IonButtons,
@@ -65,7 +66,16 @@ export class GliderListPage implements OnInit, OnDestroy, AfterViewInit {
         private loadingCtrl: LoadingController,
         private xlsxExportService: XlsxExportService
     ) {
-        addIcons({ add, filterOutline });
+        addIcons({
+            'add': add,
+            'filter-outline': filterOutline,
+            'person-outline': personOutline,
+            'people-outline': peopleOutline,
+            'stats-chart-outline': statsChartOutline,
+            'time-outline': timeOutline,
+            'archive-outline': archiveOutline,
+            'checkmark-done-outline': checkmarkDoneOutline
+        });
     }
 
     ionViewDidEnter() {
@@ -84,7 +94,7 @@ export class GliderListPage implements OnInit, OnDestroy, AfterViewInit {
             .subscribe(async (res: Glider[]) => {
                 // @hack for hide export item
                 setTimeout(async () => {
-                    await this.content.scrollToPoint(0, 48);
+                    await this.content.scrollToPoint(0, 54);
                     await loading.dismiss();
                 }, 1);
             }, async (error: any) => {
@@ -96,7 +106,7 @@ export class GliderListPage implements OnInit, OnDestroy, AfterViewInit {
     }
 
     ngAfterViewInit() {
-        this.content.scrollToPoint(0, 48);
+        this.content.scrollToPoint(0, 54);
     }
 
     ngOnDestroy() {
@@ -139,7 +149,7 @@ export class GliderListPage implements OnInit, OnDestroy, AfterViewInit {
 
     async modalOnDidDismiss(modal: HTMLIonModalElement) {
         modal.onDidDismiss().then((resp: any) => {
-            this.content.scrollToPoint(0, 48);
+            this.content.scrollToPoint(0, 54);
         });
     }
 

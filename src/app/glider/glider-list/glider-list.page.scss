@@ -1,53 +1,86 @@
 ion-item {
-    --padding-start: 8px;
+  --padding-start: 0;
+  --inner-padding-end: 0;
 }
 
-.gliderRow {
-    max-height: 0px;
-    line-height: 60px;
-    margin-top: -42px;
+ion-grid {
+  width: 100%;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
-.gliderRow .item-native {
-    max-height: 50px !important;
-}
+.glider-name {
+  display: flex;
+  align-items: center;
+  color: var(--ion-color-primary);
+  font-size: 0.9em;
+  margin-bottom: 4px;
 
-.gliderRow span {
-    overflow-x: hidden;
-    text-overflow: ellipsis;
-    width: 240px;
+  ion-icon {
+    font-size: 1.2em;
+    color: var(--ion-color-dark-shade);
+    margin-right: 6px;
+  }
+
+  span {
     white-space: nowrap;
-    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }
 
-.gliderRow .gliderTandem{
-    width: 75px;
-}
+.glider-stats {
+  font-size: 0.8em;
+  color: var(--ion-color-dark-shade);
 
-.gliderRow .gliderNbFlights {
-    width: 60px;
-}
+  ion-col {
+    display: flex;
+    align-items: center;
 
-.gliderRow .gliderTime {
-    width: 95px;
+    &:first-child {
+      // This padding is used to align the checkmark icon with the tandem/solo icon above.
+      padding-left: 2px;
+    }
+  }
+
+  ion-col.stat-icon {
+    justify-content: flex-start;
+
+    ion-icon {
+      margin-left: 30px;
+    }
+  }
+
+  ion-col.time-icon {
+    justify-content: flex-start;
+
+    ion-icon {
+      margin-left: 15px;
+    }
+  }
+
+  ion-col.archive-icon {
+    justify-content: flex-end;
+  }
+
+  ion-icon {
+    margin-right: 4px;
+    font-size: 1.1em;
+  }
 }
 
 .export-buttons ion-button {
-    width: 100%;
-    height: 36px;
+  width: 100%;
+  height: 36px;
 }
 
-ion-grid, ion-col {
-    padding-top: 0;
-    padding-bottom: 0;
+ion-grid,
+ion-col {
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-inline-end: 0.47em;
 }
 
 ion-item {
-    --min-height: 48px;
-}
-
-@media (max-width:360px) {
-    .gliderRow .gliderName{
-        width: 185px;
-    }
+  --min-height: 48px;
 }

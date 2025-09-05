@@ -28,15 +28,41 @@
   </ion-item>
   <ion-list>
     @for (glider of gliders(); track glider.id) {
-      <ion-item button detail (click)="itemTapped($event, glider)">
-        <p class="gliderRow">
-          <span class="gliderName">{{ glider.brand}} {{glider.name}}</span>
-          <span class="gliderTandem" *ngIf="glider.tandem; else noTandem">{{ 'buttons.yes' | translate }}</span>
-          <ng-template #noTandem><span class="gliderTandem">{{ 'buttons.no' | translate }}</span></ng-template>
-          <span class="gliderNbFlights">{{ glider.nbFlights }}</span>
-          <span class="gliderTime">{{ glider.time || "0" | hoursFormat }}</span>
-        </p>
-        <ion-icon item-end></ion-icon>
+      @let timeParts = (glider.time || "0" | hoursFormat)?.split(':');
+      <ion-item button detail="false" (click)="itemTapped($event, glider)">
+        <ion-grid>
+          <ion-row class="ion-align-items-center">
+            <ion-col>
+              <div class="glider-name">
+                <ion-icon [name]="glider.tandem ? 'people-outline' : 'person-outline'"></ion-icon>
+                <span>{{ glider.brand }} {{ glider.name }}</span>
+              </div>
+              <ion-row class="glider-stats ion-align-items-center">
+                <ion-col size="4">
+                  <ion-icon name="checkmark-done-outline"></ion-icon>
+                  <span>
+                    @if (glider.checks && glider.checks.length > 0) {
+                      {{ glider.checks[0].date | date:'dd.MM.yyyy' }}
+                    } @else {
+                      -
+                    }
+                  </span>
+                </ion-col>
+                <ion-col size="3" class="stat-icon">
+                  <ion-icon name="stats-chart-outline"></ion-icon> {{ glider.nbFlights }}
+                </ion-col>
+                <ion-col size="3" class="time-icon">
+                  <ion-icon name="time-outline"></ion-icon> {{ timeParts ? timeParts[0]+':'+timeParts[1] : '-' }}
+                </ion-col>
+                <ion-col size="2" class="archive-icon">
+                  @if (glider.archived) {
+                    <ion-icon name="archive-outline"></ion-icon>
+                  }
+                </ion-col>
+              </ion-row>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
       </ion-item>
     }
     @empty {
