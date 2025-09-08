@@ -1,54 +1,72 @@
-.export-buttons ion-button {
-    width: 100%;
-    height: 36px;
+ion-item {
+  --padding-start: 0;
+  --inner-padding-end: 0;
 }
 
-.placeRow {
-    max-height: 0px;
-    line-height: 60px;
-    margin-top: -42px;
+ion-grid {
+  width: 100%;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
-.placeRow .item-native {
-    max-height: 50px !important;
-}
+.place-name {
+  display: flex;
+  align-items: center;
+  color: var(--ion-color-primary);
+  font-size: 0.9em;
+  margin-bottom: 4px;
 
-.placeRow span {
-    overflow-x: hidden;
-    text-overflow: ellipsis;
-    width: 150px;
+  span {
     white-space: nowrap;
-    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }
 
-.placeRow .placeAltitude {
-    min-width: 50px;
-    width: 50px;
-}
+.place-stats {
+  font-size: 0.8em;
+  color: var(--ion-color-dark-shade);
 
-.placeRow .placeName {
-    min-width: 300px;
-}
+  ion-col {
+    display: flex;
+    align-items: center;
 
-.placeRow .placeCountry {
-    width: auto;
-}
-
-@media (max-width: 413px) {
-    .placeRow .placeCountry {
-        text-overflow: unset;
+    &:first-child {
+      // This padding is used to align the checkmark icon with the tandem/solo icon above.
+      padding-left: 2px;
     }
+  }
 
-    .placeRow .placeName {
-        min-width: 165px;
-    }
+  ion-col.stat-icon {
+    justify-content: flex-start;
 
-    .placeRow .placeCountry {
-        min-width: 50px;
-        width: 50px;
+    nxt-flag {
+        margin-right: 4px;
     }
+  }
+
+  ion-col.location-icon {
+    justify-content: flex-end;
+  }
+
+  ion-icon {
+    margin-right: 4px;
+    font-size: 1.1em;
+  }
+}
+
+.export-buttons ion-button {
+  width: 100%;
+  height: 36px;
+}
+
+ion-grid,
+ion-col {
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-inline-end: 0.47em;
 }
 
 ion-item {
-    --min-height: 48px;
+  --min-height: 48px;
 }

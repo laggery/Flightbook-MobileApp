@@ -74,6 +74,7 @@
         "place": "Ort",
         "name": "Name",
         "altitude": "Höhe",
+        "meters": "Meter",
         "country": "Land",
         "notes": "Notizen",
         "coordinates": "Koordinaten",

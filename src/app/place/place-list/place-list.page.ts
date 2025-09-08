@@ -16,7 +16,7 @@ import { MapUtil } from 'src/app/shared/util/MapUtil';
 import { RouterLink } from '@angular/router';
 import { FlagsModule } from 'nxt-flags';
 import { addIcons } from "ionicons";
-import { add } from "ionicons/icons";
+import { add, locationOutline } from "ionicons/icons";
 
 @Component({
     selector: 'app-place-list',
@@ -66,7 +66,11 @@ export class PlaceListPage implements OnInit, OnDestroy, AfterViewInit {
         private xlsxExportService: XlsxExportService
     ) {
         this.lang = this.translate.currentLang;
-        addIcons({ add });
+        addIcons({
+            add,
+            locationOutline,
+            'place': 'assets/custom-ion-icons/place.svg'
+        });
     }
 
     ionViewDidEnter() {
@@ -85,7 +89,7 @@ export class PlaceListPage implements OnInit, OnDestroy, AfterViewInit {
             .subscribe(async (res: Place[]) => {
                 // @hack for hide export item
                 setTimeout(async () => {
-                    await this.content.scrollToPoint(0, 48);
+                    await this.content.scrollToPoint(0, 54);
                     await loading.dismiss();
                 }, 1);
             }, async (error: any) => {
@@ -97,7 +101,7 @@ export class PlaceListPage implements OnInit, OnDestroy, AfterViewInit {
     }
 
     ngAfterViewInit() {
-        this.content.scrollToPoint(0, 48);
+        this.content.scrollToPoint(0, 54);
     }
 
     ngOnDestroy() {
