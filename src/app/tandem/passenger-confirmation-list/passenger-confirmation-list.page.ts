@@ -1,6 +1,6 @@
 import { DatePipe, NgIf } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ModalController, LoadingController, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonButton, IonIcon, IonContent, IonItem, IonList, IonInfiniteScroll, IonInfiniteScrollContent, IonLabel, AlertController } from '@ionic/angular/standalone';
+import { ModalController, LoadingController, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonButton, IonIcon, IonContent, IonItem, IonList, IonInfiniteScroll, IonInfiniteScrollContent, IonLabel, AlertController, IonGrid, IonRow, IonCol } from '@ionic/angular/standalone';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { firstValueFrom, Subject, takeUntil } from 'rxjs';
 import { addIcons } from "ionicons";
@@ -9,6 +9,10 @@ import { PassengerConfirmationFormComponent } from '../shared/components/passeng
 import { TandemService } from '../shared/tandem.service';
 import { PassengerConfirmation } from '../shared/domain/passenger-confirmation.model';
 import { PaymentService } from 'src/app/shared/services/payment.service';
+import { Capacitor } from '@capacitor/core';
+import { XlsxExportService } from 'src/app/shared/services/xlsx-export.service';
+import { Directory, Filesystem } from '@capacitor/filesystem';
+import { FileOpener } from '@capacitor-community/file-opener';
 
 @Component({
   selector: 'app-passenger-confirmation-list',
@@ -29,6 +33,9 @@ import { PaymentService } from 'src/app/shared/services/payment.service';
     IonItem,
     IonLabel,
     IonList,
+    IonGrid,
+    IonRow,
+    IonCol,
     IonInfiniteScroll,
     IonInfiniteScrollContent
   ]
@@ -45,7 +52,8 @@ export class PassengerConfirmationListPage implements OnInit, OnDestroy {
     private loadingCtrl: LoadingController,
     private alertController: AlertController,
     private translate: TranslateService,
-    private paymentService: PaymentService
+    private paymentService: PaymentService,
+    private xlsxExportService: XlsxExportService
   ) {
     addIcons({ filterOutline, add });
   }
@@ -194,5 +202,61 @@ export class PassengerConfirmationListPage implements OnInit, OnDestroy {
       }
     });
   }
+
+  async xlsxExport() {
+    const loading = await this.loadingCtrl.create({
+        message: this.translate.instant('loading.loading')
+    });
+    loading.present();
+    this.tandemService.getPassengerConfirmations().pipe(takeUntil(this.unsubscribe$)).subscribe(async (res: PassengerConfirmation[]) => {
+        if (Capacitor.isNativePlatform()) {
+            try {
+                const data: any = await this.xlsxExportService.generatePassengerConfirmationsXlsxFile(res, { bookType: 'xlsx', type: 'base64' });
+                const path = `xlsx/passenger_confirmation_export.xlsx`;
+
+                const result = await Filesystem.writeFile({
+                    path,
+                    data,
+                    directory: Directory.External,
+                    recursive: true
+                });
+
+                await loading.dismiss();
+
+                try {
+                    await FileOpener.open({
+                        filePath: result.uri,
+                        contentType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                    });
+                } catch (error) {
+                    if (Capacitor.getPlatform() == "android") {
+                        const alert = await this.alertController.create({
+                            header: this.translate.instant('message.infotitle'),
+                            message: this.translate.instant('message.downloadExcel'),
+                            buttons: [this.translate.instant('buttons.done')]
+                        });
+                        await alert.present();
+                    } else {
+                        throw error;
+                    }
+                }
+            } catch (e) {
+                await loading.dismiss();
+                const alert = await this.alertController.create({
+                    header: this.translate.instant('message.infotitle'),
+                    message: this.translate.instant('message.generationError'),
+                    buttons: [this.translate.instant('buttons.done')]
+                });
+                await alert.present();
+            }
+        } else {
+            const data: any = await this.xlsxExportService.generatePassengerConfirmationsXlsxFile(res, { bookType: 'xlsx', type: 'array' });
+            await loading.dismiss();
+            this.xlsxExportService.saveExcelFile(data, `passenger_confirmations_export_${Date.now()}.xlsx`);
+        }
+    }, async (error: any) => {
+        await loading.dismiss();
+    });
+}
 
 }

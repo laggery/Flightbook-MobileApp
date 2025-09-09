@@ -18,6 +18,16 @@
 
 <ion-content class="no-padding">
   <ion-list>
+    <ion-item class="export-buttons" *ngIf="passengerConfirmations?.length > 0">
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-button (click)="xlsxExport()">Xlsx Export</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+
     @for (passengerConfirmation of passengerConfirmations; track passengerConfirmation.id) {
       <ion-item button detail (click)="itemTapped($event, passengerConfirmation)">
         <p class="passengerConfirmationRow">

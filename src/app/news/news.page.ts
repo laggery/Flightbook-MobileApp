@@ -23,6 +23,7 @@ import { DashboardContainerComponent } from '../dashboard/dashboard-container/da
 import { AsyncPipe, DatePipe } from '@angular/common';
 import { addIcons } from "ionicons";
 import { downloadOutline } from "ionicons/icons";
+import { TandemService } from '../tandem/shared/tandem.service';
 
 @Component({
     selector: 'app-news',
@@ -60,6 +61,7 @@ export class NewsPage implements OnInit, OnDestroy {
         private gliderStore: GliderStore,
         private placeStore: PlaceStore,
         private flightStore: FlightStore,
+        private tandemService: TandemService,
         private loadingCtrl: LoadingController,
         private xlsxExportService: XlsxExportService,
         private paymentService: PaymentService
@@ -114,11 +116,12 @@ export class NewsPage implements OnInit, OnDestroy {
         promiseList.push(this.flightStore.getFlights({ store: false }).pipe(takeUntil(this.unsubscribe$)).toPromise());
         promiseList.push(this.gliderStore.getGliders({ store: false }).pipe(takeUntil(this.unsubscribe$)).toPromise());
         promiseList.push(this.placeStore.getPlaces({ store: false }).pipe(takeUntil(this.unsubscribe$)).toPromise());
+        promiseList.push(this.tandemService.getPassengerConfirmations().pipe(takeUntil(this.unsubscribe$)).toPromise());
 
         Promise.all(promiseList).then(async (res: any) => {
             if (Capacitor.isNativePlatform()) {
                 try {
-                    const data: any = await this.xlsxExportService.generateFlightbookXlsxFile(res[0], res[1], res[2], {
+                    const data: any = await this.xlsxExportService.generateFlightbookXlsxFile(res[0], res[1], res[2], res[3], {
                         bookType: 'xlsx',
                         type: 'base64'
                     });
@@ -160,7 +163,7 @@ export class NewsPage implements OnInit, OnDestroy {
                     await alert.present();
                 }
             } else {
-                const data: any = await this.xlsxExportService.generateFlightbookXlsxFile(res[0], res[1], res[2], {
+                const data: any = await this.xlsxExportService.generateFlightbookXlsxFile(res[0], res[1], res[2], res[3], {
                     bookType: 'xlsx',
                     type: 'array'
                 });

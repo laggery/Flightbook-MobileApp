@@ -1,3 +1,32 @@
 .passengerName {
     margin-left: 10px;
 }
+
+.passengerConfirmationRow {
+    margin-left: 8px;
+}
+
+ion-list {
+    padding-top: 0px;
+}
+
+ion-item.export-buttons {
+    --inner-padding-end: 0;
+}
+
+.export-buttons ion-button {
+    width: 100%;
+    height: 36px;
+  }
+  
+  ion-grid,
+  ion-col {
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-inline-end: 0.47em;
+  }
+  
+  ion-item {
+    --min-height: 54px;
+    --padding-start: 0px;
+  }

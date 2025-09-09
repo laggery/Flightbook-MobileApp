@@ -8,6 +8,7 @@ import { Flight } from 'src/app/flight/shared/flight.model';
 import { Glider } from 'src/app/glider/shared/glider.model';
 import { Countries, Country } from 'src/app/place/shared/place.countries';
 import { MapUtil } from '../util/MapUtil';
+import { PassengerConfirmation } from 'src/app/tandem/shared/domain/passenger-confirmation.model';
 
 const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
 const EXCEL_EXTENSION = '.xlsx';
@@ -32,19 +33,23 @@ export class XlsxExportService {
   }
 
   public async generateFlightsXlsxFile(flights: Flight[], writeOptions: any): Promise<any> {
-    return await this.generateFlightbookXlsxFile(flights, null, null, writeOptions);
+    return await this.generateFlightbookXlsxFile(flights, null, null, null, writeOptions);
   }
 
   public async generateGlidersXlsxFile(gliders: Glider[], writeOptions: any): Promise<any> {
-    return await this.generateFlightbookXlsxFile(null, gliders, null, writeOptions);
+    return await this.generateFlightbookXlsxFile(null, gliders, null, null, writeOptions);
   }
 
   public async generatePlacesXlsxFile(places: Place[], writeOptions: any): Promise<any> {
-    return await this.generateFlightbookXlsxFile(null, null, places, writeOptions);
+    return await this.generateFlightbookXlsxFile(null, null, places, null, writeOptions);
   }
 
-  public async generateFlightbookXlsxFile(flights: Flight[], gliders: Glider[], places: Place[], writeOptions: any): Promise<any> {
-    if (!flights && !gliders && !places) {
+  public async generatePassengerConfirmationsXlsxFile(passengerConfirmations: PassengerConfirmation[], writeOptions: any): Promise<any> {
+    return await this.generateFlightbookXlsxFile(null, null, null, passengerConfirmations, writeOptions);
+  }
+
+  public async generateFlightbookXlsxFile(flights: Flight[], gliders: Glider[], places: Place[], passengerConfirmations: PassengerConfirmation[], writeOptions: any): Promise<any> {
+    if (!flights && !gliders && !places && !passengerConfirmations) {
       return null;
     }
 
@@ -64,6 +69,11 @@ export class XlsxExportService {
     if (places) {
       workbook.Sheets.places = this.placeSheet(places);
       workbook.SheetNames.push('places');
+    }
+
+    if (passengerConfirmations) {
+      workbook.Sheets.passengerConfirmations = this.passengerConfirmationSheet(passengerConfirmations);
+      workbook.SheetNames.push('passengerConfirmations');
     }
 
     return this.XLSX.write(workbook, writeOptions);
@@ -127,6 +137,28 @@ export class XlsxExportService {
       flatPlace[this.translate.instant('place.coordinates')] = point ? `${point.flatCoordinates[1]}, ${point.flatCoordinates[0]}` : "";
       flatPlace[this.translate.instant('place.notes')] = place.notes;
       list.push(flatPlace);
+    })
+
+    return this.XLSX.utils.json_to_sheet(list);
+  }
+
+  private passengerConfirmationSheet(passengerConfirmations: PassengerConfirmation[]): any {
+    let list: any = [];
+    passengerConfirmations.forEach((passengerConfirmation: PassengerConfirmation) => {
+      let flatPassengerConfirmation: any = [];
+      flatPassengerConfirmation[this.translate.instant('account.firstname')] = passengerConfirmation.firstname;
+      flatPassengerConfirmation[this.translate.instant('account.lastname')] = passengerConfirmation.lastname;
+      flatPassengerConfirmation[this.translate.instant('login.email')] = passengerConfirmation.email;
+      flatPassengerConfirmation[this.translate.instant('account.phone')] = passengerConfirmation.phone;
+      flatPassengerConfirmation[this.translate.instant('passengerConfirmation.fullyUnderstoodInstructions')] = passengerConfirmation.validation.fullyUnderstoodInstructions ? this.translate.instant('buttons.yes') : this.translate.instant('buttons.no');
+      flatPassengerConfirmation[this.translate.instant('passengerConfirmation.undertakePilotInstructions')] = passengerConfirmation.validation.undertakePilotInstructions ? this.translate.instant('buttons.yes') : this.translate.instant('buttons.no');
+      flatPassengerConfirmation[this.translate.instant('passengerConfirmation.noHealthProblems')] = passengerConfirmation.validation.noHealthProblems ? this.translate.instant('buttons.yes') : this.translate.instant('buttons.no');
+      flatPassengerConfirmation[this.translate.instant('passengerConfirmation.understandRisks')] = passengerConfirmation.validation.understandRisks ? this.translate.instant('buttons.yes') : this.translate.instant('buttons.no');
+      flatPassengerConfirmation[this.translate.instant('passengerConfirmation.canUseData')] = passengerConfirmation.canUseData ? this.translate.instant('buttons.yes') : this.translate.instant('buttons.no');
+      flatPassengerConfirmation[this.translate.instant('place.name')] = passengerConfirmation.place;
+      flatPassengerConfirmation[`${this.translate.instant('passengerConfirmation.signature')} (Base64)`] = passengerConfirmation.signature;
+      flatPassengerConfirmation["Media types (MIME type)"] = passengerConfirmation.signatureMimeType;
+      list.push(flatPassengerConfirmation);
     })
 
     return this.XLSX.utils.json_to_sheet(list);
