@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Ionic Primary Color -->
+    <color name="colorPrimary">#0054e9</color>
+    <color name="colorPrimaryDark">#4d8dff</color>
+    <color name="colorAccent">#3880ff</color>
+</resources>

@@ -7,8 +7,8 @@ android {
         applicationId "ch.flightbook.MobileFlight"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 10052
-        versionName "2.16.0"
+        versionCode 10053
+        versionName "2.17.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

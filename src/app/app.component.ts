@@ -92,7 +92,6 @@ export class AppComponent implements OnDestroy, OnInit {
         try {
             if (Capacitor.isNativePlatform() && Capacitor.getPlatform() == "android") {
                 await StatusBar.setOverlaysWebView({ overlay: false });
-                await StatusBar.setStyle({ style: Style.Light });
             }
         } catch (e) {
             // StatusBar not available or not supported
