@@ -82,11 +82,6 @@ export class PlaceStore {
     );
   }
   
-  getPager({ limit = null, offset = null }: { limit?: number, offset?: number } = {}): Observable<Pager> {
-    let params: HttpParams = this.createFilterParams(limit, offset);
-    return this.http.get<Pager>(`${environment.baseUrl}/places/pager`, { params });
-  }
-  
   getPlacesByName(name: string, { limit = null, offset = null }: { limit?: number, offset?: number } = {}): Observable<Place[]> {
     this.state.update(state => ({ ...state, loading: true }));
     

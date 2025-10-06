@@ -121,11 +121,6 @@ export class GliderStore {
     );
   }
   
-  getPager({ limit = null, offset = null }: { limit?: number, offset?: number } = {}): Observable<Pager> {
-    let params: HttpParams = this.createFilterParams(limit, offset);
-    return this.http.get<Pager>(`${environment.baseUrl}/gliders/pager`, { params });
-  }
-  
   postGlider(glider: Glider): Observable<Glider> {
     this.state.update(state => ({ ...state, loading: true }));
     

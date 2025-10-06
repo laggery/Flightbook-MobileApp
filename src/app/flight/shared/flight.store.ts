@@ -118,17 +118,6 @@ export class FlightStore {
     return this.http.get<FlightStatistic[]>(`${environment.baseUrl}/v2/flights/statistic`, { params });
   }
   
-  getPager({ limit = null, offset = null }: { limit?: number, offset?: number } = {}): Observable<Pager> {
-    let params: HttpParams = this.createFilterParams();
-    if (limit) {
-      params = params.append('limit', limit.toString());
-    }
-    if (offset) {
-      params = params.append('offset', offset.toString());
-    }
-    return this.http.get<Pager>(`${environment.baseUrl}/flights/pager`, { params });
-  }
-  
   nbFlightsByPlaceId(placeId: number): Observable<any> {
     return this.http.get<any>(`${environment.baseUrl}/flights/places/${placeId}/count`);
   }
