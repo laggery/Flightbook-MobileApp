@@ -134,12 +134,26 @@ export class AccountService {
 
   private initializeUserConfig(user: User) {
           if (user && !user.config) {
-              user.config = {
-                  preparation: {
-                      shvLinkDisabled: false,
-                      dabsLinkDisabled: false
+              user.config = {};
+          }
+          if (!user.config.preparation) {
+              user.config.preparation = {
+                  shvLinkDisabled: false,
+                  dabsLinkDisabled: false,
+                  links: []
+              };
+          }
+          if (!user.config.notifications) {
+              user.config.notifications = {
+                  email: {
+                      appointment: true
                   }
               };
           }
+          if (!user.config.notifications.email) {
+              user.config.notifications.email = {
+                  appointment: true
+              };
+        }
       }
 }

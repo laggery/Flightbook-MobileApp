@@ -67,7 +67,8 @@
             "dabsLinkDisabled": "DABS Links deaktivieren",
             "link": "Link",
             "label": "Bezeichnung",
-            "url": "URL"
+            "url": "URL",
+            "appointmentEmailNotification": "Schulungs-E-Mail-Benachrichtigungen"
         }
     },
     "place": {

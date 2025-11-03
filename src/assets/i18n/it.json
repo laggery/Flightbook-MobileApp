@@ -67,7 +67,8 @@
             "dabsLinkDisabled": "Disattivare i link DABS",
             "link": "Link",
             "label": "Label",
-            "url": "URL"
+            "url": "URL",
+            "appointmentEmailNotification": "E-mail per le giornate di formazione"
         }
     },
     "place": {

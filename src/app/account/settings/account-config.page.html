@@ -12,15 +12,15 @@
     <ion-item>
       <div class="toggle-wrapper-custom">
         <ion-label color="primary" position="stacked">{{ 'account.configuration.shvLinkDisabled' | translate
-          }}*</ion-label>
-        <ion-toggle [(ngModel)]="user.config?.preparation.shvLinkDisabled" name="shvLinkDisabled"></ion-toggle>
+          }}</ion-label>
+        <ion-toggle [(ngModel)]="user.config.preparation.shvLinkDisabled" name="shvLinkDisabled"></ion-toggle>
       </div>
     </ion-item>
     <ion-item>
       <div class="toggle-wrapper-custom">
         <ion-label color="primary" position="stacked">{{ 'account.configuration.dabsLinkDisabled' | translate
-          }}*</ion-label>
-        <ion-toggle [(ngModel)]="user.config?.preparation.dabsLinkDisabled" name="dabsLinkDisabled"></ion-toggle>
+          }}</ion-label>
+        <ion-toggle [(ngModel)]="user.config.preparation.dabsLinkDisabled" name="dabsLinkDisabled"></ion-toggle>
       </div>
     </ion-item>
 
@@ -53,6 +53,14 @@
         </ion-reorder-group>
       </ion-list>
     </div>
+
+    <ion-item>
+      <div class="toggle-wrapper-custom">
+        <ion-label color="primary" position="stacked">{{ 'account.configuration.appointmentEmailNotification' | translate
+          }}</ion-label>
+        <ion-toggle [(ngModel)]="user.config.notifications.email.appointment" name="appointmentEmailNotification"></ion-toggle>
+      </div>
+    </ion-item>
 
     <ion-button expand="block" type="submit">{{ 'buttons.save' | translate }}</ion-button>
   </form>
