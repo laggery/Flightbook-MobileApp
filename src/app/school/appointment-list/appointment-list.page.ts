@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import moment from 'moment';
 import { ActivatedRoute } from '@angular/router';
 import { AlertController, LoadingController, ModalController, NavController, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonButton, IonIcon, IonContent, IonList, IonItem, IonToggle, IonLabel, IonInfiniteScroll, IonInfiniteScrollContent } from '@ionic/angular/standalone';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
@@ -139,6 +140,16 @@ export class AppointmentListPage implements OnInit, OnDestroy {
     }
 
     async subscriptionChange(event: CustomEvent, appointment: Appointment) {
+        // console.log("subscriptionChange");
+        // if (this.isDeadlinePassed(appointment)){
+        //     const alert = await this.alertController.create({
+        //         header: this.translate.instant('message.infotitle'),
+        //         message: this.translate.instant('message.deadlinePassed'),
+        //         buttons: [this.translate.instant('buttons.done')]
+        //     });
+
+        //     alert.present();
+        // }
         if (event.detail.checked) {
             const alert = await this.alertController.create({
                 header: this.translate.instant('message.infotitle'),
@@ -230,11 +241,35 @@ export class AppointmentListPage implements OnInit, OnDestroy {
             });
     }
 
-    isDisabled(appointment: Appointment): boolean {
+    isToggleDisabled(appointment: Appointment): boolean {
+        console.log("isToggleDisabled");
         if (new Date(appointment.scheduling).getTime() < new Date().getTime() || appointment.state == State.CANCELED) {
             return true;
         }
+
+        return this.isDeadlinePassed(appointment);
+    }
+
+    isLineDisabled(appointment: Appointment): boolean {
+        if (new Date(appointment.scheduling).getTime() < new Date().getTime() || appointment.state == State.CANCELED) {
+            return true;
+        }
+
+        const isSubscribed = appointment.subscriptions?.some((subscription: Subscription) => subscription.user.email === this.currentUser.email);
+        if (!isSubscribed && this.isDeadlinePassed(appointment)) {
+            return true;
+        }
         return false;
+    }
+
+    private isDeadlinePassed(appointment: Appointment): boolean {
+        if (!appointment.deadline) {
+            return false;
+        }
+
+        const deadlineWithoutTimezone = moment(moment.utc(appointment.deadline).format('YYYY-MM-DD HH:mm:ss'));
+        const nowWithoutTimezone = moment(moment(new Date()).format('YYYY-MM-DD HH:mm:ss'));
+        return deadlineWithoutTimezone.isBefore(nowWithoutTimezone);
     }
 
     async openFilter() {

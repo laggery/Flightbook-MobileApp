@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController, ModalController,IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonIcon, IonContent, IonItem, IonLabel, IonToggle } from '@ionic/angular/standalone';
+import { AlertController, ModalController, IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonIcon, IonContent, IonItem, IonLabel, IonToggle } from '@ionic/angular/standalone';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { firstValueFrom } from 'rxjs';
 import { User } from 'src/app/account/shared/user.model';
@@ -11,6 +11,7 @@ import { FormsModule } from '@angular/forms';
 import { NgIf, NgFor, DatePipe } from '@angular/common';
 import { addIcons } from "ionicons";
 import { close, peopleOutline } from "ionicons/icons";
+import moment from 'moment';
 
 @Component({
     selector: 'fb-appointment-details',
@@ -162,7 +163,17 @@ export class AppointmentDetailsComponent implements OnInit {
         if (new Date(this.appointment.scheduling).getTime() < new Date().getTime() || this.appointment.state == State.CANCELED) {
             return true;
         }
-        return false;
+        return this.isDeadlinePassed(this.appointment);
+    }
+
+    private isDeadlinePassed(appointment: Appointment): boolean {
+        if (!appointment.deadline) {
+            return false;
+        }
+        
+        const deadlineWithoutTimezone = moment(moment.utc(appointment.deadline).format('YYYY-MM-DD HH:mm:ss'));
+        const nowWithoutTimezone = moment(moment(new Date()).format('YYYY-MM-DD HH:mm:ss'));
+        return deadlineWithoutTimezone.isBefore(nowWithoutTimezone);
     }
 
     close() {

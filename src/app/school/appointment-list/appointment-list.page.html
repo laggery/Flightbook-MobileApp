@@ -18,12 +18,12 @@
     @for (appointment of appointments; track appointment.id) {
       <div class="appointmentRowWrapper">
         <ion-toggle class="subscription"
-          [disabled]="isDisabled(appointment)"
+          [disabled]="isToggleDisabled(appointment)"
           [(ngModel)]="appointment.subscribed"
           color="primary"
           (ionChange)="subscriptionChange($event, appointment)">
         </ion-toggle>
-        <ion-item detail (click)="itemTapped(appointment)" class="appointmentRow" [ngClass]="{'disabled' : isDisabled(appointment)}">
+        <ion-item detail (click)="itemTapped(appointment)" class="appointmentRow" [ngClass]="{'disabled' : isLineDisabled(appointment)}">
           <ion-label class="state">{{ 'appointment.stateValue.' + appointment.state| translate }}</ion-label>
           <ion-label class="scheduling">{{ appointment.scheduling | date:'EE dd.MM.yyyy HH:mm':'UTC':currentLang}}</ion-label>
           <ion-label class="meetingPoint">{{ appointment.meetingPoint || "-" }}</ion-label>

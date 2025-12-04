@@ -218,6 +218,7 @@
         "removeSubscription": "Do you really want to unsubscribe?",
         "removeSubscriptionWaitingList": "Do you really want to unsubscribe? If you sign up again, you will be at the bottom of the waiting list.",
         "watingList": "It's already full. You are on the waiting list.",
+        "deadlinePassed": "The registration / cancellation deadline has passed.",
         "notificationRegistrationFailed": "The app could not register for push notifications. Try closing the app and opening it again.",
         "newVersion": "The new version of the app will be loaded",
         "cancelPymentSubscription": "Are you sure you want to cancel your subscription?",

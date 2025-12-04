@@ -218,6 +218,7 @@
         "removeSubscription": "Möchtest du dich wirklich abmelden?",
         "removeSubscriptionWaitingList": "Möchtest du dich wirklich abmelden? Falls du dich erneut anmeldest, wirst du zuunterst von der Warteliste sein.",
         "watingList": "Es ist bereits ausgebucht. Du stehst auf der Warteliste.",
+        "deadlinePassed": "An / Abmeldefrist ist abgelaufen.",
         "notificationRegistrationFailed": "Die Applikation konnte sich nicht für die Push Notifikationen registrieren. Versuchen sie die Applikation zu schliessen und nochmals zu öffnen.",
         "newVersion": "Die neue Version der App wird geladen",
         "cancelPymentSubscription": "Sind Sie sicher, dass Sie Ihr Abonnement kündigen möchten?",

@@ -8,6 +8,7 @@ export class Appointment {
     id: number;
     type: AppointmentType;
     scheduling: Date;
+    deadline: Date;
     meetingPoint: string;
     maxPeople: number;
     description: string;

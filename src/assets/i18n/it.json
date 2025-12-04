@@ -218,6 +218,7 @@
         "removeSubscription": "Vuoi davvero annullare l'iscrizione?",
         "removeSubscriptionWaitingList": "Vuoi davvero annullare l'iscrizione? Se ci si iscrive nuovamente, si viene inseriti in fondo alla lista d'attesa.",
         "watingList": "È già pieno. Siete in lista d'attesa.",
+        "deadlinePassed": "Il termine d'iscrizione è passato.",
         "notificationRegistrationFailed": "L'app non è riuscita a registrarsi per le notifiche push. Provate a chiudere l'app e a riaprirla.",
         "newVersion": "La nuova versione dell'app verrà caricata",
         "cancelPymentSubscription": "È sicuro di voler annullare l'abbonamento?",
