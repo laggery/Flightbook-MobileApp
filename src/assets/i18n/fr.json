@@ -273,6 +273,7 @@
     },
     "appointment": {
         "dateTime": "Date et heure",
+        "deadline": "Délai d'inscription",
         "meetingPoint": "Point de rencontre",
         "maxPeople": "Max participants",
         "state": "Statut",

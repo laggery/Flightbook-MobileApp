@@ -17,8 +17,23 @@
   </ion-item>
   <ion-item>
     <ion-label color="primary" position="stacked">{{ 'appointment.dateTime' | translate }}</ion-label>
-    <p class="item-value">{{ appointment.scheduling | date:'EE dd.MM.yyyy HH:mm':'UTC':currentLang }}</p>
+    @if(school.timezone) {
+      <p class="item-value">{{ appointment.scheduling | date:'EE dd.MM.yyyy HH:mm':school.timezone:currentLang }}</p>
+    } @else {
+      <p class="item-value">{{ appointment.scheduling | date:'EE dd.MM.yyyy HH:mm':'UTC':currentLang }}</p>
+    }
   </ion-item>
+  @if(appointment.deadline){
+    <ion-item>
+      <ion-label color="primary" position="stacked">{{ 'appointment.deadline' | translate }}</ion-label>
+      @if(school.timezone) {
+        <p class="item-value">{{ appointment.deadline | date:'EE dd.MM.yyyy HH:mm':school.timezone:currentLang }}</p>
+      } @else {
+        <p class="item-value">{{ appointment.deadline | date:'EE dd.MM.yyyy HH:mm':'UTC':currentLang }}</p>
+      }
+    </ion-item>
+  }
+  
   <ion-item *ngIf="appointment.type">
     <ion-label color="primary" position="stacked">{{ 'appointment.type' | translate }}</ion-label>
     <p class="item-value">{{ appointment.type?.name }}</p>

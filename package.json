@@ -1,6 +1,6 @@
 {
   "name": "flightbook",
-  "version": "2.18.0",
+  "version": "2.19.0",
   "author": "Yannick Lagger",
   "homepage": "https://flightbook.ch/",
   "scripts": {
@@ -54,6 +54,7 @@
     "igc-xc-score": "^1.7.0",
     "json-2-csv": "^5.5.7",
     "moment": "^2.30.1",
+    "moment-timezone": "^0.6.0",
     "ng2-charts": "^3.0.0",
     "nxt-flags": "^19.0.4",
     "ol": "9.2.4",
@@ -80,6 +81,7 @@
     "@types/jasmine": "~4.3.1",
     "@types/jasminewd2": "~2.0.10",
     "@types/lodash": "^4.17.14",
+    "@types/moment-timezone": "^0.5.13",
     "@types/node": "^22.10.7",
     "@types/ol": "^6.5.3",
     "@types/pdfmake": "^0.2.11",
