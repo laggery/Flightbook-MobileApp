@@ -45,7 +45,7 @@ import { add, filterOutline, peopleOutline, personOutline, statsChartOutline, ti
     ]
 })
 export class GliderListPage implements OnInit, OnDestroy, AfterViewInit {
-    @ViewChild(IonInfiniteScroll, { static: true }) infiniteScroll: IonInfiniteScroll;
+    @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
     @ViewChild(IonContent) content: IonContent;
     unsubscribe$ = new Subject<void>();
     // Use signals directly from the store

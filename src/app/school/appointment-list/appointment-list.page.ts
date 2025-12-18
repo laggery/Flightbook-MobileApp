@@ -45,7 +45,7 @@ import { School } from '../shared/school.model';
     ]
 })
 export class AppointmentListPage implements OnInit, OnDestroy {
-    @ViewChild(IonInfiniteScroll, { static: true }) infiniteScroll: IonInfiniteScroll;
+    @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
     unsubscribe$ = new Subject<void>();
     appointments = signal<Appointment[]>([]);
     currentUser = signal<User | null>(null);
