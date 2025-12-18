@@ -8,6 +8,7 @@ export class Appointment {
     id: number;
     type: AppointmentType;
     scheduling: Date;
+    deadline: Date;
     meetingPoint: string;
     maxPeople: number;
     description: string;
@@ -23,4 +24,8 @@ export class Appointment {
     // @hack -> only used to render the ion-toggle correctly
     // this property is instatiated after receiving the appointments from the server 
     subscribed: boolean;
+    
+    // Computed properties for UI state
+    toggleDisabled?: boolean;
+    lineDisabled?: boolean;
 }

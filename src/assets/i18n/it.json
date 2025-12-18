@@ -218,6 +218,7 @@
         "removeSubscription": "Vuoi davvero annullare l'iscrizione?",
         "removeSubscriptionWaitingList": "Vuoi davvero annullare l'iscrizione? Se ci si iscrive nuovamente, si viene inseriti in fondo alla lista d'attesa.",
         "watingList": "È già pieno. Siete in lista d'attesa.",
+        "deadlinePassed": "Il termine d'iscrizione è passato.",
         "notificationRegistrationFailed": "L'app non è riuscita a registrarsi per le notifiche push. Provate a chiudere l'app e a riaprirla.",
         "newVersion": "La nuova versione dell'app verrà caricata",
         "cancelPymentSubscription": "È sicuro di voler annullare l'abbonamento?",
@@ -272,6 +273,7 @@
     },
     "appointment": {
         "dateTime": "Data e ora",
+        "deadline": "Termine di iscrizione",
         "meetingPoint": "Ci vediamo a",
         "maxPeople": "Massimo di persone",
         "state": "Stato",
@@ -434,7 +436,7 @@
             },
             "startplatzwahl": {
                 "video": null,
-                "title": "Geledenbeurteilung und Startplatzwahl",
+                "title": "Geländebeurteilung und Startplatzwahl",
                 "content": "<h2>Ziel:</h2> <p>Der Schüler kann ein ihm unbekanntes Gelände auf seine Eignung zum Start beurteilen.</p> <h2>Inhalt:</h2> <p>Der Schüler muss in der Lage sein, Auslegeort und die ideale Anlaufbahn zu ermitteln. Wind (Richtung und Stärke), Hangneigung (zuerst eher flach, dann kontinuierlich steiler ohne Absatz). Bodenform und Beschaffenheit (Gras, Steine, Schnee ...) müssen dabei berücksichtigt werden. Wind und Topographie verhalten sich komplementär bei der Beurteilung eines Startplatzes: d.h. dass ein guter Wind von vorne eine unebene Startstrecke kompensiert und umgekehrt. Der Starthang sollte unbedingt auch mit Blickwinkel von unten beurteilt werden. In jedem Fall müssen Wind und Gelände einen gefahrlosen Startabbruch zulassen.</p> <h2>Fehler:</h2> <ul> <li>Zu oberflächliche und unüberlegte Beurteilung. Insbesondere wird oft vergessen, dass <del>hinter</del> nach der Entscheidungslinie noch genügend hindernisfreier Raum für einen gefahrlosen Abbruch vorhanden sein muss.</li> <li>Oft wird außer Acht gelassen, dass ein Startgelände bei starkem Wind insbesondere hinter dem Piloten eben und frei von Hindernissen sein muss.</li> </ul>",
                 "order": 3
             },

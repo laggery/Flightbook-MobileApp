@@ -7,4 +7,5 @@ export class School {
     city: string;
     phone: string;
     email: string;
+    timezone: string;
 }

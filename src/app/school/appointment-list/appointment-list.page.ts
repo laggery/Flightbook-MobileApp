@@ -1,4 +1,5 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild, signal } from '@angular/core';
+import moment from 'moment-timezone';
 import { ActivatedRoute } from '@angular/router';
 import { AlertController, LoadingController, ModalController, NavController, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonButton, IonIcon, IonContent, IonList, IonItem, IonToggle, IonLabel, IonInfiniteScroll, IonInfiniteScrollContent } from '@ionic/angular/standalone';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
@@ -15,6 +16,7 @@ import { NgIf, NgClass, DatePipe } from '@angular/common';
 import { addIcons } from "ionicons";
 import { filterOutline } from "ionicons/icons";
 import { FormsModule } from '@angular/forms';
+import { School } from '../shared/school.model';
 
 @Component({
     selector: 'app-appointment-list',
@@ -45,8 +47,9 @@ import { FormsModule } from '@angular/forms';
 export class AppointmentListPage implements OnInit, OnDestroy {
     @ViewChild(IonInfiniteScroll, { static: true }) infiniteScroll: IonInfiniteScroll;
     unsubscribe$ = new Subject<void>();
-    appointments: Appointment[];
-    currentUser: User;
+    appointments = signal<Appointment[]>([]);
+    currentUser = signal<User | null>(null);
+    currentSchool = signal<School | null>(null);
     currentLang: string;
     filtered: boolean;
     private readonly schoolId: number;
@@ -76,7 +79,7 @@ export class AppointmentListPage implements OnInit, OnDestroy {
     ngOnInit() {}
 
     ionViewDidEnter() {
-        if (!this.appointments || this.appointments.length === 0) {
+        if (this.appointments().length === 0) {
             this.initialDataLoad();
         }
     }
@@ -93,23 +96,30 @@ export class AppointmentListPage implements OnInit, OnDestroy {
     await loading.present();
 
     try {
-        this.currentUser = await firstValueFrom(this.accountService.currentUser());
-        this.appointments = await firstValueFrom(
+        const schools = await this.schoolService.getSchools();
+        const school = schools.find((s: School) => s.id === this.schoolId);
+        this.currentSchool.set(school);
+        
+        const user = await firstValueFrom(this.accountService.currentUser());
+        this.currentUser.set(user);
+        
+        const rawAppointments = await firstValueFrom(
             this.schoolService.getAppointments({ limit: this.schoolService.defaultLimit }, this.schoolId)
         );
         
-        this.appointments.forEach((appointment: Appointment) => {
-            appointment.subscribed = appointment.subscriptions?.some((subscription: Subscription) =>
-                subscription.user.email === this.currentUser.email
-            );
-        });
+        // Enrich appointments with computed state
+        const enrichedAppointments = rawAppointments.map(appointment => 
+            this.enrichAppointment(appointment)
+        );
+        
+        this.appointments.set(enrichedAppointments);
 
         // Reset infinite scroll state
         if (this.infiniteScroll) {
             this.infiniteScroll.disabled = false;
         }
 
-        const appointmentToOpen = this.appointments.find((appointment: Appointment) => appointment.id == this.appointmentId);
+        const appointmentToOpen = this.appointments().find((appointment: Appointment) => appointment.id == this.appointmentId);
         if (appointmentToOpen) {
             this.appointmentId = undefined;
             this.itemTapped(appointmentToOpen);
@@ -127,8 +137,8 @@ export class AppointmentListPage implements OnInit, OnDestroy {
             component: AppointmentDetailsComponent,
             componentProps: {
                 appointment,
-                currentUser: this.currentUser,
-                schoolId: this.schoolId
+                currentUser: this.currentUser(),
+                school: this.currentSchool()
             }
         });
         modal.present();
@@ -139,6 +149,17 @@ export class AppointmentListPage implements OnInit, OnDestroy {
     }
 
     async subscriptionChange(event: CustomEvent, appointment: Appointment) {
+        if (this.isDeadlinePassed(appointment)){
+            const alert = await this.alertController.create({
+                header: this.translate.instant('message.infotitle'),
+                message: this.translate.instant('message.deadlinePassed'),
+                buttons: [this.translate.instant('buttons.done')]
+            });
+
+            this.initialDataLoad();
+            alert.present();
+            return;
+        }
         if (event.detail.checked) {
             const alert = await this.alertController.create({
                 header: this.translate.instant('message.infotitle'),
@@ -151,7 +172,7 @@ export class AppointmentListPage implements OnInit, OnDestroy {
                             const currentAppointment = await firstValueFrom(this.schoolService.subscribeToAppointment(this.schoolId, appointment.id));
                             await this.initialDataLoad();
 
-                            const subscription = currentAppointment.subscriptions.find((subscription: Subscription) => subscription.user.email === this.currentUser.email);
+                            const subscription = currentAppointment.subscriptions.find((subscription: Subscription) => subscription.user.email === this.currentUser()?.email);
                             if (subscription.waitingList) {
                                 this.informWaitingList();
                             }
@@ -213,7 +234,7 @@ export class AppointmentListPage implements OnInit, OnDestroy {
     loadData(event: any) {
         this.schoolService.getAppointments({
             limit: this.schoolService.defaultLimit,
-            offset: this.appointments.length
+            offset: this.appointments().length
         }, this.schoolId)
             .pipe(takeUntil(this.unsubscribe$))
             .subscribe((res: Appointment[]) => {
@@ -221,20 +242,63 @@ export class AppointmentListPage implements OnInit, OnDestroy {
                 if (res.length < this.schoolService.defaultLimit) {
                     event.target.disabled = true;
                 }
-                res.forEach((appointment: Appointment) => {
-                    appointment.subscribed = appointment.subscriptions?.some((subscription: Subscription) =>
-                        subscription.user.email === this.currentUser.email
-                    );
-                });
-                this.appointments.push(...res);
+                
+                const enrichedNew = res.map(appointment => this.enrichAppointment(appointment));
+                this.appointments.update(current => [...current, ...enrichedNew]);
             });
     }
 
-    isDisabled(appointment: Appointment): boolean {
+    // Helper method to enrich appointment with computed properties
+    private enrichAppointment(appointment: Appointment): Appointment {
+        const user = this.currentUser();
+        appointment.subscribed = appointment.subscriptions?.some((subscription: Subscription) =>
+            subscription.user.email === user?.email
+        ) ?? false;
+        
+        if (this.currentSchool()?.timezone) {
+            appointment.scheduling = new Date(moment.utc(appointment.scheduling).tz(this.currentSchool()?.timezone).format('YYYY-MM-DD HH:mm:ss'));
+            appointment.deadline = new Date(moment.utc(appointment.deadline).tz(this.currentSchool()?.timezone).format('YYYY-MM-DD HH:mm:ss'));
+        }
+
+        appointment.toggleDisabled = this.computeToggleDisabled(appointment);
+        appointment.lineDisabled = this.computeLineDisabled(appointment, appointment.subscribed);
+        
+        return appointment;
+    }
+
+    private computeToggleDisabled(appointment: Appointment): boolean {
         if (new Date(appointment.scheduling).getTime() < new Date().getTime() || appointment.state == State.CANCELED) {
             return true;
         }
+        return this.isDeadlinePassed(appointment);
+    }
+
+    private computeLineDisabled(appointment: Appointment, subscribed: boolean): boolean {
+        if (new Date(appointment.scheduling).getTime() < new Date().getTime() || appointment.state == State.CANCELED) {
+            return true;
+        }
+        
+        if (!subscribed && this.isDeadlinePassed(appointment)) {
+            return true;
+        }
         return false;
+    }
+
+    private isDeadlinePassed(appointment: Appointment): boolean {
+        if (!appointment.deadline) {
+            return false;
+        }
+
+        // @TODO -> Remove after migrate scheduling and deadline date to the correct utc time
+        if (!this.currentSchool().timezone) {
+            const deadlineWithoutTimezone = moment.utc(appointment.deadline).tz('Europe/Zurich', true);
+            const nowWithoutTimezone = moment.tz('Europe/Zurich');
+            return deadlineWithoutTimezone.isBefore(nowWithoutTimezone);
+        }
+        
+        const deadline = moment(appointment.deadline).tz(this.currentSchool().timezone);
+        const now = moment.tz(this.currentSchool().timezone);
+        return deadline.isBefore(now);
     }
 
     async openFilter() {

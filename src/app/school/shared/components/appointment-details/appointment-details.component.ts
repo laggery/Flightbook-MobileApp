@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController, ModalController,IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonIcon, IonContent, IonItem, IonLabel, IonToggle } from '@ionic/angular/standalone';
+import { AlertController, ModalController, IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonIcon, IonContent, IonItem, IonLabel, IonToggle } from '@ionic/angular/standalone';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { firstValueFrom } from 'rxjs';
 import { User } from 'src/app/account/shared/user.model';
@@ -11,6 +11,8 @@ import { FormsModule } from '@angular/forms';
 import { NgIf, NgFor, DatePipe } from '@angular/common';
 import { addIcons } from "ionicons";
 import { close, peopleOutline } from "ionicons/icons";
+import moment from 'moment';
+import { School } from '../../school.model';
 
 @Component({
     selector: 'fb-appointment-details',
@@ -39,7 +41,7 @@ export class AppointmentDetailsComponent implements OnInit {
     appointment: Appointment;
     currentUser: User;
     currentLang: string;
-    schoolId: number;
+    school: School;
     isSubscribed = false;
     subscribed: Subscription[] = [];
     waitingList: Subscription[] = [];
@@ -85,8 +87,8 @@ export class AppointmentDetailsComponent implements OnInit {
                     {
                         text: this.translate.instant('buttons.yes'),
                         handler: async () => {
-                            await firstValueFrom(this.schoolService.subscribeToAppointment(this.schoolId, this.appointment.id));
-                            this.appointment = await firstValueFrom(this.schoolService.getAppointment(this.schoolId, this.appointment.id));
+                            await firstValueFrom(this.schoolService.subscribeToAppointment(this.school.id, this.appointment.id));
+                            this.appointment = await firstValueFrom(this.schoolService.getAppointment(this.school.id, this.appointment.id));
                             this.hasChanges = true;
                             this.ngOnInit();
                             const subscription = this.appointment.subscriptions.find((subscription: Subscription) => subscription.user.email === this.currentUser.email);
@@ -122,8 +124,8 @@ export class AppointmentDetailsComponent implements OnInit {
                     {
                         text: this.translate.instant('buttons.yes'),
                         handler: async () => {
-                            await firstValueFrom(this.schoolService.deleteAppointmentSubscription(this.schoolId, this.appointment.id));
-                            this.appointment = await firstValueFrom(this.schoolService.getAppointment(this.schoolId, this.appointment.id));
+                            await firstValueFrom(this.schoolService.deleteAppointmentSubscription(this.school.id, this.appointment.id));
+                            this.appointment = await firstValueFrom(this.schoolService.getAppointment(this.school.id, this.appointment.id));
                             this.ngOnInit();
                             this.isSubscribed = false;
                             this.hasChanges = true;
@@ -162,7 +164,24 @@ export class AppointmentDetailsComponent implements OnInit {
         if (new Date(this.appointment.scheduling).getTime() < new Date().getTime() || this.appointment.state == State.CANCELED) {
             return true;
         }
-        return false;
+        return this.isDeadlinePassed(this.appointment);
+    }
+
+    private isDeadlinePassed(appointment: Appointment): boolean {
+        if (!appointment.deadline) {
+            return false;
+        }
+        
+        // @TODO -> Remove after migrate scheduling and deadline date to the correct utc time
+        if (!this.school.timezone) {
+            const deadlineWithoutTimezone = moment(moment.utc(appointment.deadline).format('YYYY-MM-DD HH:mm:ss'));
+            const nowWithoutTimezone = moment(moment(new Date()).format('YYYY-MM-DD HH:mm:ss'));
+            return deadlineWithoutTimezone.isBefore(nowWithoutTimezone);
+        }
+        
+        const deadline = moment(appointment.deadline).tz(this.school.timezone);
+        const now = moment().tz(this.school.timezone);
+        return deadline.isBefore(now);
     }
 
     close() {

@@ -218,6 +218,7 @@
         "removeSubscription": "Souhaites-tu vraiment te désinscrire?",
         "removeSubscriptionWaitingList": "Souhaites-tu vraiment te désinscrire? Si tu te réinscris, tu seras en bas de la liste d'attente.",
         "watingList": "C'est déjà complet. Tu es sur la liste d'attente.",
+        "deadlinePassed": "Délai d'inscription est passé.",
         "notificationRegistrationFailed": "L'application n'a pas pu s'enregistrer pour les notifications push. Essayez de fermer l'application et de l'ouvrir à nouveau.",
         "newVersion": "La nouvelle version de l'application sera chargée",
         "cancelPymentSubscription": "Etes-vous sûr de vouloir résilier votre abonnement?",
@@ -272,6 +273,7 @@
     },
     "appointment": {
         "dateTime": "Date et heure",
+        "deadline": "Délai d'inscription",
         "meetingPoint": "Point de rencontre",
         "maxPeople": "Max participants",
         "state": "Statut",
