@@ -3,8 +3,11 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>{{ 'groupname.glider' | translate }} <span
-        *ngIf="filtered()">({{ 'groupname.filtered' | translate }})</span></ion-title>
+    <ion-title>{{ 'groupname.glider' | translate }} 
+      @if (filtered()) {
+        <span>({{ 'groupname.filtered' | translate }})</span>
+      }
+    </ion-title>
     <ion-buttons slot="primary">
       <ion-button class="submit-button" [routerLink]="['/gliders/add']">
         <ion-icon name="add"></ion-icon>
@@ -17,15 +20,17 @@
 </ion-header>
 
 <ion-content class="no-padding">
-  <ion-item class="export-buttons" *ngIf="gliders().length > 0">
-    <ion-grid>
-      <ion-row>
-        <ion-col>
-          <ion-button (click)="xlsxExport()">Xlsx Export</ion-button>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </ion-item>
+  @if (gliders().length > 0) {
+    <ion-item class="export-buttons">
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-button (click)="xlsxExport()">Xlsx Export</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+  }
   <ion-list>
     @for (glider of gliders(); track glider.id) {
       @let timeParts = (glider.time || "0" | hoursFormat)?.split(':');

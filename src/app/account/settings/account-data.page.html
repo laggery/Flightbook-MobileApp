@@ -8,7 +8,8 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <form #form="ngForm" *ngIf="user" (ngSubmit)="saveSettings()">
+  @if (user) {
+    <form #form="ngForm" (ngSubmit)="saveSettings()">
     <ion-item class="error-item">
       <ion-input label="{{ 'account.firstname' | translate }}" labelPlacement="stacked" [(ngModel)]="user.firstname" #firstname="ngModel" required name="firstname" type="text"></ion-input>
       @if (firstname.invalid && (firstname.dirty || firstname.touched)) {
@@ -37,29 +38,46 @@
       <fb-phone-number [(ngModel)]="user.phone" name="phone"></fb-phone-number>
     </ion-item>
     <ion-button expand="block" [disabled]="form.invalid" type="submit">{{ 'buttons.save' | translate }}</ion-button>
-  </form>
+    </form>
+  }
 
   <div class="payment-container">
-    <ion-card *ngIf="paymentStatus" class="validity">
-      <ion-card-content *ngIf="!paymentStatus.active && !isNative">
-        <div [innerHtml]="'payment.noSubscription' | translate"></div>
-      </ion-card-content>
-      <ion-card-content *ngIf="paymentStatus.active && !isNative && paymentStatus.state == 'EXEMPTED'">
-        <div [innerHtml]="'payment.noSubscription' | translate"></div>
-      </ion-card-content>
-      <ion-card-content *ngIf="!paymentStatus.active && isNative">
-        <div [innerHtml]="'payment.nativeNoSubscription' | translate"></div>
-      </ion-card-content>
-      <ion-card-content *ngIf="paymentStatus.active && paymentStatus.state == 'ACTIVE'">
-        {{ 'payment.information' | translate: { date: paymentStatus.expires_date | date:'dd.MM.yyyy HH:mm':'UTC'} }}
-      </ion-card-content>
-      <ion-card-content *ngIf="paymentStatus.active && paymentStatus.state == 'CANCELED'">
-        {{ 'payment.canceled' | translate: { date: paymentStatus.expires_date | date:'dd.MM.yyyy HH:mm':'UTC'} }}
-      </ion-card-content>
-      <ion-button *ngIf="paymentStatus.active && paymentStatus.state == 'ACTIVE'" expand="block" color="danger" (click)="cancelSubscription()">{{ 'buttons.cancelSubscription' | translate }}</ion-button>
-    </ion-card>
+    @if (paymentStatus) {
+      <ion-card class="validity">
+        @if (!paymentStatus.active && !isNative) {
+          <ion-card-content>
+            <div [innerHtml]="'payment.noSubscription' | translate"></div>
+          </ion-card-content>
+        }
+        @if (paymentStatus.active && !isNative && paymentStatus.state == 'EXEMPTED') {
+          <ion-card-content>
+            <div [innerHtml]="'payment.noSubscription' | translate"></div>
+          </ion-card-content>
+        }
+        @if (!paymentStatus.active && isNative) {
+          <ion-card-content>
+            <div [innerHtml]="'payment.nativeNoSubscription' | translate"></div>
+          </ion-card-content>
+        }
+        @if (paymentStatus.active && paymentStatus.state == 'ACTIVE') {
+          <ion-card-content>
+            {{ 'payment.information' | translate: { date: paymentStatus.expires_date | date:'dd.MM.yyyy HH:mm':'UTC'} }}
+          </ion-card-content>
+        }
+        @if (paymentStatus.active && paymentStatus.state == 'CANCELED') {
+          <ion-card-content>
+            {{ 'payment.canceled' | translate: { date: paymentStatus.expires_date | date:'dd.MM.yyyy HH:mm':'UTC'} }}
+          </ion-card-content>
+        }
+        @if (paymentStatus.active && paymentStatus.state == 'ACTIVE') {
+          <ion-button expand="block" color="danger" (click)="cancelSubscription()">{{ 'buttons.cancelSubscription' | translate }}</ion-button>
+        }
+      </ion-card>
+    }
 
-    <ion-button *ngIf="(!paymentStatus?.active && !isNative) || (paymentStatus?.active && !isNative && paymentStatus.state == 'EXEMPTED')" expand="block" (click)="getStripeSession()">{{ 'buttons.subscribe' | translate }}</ion-button>
+    @if ((!paymentStatus?.active && !isNative) || (paymentStatus?.active && !isNative && paymentStatus.state == 'EXEMPTED')) {
+      <ion-button expand="block" (click)="getStripeSession()">{{ 'buttons.subscribe' | translate }}</ion-button>
+    }
   </div>
 
   <div class="language-list">

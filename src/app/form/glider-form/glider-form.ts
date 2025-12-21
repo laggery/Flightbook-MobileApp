@@ -3,7 +3,7 @@ import { AlertController, IonItem, IonInput, IonLabel, IonToggle, IonTextarea, I
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { Glider, GliderCheck } from 'src/app/glider/shared/glider.model';
 import { FormsModule } from '@angular/forms';
-import { NgIf, DatePipe } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { addIcons } from 'ionicons';
 import { add, close, trash } from 'ionicons/icons';
 import { CheckComponent } from './check/check.component';
@@ -12,7 +12,7 @@ import { CheckComponent } from './check/check.component';
     selector: 'glider-form',
     templateUrl: 'glider-form.html',
     styleUrls: ['glider-form.scss'],
-    imports: [FormsModule, NgIf, DatePipe, TranslateModule, IonItem, IonInput, IonLabel, IonToggle, IonTextarea, IonButton, IonModal, IonContent, IonDatetime, IonList, IonItemSliding, IonItemOptions, IonItemOption, IonIcon]
+    imports: [FormsModule, DatePipe, TranslateModule, IonItem, IonInput, IonLabel, IonToggle, IonTextarea, IonButton, IonModal, IonContent, IonDatetime, IonList, IonItemSliding, IonItemOptions, IonItemOption, IonIcon]
 })
 export class GliderFormComponent implements OnInit {
     @Input()

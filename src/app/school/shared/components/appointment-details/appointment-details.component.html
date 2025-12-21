@@ -34,10 +34,13 @@
     </ion-item>
   }
   
-  <ion-item *ngIf="appointment.type">
-    <ion-label color="primary" position="stacked">{{ 'appointment.type' | translate }}</ion-label>
-    <p class="item-value">{{ appointment.type?.name }}</p>
-  </ion-item><ion-item>
+  @if (appointment.type) {
+    <ion-item>
+      <ion-label color="primary" position="stacked">{{ 'appointment.type' | translate }}</ion-label>
+      <p class="item-value">{{ appointment.type?.name }}</p>
+    </ion-item>
+  }
+  <ion-item>
     <ion-label color="primary" position="stacked">{{ 'appointment.meetingPoint' | translate }}</ion-label>
     <p class="item-value">{{ appointment.meetingPoint }}</p>
   </ion-item>
@@ -45,32 +48,46 @@
     <ion-label color="primary" position="stacked">{{ 'appointment.instructor' | translate }}</ion-label>
     <p class="item-value">{{ appointment.instructor?.firstname }} {{ appointment.instructor?.lastname }}</p>
   </ion-item>
-  <ion-item *ngIf="appointment.takeOffCoordinator">
-    <ion-label color="primary" position="stacked">{{ 'appointment.takeOffCoordinator' | translate }}</ion-label>
-    <p class="item-value">{{ appointment.takeOffCoordinator?.firstname }} {{ appointment.takeOffCoordinator?.lastname }}</p>
-  </ion-item>
-  <ion-item *ngIf="!appointment.takeOffCoordinator">
-    <ion-label color="primary" position="stacked">{{ 'appointment.takeOffCoordinator' | translate }}</ion-label>
-    <p class="item-value">{{ appointment.takeOffCoordinatorText }}</p>
-  </ion-item>
+  @if (appointment.takeOffCoordinator) {
+    <ion-item>
+      <ion-label color="primary" position="stacked">{{ 'appointment.takeOffCoordinator' | translate }}</ion-label>
+      <p class="item-value">{{ appointment.takeOffCoordinator?.firstname }} {{ appointment.takeOffCoordinator?.lastname }}</p>
+    </ion-item>
+  } @else {
+    <ion-item>
+      <ion-label color="primary" position="stacked">{{ 'appointment.takeOffCoordinator' | translate }}</ion-label>
+      <p class="item-value">{{ appointment.takeOffCoordinatorText }}</p>
+    </ion-item>
+  }
   <ion-item>
     <ion-label color="primary" position="stacked">{{ 'appointment.description' | translate }}</ion-label>
     <p class="item-value description">{{ appointment.description }}</p>
   </ion-item>
   <ion-item>
-    <ion-label color="primary" position="stacked"><span *ngIf="appointment.maxPeople">{{ appointment.countSubscription }}/{{ appointment.maxPeople }} </span>{{ 'appointment.subscriptions' | translate }}</ion-label>
+    <ion-label color="primary" position="stacked">
+      @if (appointment.maxPeople) {
+        <span>{{ appointment.countSubscription }}/{{ appointment.maxPeople }} </span>
+      }
+      {{ 'appointment.subscriptions' | translate }}
+    </ion-label>
     <p class="item-value subscriptions">
-      <span class="subscription-item" *ngFor="let subscription of subscribed">
-        {{ subscription.user.firstname }} {{ subscription.user.lastname }} <ion-icon *ngIf="subscription?.student?.isTandem" name="people-outline"></ion-icon>
-      </span>
+      @for (subscription of subscribed; track subscription.id) {
+        <span class="subscription-item">
+          {{ subscription.user.firstname }} {{ subscription.user.lastname }} @if (subscription?.student?.isTandem) {<ion-icon name="people-outline"></ion-icon>}
+        </span>
+      }
     </p>
   </ion-item>
-  <ion-item *ngIf="waitingList.length > 0">
-    <ion-label color="primary" position="stacked">{{ 'appointment.waitingList' | translate }}</ion-label>
-    <p class="item-value subscriptions">
-      <span class="subscription-item" *ngFor="let subscription of waitingList">
-        {{ subscription.user.firstname }} {{ subscription.user.lastname }}  <ion-icon *ngIf="subscription?.student?.isTandem" name="people-outline"></ion-icon>
-      </span>
-    </p>
-  </ion-item>
+  @if (waitingList.length > 0) {
+    <ion-item>
+      <ion-label color="primary" position="stacked">{{ 'appointment.waitingList' | translate }}</ion-label>
+      <p class="item-value subscriptions">
+        @for (subscription of waitingList; track subscription.id) {
+          <span class="subscription-item">
+            {{ subscription.user.firstname }} {{ subscription.user.lastname }}  @if (subscription?.student?.isTandem) {<ion-icon name="people-outline"></ion-icon>}
+          </span>
+        }
+      </p>
+    </ion-item>
+  }
 </ion-content>

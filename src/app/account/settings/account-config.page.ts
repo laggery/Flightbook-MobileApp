@@ -5,7 +5,6 @@ import HttpStatusCode from '../../shared/util/HttpStatusCode';
 import { User } from 'src/app/account/shared/user.model';
 import { AccountService } from '../shared/account.service';
 import { Subject, takeUntil } from 'rxjs';
-import { NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import _ from 'lodash';
 import { addIcons } from 'ionicons';
@@ -18,7 +17,6 @@ import { LinkComponent } from '../shared/components/link/link.component';
     templateUrl: './account-config.page.html',
     styleUrls: ['./account-config.page.scss'],
     imports: [IonReorder, IonReorderGroup, IonItemOption, IonItemOptions, IonItemSliding, IonList, IonIcon, IonToggle, IonLabel,
-        NgIf,
         FormsModule,
         TranslateModule,
         IonHeader,

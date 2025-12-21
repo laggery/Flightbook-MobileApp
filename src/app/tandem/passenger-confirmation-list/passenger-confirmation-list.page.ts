@@ -1,4 +1,4 @@
-import { DatePipe, NgIf } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ModalController, LoadingController, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonButton, IonIcon, IonContent, IonItem, IonList, IonInfiniteScroll, IonInfiniteScrollContent, IonLabel, AlertController, IonGrid, IonRow, IonCol } from '@ionic/angular/standalone';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
@@ -19,7 +19,6 @@ import { FileOpener } from '@capacitor-community/file-opener';
   templateUrl: './passenger-confirmation-list.page.html',
   styleUrls: ['./passenger-confirmation-list.page.scss'],
   imports: [
-    NgIf,
     TranslateModule,
     DatePipe,
     IonHeader,

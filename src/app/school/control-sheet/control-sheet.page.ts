@@ -6,7 +6,7 @@ import { LoadingController, ModalController, IonHeader, IonToolbar, IonButtons, 
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { ControlSheetDetailsComponent } from '../shared/components/control-sheet-details/control-sheet-details.component';
 import { NxgTransalteSortPipe } from 'src/app/shared/pipes/nxg-transalte-sort.pipe';
-import { DatePipe, NgIf } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { StarRatingComponent } from '../../shared/components/star-rating/star-rating.component';
 
 type StarRating = {
@@ -23,8 +23,7 @@ type StarRating = {
     imports: [
         DatePipe,
         IonDatetime, 
-        IonInput, 
-        NgIf,
+        IonInput,
         StarRatingComponent,
         TranslateModule,
         IonHeader,

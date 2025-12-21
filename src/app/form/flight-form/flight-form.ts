@@ -6,7 +6,7 @@ import { NgForm, FormsModule } from '@angular/forms';
 import { Place } from 'src/app/place/shared/place.model';
 import { Flight } from 'src/app/flight/shared/flight.model';
 import { Glider } from 'src/app/glider/shared/glider.model';
-import { NgIf, DatePipe } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { GliderSelectComponent } from '../../shared/components/glider-select/glider-select.component';
 import { AutocompleteComponent } from '../autocomplete/autocomplete.component';
 import { IgcMapComponent } from '../../shared/components/igc-map/igc-map.component';
@@ -17,7 +17,6 @@ import { School } from 'src/app/school/shared/school.model';
     templateUrl: 'flight-form.html',
     styleUrls: ['./flight-form.scss'],
     imports: [
-        NgIf,
         FormsModule,
         GliderSelectComponent,
         AutocompleteComponent,

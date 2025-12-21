@@ -9,7 +9,6 @@ import { GliderStore } from 'src/app/glider/shared/glider.store';
 import { PlaceStore } from 'src/app/place/shared/place.store';
 import { ImportService } from '../shared/import.service';
 import { ImportType } from '../shared/import-type.model';
-import { NgIf } from '@angular/common';
 import { addIcons } from "ionicons";
 import { document } from "ionicons/icons";
 
@@ -18,7 +17,6 @@ import { document } from "ionicons/icons";
     templateUrl: './data.page.html',
     styleUrls: ['./data.page.scss'],
     imports: [
-        NgIf,
         TranslateModule,
         IonHeader,
         IonToolbar,

@@ -10,7 +10,7 @@ import { FileOpener } from '@capacitor-community/file-opener';
 import { XlsxExportService } from 'src/app/shared/services/xlsx-export.service';
 import { Glider } from '../shared/glider.model';
 import { GliderStore } from '../shared/glider.store';
-import { DatePipe, NgIf } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { HoursFormatPipe } from '../../shared/pipes/hours-format.pipe';
 import { addIcons } from "ionicons";
@@ -21,7 +21,6 @@ import { add, filterOutline, peopleOutline, personOutline, statsChartOutline, ti
     templateUrl: './glider-list.page.html',
     styleUrls: ['./glider-list.page.scss'],
     imports: [
-        NgIf,
         RouterLink,
         TranslateModule,
         HoursFormatPipe,

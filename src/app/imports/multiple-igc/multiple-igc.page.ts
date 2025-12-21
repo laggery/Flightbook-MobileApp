@@ -11,7 +11,7 @@ import { IgcService } from 'src/app/shared/services/igc.service';
 import { FlightStore } from 'src/app/flight/shared/flight.store';
 import { Flight } from 'src/app/flight/shared/flight.model';
 import { FileInputComponent } from '../../shared/components/file-input/file-input.component';
-import { NgIf, NgFor, DatePipe } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { GliderSelectComponent } from '../../shared/components/glider-select/glider-select.component';
 import { addIcons } from "ionicons";
 import { trashOutline, cloudDoneOutline, alert } from "ionicons/icons";
@@ -22,8 +22,6 @@ import { trashOutline, cloudDoneOutline, alert } from "ionicons/icons";
     styleUrls: ['./multiple-igc.page.scss'],
     imports: [
         FileInputComponent,
-        NgIf,
-        NgFor,
         GliderSelectComponent,
         DatePipe,
         TranslateModule,

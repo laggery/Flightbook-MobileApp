@@ -4,7 +4,6 @@ import { AlertController, IonButton, IonIcon } from '@ionic/angular/standalone';
 import { TranslateService } from '@ngx-translate/core';
 import { v4 as uuidv4 } from 'uuid';
 import { FilePicker, PickedFile } from '@capawesome/capacitor-file-picker';
-import { NgIf } from '@angular/common';
 import { addIcons } from "ionicons";
 import { document } from "ionicons/icons";
 
@@ -12,7 +11,7 @@ import { document } from "ionicons/icons";
     selector: 'fb-file-input',
     templateUrl: 'file-input.component.html',
     styleUrls: ['file-input.component.scss'],
-    imports: [NgIf, IonButton, IonIcon]
+    imports: [IonButton, IonIcon]
 })
 export class FileInputComponent implements OnInit {
 
