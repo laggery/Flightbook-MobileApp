@@ -3,8 +3,11 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>{{ 'buttons.pasengerConfirmations' | translate }} <span
-      *ngIf="filtered">({{ 'groupname.filtered' | translate }})</span></ion-title>
+    <ion-title>{{ 'buttons.pasengerConfirmations' | translate }} 
+      @if (filtered) {
+        <span>({{ 'groupname.filtered' | translate }})</span>
+      }
+    </ion-title>
     <ion-buttons slot="primary">
       <ion-button class="submit-button" (click)="openAddPassengerConfirmation()">
         <ion-icon name="add"></ion-icon>
@@ -18,15 +21,17 @@
 
 <ion-content class="no-padding">
   <ion-list>
-    <ion-item class="export-buttons" *ngIf="passengerConfirmations?.length > 0">
-      <ion-grid>
-        <ion-row>
-          <ion-col>
-            <ion-button (click)="xlsxExport()">Xlsx Export</ion-button>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-item>
+    @if (passengerConfirmations?.length > 0) {
+      <ion-item class="export-buttons">
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-button (click)="xlsxExport()">Xlsx Export</ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+    }
 
     @for (passengerConfirmation of passengerConfirmations; track passengerConfirmation.id) {
       <ion-item button detail (click)="itemTapped($event, passengerConfirmation)">

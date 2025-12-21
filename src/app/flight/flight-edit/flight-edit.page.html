@@ -8,7 +8,9 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <fb-file-input *ngIf="flight && !flight.igc" (onFilesSelectEvent)="onFilesSelectEvent($event)"></fb-file-input>
+  @if (flight && !flight.igc) {
+    <fb-file-input (onFilesSelectEvent)="onFilesSelectEvent($event)"></fb-file-input>
+  }
   <flight-form [flight]=flight [gliders]=gliders [schools]=schools [igcFile]=igcFile (saveFlight)="saveFlight($event)"></flight-form>
   <ion-button class="copy" expand="block" (click)="copy()" >{{ 'buttons.copy' | translate }}</ion-button>
   @if (flight.validation?.state !== FlightValidationState.VALIDATED) {

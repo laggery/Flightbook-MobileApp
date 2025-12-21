@@ -1,7 +1,6 @@
 import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ModalController, IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonIcon, IonContent } from '@ionic/angular/standalone';
-import { NgIf } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { addIcons } from "ionicons";
 import { close } from "ionicons/icons";
@@ -12,7 +11,6 @@ import { close } from "ionicons/icons";
     styleUrls: ['./control-sheet-details.component.scss'],
     encapsulation: ViewEncapsulation.None,
     imports: [
-        NgIf,
         TranslateModule,
         IonHeader,
         IonToolbar,

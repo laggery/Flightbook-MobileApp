@@ -13,7 +13,7 @@ import { PaymentStatus } from '../shared/paymentStatus.model';
 import { Capacitor } from '@capacitor/core';
 import { ActivatedRoute } from '@angular/router';
 import moment from 'moment';
-import { NgIf, DatePipe } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { PhoneNumberComponent } from 'src/app/shared/components/phone-number/phone-number.component';
 import _ from 'lodash';
@@ -23,7 +23,6 @@ import _ from 'lodash';
     templateUrl: './account-data.page.html',
     styleUrls: ['./account-data.page.scss'],
     imports: [
-        NgIf,
         FormsModule,
         DatePipe,
         TranslateModule,

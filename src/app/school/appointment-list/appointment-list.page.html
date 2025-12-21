@@ -3,8 +3,11 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>{{ 'appointment.appointments' | translate }} <span
-      *ngIf="filtered">({{ 'groupname.filtered' | translate }})</span></ion-title>
+    <ion-title>{{ 'appointment.appointments' | translate }} 
+      @if (filtered) {
+        <span>({{ 'groupname.filtered' | translate }})</span>
+      }
+    </ion-title>
     <ion-buttons slot="primary">
       <ion-button (click)="openFilter()">
         <ion-icon name="filter-outline"></ion-icon>
@@ -31,8 +34,11 @@
             <ion-label class="scheduling">{{ appointment.scheduling | date:'EE dd.MM.yyyy HH:mm':'UTC':currentLang}}</ion-label>
           }
           <ion-label class="meetingPoint">{{ appointment.meetingPoint || "-" }}</ion-label>
-          <ion-label *ngIf="appointment.instructor" class="instructor">{{ appointment.instructor.firstname }} {{ appointment.instructor.lastname }}</ion-label>
-          <ion-label *ngIf="!appointment.instructor" class="instructor">-</ion-label>
+          @if (appointment.instructor) {
+            <ion-label class="instructor">{{ appointment.instructor.firstname }} {{ appointment.instructor.lastname }}</ion-label>
+          } @else {
+            <ion-label class="instructor">-</ion-label>
+          }
           <ion-icon item-end></ion-icon>
         </ion-item>
       </div>

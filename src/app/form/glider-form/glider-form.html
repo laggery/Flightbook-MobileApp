@@ -12,10 +12,12 @@
     <ion-label color="primary" position="stacked">{{ 'glider.tandem' | translate }}</ion-label>
     <ion-toggle [(ngModel)]="glider.tandem" name="tandem"></ion-toggle>
   </ion-item>
-  <ion-item *ngIf="displayArchived">
-    <ion-label color="primary" position="stacked">{{ 'glider.archive' | translate }}</ion-label>
-    <ion-toggle [(ngModel)]="glider.archived" name="archived"></ion-toggle>
-  </ion-item>
+  @if (displayArchived) {
+    <ion-item>
+      <ion-label color="primary" position="stacked">{{ 'glider.archive' | translate }}</ion-label>
+      <ion-toggle [(ngModel)]="glider.archived" name="archived"></ion-toggle>
+    </ion-item>
+  }
   <ion-item>
     <ion-textarea label="{{ 'glider.note' | translate }}" labelPlacement="stacked" [(ngModel)]="glider.note" name="note" autocomplete="on" autocorrect="on" auto-grow="true"></ion-textarea>
   </ion-item>

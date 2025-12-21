@@ -8,7 +8,7 @@ import { Subscription } from 'src/app/school/shared/subscription.model';
 import { SchoolService } from '../../school.service';
 import { State } from '../../state';
 import { FormsModule } from '@angular/forms';
-import { NgIf, NgFor, DatePipe } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { addIcons } from "ionicons";
 import { close, peopleOutline } from "ionicons/icons";
 import moment from 'moment';
@@ -20,8 +20,6 @@ import { School } from '../../school.model';
     styleUrls: ['./appointment-details.component.scss'],
     imports: [
         FormsModule,
-        NgIf,
-        NgFor,
         DatePipe,
         TranslateModule,
         IonHeader,

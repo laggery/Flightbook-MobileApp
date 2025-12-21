@@ -45,7 +45,7 @@ import { add, locationOutline } from "ionicons/icons";
     ]
 })
 export class PlaceListPage implements OnInit, OnDestroy, AfterViewInit {
-    @ViewChild(IonInfiniteScroll, { static: true }) infiniteScroll: IonInfiniteScroll;
+    @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
     @ViewChild(IonContent) content: IonContent;
 
     unsubscribe$ = new Subject<void>();

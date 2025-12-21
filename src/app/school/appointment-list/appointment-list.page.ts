@@ -12,7 +12,7 @@ import { Subscription } from '../shared/subscription.model';
 import { AppointmentDetailsComponent } from '../shared/components/appointment-details/appointment-details.component';
 import { AppointmentFilterComponent } from '../shared/components/appointment-filter/appointment-filter.component';
 import { State } from '../shared/state';
-import { NgIf, NgClass, DatePipe } from '@angular/common';
+import { NgClass, DatePipe } from '@angular/common';
 import { addIcons } from "ionicons";
 import { filterOutline } from "ionicons/icons";
 import { FormsModule } from '@angular/forms';
@@ -23,7 +23,6 @@ import { School } from '../shared/school.model';
     templateUrl: './appointment-list.page.html',
     styleUrls: ['./appointment-list.page.scss'],
     imports: [
-        NgIf,
         NgClass,
         DatePipe,
         TranslateModule,
@@ -45,7 +44,7 @@ import { School } from '../shared/school.model';
     ]
 })
 export class AppointmentListPage implements OnInit, OnDestroy {
-    @ViewChild(IonInfiniteScroll, { static: true }) infiniteScroll: IonInfiniteScroll;
+    @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
     unsubscribe$ = new Subject<void>();
     appointments = signal<Appointment[]>([]);
     currentUser = signal<User | null>(null);

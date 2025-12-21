@@ -13,7 +13,6 @@ import { getVectorContext } from 'ol/render';
 import IGCParser from 'igc-parser';
 import { ConfigurationService } from '../../services/configuration.service';
 import { firstValueFrom } from 'rxjs';
-import { NgIf } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { IonRange, IonCard } from "@ionic/angular/standalone";
 
@@ -22,7 +21,6 @@ import { IonRange, IonCard } from "@ionic/angular/standalone";
     templateUrl: './igc-map.component.html',
     styleUrls: ['./igc-map.component.scss'],
     imports: [
-        NgIf,
         TranslateModule,
         IonRange,
         IonCard

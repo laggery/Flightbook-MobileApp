@@ -14,7 +14,6 @@ import { FlightStore } from '../shared/flight.store';
 import { GliderStore } from 'src/app/glider/shared/glider.store';
 import { IgcService } from 'src/app/shared/services/igc.service';
 import moment from 'moment';
-import { NgIf } from '@angular/common';
 import { FileInputComponent } from '../../shared/components/file-input/file-input.component';
 import { FlightFormComponent } from '../../form/flight-form/flight-form';
 import { School } from 'src/app/school/shared/school.model';
@@ -27,7 +26,6 @@ import { Place } from 'src/app/place/shared/place.model';
     templateUrl: './flight-edit.page.html',
     styleUrls: ['./flight-edit.page.scss'],
     imports: [
-        NgIf,
         FileInputComponent,
         FlightFormComponent,
         TranslateModule,

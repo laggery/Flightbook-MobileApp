@@ -15,11 +15,16 @@
       </ion-item>
       <ion-list slot="content">
         @for (item of orderedTheory; track item) {
-          <ion-item *ngIf="item.key != 'id'">
-            <ion-button *ngIf="controlSheet.userCanEdit" class="star-button" fill="clear" (click)="openRateAlert($event, item.value, 'controlSheet.theory.' + item.key, 'theory', item.key)"><fb-star-rating [edit]="false" [selectedRating]="item.value"></fb-star-rating></ion-button>
-            <fb-star-rating *ngIf="!controlSheet.userCanEdit" [edit]="false" [selectedRating]="item.value"></fb-star-rating>
-            <span class="definition">{{ ('controlSheet.theory.' + item.key) | translate }}</span>
-          </ion-item>
+          @if (item.key != 'id') {
+            <ion-item>
+              @if (controlSheet.userCanEdit) {
+                <ion-button class="star-button" fill="clear" (click)="openRateAlert($event, item.value, 'controlSheet.theory.' + item.key, 'theory', item.key)"><fb-star-rating [edit]="false" [selectedRating]="item.value"></fb-star-rating></ion-button>
+              } @else {
+                <fb-star-rating [edit]="false" [selectedRating]="item.value"></fb-star-rating>
+              }
+              <span class="definition">{{ ('controlSheet.theory.' + item.key) | translate }}</span>
+            </ion-item>
+          }
         }
       </ion-list>
     </ion-accordion>
@@ -29,11 +34,16 @@
       </ion-item>
       <ion-list slot="content">
         @for (item of orderedTrainingHill; track item) {
-          <ion-item button *ngIf="item.key != 'id'" (click)="openDetail('trainingHill',item.key)">
-            <ion-button *ngIf="controlSheet.userCanEdit" class="star-button" fill="clear" (click)="openRateAlert($event, item.value, 'controlSheet.trainingHill.' + item.key + '.title', 'trainingHill', item.key)"><fb-star-rating [edit]="false" [selectedRating]="item.value"></fb-star-rating></ion-button>
-            <fb-star-rating *ngIf="!controlSheet.userCanEdit" [edit]="false" [selectedRating]="item.value"></fb-star-rating>
-            <span class="definition">{{ ('controlSheet.trainingHill.' + item.key + '.title') | translate }}</span>
-          </ion-item>
+          @if (item.key != 'id') {
+            <ion-item button (click)="openDetail('trainingHill',item.key)">
+              @if (controlSheet.userCanEdit) {
+                <ion-button class="star-button" fill="clear" (click)="openRateAlert($event, item.value, 'controlSheet.trainingHill.' + item.key + '.title', 'trainingHill', item.key)"><fb-star-rating [edit]="false" [selectedRating]="item.value"></fb-star-rating></ion-button>
+              } @else {
+                <fb-star-rating [edit]="false" [selectedRating]="item.value"></fb-star-rating>
+              }
+              <span class="definition">{{ ('controlSheet.trainingHill.' + item.key + '.title') | translate }}</span>
+            </ion-item>
+          }
         }
       </ion-list>
     </ion-accordion>
@@ -43,11 +53,16 @@
       </ion-item>
       <ion-list slot="content">
         @for (item of orderedAltitudeFlight; track item) {
-          <ion-item button *ngIf="item.key != 'id'" (click)="openDetail('altitudeFlight',item.key)">
-            <ion-button *ngIf="controlSheet.userCanEdit" class="star-button" fill="clear" (click)="openRateAlert($event, item.value, 'controlSheet.altitudeFlight.' + item.key + '.title', 'altitudeFlight', item.key)"><fb-star-rating [edit]="false" [selectedRating]="item.value" ></fb-star-rating></ion-button>
-            <fb-star-rating *ngIf="!controlSheet.userCanEdit" [edit]="false" [selectedRating]="item.value"></fb-star-rating>
-            <span class="definition">{{ ('controlSheet.altitudeFlight.' + item.key + '.title') | translate }}</span>
-          </ion-item>
+          @if (item.key != 'id') {
+            <ion-item button (click)="openDetail('altitudeFlight',item.key)">
+              @if (controlSheet.userCanEdit) {
+                <ion-button class="star-button" fill="clear" (click)="openRateAlert($event, item.value, 'controlSheet.altitudeFlight.' + item.key + '.title', 'altitudeFlight', item.key)"><fb-star-rating [edit]="false" [selectedRating]="item.value" ></fb-star-rating></ion-button>
+              } @else {
+                <fb-star-rating [edit]="false" [selectedRating]="item.value"></fb-star-rating>
+              }
+              <span class="definition">{{ ('controlSheet.altitudeFlight.' + item.key + '.title') | translate }}</span>
+            </ion-item>
+          }
         }
       </ion-list>
     </ion-accordion>

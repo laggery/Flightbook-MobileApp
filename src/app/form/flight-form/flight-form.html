@@ -1,7 +1,10 @@
-<form #form="ngForm" (ngSubmit)="submitForm(form)" *ngIf="flight">
-  <ion-item *ngIf="gliders.length > 0">
-    <fb-glider-select label="{{ 'flight.glider' | translate }} *" labelPlacement="stacked" style="width: 100%;" [flight]=flight [gliders]=gliders></fb-glider-select>
-  </ion-item>
+@if (flight) {
+  <form #form="ngForm" (ngSubmit)="submitForm(form)">
+    @if (gliders.length > 0) {
+      <ion-item>
+        <fb-glider-select label="{{ 'flight.glider' | translate }} *" labelPlacement="stacked" style="width: 100%;" [flight]=flight [gliders]=gliders></fb-glider-select>
+      </ion-item>
+    }
   <ion-item id="flightDateInput">
     <ion-input label="{{ 'flight.date' | translate }} *" labelPlacement="stacked" value="{{ flight.date | date:'dd.MM.yyyy' }}" ></ion-input>
   </ion-item>
@@ -23,9 +26,11 @@
       </ng-template>
     </ion-popover> -->
   </ion-item>
-  <ion-item *ngIf="flight.glider?.tandem">
-    <ion-input label="{{ 'flight.price' | translate }}" labelPlacement="stacked" [(ngModel)]="flight.price" type="number" name="price"></ion-input>
-  </ion-item>
+  @if (flight.glider?.tandem) {
+    <ion-item>
+      <ion-input label="{{ 'flight.price' | translate }}" labelPlacement="stacked" [(ngModel)]="flight.price" type="number" name="price"></ion-input>
+    </ion-item>
+  }
   <ion-item>
     <ion-input label="{{ 'flight.km' | translate }}" labelPlacement="stacked" [(ngModel)]="flight.km" type="number" name="km"></ion-input>
   </ion-item>
@@ -40,7 +45,9 @@
     <ion-textarea label="{{ 'flight.description' | translate }}" labelPlacement="stacked" [(ngModel)]="flight.description" name="description" autocomplete="on" autocorrect="on" auto-grow="true"></ion-textarea>
   </ion-item>
 
-  <fb-igc-map *ngIf="igcFile" [igcFile]="igcFile"></fb-igc-map>
+  @if (igcFile) {
+    <fb-igc-map [igcFile]="igcFile"></fb-igc-map>
+  }
 
   @if (flight.validation?.state) {
     <ion-item class="validation">
@@ -72,8 +79,9 @@
     </ion-item>
   }
 
-  <ion-button expand="block" type="submit">{{ 'buttons.save' | translate }}</ion-button>
-</form>
+    <ion-button expand="block" type="submit">{{ 'buttons.save' | translate }}</ion-button>
+  </form>
+}
 
 <ion-modal class="dateModal" trigger='flightDateInput'>
   <ng-template>

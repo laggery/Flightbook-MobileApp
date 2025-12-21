@@ -7,8 +7,10 @@
     </ion-toolbar>
 </ion-header>
 <ion-content class="ion-padding">
-    <div class="video-container" *ngIf="(('controlSheet.' + type + '.' + key + '.video') | translate) != 'controlSheet.' + type + '.' + key + '.video'" >
-        <iframe [src]="getSafeUrl(('controlSheet.' + type + '.' + key + '.video') | translate)" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-    </div>
+    @if ((('controlSheet.' + type + '.' + key + '.video') | translate) != 'controlSheet.' + type + '.' + key + '.video') {
+        <div class="video-container">
+            <iframe [src]="getSafeUrl(('controlSheet.' + type + '.' + key + '.video') | translate)" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+    }
     <div class="content" [innerHTML]="('controlSheet.' + type + '.' + key + '.content') | translate"></div>
 </ion-content>

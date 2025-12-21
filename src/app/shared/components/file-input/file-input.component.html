@@ -1,29 +1,31 @@
 <div>
     <div class="menu-item-wrap">
-        <label *ngIf="isIos" class="custom-file-upload">
-            <ion-button *ngIf="multiple; else notMultiple" color="primary" class="upload-btn" (click)="onIosFilesSelect()">
-                <ion-icon name="document"></ion-icon> IGC
-            </ion-button>
-
-            <ng-template #notMultiple>
-                <ion-button color="primary" class="upload-btn" (click)="onIosFilesSelect()">
-                    <ion-icon name="document"></ion-icon> IGC
-                </ion-button>
-            </ng-template>
-        </label>
-
-        <label *ngIf="!isIos" class="custom-file-upload">
-            <ion-button *ngIf="multiple; else notMultiple" color="primary" class="upload-btn" (click)="fileUpload.click()">
-                <input multiple type="file" name="file" (change)="onFilesSelect($event)" #fileUpload />
-                <ion-icon name="document"></ion-icon> IGC
-            </ion-button>
-
-            <ng-template #notMultiple>
-                <ion-button color="primary" class="upload-btn" (click)="fileUpload.click()">
-                    <input type="file" name="file" (change)="onFilesSelect($event)" #fileUpload />
-                    <ion-icon name="document"></ion-icon> IGC
-                </ion-button>
-            </ng-template>
-        </label>
+        @if (isIos) {
+            <label class="custom-file-upload">
+                @if (multiple) {
+                    <ion-button color="primary" class="upload-btn" (click)="onIosFilesSelect()">
+                        <ion-icon name="document"></ion-icon> IGC
+                    </ion-button>
+                } @else {
+                    <ion-button color="primary" class="upload-btn" (click)="onIosFilesSelect()">
+                        <ion-icon name="document"></ion-icon> IGC
+                    </ion-button>
+                }
+            </label>
+        } @else {
+            <label class="custom-file-upload">
+                @if (multiple) {
+                    <ion-button color="primary" class="upload-btn" (click)="fileUpload.click()">
+                        <input multiple type="file" name="file" (change)="onFilesSelect($event)" #fileUpload />
+                        <ion-icon name="document"></ion-icon> IGC
+                    </ion-button>
+                } @else {
+                    <ion-button color="primary" class="upload-btn" (click)="fileUpload.click()">
+                        <input type="file" name="file" (change)="onFilesSelect($event)" #fileUpload />
+                        <ion-icon name="document"></ion-icon> IGC
+                    </ion-button>
+                }
+            </label>
+        }
     </div>
 </div>
