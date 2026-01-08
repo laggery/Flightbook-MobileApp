@@ -6,6 +6,7 @@ export class FlightFilter {
     to: Date;
     gliderType: string;
     description: string;
+    validationState: string;
 
     constructor() {
         this.glider = new Glider();
@@ -13,5 +14,6 @@ export class FlightFilter {
         this.from = null;
         this.to = null;
         this.description = "";
+        this.validationState = "";
     }
 }

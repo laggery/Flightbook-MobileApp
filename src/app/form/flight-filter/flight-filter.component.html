@@ -31,6 +31,14 @@
     <ion-item>
       <ion-input label="{{ 'flight.description' | translate }}" labelPlacement="stacked" type="text" [(ngModel)]="filter.description" name="description"></ion-input>
     </ion-item>
+    <ion-item>
+      <ion-select label="{{ 'flight.validationState.name' | translate }}" labelPlacement="stacked" [(ngModel)]="filter.validationState" name="validationState" okText="{{ 'buttons.done' | translate }}"
+        cancelText="{{ 'buttons.cancel' | translate }}">
+        <ion-select-option value="">{{ 'flight.validationState.all' | translate }}</ion-select-option>
+        <ion-select-option value="VALIDATED">{{ 'flight.validationState.VALIDATED' | translate }}</ion-select-option>
+        <ion-select-option value="REJECTED">{{ 'flight.validationState.REJECTED' | translate }}</ion-select-option>
+      </ion-select>
+    </ion-item>
     <ion-button type="button" (click)="clearFilter()">{{ 'buttons.clear' | translate }}</ion-button>
     <ion-button type="submit">{{ 'buttons.filter' | translate }}</ion-button>
   </form>

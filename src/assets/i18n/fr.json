@@ -124,6 +124,7 @@
             "timestamp": "Date",
             "school": "Ecole",
             "instructor": "Instructeur",
+            "all": "Tous",
             "VALIDATED": "Validé",
             "REJECTED": "Refusé"
         }

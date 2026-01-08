@@ -240,7 +240,8 @@ export class FlightStore {
       (currentFilter.from && currentFilter.from !== null) ||
       (currentFilter.to && currentFilter.to !== null) ||
       (currentFilter.gliderType && currentFilter.gliderType !== '') ||
-      (currentFilter.description && currentFilter.description !== '')
+      (currentFilter.description && currentFilter.description !== '') ||
+      (currentFilter.validationState && currentFilter.validationState !== '')
     );
   }
   
@@ -262,6 +263,9 @@ export class FlightStore {
     }
     if (currentFilter.description && currentFilter.description !== "") {
       params = params.append('description', currentFilter.description);
+    }
+    if (currentFilter.validationState) {
+      params = params.append('validation-state', currentFilter.validationState);
     }
     
     return params;
