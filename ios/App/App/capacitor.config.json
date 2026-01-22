@@ -18,6 +18,7 @@
 	},
 	"packageClassList": [
 		"FileOpenerPlugin",
+		"NativeMarket",
 		"AppPlugin",
 		"CAPBrowserPlugin",
 		"FilesystemPlugin",

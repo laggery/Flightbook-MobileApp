@@ -7,6 +7,8 @@ PODS:
     - Capacitor
   - CapacitorCommunityFileOpener (7.0.1):
     - Capacitor
+  - CapacitorCommunityNativeMarket (7.0.1):
+    - Capacitor
   - CapacitorCordova (7.2.0)
   - CapacitorFilesystem (7.0.1):
     - Capacitor
@@ -80,6 +82,7 @@ DEPENDENCIES:
   - "CapacitorApp (from `../../node_modules/@capacitor/app`)"
   - "CapacitorBrowser (from `../../node_modules/@capacitor/browser`)"
   - "CapacitorCommunityFileOpener (from `../../node_modules/@capacitor-community/file-opener`)"
+  - "CapacitorCommunityNativeMarket (from `../../node_modules/@capacitor-community/native-market`)"
   - "CapacitorCordova (from `../../node_modules/@capacitor/ios`)"
   - "CapacitorFilesystem (from `../../node_modules/@capacitor/filesystem`)"
   - "CapacitorHaptics (from `../../node_modules/@capacitor/haptics`)"
@@ -111,6 +114,8 @@ EXTERNAL SOURCES:
     :path: "../../node_modules/@capacitor/browser"
   CapacitorCommunityFileOpener:
     :path: "../../node_modules/@capacitor-community/file-opener"
+  CapacitorCommunityNativeMarket:
+    :path: "../../node_modules/@capacitor-community/native-market"
   CapacitorCordova:
     :path: "../../node_modules/@capacitor/ios"
   CapacitorFilesystem:
@@ -133,6 +138,7 @@ SPEC CHECKSUMS:
   CapacitorApp: d63334c052278caf5d81585d80b21905c6f93f39
   CapacitorBrowser: 081852cf532acf77b9d2953f3a88fe5b9711fb06
   CapacitorCommunityFileOpener: 9611c9d1595de7b50571717d443bb718a304b5eb
+  CapacitorCommunityNativeMarket: 22e237b06b17728cec2ee969121d58e763b36d82
   CapacitorCordova: 5967b9ba03915ef1d585469d6e31f31dc49be96f
   CapacitorFilesystem: 307f97c27a265edf8396a1c9c235592fd8572fe3
   CapacitorHaptics: 70e47470fa1a6bd6338cd102552e3846b7f9a1b3
@@ -151,6 +157,6 @@ SPEC CHECKSUMS:
   nanopb: b552cce312b6c8484180ef47159bc0f65a1f0431
   PromisesObjC: ab77feca74fa2823e7af4249b8326368e61014cb
 
-PODFILE CHECKSUM: 829f0bd2986b5cf88ad00d66ea94bd19e98bae6a
+PODFILE CHECKSUM: d80a76b1e91c6b54e36f37b224e72677f43f6dc3
 
 COCOAPODS: 1.15.2

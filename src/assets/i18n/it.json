@@ -617,6 +617,12 @@
         "welcome": "<p>Benvenuto su Flightbook!</p><p>Stai utilizzando attualmente Flightbook Free e puoi registrare fino a 25 voli.</p><p>Visita flightbook.ch per maggiori informazioni.</p>"
     },
     "version": "Version",
+    "update": {
+        "title": "Aggiornamento disponibile",
+        "updateNow": "Aggiorna ora",
+        "later": "Più tardi",
+        "latestBuild": "Ultima versione"
+    },
     "emergencyContact": {
         "title": "Contatto di emergenza",
         "additionalInformation": "Informazioni aggiuntive"

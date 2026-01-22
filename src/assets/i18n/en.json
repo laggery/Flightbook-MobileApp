@@ -617,6 +617,12 @@
         "welcome": "<p>Welcome to Flightbook!</p><p>You are currently using Flightbook Free and can register up to 25 flights.</p><p>Visit flightbook.ch for more information.</p>"
     },
     "version": "Version",
+    "update": {
+        "title": "Update Available",
+        "updateNow": "Update Now",
+        "later": "Later",
+        "latestBuild": "Latest build"
+    },
     "emergencyContact": {
         "title": "Emergency Contact",
         "additionalInformation": "Additional information"

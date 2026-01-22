@@ -1,0 +1,37 @@
+<ion-header>
+    <ion-toolbar color='primary'>
+        <ion-title>{{ 'update.title' | translate }}</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+    <div class="update-content">
+        <div class="update-icon">
+            @if (isForceUpdate) {
+                <ion-icon name="alert-circle" color="danger" style="font-size: 64px;"></ion-icon>
+            } @else {
+                <ion-icon name="information-circle" color="primary" style="font-size: 64px;"></ion-icon>
+            }
+        </div>
+
+        <div class="update-message">
+            <p>{{ updateInfo?.message }}</p>
+        </div>
+    </div>
+</ion-content>
+
+<ion-footer>
+    <ion-toolbar>
+        <div class="button-container ion-padding">
+            <ion-button expand="block" [color]="isForceUpdate ? 'danger' : 'primary'" (click)="updateNow()">
+                {{ 'update.updateNow' | translate }}
+            </ion-button>
+
+            @if (isOptionalUpdate) {
+            <ion-button expand="block" fill="clear" (click)="dismiss()">
+                {{ 'update.later' | translate }}
+            </ion-button>
+            }
+        </div>
+    </ion-toolbar>
+</ion-footer>

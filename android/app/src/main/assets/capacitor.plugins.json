@@ -4,6 +4,10 @@
 		"classpath": "com.ryltsov.alex.plugins.file.opener.FileOpenerPlugin"
 	},
 	{
+		"pkg": "@capacitor-community/native-market",
+		"classpath": "com.getcapacitor.community.nativemarket.NativeMarket"
+	},
+	{
 		"pkg": "@capacitor/app",
 		"classpath": "com.capacitorjs.plugins.app.AppPlugin"
 	},

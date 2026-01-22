@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthGuardService } from './account/shared/auth-guard.service';
+import { ForceUpdateGuard } from './shared/guards/force-update.guard';
 
 const routes: Routes = [
   {
@@ -11,7 +12,7 @@ const routes: Routes = [
   {
     path: 'news',
     loadChildren: () => import('./news/news.module').then(m => m.NewsPageModule),
-    canActivate: [AuthGuardService]
+    canActivate: [ForceUpdateGuard, AuthGuardService]
   },
   {
     path: 'flights',
@@ -75,7 +76,8 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    loadChildren: () => import('./account/login/login.module').then(m => m.LoginPageModule)
+    loadChildren: () => import('./account/login/login.module').then(m => m.LoginPageModule),
+    canActivate: [ForceUpdateGuard]
   },
   {
     path: 'register',

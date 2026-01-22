@@ -11,6 +11,7 @@ import { PlaceMapComponent } from './components/place-map/place-map.component';
 import { StarRatingComponent } from './components/star-rating/star-rating.component';
 import { NxgTransalteSortPipe } from './pipes/nxg-transalte-sort.pipe';
 import { PhoneNumberComponent } from './components/phone-number/phone-number.component';
+import { UpdatePromptComponent } from './components/update-prompt/update-prompt.component';
 
 @NgModule({
     exports: [
@@ -22,7 +23,8 @@ import { PhoneNumberComponent } from './components/phone-number/phone-number.com
         HoursFormatPipe,
         StarRatingComponent,
         NxgTransalteSortPipe,
-        PhoneNumberComponent
+        PhoneNumberComponent,
+        UpdatePromptComponent
     ],
     imports: [
         TranslateModule,
@@ -37,7 +39,8 @@ import { PhoneNumberComponent } from './components/phone-number/phone-number.com
         HoursFormatPipe,
         StarRatingComponent,
         NxgTransalteSortPipe,
-        PhoneNumberComponent
+        PhoneNumberComponent,
+        UpdatePromptComponent
     ],
     providers: [
         DatePipe
