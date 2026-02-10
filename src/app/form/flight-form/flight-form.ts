@@ -1,11 +1,12 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { AlertController, IonItem, IonInput, IonTextarea, IonButton, IonModal, IonContent, IonDatetime, IonToggle, IonLabel } from '@ionic/angular/standalone';
+import { AlertController, IonItem, IonInput, IonTextarea, IonButton, IonModal, IonContent, IonDatetime, IonToggle, IonLabel, IonSelectOption, IonSelect } from '@ionic/angular/standalone';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import moment from 'moment';
 import { NgForm, FormsModule } from '@angular/forms';
 import { Place } from 'src/app/place/shared/place.model';
 import { Flight } from 'src/app/flight/shared/flight.model';
 import { Glider } from 'src/app/glider/shared/glider.model';
+import { TandemSchoolData } from 'src/app/flight/shared/tandem-school-data.model';
 import { DatePipe } from '@angular/common';
 import { GliderSelectComponent } from '../../shared/components/glider-select/glider-select.component';
 import { AutocompleteComponent } from '../autocomplete/autocomplete.component';
@@ -31,7 +32,9 @@ import { School } from 'src/app/school/shared/school.model';
         IonContent,
         IonDatetime,
         IonToggle,
-        IonLabel
+        IonLabel,
+        IonSelect,
+        IonSelectOption,
     ]
 })
 export class FlightFormComponent implements OnInit {
@@ -42,6 +45,8 @@ export class FlightFormComponent implements OnInit {
     gliders: Glider[];
     @Input()
     schools: School[];
+    @Input()
+    tandemSchools: School[];
     @Input()
     igcFileEdit: any;
     @Input()
@@ -67,8 +72,13 @@ export class FlightFormComponent implements OnInit {
         if (!this.flight.start) {
             this.flight.start = new Place();
         }
+
         if (!this.flight.landing) {
             this.flight.landing = new Place();
+        }
+        
+        if (this.flight.tandemSchoolData === null || this.flight.tandemSchoolData === undefined) {
+            this.flight.tandemSchoolData = new TandemSchoolData();
         }
     }
 
@@ -121,5 +131,13 @@ export class FlightFormComponent implements OnInit {
 
     setLandingInput(event: any) {
         this.flight.landing.name = event.name;
+    }
+
+    clearSchoolButton() {
+        this.flight.tandemSchoolData.tandemSchool = null;
+    }
+
+    compareSchools(school1: School, school2: School): boolean {
+        return school1 && school2 ? school1.id === school2.id : school1 === school2;
     }
 }

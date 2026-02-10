@@ -1,3 +1,5 @@
+import { School } from "src/app/school/shared/school.model";
+
 export interface PassengerConfirmationValidation {
     fullyUnderstoodInstructions: boolean;
     undertakePilotInstructions: boolean;
@@ -17,6 +19,7 @@ export class PassengerConfirmation{
     signatureMimeType: string;
     validation: PassengerConfirmationValidation;
     canUseData: boolean;
+    tandemSchool: School
 
     constructor() {
         this.date = new Date();

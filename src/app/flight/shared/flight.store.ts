@@ -5,7 +5,6 @@ import { environment } from 'src/environments/environment';
 import { Flight } from './flight.model';
 import { FlightFilter } from './flight-filter.model';
 import { FlightStatistic } from './flightStatistic.model';
-import { Pager } from 'src/app/shared/domain/pager.model';
 import moment from 'moment';
 
 export interface FlightState {

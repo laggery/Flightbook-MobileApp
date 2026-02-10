@@ -117,6 +117,16 @@
         "override": "Vuole sovrascrivere la vela, la data, i chilometri e la durata del volo con i dati del file IGC?",
         "diff": "Diff.",
         "shvAlone": "FSVL volo da solo",
+        "tandemSchool": "Azienda biplace",
+        "paymentState": {
+            "name": "Stato di pagamento",
+            "state": "Stato",
+            "comment": "Commento",
+            "timestamp": "Data",
+            "instructor": "Eseguito da",
+            "PAID": "Pagato",
+            "REJECTED": "Rifiutato"
+        },
         "validationState": {
             "name": "Validazione",
             "state": "Stato",
@@ -634,6 +644,7 @@
         "undertakePilotInstructions": "Confermo che seguirò le istruzioni dell’istruttore di volo.",
         "noHealthProblems": "Confermo di non avere problemi di salute che possano influire sulla sicurezza del volo.",
         "understandRisks": "Confermo di aver compreso i rischi del volo (ad esempio, incidente durante il decollo o l’atterraggio).",
-        "canUseData": "Accetto di ricevere offerte e novità via e-mail."
+        "canUseData": "Accetto di ricevere offerte e novità via e-mail.",
+        "tandemSchool": "Azienda biplace"
     }
 }

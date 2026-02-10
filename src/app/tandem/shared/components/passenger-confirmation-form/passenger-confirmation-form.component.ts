@@ -1,6 +1,6 @@
-import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
-import { IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonText, IonTitle, IonToolbar, IonToggle, ModalController } from '@ionic/angular/standalone';
+import { IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonText, IonTitle, IonToolbar, IonToggle, ModalController, IonSelect, IonSelectOption } from '@ionic/angular/standalone';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { addIcons } from 'ionicons';
 import { close } from 'ionicons/icons';
@@ -8,6 +8,7 @@ import { Subject } from 'rxjs';
 import SignaturePad from 'signature_pad';
 import { PassengerConfirmation } from '../../domain/passenger-confirmation.model';
 import { ColorService } from 'src/app/shared/services/color.service';
+import { School } from 'src/app/school/shared/school.model';
 
 @Component({
   selector: 'app-passenger-confirmation-form',
@@ -27,12 +28,15 @@ import { ColorService } from 'src/app/shared/services/color.service';
     IonItem,
     IonText,
     IonLabel,
-    IonToggle
+    IonToggle,
+    IonSelect,
+    IonSelectOption
   ]
 })
 export class PassengerConfirmationFormComponent implements OnInit, OnDestroy, AfterViewInit {
   unsubscribe$ = new Subject<void>();
   passengerData: PassengerConfirmation;
+  schools: School[] = [];
   type: 'add' | 'view';
 
   signaturePad!: SignaturePad;
@@ -41,7 +45,8 @@ export class PassengerConfirmationFormComponent implements OnInit, OnDestroy, Af
   constructor(
     private modalController: ModalController,
     private translate: TranslateService,
-    private colorService: ColorService
+    private colorService: ColorService,
+    private cdr: ChangeDetectorRef
   ) {
     addIcons({ close });
   }
@@ -61,6 +66,7 @@ export class PassengerConfirmationFormComponent implements OnInit, OnDestroy, Af
     if (this.type === 'view' && this.passengerData.signature) {
       this.signaturePad.fromDataURL(this.passengerData.signature);
     }
+    this.cdr.detectChanges();
   }
 
   get dateString(): string {
@@ -93,5 +99,9 @@ export class PassengerConfirmationFormComponent implements OnInit, OnDestroy, Af
 
   setLanguage(lang: string) {
     this.translate.use(lang)
+  }
+
+  clearSchoolButton() {
+    this.passengerData.tandemSchool = null;
   }
 }

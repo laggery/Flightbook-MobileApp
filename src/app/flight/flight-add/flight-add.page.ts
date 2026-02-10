@@ -17,6 +17,7 @@ import { FileInputComponent } from '../../shared/components/file-input/file-inpu
 import { FlightFormComponent } from '../../form/flight-form/flight-form';
 import { SchoolService } from 'src/app/school/shared/school.service';
 import { School } from 'src/app/school/shared/school.model';
+import { TandemSchoolService } from 'src/app/school/shared/tandem-school.service';
 
 @Component({
     selector: 'app-flight-add',
@@ -40,6 +41,7 @@ export class FlightAddPage implements OnInit, OnDestroy {
     gliders: Glider[] = [];
     igcFile: string;
     schools: School[];
+    tandemSchools = this.tandemSchoolService.schools;
 
     constructor(
         private router: Router,
@@ -50,6 +52,7 @@ export class FlightAddPage implements OnInit, OnDestroy {
         private loadingCtrl: LoadingController,
         private fileUploadService: FileUploadService,
         private schoolService: SchoolService,
+        private tandemSchoolService: TandemSchoolService,
         private igcService: IgcService
     ) {
         this.flight = new Flight();
@@ -63,6 +66,8 @@ export class FlightAddPage implements OnInit, OnDestroy {
         this.schoolService.getSchools().then((schools: School[]) => {
             this.schools = schools;
         });
+
+        this.tandemSchoolService.getSchools();
         
         // Use the store directly to get flights
         const currentFlights = this.flightStore.flights();

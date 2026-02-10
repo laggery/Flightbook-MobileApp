@@ -5,6 +5,16 @@
         <fb-glider-select label="{{ 'flight.glider' | translate }} *" labelPlacement="stacked" style="width: 100%;" [flight]=flight [gliders]=gliders></fb-glider-select>
       </ion-item>
     }
+    @if (flight.glider?.tandem && tandemSchools && tandemSchools.length > 0 && flight.tandemSchoolData) {
+      <ion-item class="error-item">
+          <ion-select label="{{ 'flight.tandemSchool' | translate }}" labelPlacement="stacked" [(ngModel)]="flight.tandemSchoolData.tandemSchool" name="school"
+            [compareWith]="compareSchools" okText="{{ 'buttons.done' | translate }}" cancelText="{{ 'buttons.clear' | translate }}" (ionCancel)="clearSchoolButton()">
+            @for (school of tandemSchools; track school.id) {
+              <ion-select-option [value]="school">{{ school.name }}</ion-select-option>
+            }
+          </ion-select>
+        </ion-item>
+    }
   <ion-item id="flightDateInput">
     <ion-input label="{{ 'flight.date' | translate }} *" labelPlacement="stacked" value="{{ flight.date | date:'dd.MM.yyyy' }}" ></ion-input>
   </ion-item>
@@ -74,6 +84,32 @@
         <div class="validation-row">
           <span class="validation-label">{{ 'flight.validationState.instructor' | translate }}:</span>
           <span>{{ flight.validation?.instructor?.firstname }} {{ flight.validation?.instructor?.lastname }}</span>
+        </div>
+      </ion-label>
+    </ion-item>
+  }
+
+  @if (flight.tandemSchoolData?.paymentState) {
+    <ion-item class="payment">
+      <ion-label>
+        <p style="font-weight: bold;">{{ 'flight.paymentState.name' | translate }}:</p>
+        <div class="payment-row">
+          <span class="payment-label">{{ 'flight.paymentState.state' | translate }}:</span>
+          <span>{{ 'flight.paymentState.' + flight.tandemSchoolData.paymentState| translate }}</span>
+        </div>
+        @if (flight.tandemSchoolData?.paymentComment) {
+          <div class="payment-row">
+            <span class="payment-label">{{ 'flight.paymentState.comment' | translate }}:</span>
+            <span>{{ flight.tandemSchoolData.paymentComment }}</span>
+          </div>
+        }
+        <div class="payment-row">
+          <span class="payment-label">{{ 'flight.paymentState.timestamp' | translate }}:</span>
+          <span>{{ flight.tandemSchoolData.paymentTimestamp | date:'dd.MM.yyyy' }}</span>
+        </div>
+        <div class="payment-row">
+          <span class="payment-label">{{ 'flight.paymentState.instructor' | translate }}:</span>
+          <span>{{ flight.tandemSchoolData.instructor?.firstname }} {{ flight.tandemSchoolData.instructor?.lastname }}</span>
         </div>
       </ion-label>
     </ion-item>

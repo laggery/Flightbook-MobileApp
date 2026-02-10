@@ -30,6 +30,7 @@ import { addIcons } from "ionicons";
 import { home, statsChart, cloudUpload, linkOutline, settings, ellipsisHorizontal, logOutOutline, school, document as iconDocument, bandage, checkmarkDone, personCircle, personCircleOutline } from 'ionicons/icons';
 import { EmergencyContact } from './school/shared/emergency-contact.model';
 import { User } from './account/shared/user.model';
+import { TandemSchoolService } from './school/shared/tandem-school.service';
 
 
 @Component({
@@ -58,7 +59,8 @@ export class AppComponent implements OnDestroy, OnInit {
         private placeStore: PlaceStore,
         private schoolService: SchoolService,
         private alertController: AlertController,
-        private paymentService: PaymentService
+        private paymentService: PaymentService,
+        private tandemSchoolService: TandemSchoolService
     ) {
         this.translate.setDefaultLang('en');
         this.translate.use(localStorage.getItem('language') || navigator.language.split('-')[0]);
@@ -132,6 +134,7 @@ export class AppComponent implements OnDestroy, OnInit {
             localStorage.removeItem('last_login');
             this.initialRequestsFired = false;
             this.schoolService.clearSchools();
+            this.tandemSchoolService.clearSchools();
         });
         this.schools = [];
     }

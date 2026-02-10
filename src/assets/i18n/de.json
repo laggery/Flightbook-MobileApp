@@ -117,6 +117,16 @@
         "override": "Möchten sie der Gleitschirm, das Datum, die Kilometer und die Flugdauer überschreiben mit den Daten aus der IGC-Datei überschreiben?",
         "diff": "Diff.",
         "shvAlone": "SHV Alleinflug",
+        "tandemSchool": "Tandemunternehmen",
+        "paymentState": {
+            "name": "Zahlungsstatus",
+            "state": "Status",
+            "comment": "Kommentar",
+            "timestamp": "Datum",
+            "instructor": "Ausgeführt von",
+            "PAID": "Bezahlt",
+            "REJECTED": "Abgelehnt"
+        },
         "validationState": {
             "name": "Validierung",
             "state": "Status",
@@ -634,6 +644,7 @@
         "undertakePilotInstructions": "Ich befolge immer die Weisungen der Pilotin/des Piloten.",
         "noHealthProblems": "Ich habe keine gesundheitlichen Probleme, die die sichere Durchführung des Fluges beeinträchtigen könnten.",
         "understandRisks": "Ich bin mir bewusst, dass der Flug mit Risiken verbunden ist (bspw. Sturz beim Start oder Landung).",
-        "canUseData": "Ich bin damit einverstanden, Angebote und Neuigkeiten per E-Mail zu erhalten."
+        "canUseData": "Ich bin damit einverstanden, Angebote und Neuigkeiten per E-Mail zu erhalten.",
+        "tandemSchool": "Tandemunternehmen"
     }
 }

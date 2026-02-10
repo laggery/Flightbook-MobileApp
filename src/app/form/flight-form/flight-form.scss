@@ -17,6 +17,7 @@ ion-modal.timeModal {
   padding: 0;
 }
 
+// Validation information
 ion-item.validation ion-label .validation-row {
     display: flex;
     flex-direction: row;
@@ -34,5 +35,26 @@ ion-item.validation ion-label .validation-row:first-of-type {
 ion-item.validation ion-label .validation-label {
     display: inline-block;
     min-width: 93px;
+    font-weight: 500;
+}
+
+// Payment information
+ion-item.payment ion-label .payment-row {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+    color: rgb(102, 102, 102) !important;
+}
+
+ion-item.payment ion-label .payment-row:first-of-type {
+    margin-top: 5px;
+}
+
+ion-item.payment ion-label .payment-label {
+    display: inline-block;
+    min-width: 120px;
     font-weight: 500;
 }

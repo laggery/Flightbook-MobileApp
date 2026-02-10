@@ -117,6 +117,16 @@
         "override": "Voulez-vous écraser le parapente, la date, les kilomètres et la durée du vol avec les données du fichier IGC?",
         "diff": "Diff.",
         "shvAlone": "FSVL vol autonome",
+        "tandemSchool": "Entreprise biplace",
+        "paymentState": {
+            "name": "Statut de paiement",
+            "state": "Statut",
+            "comment": "Commentaire",
+            "timestamp": "Date",
+            "instructor": "Effectué par",
+            "PAID": "Payé",
+            "REJECTED": "Refusé"
+        },
         "validationState": {
             "name": "Validation",
             "state": "Statut",
@@ -634,6 +644,7 @@
         "undertakePilotInstructions": "Je m’engage à suivre en tout temps les directives du/de la pilote.",
         "noHealthProblems": "Je déclare n’avoir aucun problème de santé pouvant avoir une incidence sur la sécurité du vol.",
         "understandRisks": "Je confirme être conscient(e) que le vol comporte des risques (par ex. chute au décollage ou à l’atterrissage).",
-        "canUseData": "J'accepte de recevoir des offres et des nouveautés par e-mail."
+        "canUseData": "J'accepte de recevoir des offres et des nouveautés par e-mail.",
+        "tandemSchool": "Entreprise biplace"
     }
 }

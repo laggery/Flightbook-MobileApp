@@ -2,6 +2,7 @@ import { Glider } from "src/app/glider/shared/glider.model";
 import { Place } from "src/app/place/shared/place.model";
 import { Igc } from "../../shared/domain/igc.model";
 import { FlightValidation } from "./flight-validation.model";
+import { TandemSchoolData } from "./tandem-school-data.model";
 
 export class Flight {
     id: number;
@@ -19,4 +20,5 @@ export class Flight {
     igcFile?: File;
     shvAlone?: boolean;
     validation?: FlightValidation;
+    tandemSchoolData?: TandemSchoolData;
 }
