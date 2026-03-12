@@ -120,6 +120,7 @@
         "tandemSchool": "Tandemunternehmen",
         "paymentState": {
             "name": "Zahlungsstatus",
+            "amount": "Betrag",
             "state": "Status",
             "comment": "Kommentar",
             "timestamp": "Datum",

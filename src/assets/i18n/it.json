@@ -120,6 +120,7 @@
         "tandemSchool": "Azienda biplace",
         "paymentState": {
             "name": "Stato di pagamento",
+            "amount": "Importo",
             "state": "Stato",
             "comment": "Commento",
             "timestamp": "Data",

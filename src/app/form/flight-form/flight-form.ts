@@ -51,6 +51,8 @@ export class FlightFormComponent implements OnInit {
     igcFileEdit: any;
     @Input()
     igcFile: string
+    @Input()
+    hideSaveButton: boolean = false;
 
     @Output()
     saveFlight = new EventEmitter<Flight>();

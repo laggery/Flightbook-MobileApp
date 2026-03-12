@@ -97,6 +97,12 @@
           <span class="payment-label">{{ 'flight.paymentState.state' | translate }}:</span>
           <span>{{ 'flight.paymentState.' + flight.tandemSchoolData.paymentState| translate }}</span>
         </div>
+        @if (flight.tandemSchoolData?.paymentAmount) {
+          <div class="payment-row">
+            <span class="payment-label">{{ 'flight.paymentState.amount' | translate }}:</span>
+            <span>{{ flight.tandemSchoolData.paymentAmount }}</span>
+          </div>
+        }
         @if (flight.tandemSchoolData?.paymentComment) {
           <div class="payment-row">
             <span class="payment-label">{{ 'flight.paymentState.comment' | translate }}:</span>
@@ -115,7 +121,10 @@
     </ion-item>
   }
 
-    <ion-button expand="block" type="submit">{{ 'buttons.save' | translate }}</ion-button>
+    @if (!hideSaveButton) {
+      <ion-button expand="block" type="submit">{{ 'buttons.save' | translate }}</ion-button>
+    }
+    
   </form>
 }
 

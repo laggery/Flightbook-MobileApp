@@ -4,6 +4,7 @@ import { TandemSchoolPaymentState } from "./tandem-school-payment-state";
 
 export class TandemSchoolData {
   paymentState: TandemSchoolPaymentState | undefined;
+  paymentAmount?: number | undefined;
   paymentComment: string | undefined;
   instructor: User | undefined;
   tandemSchool: School | undefined;

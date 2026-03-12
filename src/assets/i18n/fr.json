@@ -120,6 +120,7 @@
         "tandemSchool": "Entreprise biplace",
         "paymentState": {
             "name": "Statut de paiement",
+            "amount": "Montant",
             "state": "Statut",
             "comment": "Commentaire",
             "timestamp": "Date",

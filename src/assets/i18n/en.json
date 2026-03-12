@@ -120,6 +120,7 @@
         "tandemSchool": "Tandem operator",
         "paymentState": {
             "name": "Payment state",
+            "amount": "Amount",
             "state": "State",
             "comment": "Comment",
             "timestamp": "Date",

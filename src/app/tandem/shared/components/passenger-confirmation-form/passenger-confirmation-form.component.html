@@ -29,7 +29,7 @@
       }
       @if (passengerData.tandemSchool && type == "view") {
         <ion-item class="error-item">
-          <ion-input [value]="passengerData.tandemSchool.name" required readonly name="school" type="text" label="{{ 'passengerConfirmation.tandemSchool' | translate }}*" labelPlacement="stacked"></ion-input>
+          <ion-input [value]="passengerData.tandemSchool.name" readonly name="school" type="text" label="{{ 'passengerConfirmation.tandemSchool' | translate }}" labelPlacement="stacked"></ion-input>
         </ion-item>
       }
         <ion-item class="error-item">
