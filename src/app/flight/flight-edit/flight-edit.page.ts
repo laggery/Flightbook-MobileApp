@@ -20,6 +20,9 @@ import { School } from 'src/app/school/shared/school.model';
 import { SchoolService } from 'src/app/school/shared/school.service';
 import { FlightValidationState } from '../shared/flight-validation-state';
 import { Place } from 'src/app/place/shared/place.model';
+import { TandemSchoolService } from 'src/app/school/shared/tandem-school.service';
+import { TandemSchoolPaymentState } from '../shared/tandem-school-payment-state';
+import { TandemSchoolData } from '../shared/tandem-school-data.model';
 
 @Component({
     selector: 'app-flight-edit',
@@ -44,10 +47,12 @@ export class FlightEditPage implements OnInit, OnDestroy {
     private initialFlight: Flight;
     private decoder = new TextDecoder('utf-8');
     public FlightValidationState = FlightValidationState;
+    public TandemSchoolPaymentState = TandemSchoolPaymentState;
     flight: Flight = new Flight();
     gliders: Glider[] = [];
     igcFile: string;
     schools: School[];
+    tandemSchools = this.tandemSchoolService.schools;
 
     constructor(
         private activeRoute: ActivatedRoute,
@@ -59,7 +64,8 @@ export class FlightEditPage implements OnInit, OnDestroy {
         private loadingCtrl: LoadingController,
         private fileUploadService: FileUploadService,
         private igcService: IgcService,
-        private schoolService: SchoolService
+        private schoolService: SchoolService,
+        private tandemSchoolService: TandemSchoolService
     ) {
         this.flightId = +this.activeRoute.snapshot.paramMap.get('id');
     }
@@ -72,10 +78,15 @@ export class FlightEditPage implements OnInit, OnDestroy {
         this.initialFlight = this.flightStore.flights().find(flight => flight.id === this.flightId);
 
         try {
+            await this.tandemSchoolService.getSchools();
             if (!this.initialFlight) {
                 this.initialFlight = await firstValueFrom(this.flightStore.getFlightById(this.flightId))
             }
 
+            if (this.initialFlight.tandemSchoolData === null || this.initialFlight.tandemSchoolData === undefined) {
+                this.initialFlight.tandemSchoolData = new TandemSchoolData();
+            }
+            
             this.flight = _.cloneDeep(this.initialFlight);
             this.flight.date = moment(this.flight.date).format('YYYY-MM-DD');
 

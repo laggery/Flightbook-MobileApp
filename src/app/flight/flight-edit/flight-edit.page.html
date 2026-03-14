@@ -11,9 +11,9 @@
   @if (flight && !flight.igc) {
     <fb-file-input (onFilesSelectEvent)="onFilesSelectEvent($event)"></fb-file-input>
   }
-  <flight-form [flight]=flight [gliders]=gliders [schools]=schools [igcFile]=igcFile (saveFlight)="saveFlight($event)"></flight-form>
+  <flight-form [flight]=flight [gliders]=gliders [schools]=schools [tandemSchools]="tandemSchools()" [igcFile]=igcFile [hideSaveButton]="flight.tandemSchoolData?.paymentState == TandemSchoolPaymentState.PAID" (saveFlight)="saveFlight($event)"></flight-form>
   <ion-button class="copy" expand="block" (click)="copy()" >{{ 'buttons.copy' | translate }}</ion-button>
-  @if (flight.validation?.state !== FlightValidationState.VALIDATED) {
+  @if (flight.validation?.state !== FlightValidationState.VALIDATED && flight.tandemSchoolData?.paymentState !== TandemSchoolPaymentState.PAID) {
     <ion-button class="delete" expand="block" color="danger" (click)="delete()" >{{ 'buttons.delete' | translate }}</ion-button>
   }
 </ion-content>

@@ -117,6 +117,17 @@
         "override": "Do you want to override the glider, date, kilometres and flight duration with the data from the IGC file?",
         "diff": "Diff.",
         "shvAlone": "SHGPA alone flight",
+        "tandemSchool": "Tandem operator",
+        "paymentState": {
+            "name": "Payment state",
+            "amount": "Amount",
+            "state": "State",
+            "comment": "Comment",
+            "timestamp": "Date",
+            "instructor": "Conducted by",
+            "PAID": "Paid",
+            "REJECTED": "Rejected"
+        },
         "validationState": {
             "name": "Validation",
             "state": "State",
@@ -634,6 +645,7 @@
         "undertakePilotInstructions": "I confirm that I will follow the instructions of the flight instructor.",
         "noHealthProblems": "I confirm that I have no health problems that could affect the safety of the flight.",
         "understandRisks": "I confirm that I understand the risks of the flight (e.g., crash during takeoff or landing).",
-        "canUseData": "I agree to receive offers and news by email."
+        "canUseData": "I agree to receive offers and news by email.",
+        "tandemSchool": "Tandem operator"
     }
 }

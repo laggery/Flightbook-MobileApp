@@ -17,6 +17,21 @@
         </p>
     </div>
     <form #form="ngForm" (ngSubmit)="savePassengerConfirmation(form)">
+      @if (schools.length > 0 && type == "add") {  
+      <ion-item class="error-item">
+          <ion-select label="{{ 'passengerConfirmation.tandemSchool' | translate }}" labelPlacement="stacked" [(ngModel)]="passengerData.tandemSchool" name="school"
+            okText="{{ 'buttons.done' | translate }}" cancelText="{{ 'buttons.clear' | translate }}" (ionCancel)="clearSchoolButton()">
+            @for (school of schools; track school.id) {
+              <ion-select-option [value]="school">{{ school.name }}</ion-select-option>
+            }
+          </ion-select>
+        </ion-item>
+      }
+      @if (passengerData.tandemSchool && type == "view") {
+        <ion-item class="error-item">
+          <ion-input [value]="passengerData.tandemSchool.name" readonly name="school" type="text" label="{{ 'passengerConfirmation.tandemSchool' | translate }}" labelPlacement="stacked"></ion-input>
+        </ion-item>
+      }
         <ion-item class="error-item">
           <ion-input [value]="dateString" required readonly name="date" type="date" label="{{ 'passengerConfirmation.date' | translate }}*" labelPlacement="stacked"></ion-input>
         </ion-item>

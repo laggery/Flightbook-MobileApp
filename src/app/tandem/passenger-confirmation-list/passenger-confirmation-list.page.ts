@@ -13,6 +13,7 @@ import { Capacitor } from '@capacitor/core';
 import { XlsxExportService } from 'src/app/shared/services/xlsx-export.service';
 import { Directory, Filesystem } from '@capacitor/filesystem';
 import { FileOpener } from '@capacitor-community/file-opener';
+import { TandemSchoolService } from 'src/app/school/shared/tandem-school.service';
 
 @Component({
   selector: 'app-passenger-confirmation-list',
@@ -44,6 +45,7 @@ export class PassengerConfirmationListPage implements OnInit, OnDestroy {
   unsubscribe$ = new Subject<void>();
   passengerConfirmations: PassengerConfirmation[] = [];
   filtered: boolean;
+  schools = this.tandemSchoolService.schools;
 
   constructor(
     private modalCtrl: ModalController,
@@ -52,12 +54,14 @@ export class PassengerConfirmationListPage implements OnInit, OnDestroy {
     private alertController: AlertController,
     private translate: TranslateService,
     private paymentService: PaymentService,
-    private xlsxExportService: XlsxExportService
+    private xlsxExportService: XlsxExportService,
+    private tandemSchoolService: TandemSchoolService
   ) {
     addIcons({ filterOutline, add });
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+    await this.tandemSchoolService.getSchools();
     this.initialDataLoad();
   }
 
@@ -100,7 +104,8 @@ export class PassengerConfirmationListPage implements OnInit, OnDestroy {
       cssClass: 'passenger-confirmation-form-class',
       componentProps: {
         type: 'add',
-        passengerData: new PassengerConfirmation()
+        passengerData: new PassengerConfirmation(),
+        schools: this.schools()
       }
     });
 
@@ -122,7 +127,8 @@ export class PassengerConfirmationListPage implements OnInit, OnDestroy {
       cssClass: 'passenger-confirmation-form-class',
       componentProps: {
         type: 'view',
-        passengerData: passengerConfirmation
+        passengerData: passengerConfirmation,
+        schools: this.schools()
       }
     });
 

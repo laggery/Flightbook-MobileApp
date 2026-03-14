@@ -115,7 +115,8 @@ const routes: Routes = [
   },
   {
     path: 'passenger-confirmations',
-    loadChildren: () => import('./tandem/passenger-confirmation-list/passenger-confirmation-list.module').then( m => m.PassengerConfirmationListPageModule)
+    loadChildren: () => import('./tandem/passenger-confirmation-list/passenger-confirmation-list.module').then( m => m.PassengerConfirmationListPageModule),
+    canActivate: [AuthGuardService]
   }
 ];
 
