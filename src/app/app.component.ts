@@ -238,6 +238,11 @@ export class AppComponent implements OnDestroy, OnInit {
                                     this.router.navigate(
                                         ['/flights/', flightId]
                                     );
+                                } else if (type == 'FLIGHT_PAYMENT_REJECTED' || type == 'FLIGHT_PAYMENT_ACCEPTED') {
+                                    const flightId = notification.data.flightId
+                                    this.router.navigate(
+                                        ['/flights/', flightId]
+                                    );
                                 }
                             }
                         }
@@ -260,6 +265,11 @@ export class AppComponent implements OnDestroy, OnInit {
                         { queryParams: { appointmentId: appointmentId } }
                     );
                 } else if (type == "FLIGHT_VALIDATION_REJECTED") {
+                    const flightId = notification.notification.data.flightId
+                    this.router.navigate(
+                        ['/flights/', flightId]
+                    );
+                } else if (type == "FLIGHT_PAYMENT_REJECTED" || type == "FLIGHT_PAYMENT_ACCEPTED") {
                     const flightId = notification.notification.data.flightId
                     this.router.navigate(
                         ['/flights/', flightId]
