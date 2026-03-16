@@ -3,6 +3,7 @@ export class Glider {
     buyDate: string;
     brand: string;
     name: string;
+    color: string;
     tandem: boolean;
     archived: boolean;
     note?: string;

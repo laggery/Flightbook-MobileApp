@@ -9,6 +9,9 @@
     <ion-input label="{{ 'glider.name' | translate }} *" labelPlacement="stacked" required [(ngModel)]="glider.name" type="text" name="name"></ion-input>
   </ion-item>
   <ion-item>
+    <ion-input label="{{ 'glider.color' | translate }}" labelPlacement="stacked" [(ngModel)]="glider.color" type="text" name="color"></ion-input>
+  </ion-item>
+  <ion-item>
     <ion-label color="primary" position="stacked">{{ 'glider.tandem' | translate }}</ion-label>
     <ion-toggle [(ngModel)]="glider.tandem" name="tandem"></ion-toggle>
   </ion-item>

@@ -85,6 +85,7 @@
         "buydate": "Date d'achat",
         "brand": "Fabricant",
         "name": "Modèle",
+        "color": "Couleur",
         "tandem": "Tandem",
         "type": "Type",
         "all": "Tous",
