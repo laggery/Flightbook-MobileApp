@@ -83,8 +83,8 @@
     },
     "glider": {
         "buydate": "Data d’aquisto",
-        "brand": "Marca",
-        "name": "Nome",
+        "brand": "Produttore",
+        "name": "Modello",
         "tandem": "Tandem",
         "type": "Tipo",
         "all": "Tutti",
