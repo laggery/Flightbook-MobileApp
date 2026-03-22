@@ -648,5 +648,9 @@
         "understandRisks": "Je confirme être conscient(e) que le vol comporte des risques (par ex. chute au décollage ou à l’atterrissage).",
         "canUseData": "J'accepte de recevoir des offres et des nouveautés par e-mail.",
         "tandemSchool": "Entreprise biplace"
+    },
+    "school": {
+        "leaveSchool": "Quitter \"{{schoolName}}\"",
+        "leaveSchoolConfirm": "Voulez-vous vraiment quitter \"{{schoolName}}\"?"
     }
 }

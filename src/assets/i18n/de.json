@@ -648,5 +648,9 @@
         "understandRisks": "Ich bin mir bewusst, dass der Flug mit Risiken verbunden ist (bspw. Sturz beim Start oder Landung).",
         "canUseData": "Ich bin damit einverstanden, Angebote und Neuigkeiten per E-Mail zu erhalten.",
         "tandemSchool": "Tandemunternehmen"
+    },
+    "school": {
+        "leaveSchool": "\"{{schoolName}}\" verlassen",
+        "leaveSchoolConfirm": "Möchten Sie \"{{schoolName}}\" wirklich verlassen?"
     }
 }

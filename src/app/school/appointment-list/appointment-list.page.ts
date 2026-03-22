@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit, ViewChild, signal } from '@angular/core';
 import moment from 'moment-timezone';
 import { ActivatedRoute } from '@angular/router';
-import { AlertController, LoadingController, ModalController, NavController, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonButton, IonIcon, IonContent, IonList, IonItem, IonToggle, IonLabel, IonInfiniteScroll, IonInfiniteScrollContent } from '@ionic/angular/standalone';
+import { AlertController, LoadingController, ModalController, NavController, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonButton, IonIcon, IonContent, IonList, IonItem, IonToggle, IonLabel, IonInfiniteScroll, IonInfiniteScrollContent, IonPopover } from '@ionic/angular/standalone';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { firstValueFrom, Subject, takeUntil } from 'rxjs';
 import { AccountService } from 'src/app/account/shared/account.service';
@@ -14,7 +14,7 @@ import { AppointmentFilterComponent } from '../shared/components/appointment-fil
 import { State } from '../shared/state';
 import { NgClass, DatePipe } from '@angular/common';
 import { addIcons } from "ionicons";
-import { filterOutline } from "ionicons/icons";
+import { filterOutline, ellipsisVerticalOutline } from "ionicons/icons";
 import { FormsModule } from '@angular/forms';
 import { School } from '../shared/school.model';
 
@@ -40,11 +40,13 @@ import { School } from '../shared/school.model';
         IonLabel,
         IonInfiniteScroll,
         IonInfiniteScrollContent,
+        IonPopover,
         FormsModule
     ]
 })
 export class AppointmentListPage implements OnInit, OnDestroy {
     @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
+    @ViewChild(IonPopover) popover: IonPopover;
     unsubscribe$ = new Subject<void>();
     appointments = signal<Appointment[]>([]);
     currentUser = signal<User | null>(null);
@@ -72,7 +74,7 @@ export class AppointmentListPage implements OnInit, OnDestroy {
             });
         this.schoolId = +this.activeRoute.snapshot.paramMap.get('id');
         this.appointmentId = +this.activeRoute.snapshot.queryParamMap.get('appointmentId');
-        addIcons({ filterOutline });
+        addIcons({ filterOutline, ellipsisVerticalOutline });
     }
 
     ngOnInit() {}
@@ -314,6 +316,36 @@ export class AppointmentListPage implements OnInit, OnDestroy {
         if (role == "filter" || role == "clear") {
             this.initialDataLoad();
         }
+    }
+
+    async leaveSchool() {
+        const alert = await this.alertController.create({
+            header: this.translate.instant('message.warning'),
+            message: this.translate.instant('school.leaveSchoolConfirm', { schoolName: this.currentSchool()?.name || '' }),
+            buttons: [
+                {
+                    text: this.translate.instant('buttons.no'),
+                    role: 'cancel',
+                    handler: () => {
+                        this.popover?.dismiss();
+                    }
+                },
+                {
+                    text: this.translate.instant('buttons.yes'),
+                    handler: async () => {
+                        try {
+                            await firstValueFrom(this.schoolService.leaveSchool(this.schoolId));
+                            this.schoolService.removeSchoolFromStore(this.schoolId);
+                            this.popover?.dismiss();
+                            this.navCtrl.navigateBack('/news');
+                        } catch (error) {
+                            console.error('Error leaving school:', error);
+                        }
+                    }
+                }
+            ]
+        });
+        await alert.present();
     }
 
 }

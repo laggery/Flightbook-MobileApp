@@ -46,9 +46,9 @@
               <fb-menu-item [icon]="'cloud-upload'" [label]="'buttons.data'"></fb-menu-item>
             </ion-item>
           </ion-menu-toggle>
-          @if (schools?.length > 0 || hasControlSheet || hasEmergencyContacts) {
+          @if (schools()?.length > 0 || hasControlSheet || hasEmergencyContacts) {
             <p class="divider-menu">{{ 'groupname.school' | translate }}</p>
-            @for (school of schools; track school.id) {
+            @for (school of schools(); track school.id) {
               <ion-menu-toggle auto-hide="false">
                 <ion-item routerDirection="root" [routerLink]="['/school/', school.id]" lines="full" detail="false" >
                   <fb-menu-item [icon]="'school'" [label]="school.name"></fb-menu-item>
@@ -62,7 +62,7 @@
                 </ion-item>
               </ion-menu-toggle>
             }
-            @if (hasEmergencyContacts || schools?.length > 0) {
+            @if (hasEmergencyContacts || schools()?.length > 0) {
               <ion-menu-toggle auto-hide="false">
                 <ion-item routerDirection="root" [routerLink]="['/emergency-contact']" lines="full" detail="false" >
                   <fb-menu-item [icon]="'bandage'" [label]="'buttons.emergencyContacts'"></fb-menu-item>
@@ -101,7 +101,7 @@
             </ion-menu-toggle>
           }
 
-          @for( link of currentUser?.config?.preparation?.links || []; track link) {
+          @for( link of currentUser?.config?.preparation?.links || []; track $index) {
             <ion-menu-toggle auto-hide="false">
               <ion-item (click)="openLink(link.url)" lines="full" detail="false">
                 <fb-menu-item [icon]="'link-outline'" [label]="link.label"></fb-menu-item>

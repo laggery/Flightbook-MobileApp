@@ -12,6 +12,20 @@
       <ion-button (click)="openFilter()">
         <ion-icon name="filter-outline"></ion-icon>
       </ion-button>
+      <ion-button id="school-menu-trigger">
+        <ion-icon name="ellipsis-vertical-outline"></ion-icon>
+      </ion-button>
+      <ion-popover trigger="school-menu-trigger" triggerAction="click" class="school-menu-popover">
+        <ng-template>
+          <ion-content>
+            <ion-list>
+              <ion-item button (click)="leaveSchool()" detail="false">
+                <ion-label class="ion-text-nowrap">{{ 'school.leaveSchool' | translate:{ schoolName: currentSchool()?.name || '' } }}</ion-label>
+              </ion-item>
+            </ion-list>
+          </ion-content>
+        </ng-template>
+      </ion-popover>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>

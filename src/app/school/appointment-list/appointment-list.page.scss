@@ -93,4 +93,10 @@ ion-content {
   height: 1px;
 }
 
+::ng-deep .school-menu-popover {
+  --width: auto;
+  --max-width: 70vw;
+  --min-width: 250px;
+}
+
     

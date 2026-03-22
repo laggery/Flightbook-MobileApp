@@ -648,5 +648,9 @@
         "understandRisks": "I confirm that I understand the risks of the flight (e.g., crash during takeoff or landing).",
         "canUseData": "I agree to receive offers and news by email.",
         "tandemSchool": "Tandem operator"
+    },
+    "school": {
+        "leaveSchool": "Leave \"{{schoolName}}\"",
+        "leaveSchoolConfirm": "Do you really want to leave \"{{schoolName}}\"?"
     }
 }

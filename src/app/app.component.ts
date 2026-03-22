@@ -9,7 +9,6 @@ import { FlightStore } from './flight/shared/flight.store';
 import { GliderStore } from './glider/shared/glider.store';
 import { PlaceStore } from './place/shared/place.store';
 import { SchoolService } from './school/shared/school.service';
-import { School } from './school/shared/school.model';
 import { LoginPage } from './account/login/login.page';
 import {
     ActionPerformed,
@@ -41,7 +40,7 @@ import { TandemSchoolService } from './school/shared/tandem-school.service';
 })
 export class AppComponent implements OnDestroy, OnInit {
     unsubscribe$ = new Subject<void>();
-    schools: School[] = [];
+    schools = this.schoolService.schoolsSignal;
     hasControlSheet = false;
     initialRequestsFired = false;
     hasEmergencyContacts = false;
@@ -136,7 +135,6 @@ export class AppComponent implements OnDestroy, OnInit {
             this.schoolService.clearSchools();
             this.tandemSchoolService.clearSchools();
         });
-        this.schools = [];
     }
 
     subscribeToEmmiter(componentRef: any) {
@@ -144,9 +142,7 @@ export class AppComponent implements OnDestroy, OnInit {
             return;
         }
 
-        this.schoolService.getSchools().then((schools: School[]) => {
-            this.schools = schools;
-        });
+        this.schoolService.getSchools();
 
         this.schoolService.getControlSheet().pipe(takeUntil(this.unsubscribe$)).subscribe((controlSheet: ControlSheet) => {
             this.hasControlSheet = controlSheet ? true : false;

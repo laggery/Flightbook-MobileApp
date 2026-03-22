@@ -1,5 +1,5 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import moment from 'moment';
 import { BehaviorSubject, firstValueFrom, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -17,7 +17,7 @@ export class SchoolService {
   filter: AppointmentFilter;
   filtered$: BehaviorSubject<boolean>;
   defaultLimit = 20;
-  private schools: School[];
+  schoolsSignal = signal<School[] | null>(null);
 
   constructor(private http: HttpClient) {
     this.filter = new AppointmentFilter();
@@ -25,14 +25,15 @@ export class SchoolService {
   }
 
   async getSchools(): Promise<School[]> {
-    if (!this.schools) {
-      this.schools = await firstValueFrom(this.http.get<School[]>(`${environment.baseUrl}/student/schools`));
+    if (!this.schoolsSignal()) {
+      const schools = await firstValueFrom(this.http.get<School[]>(`${environment.baseUrl}/student/schools`));
+      this.schoolsSignal.set(schools);
     }
-    return this.schools;
+    return this.schoolsSignal()!;
   }
 
   clearSchools() {
-    this.schools = null;
+    this.schoolsSignal.set(null);
   }
 
   getAppointments({ limit = null, offset = null}: { limit?: number, offset?: number} = {}, schoolId: number ): Observable<Appointment[]> {
@@ -67,6 +68,17 @@ export class SchoolService {
 
   postEmergencyContact(emergencyContact: EmergencyContact): Observable<EmergencyContact> {
     return this.http.post<EmergencyContact>(`${environment.baseUrl}/student/emergency-contacts`, emergencyContact);
+  }
+
+  leaveSchool(schoolId: number): Observable<void> {
+    return this.http.delete<void>(`${environment.baseUrl}/student/schools/${schoolId}`);
+  }
+
+  removeSchoolFromStore(schoolId: number): void {
+    const currentSchools = this.schoolsSignal();
+    if (currentSchools) {
+      this.schoolsSignal.set(currentSchools.filter(school => school.id !== schoolId));
+    }
   }
 
   private setFilterState(nextState: boolean) {
