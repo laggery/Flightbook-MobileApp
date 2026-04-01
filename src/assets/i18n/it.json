@@ -642,12 +642,15 @@
     "passengerConfirmation": {
         "date": "Data",
         "signature": "Firma",
-        "fullyUnderstoodInstructions": "Confermo di aver compreso pienamente le istruzioni di volo.",
-        "undertakePilotInstructions": "Confermo che seguirò le istruzioni dell’istruttore di volo.",
-        "noHealthProblems": "Confermo di non avere problemi di salute che possano influire sulla sicurezza del volo.",
-        "understandRisks": "Confermo di aver compreso i rischi del volo (ad esempio, incidente durante il decollo o l’atterraggio).",
+        "validation": "Io, passeggero sopra indicato, dichiaro quanto segue:",
+        "termsAndConditions": "Ho letto e capito i termini e le condizioni generali.",
+        "fullyUnderstoodInstructions": "Ho compreso le istruzioni di volo in tutte le loro parti.",
+        "undertakePilotInstructions": "Seguirò sempre le indicazioni del(la) pilota.",
+        "noHealthProblems": "Non ho problemi di salute che potrebbero pregiudicare lo svolgimento del volo in sicurezza.",
+        "understandRisks": "Sono consapevole dei rischi associati al volo (ad es. caduta in fase di decollo o atterraggio).",
         "canUseData": "Accetto di ricevere offerte e novità via e-mail.",
-        "tandemSchool": "Azienda biplace"
+        "tandemSchool": "Azienda biplace",
+        "open": "Aprire"
     },
     "school": {
         "leaveSchool": "Lasciare \"{{schoolName}}\"",

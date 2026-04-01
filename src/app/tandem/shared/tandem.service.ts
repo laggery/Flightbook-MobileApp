@@ -19,15 +19,15 @@ export class TandemService {
 
   getPassengerConfirmations({ limit = null, offset = null }: { limit?: number, offset?: number } = {}): Observable<PassengerConfirmation[]> {
     let params: HttpParams = this.createFilterParams(limit, offset);
-    return this.http.get<PassengerConfirmation[]>(`${environment.baseUrl}/tandem/passenger-confirmations`, { params });
+    return this.http.get<PassengerConfirmation[]>(`${environment.baseUrl}/passenger-confirmations`, { params });
   }
 
   postPassengerConfirmations(passengerConfirmation: PassengerConfirmation): Observable<PassengerConfirmation> {
-    return this.http.post<PassengerConfirmation>(`${environment.baseUrl}/tandem/passenger-confirmations`, passengerConfirmation);
+    return this.http.post<PassengerConfirmation>(`${environment.baseUrl}/passenger-confirmations`, passengerConfirmation);
   }
 
   deletePassengerConfirmation(passengerConfirmationId: number): Observable<void> {
-    return this.http.delete<void>(`${environment.baseUrl}/tandem/passenger-confirmations/${passengerConfirmationId}`);
+    return this.http.delete<void>(`${environment.baseUrl}/passenger-confirmations/${passengerConfirmationId}`);
   }
 
   private setFilterState(nextState: boolean) {

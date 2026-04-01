@@ -150,12 +150,10 @@ export class XlsxExportService {
       flatPassengerConfirmation[this.translate.instant('account.lastname')] = passengerConfirmation.lastname;
       flatPassengerConfirmation[this.translate.instant('login.email')] = passengerConfirmation.email;
       flatPassengerConfirmation[this.translate.instant('account.phone')] = passengerConfirmation.phone;
-      flatPassengerConfirmation[this.translate.instant('passengerConfirmation.fullyUnderstoodInstructions')] = passengerConfirmation.validation.fullyUnderstoodInstructions ? this.translate.instant('buttons.yes') : this.translate.instant('buttons.no');
-      flatPassengerConfirmation[this.translate.instant('passengerConfirmation.undertakePilotInstructions')] = passengerConfirmation.validation.undertakePilotInstructions ? this.translate.instant('buttons.yes') : this.translate.instant('buttons.no');
-      flatPassengerConfirmation[this.translate.instant('passengerConfirmation.noHealthProblems')] = passengerConfirmation.validation.noHealthProblems ? this.translate.instant('buttons.yes') : this.translate.instant('buttons.no');
-      flatPassengerConfirmation[this.translate.instant('passengerConfirmation.understandRisks')] = passengerConfirmation.validation.understandRisks ? this.translate.instant('buttons.yes') : this.translate.instant('buttons.no');
+      flatPassengerConfirmation[this.translate.instant('passengerConfirmation.validation')] = passengerConfirmation.validated ? this.translate.instant('buttons.yes') : this.translate.instant('buttons.no');
       flatPassengerConfirmation[this.translate.instant('passengerConfirmation.canUseData')] = passengerConfirmation.canUseData ? this.translate.instant('buttons.yes') : this.translate.instant('buttons.no');
-      flatPassengerConfirmation[this.translate.instant('place.name')] = passengerConfirmation.place;
+      flatPassengerConfirmation[this.translate.instant('passengerConfirmation.date')] = passengerConfirmation.date;
+      flatPassengerConfirmation[this.translate.instant('place.place')] = passengerConfirmation.place;
       flatPassengerConfirmation[`${this.translate.instant('passengerConfirmation.signature')} (Base64)`] = passengerConfirmation.signature;
       flatPassengerConfirmation["Media types (MIME type)"] = passengerConfirmation.signatureMimeType;
       list.push(flatPassengerConfirmation);

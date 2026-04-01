@@ -642,12 +642,15 @@
     "passengerConfirmation": {
         "date": "Date",
         "signature": "Signature",
-        "fullyUnderstoodInstructions": "I confirm that I have fully understood the flight instructions.",
-        "undertakePilotInstructions": "I confirm that I will follow the instructions of the flight instructor.",
-        "noHealthProblems": "I confirm that I have no health problems that could affect the safety of the flight.",
-        "understandRisks": "I confirm that I understand the risks of the flight (e.g., crash during takeoff or landing).",
+        "validation": "I, the passenger named above, hereby confirm that:",
+        "termsAndConditions": "I have read and understood the terms and conditions.",
+        "fullyUnderstoodInstructions": "I have fully understood the instructions for the flight.",
+        "undertakePilotInstructions": "I will always follow the instructions of the pilot.",
+        "noHealthProblems": "I have no health problems that could affect the safe conduct of the flight.",
+        "understandRisks": "I am aware that the flight involves risks (e.g. falling during take-off or landing).",
         "canUseData": "I agree to receive offers and news by email.",
-        "tandemSchool": "Tandem operator"
+        "tandemSchool": "Tandem operator",
+        "open": "Open"
     },
     "school": {
         "leaveSchool": "Leave \"{{schoolName}}\"",

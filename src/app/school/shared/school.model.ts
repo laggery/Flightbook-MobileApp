@@ -1,3 +1,11 @@
+export interface TandemModule {
+    termsAndConditionsLink?: string;
+}
+
+export interface SchoolConfiguration {
+    tandemModule?: TandemModule;
+}
+
 export class School {
     id: number;
     name: string;
@@ -8,4 +16,5 @@ export class School {
     phone: string;
     email: string;
     timezone: string;
+    configuration?: SchoolConfiguration;
 }

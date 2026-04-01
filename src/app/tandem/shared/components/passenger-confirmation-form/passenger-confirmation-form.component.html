@@ -63,29 +63,25 @@
             <ion-text color="danger" class="error-text">{{ 'message.required' | translate }}</ion-text>
           }
         </ion-item>
-        <ion-item> 
+        <ion-item class="error-item">
             <div class="toggle-wrapper-custom">
-                <ion-label color="primary">{{ 'passengerConfirmation.fullyUnderstoodInstructions' | translate }}*</ion-label>
-                <ion-toggle [(ngModel)]="passengerData.validation.fullyUnderstoodInstructions" name="fullyUnderstoodInstructions" [disabled]="type === 'view'"></ion-toggle>
+                <ion-label color="primary">
+                    {{ 'passengerConfirmation.validation' | translate }}*
+                </ion-label>
+                <ion-toggle [(ngModel)]="passengerData.validated" #validated="ngModel" name="validated" [disabled]="type === 'view'"></ion-toggle>
             </div>
-        </ion-item>
-        <ion-item>
-            <div class="toggle-wrapper-custom">
-                <ion-label color="primary">{{ 'passengerConfirmation.undertakePilotInstructions' | translate }}*</ion-label>
-                <ion-toggle [(ngModel)]="passengerData.validation.undertakePilotInstructions" name="undertakePilotInstructions" [disabled]="type === 'view'"></ion-toggle>
-            </div>
-        </ion-item>
-        <ion-item>
-            <div class="toggle-wrapper-custom">
-                <ion-label color="primary">{{ 'passengerConfirmation.noHealthProblems' | translate }}*</ion-label>
-                <ion-toggle [(ngModel)]="passengerData.validation.noHealthProblems" name="noHealthProblems" [disabled]="type === 'view'"></ion-toggle>
-            </div>
-        </ion-item>
-        <ion-item>
-            <div class="toggle-wrapper-custom"> 
-                <ion-label color="primary">{{ 'passengerConfirmation.understandRisks' | translate }}*</ion-label>
-                <ion-toggle [(ngModel)]="passengerData.validation.understandRisks" name="understandRisks" [disabled]="type === 'view'"></ion-toggle>
-            </div>
+            <ul class="validation-list">
+              @if (passengerData.tandemSchool?.configuration?.tandemModule?.termsAndConditionsLink) {
+                <li>{{ 'passengerConfirmation.termsAndConditions' | translate }} <a target="_blank" [href]="passengerData.tandemSchool?.configuration?.tandemModule?.termsAndConditionsLink">{{ 'passengerConfirmation.open' | translate }}</a></li>
+              }
+              <li>{{ 'passengerConfirmation.fullyUnderstoodInstructions' | translate }}</li>
+              <li>{{ 'passengerConfirmation.undertakePilotInstructions' | translate }}</li>
+              <li>{{ 'passengerConfirmation.noHealthProblems' | translate }}</li>
+              <li>{{ 'passengerConfirmation.understandRisks' | translate }}</li>
+            </ul>
+            @if (!passengerData.validated && validated.touched && type !== 'view') {
+                <ion-text color="danger" class="error-text">{{ 'message.required' | translate }}</ion-text>
+            }
         </ion-item>
         <ion-item>
             <div class="toggle-wrapper-custom">
@@ -113,7 +109,7 @@
         @if (type && type === 'view') {
             <ion-button color="danger" expand="block" (click)="delete()">{{ 'buttons.delete' | translate }}</ion-button>
         } @else {
-            <ion-button expand="block" [disabled]="form.invalid || signaturePad?.isEmpty()" type="submit">{{ 'buttons.add' | translate }}</ion-button>
+            <ion-button expand="block" [disabled]="form.invalid || signaturePad?.isEmpty() || !passengerData.validated" type="submit">{{ 'buttons.add' | translate }}</ion-button>
         }
     </form>
 </ion-content>

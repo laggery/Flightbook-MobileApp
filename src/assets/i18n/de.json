@@ -642,12 +642,15 @@
     "passengerConfirmation": {
         "date": "Datum",
         "signature": "Unterschrift",
+        "validation": "Ich, die/der oben aufgeführte Passagier/in, gebe diese Bestätigung ab:",
+        "termsAndConditions": "Ich habe die AGBs gelesen und verstanden.",
         "fullyUnderstoodInstructions": "Ich habe die Instruktionen für den Flug vollständig verstanden.",
         "undertakePilotInstructions": "Ich befolge immer die Weisungen der Pilotin/des Piloten.",
         "noHealthProblems": "Ich habe keine gesundheitlichen Probleme, die die sichere Durchführung des Fluges beeinträchtigen könnten.",
         "understandRisks": "Ich bin mir bewusst, dass der Flug mit Risiken verbunden ist (bspw. Sturz beim Start oder Landung).",
         "canUseData": "Ich bin damit einverstanden, Angebote und Neuigkeiten per E-Mail zu erhalten.",
-        "tandemSchool": "Tandemunternehmen"
+        "tandemSchool": "Tandemunternehmen",
+        "open": "Öffnen"
     },
     "school": {
         "leaveSchool": "\"{{schoolName}}\" verlassen",
