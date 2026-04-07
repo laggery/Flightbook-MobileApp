@@ -97,7 +97,7 @@ export class PhoneNumberComponent implements ControlValueAccessor, Validator, On
       { name: this.translate.instant('country.germany'), prefix: '+49', pattern: /^[0-9\s]{10,15}$/, placeholder: '0151 12345678' },
       { name: this.translate.instant('country.austria'), prefix: '+43', pattern: /^[0-9]{3,4}\s?[0-9]{3,7}$/, placeholder: '0664 1234567' },
       { name: this.translate.instant('country.italy'), prefix: '+39', pattern: /^[0-9]{3}\s?[0-9]{3,4}\s?[0-9]{3,4}$/, placeholder: '345 123 4567' },
-      { name: this.translate.instant('country.other'), prefix: '-', pattern: /^(\+[0-9]{1,3}\s)?[0-9]{1,4}(\s[0-9]{1,5}){1,4}$/, placeholder: '' }
+      { name: this.translate.instant('country.other'), prefix: '-', pattern: /^(\+[0-9]{1,3}\s)?[0-9]{1,4}(\s[0-9]{1,5}){1,4}$/, placeholder: '+1 000 000 0000' }
     ];
   }
 
