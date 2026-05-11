@@ -119,6 +119,7 @@
         "diff": "Diff.",
         "shvAlone": "FSVL vol autonome",
         "tandemSchool": "Entreprise biplace",
+        "customSchoolFields": "Informations supplémentaires {{schoolName}}",
         "paymentState": {
             "name": "Statut de paiement",
             "amount": "Montant",
