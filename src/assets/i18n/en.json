@@ -119,6 +119,7 @@
         "diff": "Diff.",
         "shvAlone": "SHGPA alone flight",
         "tandemSchool": "Tandem operator",
+        "customSchoolFields": "Additional {{schoolName}} Information",
         "paymentState": {
             "name": "Payment state",
             "amount": "Amount",

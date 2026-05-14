@@ -55,6 +55,100 @@
     <ion-textarea label="{{ 'flight.description' | translate }}" labelPlacement="stacked" [(ngModel)]="flight.description" name="description" autocomplete="on" autocorrect="on" auto-grow="true"></ion-textarea>
   </ion-item>
 
+  @if (flight.tandemSchoolData?.tandemSchool && getActiveCustomFields().length > 0) {
+    <ion-label class="customSchoolFields">
+        <p>{{ 'flight.customSchoolFields' | translate: {schoolName: flight.tandemSchoolData?.tandemSchool?.name} }}</p>
+    </ion-label>
+    
+    @for (field of getActiveCustomFields(); track field.key) {
+      @switch (field.type) {
+        @case ('text') {
+          <ion-item>
+            <ion-input 
+              [label]="field.label + (field.required ? ' *' : '')" 
+              labelPlacement="stacked"
+              [(ngModel)]="customFieldValues[field.key]"
+              [name]="'custom_' + field.key"
+              type="text"
+              (ngModelChange)="setCustomFieldValue(field.key, $event)">
+            </ion-input>
+          </ion-item>
+        }
+        @case ('number') {
+          <ion-item>
+            <ion-input 
+              [label]="field.label + (field.required ? ' *' : '')" 
+              labelPlacement="stacked"
+              [(ngModel)]="customFieldValues[field.key]"
+              [name]="'custom_' + field.key"
+              type="number"
+              (ngModelChange)="setCustomFieldValue(field.key, $event)">
+            </ion-input>
+          </ion-item>
+        }
+        @case ('date') {
+          <ion-item [id]="'customField_' + field.key">
+            <ion-input 
+              [label]="field.label + (field.required ? ' *' : '')" 
+              labelPlacement="stacked"
+              [value]="getCustomFieldValue(field.key) | date:'dd.MM.yyyy'"
+              readonly>
+            </ion-input>
+          </ion-item>
+          <ion-modal class="dateModal" [trigger]="'customField_' + field.key">
+            <ng-template>
+              <ion-content>
+                <ion-datetime 
+                  size="cover" 
+                  presentation="date" 
+                  [preferWheel]="true"
+                  [(ngModel)]="customFieldValues[field.key]"
+                  [ngModelOptions]="{standalone: true}"
+                  locale="{{ language }}"
+                  [showDefaultButtons]="true"
+                  doneText="{{ 'buttons.done' | translate }}"
+                  cancelText="{{ 'buttons.cancel' | translate }}"
+                  (ionChange)="setCustomFieldValue(field.key, $event.detail.value)">
+                </ion-datetime>
+              </ion-content>
+            </ng-template>
+          </ion-modal>
+        }
+        @case ('boolean') {
+          <ion-item>
+            <ion-input 
+              [label]="field.label + (field.required ? ' *' : '')" 
+              labelPlacement="stacked"
+              type="boolean">
+              <ion-toggle 
+                slot="start"
+                [(ngModel)]="customFieldValues[field.key]"
+                [name]="'custom_' + field.key"
+                (ngModelChange)="setCustomFieldValue(field.key, $event)">
+              </ion-toggle>
+            </ion-input>
+          </ion-item>
+        }
+        @case ('dropdown') {
+          <ion-item>
+            <ion-select 
+              [label]="field.label + (field.required ? ' *' : '')" 
+              labelPlacement="stacked"
+              [(ngModel)]="customFieldValues[field.key]"
+              [name]="'custom_' + field.key"
+              okText="{{ 'buttons.done' | translate }}"
+              cancelText="{{ 'buttons.cancel' | translate }}"
+              (ngModelChange)="setCustomFieldValue(field.key, $event)">
+              @for (option of field.options; track option) {
+                <ion-select-option [value]="option">{{ option }}</ion-select-option>
+              }
+            </ion-select>
+          </ion-item>
+        }
+      }
+    }
+  }
+
   @if (igcFile) {
     <fb-igc-map [igcFile]="igcFile"></fb-igc-map>
   }

@@ -88,6 +88,16 @@ export class FlightEditPage implements OnInit, OnDestroy {
             }
             
             this.flight = _.cloneDeep(this.initialFlight);
+            
+            // Ensure tandem school reference has full configuration loaded
+            if (this.flight.tandemSchoolData?.tandemSchool?.id) {
+                const loadedSchool = this.tandemSchoolService.schools()?.find(
+                    s => s.id === this.flight.tandemSchoolData.tandemSchool.id
+                );
+                if (loadedSchool) {
+                    this.flight.tandemSchoolData.tandemSchool = loadedSchool;
+                }
+            }
             this.flight.date = moment(this.flight.date).format('YYYY-MM-DD');
 
             if (this.flight.time) {

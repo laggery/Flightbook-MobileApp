@@ -119,6 +119,7 @@
         "diff": "Diff.",
         "shvAlone": "FSVL volo da solo",
         "tandemSchool": "Azienda biplace",
+        "customSchoolFields": "Informazioni aggiuntive {{schoolName}}",
         "paymentState": {
             "name": "Stato di pagamento",
             "amount": "Importo",

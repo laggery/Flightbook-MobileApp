@@ -119,6 +119,7 @@
         "diff": "Diff.",
         "shvAlone": "SHV Alleinflug",
         "tandemSchool": "Tandemunternehmen",
+        "customSchoolFields": "Zusätzliche {{schoolName}} Angaben",
         "paymentState": {
             "name": "Zahlungsstatus",
             "amount": "Betrag",
