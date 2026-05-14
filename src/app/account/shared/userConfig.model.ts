@@ -4,7 +4,6 @@ export class Link {
 }
 
 export class Preparation {
-  shvLinkDisabled?: boolean;
   dabsLinkDisabled?: boolean;
   links?: Link[];
 }

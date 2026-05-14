@@ -63,7 +63,6 @@
         "prefix": "Vorwahl",
         "verification": "Kontoüberprüfung",
         "configuration": {
-            "shvLinkDisabled": "SHV Meteo Link deaktivieren",
             "dabsLinkDisabled": "DABS Links deaktivieren",
             "link": "Link",
             "label": "Bezeichnung",

@@ -138,7 +138,6 @@ export class AccountService {
           }
           if (!user.config.preparation) {
               user.config.preparation = {
-                  shvLinkDisabled: false,
                   dabsLinkDisabled: false,
                   links: []
               };

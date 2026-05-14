@@ -63,7 +63,6 @@
         "prefix": "Prefisso",
         "verification": "Verifica dell'account",
         "configuration": {
-            "shvLinkDisabled": "Disattivare il link \"FSVL Tempo\"",
             "dabsLinkDisabled": "Disattivare i link DABS",
             "link": "Link",
             "label": "Label",

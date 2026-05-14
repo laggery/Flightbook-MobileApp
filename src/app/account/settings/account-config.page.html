@@ -12,13 +12,6 @@
     <form #form="ngForm" (ngSubmit)="saveSettings()">
       <ion-item>
         <div class="toggle-wrapper-custom">
-          <ion-label color="primary" position="stacked">{{ 'account.configuration.shvLinkDisabled' | translate
-            }}</ion-label>
-          <ion-toggle [(ngModel)]="user.config.preparation.shvLinkDisabled" name="shvLinkDisabled"></ion-toggle>
-        </div>
-      </ion-item>
-      <ion-item>
-        <div class="toggle-wrapper-custom">
           <ion-label color="primary" position="stacked">{{ 'account.configuration.dabsLinkDisabled' | translate
             }}</ion-label>
           <ion-toggle [(ngModel)]="user.config.preparation.dabsLinkDisabled" name="dabsLinkDisabled"></ion-toggle>

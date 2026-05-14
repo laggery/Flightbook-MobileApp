@@ -63,7 +63,6 @@
         "prefix": "Préfixe",
         "verification": "Vérification du compte",
         "configuration": {
-            "shvLinkDisabled": "Désactiver le lien \"FSVL Météo\"",
             "dabsLinkDisabled": "Désactiver les liens DABS",
             "link": "Lien",
             "label": "Label",
