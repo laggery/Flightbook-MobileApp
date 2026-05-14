@@ -1,28 +1,29 @@
 PODS:
-  - Capacitor (7.2.0):
+  - Capacitor (8.3.4):
     - CapacitorCordova
-  - CapacitorApp (7.0.1):
+  - CapacitorApp (8.1.0):
     - Capacitor
-  - CapacitorBrowser (7.0.1):
+  - CapacitorBrowser (8.0.3):
     - Capacitor
-  - CapacitorCommunityFileOpener (7.0.1):
+  - CapacitorCommunityFileOpener (8.0.0):
     - Capacitor
-  - CapacitorCommunityNativeMarket (7.0.1):
+  - CapacitorCommunityNativeMarket (8.0.0):
     - Capacitor
-  - CapacitorCordova (7.2.0)
-  - CapacitorFilesystem (7.0.1):
+  - CapacitorCordova (8.3.4)
+  - CapacitorFilesystem (8.1.2):
     - Capacitor
-  - CapacitorHaptics (7.0.1):
+    - IONFilesystemLib (~> 1.1.1)
+  - CapacitorHaptics (8.0.2):
     - Capacitor
-  - CapacitorKeyboard (7.0.1):
+  - CapacitorKeyboard (8.0.3):
     - Capacitor
-  - CapacitorPushNotifications (7.0.1):
+  - CapacitorPushNotifications (8.0.4):
     - Capacitor
-  - CapacitorSplashScreen (7.0.1):
+  - CapacitorSplashScreen (8.0.1):
     - Capacitor
-  - CapacitorStatusBar (7.0.1):
+  - CapacitorStatusBar (8.0.2):
     - Capacitor
-  - CapawesomeCapacitorFilePicker (7.0.1):
+  - CapawesomeCapacitorFilePicker (8.0.2):
     - Capacitor
   - Firebase/CoreOnly (10.2.0):
     - FirebaseCore (= 10.2.0)
@@ -70,6 +71,7 @@ PODS:
     - GoogleUtilities/Logger
   - GoogleUtilities/UserDefaults (7.10.0):
     - GoogleUtilities/Logger
+  - IONFilesystemLib (1.1.2)
   - nanopb (2.30909.0):
     - nanopb/decode (= 2.30909.0)
     - nanopb/encode (= 2.30909.0)
@@ -102,6 +104,7 @@ SPEC REPOS:
     - FirebaseMessaging
     - GoogleDataTransport
     - GoogleUtilities
+    - IONFilesystemLib
     - nanopb
     - PromisesObjC
 
@@ -134,19 +137,19 @@ EXTERNAL SOURCES:
     :path: "../../node_modules/@capawesome/capacitor-file-picker"
 
 SPEC CHECKSUMS:
-  Capacitor: 106e7a4205f4618d582b886a975657c61179138d
-  CapacitorApp: d63334c052278caf5d81585d80b21905c6f93f39
-  CapacitorBrowser: 081852cf532acf77b9d2953f3a88fe5b9711fb06
-  CapacitorCommunityFileOpener: 9611c9d1595de7b50571717d443bb718a304b5eb
-  CapacitorCommunityNativeMarket: 22e237b06b17728cec2ee969121d58e763b36d82
-  CapacitorCordova: 5967b9ba03915ef1d585469d6e31f31dc49be96f
-  CapacitorFilesystem: 307f97c27a265edf8396a1c9c235592fd8572fe3
-  CapacitorHaptics: 70e47470fa1a6bd6338cd102552e3846b7f9a1b3
-  CapacitorKeyboard: 969647d0ca2e5c737d7300088e2517aa832434e2
-  CapacitorPushNotifications: 0b653a3264d56daccf0e8769fff15d2f48306de6
-  CapacitorSplashScreen: 19cd3573e57507e02d6f34597a8c421e00931487
-  CapacitorStatusBar: 275cbf2f4dfc00388f519ef80c7ec22edda342c9
-  CapawesomeCapacitorFilePicker: 6673764afb8768eba0197876e222adc19fd4c120
+  Capacitor: d13cad5fa09155679672808cc4ca9fbc2997e1b4
+  CapacitorApp: 449ffe26375e96f8aaaee625ac6e01e5c57c8650
+  CapacitorBrowser: c987c73d09d8bd3b5ec13f06338b1e14d5d2be69
+  CapacitorCommunityFileOpener: 66cdeac0ff2670dbeb08bc293aba76eb6da80f7a
+  CapacitorCommunityNativeMarket: a517eaddcbe01c34df96539f9077afa6e8e84148
+  CapacitorCordova: c07921bdcfec6f691bae22274446b4d606ebf6a4
+  CapacitorFilesystem: 2db285a1ac6e475cc27cae2e1bea999000f9e2be
+  CapacitorHaptics: 296f771ecd89c7a1bd92a7b6826a7d268e2e70f5
+  CapacitorKeyboard: 31c8285d92c9d1410071d52449f16d2c6673b6f4
+  CapacitorPushNotifications: f96978ca9c1b2c0b755e27a13b6bd3f7bc12905c
+  CapacitorSplashScreen: 4b46c72298db552b3c57ce021ef028b6dc7f1fa7
+  CapacitorStatusBar: 01d5763b4ed720de5ce2edbc938de6a98f4c8f32
+  CapawesomeCapacitorFilePicker: eb29fb54c59614fede51e0e0fe25070dda9d024c
   Firebase: a3ea7eba4382afd83808376edb99acdaff078dcf
   FirebaseCore: 813838072b797b64f529f3c2ee35e696e5641dd1
   FirebaseCoreInternal: 091bde13e47bb1c5e9fe397634f3593dc390430f
@@ -154,9 +157,10 @@ SPEC CHECKSUMS:
   FirebaseMessaging: cc9f40f5b7494680f3844d08e517e92aa4e8d9f7
   GoogleDataTransport: 1c8145da7117bd68bbbed00cf304edb6a24de00f
   GoogleUtilities: bad72cb363809015b1f7f19beb1f1cd23c589f95
+  IONFilesystemLib: 21a63377696b2d8fab5632ecfb7d2ac67bddb68a
   nanopb: b552cce312b6c8484180ef47159bc0f65a1f0431
   PromisesObjC: ab77feca74fa2823e7af4249b8326368e61014cb
 
-PODFILE CHECKSUM: d80a76b1e91c6b54e36f37b224e72677f43f6dc3
+PODFILE CHECKSUM: 7454595bf4db7314565c0d51b1cada4dd94a5f76
 
-COCOAPODS: 1.15.2
+COCOAPODS: 1.16.2
