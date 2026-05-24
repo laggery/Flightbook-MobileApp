@@ -36,6 +36,8 @@ export class GliderSelectComponent implements OnInit {
         this.flight.glider = this.gliders.find(glider => glider.id === +selectedValue.detail.value);
         if (!this.flight.glider.tandem) {
             this.flight.price = null;
+            this.flight.tandemSchoolData.schoolCustomValues = [];
+            this.flight.tandemSchoolData.tandemSchool = null;
         }
     }
 

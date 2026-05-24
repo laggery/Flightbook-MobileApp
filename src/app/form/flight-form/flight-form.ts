@@ -176,6 +176,7 @@ export class FlightFormComponent implements OnInit, OnChanges {
 
     clearSchoolButton() {
         this.flight.tandemSchoolData.tandemSchool = null;
+        this.flight.tandemSchoolData.schoolCustomValues = [];
     }
 
     compareSchools(school1: School, school2: School): boolean {
