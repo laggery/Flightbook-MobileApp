@@ -16,7 +16,6 @@ import moment from 'moment';
 import { DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { PhoneNumberComponent } from 'src/app/shared/components/phone-number/phone-number.component';
-import _ from 'lodash';
 
 @Component({
     selector: 'app-account-data',
@@ -62,7 +61,7 @@ export class AccountDataPage implements OnInit, OnDestroy {
     ) {
         this.isNative = Capacitor.isNativePlatform();
         effect(() => {
-            this.user = _.cloneDeep(this.accountService.currentUser$());
+            this.user = structuredClone(this.accountService.currentUser$());
         });
 
         this.paymentService.getPaymentStatus().pipe(takeUntil(this.unsubscribe$)).subscribe((paymentStatus: PaymentStatus) => {

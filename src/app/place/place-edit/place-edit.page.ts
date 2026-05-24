@@ -1,6 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import * as _ from 'lodash';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
@@ -45,7 +44,7 @@ export class PlaceEditPage implements OnInit, OnDestroy {
         this.deleteDisabled = true;
         this.placeId = +this.activeRoute.snapshot.paramMap.get('id');
         this.place = this.placeStore.places().find(place => place.id === this.placeId);
-        this.place = _.cloneDeep(this.place);
+        this.place = structuredClone(this.place);
         if (!this.place) {
             this.router.navigate(['/places'], { replaceUrl: true });
         }

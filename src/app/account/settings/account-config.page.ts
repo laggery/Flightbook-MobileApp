@@ -6,7 +6,6 @@ import { User } from 'src/app/account/shared/user.model';
 import { AccountService } from '../shared/account.service';
 import { Subject, takeUntil } from 'rxjs';
 import { FormsModule } from '@angular/forms';
-import _ from 'lodash';
 import { addIcons } from 'ionicons';
 import { add, close, trash } from 'ionicons/icons';
 import { Link } from '../shared/userConfig.model';
@@ -42,7 +41,7 @@ export class AccountConfigPage implements OnInit, OnDestroy {
         public navCtrl: NavController,
     ) {
         effect(() => {
-            this.user = _.cloneDeep(this.accountService.currentUser$());
+            this.user = structuredClone(this.accountService.currentUser$());
         });
 
         addIcons({ close, trash, add });

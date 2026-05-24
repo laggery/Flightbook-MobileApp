@@ -2,7 +2,6 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { firstValueFrom, Subject } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { takeUntil } from 'rxjs/operators';
-import * as _ from 'lodash';
 import { AlertController, LoadingController, IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonContent, IonButton } from '@ionic/angular/standalone';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import HttpStatusCode from '../../shared/util/HttpStatusCode';
@@ -87,7 +86,7 @@ export class FlightEditPage implements OnInit, OnDestroy {
                 this.initialFlight.tandemSchoolData = new TandemSchoolData();
             }
             
-            this.flight = _.cloneDeep(this.initialFlight);
+            this.flight = structuredClone(this.initialFlight);
             
             // Ensure tandem school reference has full configuration loaded
             if (this.flight.tandemSchoolData?.tandemSchool?.id) {

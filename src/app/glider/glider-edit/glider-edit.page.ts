@@ -1,6 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import * as _ from 'lodash';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { LoadingController, AlertController, IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonContent, IonButton } from '@ionic/angular/standalone';
@@ -46,7 +45,7 @@ export class GliderEditPage implements OnInit, OnDestroy {
         this.deleteDisabled = true;
         this.gliderId = +this.activeRoute.snapshot.paramMap.get('id');
         this.glider = this.gliderStore.gliders().find(glider => glider.id === this.gliderId);
-        this.glider = _.cloneDeep(this.glider);
+        this.glider = structuredClone(this.glider);
         if (!this.glider) {
             this.router.navigate(['/gliders'], { replaceUrl: true });
         }

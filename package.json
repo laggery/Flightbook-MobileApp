@@ -79,7 +79,6 @@
     "@types/chart.js": "^2.9.41",
     "@types/file-saver": "^2.0.7",
     "@types/jasmine": "~4.3.1",
-    "@types/lodash": "^4.17.14",
     "@types/moment-timezone": "^0.5.13",
     "@types/node": "^22.10.7",
     "@types/ol": "^6.5.3",
