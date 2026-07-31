@@ -1,3 +1,11 @@
+# Important Update
+Flightbook is no longer a one-person project! We're excited to announce that Flightbook has joined vast Switzerland, and the repository has been migrated to the vast organization. You can find the new repository at https://github.com/vast-ch/flightbook.
+
+The project remains fully open source, and we continue to welcome and appreciate every contribution from the community. Join our new [Discord channel](https://discord.gg/XXbWED3fnc) to connect with other contributors and stay updated!
+https://discord.gg/XXbWED3fnc
+
+This transition is part of a long-term strategy to ensure the continued growth and sustainability of Flightbook for years to come.
+
 # Flightbook Mobile App
 Flightbook is a personal logbook for paraglider and hang glider pilots. The flights must be registered manually and the logbook is not connected to any GPS.
 
